@@ -1,0 +1,44 @@
+ElementsTable.Button = (function()
+	local New = Creator.New
+
+	local Element = {}
+	Element.__index = Element
+	Element.__type = "Button"
+
+	function Element:New(Config)
+		assert(Config.Title, "Button - Missing Title")
+		Config.Callback = Config.Callback or function() end
+
+		local IsGrouped = self.Type == "Group" or self.Type == "HStack" or self.Type == "VStack"
+
+		local ButtonFrame = Components.Element(Config.Title, Config.Description, self.Container, true, Config.LayoutOrder, Config.Icon, Config.Marquee)
+
+		ButtonFrame.TitleLabel.Size = UDim2.new(1, -34, 0, 14)
+		ButtonFrame.DescLabel.Size = UDim2.new(1, -34, 0, 14)
+
+		local ButtonIco = New("ImageLabel", {
+			Image = "rbxassetid://10709791437",
+			Size = UDim2.fromOffset(16, 16),
+			AnchorPoint = Vector2.new(1, 0.5),
+			Position = UDim2.new(1, -10, 0.5, 0),
+			BackgroundTransparency = 1,
+			Parent = ButtonFrame.Frame,
+			ThemeTag = {
+				ImageColor3 = "Text",
+			},
+		})
+
+		Creator.AddSignal(ButtonFrame.Frame.MouseButton1Click, function()
+			self.Library:SafeCallback(Config.Callback)
+		end)
+
+		local Button = ButtonFrame
+		Button.SetTitle = ButtonFrame.SetTitle
+		Button.SetDesc = ButtonFrame.SetDesc
+
+		return Button
+	end
+
+	return Element
+end)()
+
