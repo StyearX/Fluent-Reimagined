@@ -1,4 +1,6 @@
-local BlurFolder = Instance.new("Folder", game:GetService("Workspace").CurrentCamera)
+local Workspace: Workspace = cloneref(game:GetService("Workspace"))
+
+local BlurFolder = Instance.new("Folder", Workspace.CurrentCamera)
 
 local function createAcrylicBlur(distance)
 	local cleanups = {}
@@ -19,7 +21,7 @@ local function createAcrylicBlur(distance)
 	end
 
 	local function render()
-		local res = game:GetService("Workspace").CurrentCamera
+		local res = Workspace.CurrentCamera
 		if res then
 			res = res.CFrame
 		end
@@ -54,7 +56,7 @@ local function createAcrylicBlur(distance)
 	end
 
 	local function renderOnChange()
-		local camera = game:GetService("Workspace").CurrentCamera
+		local camera = Workspace.CurrentCamera
 		if not camera then
 			return
 		end

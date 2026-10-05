@@ -1,3 +1,6 @@
+local Lighting: Lighting = cloneref(game:GetService("Lighting"))
+local Workspace: Workspace = cloneref(game:GetService("Workspace"))
+
 local Acrylic = {
 	AcrylicBlur = AcrylicBlur,
 	CreateAcrylic = createAcrylic,

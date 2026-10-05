@@ -1,5 +1,7 @@
+local Workspace: Workspace = cloneref(game:GetService("Workspace"))
+
 local function viewportPointToWorld(location, distance)
-	local unitRay = game:GetService("Workspace").CurrentCamera:ScreenPointToRay(location.X, location.Y)
+	local unitRay = Workspace.CurrentCamera:ScreenPointToRay(location.X, location.Y)
 	return unitRay.Origin + unitRay.Direction * distance
 end
 
