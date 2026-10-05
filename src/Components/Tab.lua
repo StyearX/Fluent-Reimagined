@@ -1,8 +1,9 @@
+local TextService: TextService = cloneref(game:GetService("TextService"))
+
 Components.Tab = (function()
 	local New = Creator.New
 	local Spring = Flipper.Spring.new
 	local Instant = Flipper.Instant.new
-	local TextService = game:GetService("TextService")
 
 	local function GetHeaderTextWidth(Text)
 		return TextService:GetTextSize(

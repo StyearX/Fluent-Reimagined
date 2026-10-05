@@ -1,3 +1,6 @@
+local TweenService: TweenService = cloneref(game:GetService("TweenService"))
+local UserInputService: UserInputService = cloneref(game:GetService("UserInputService"))
+
 Components.Window = (function()
 
 	local Spring = Flipper.Spring.new
@@ -240,9 +243,6 @@ Components.Window = (function()
 			BackgroundTransparency = 1,
 			ScaleType = Enum.ScaleType.Crop,
 			ImageTransparency = 0,
-			ThemeTag = {
-				Image = "Background",
-			},
 		}, {
 			New("UICorner", {
 				CornerRadius = UDim.new(0, 8),

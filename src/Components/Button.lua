@@ -3,8 +3,9 @@ Components.Button = (function()
 
 	local Spring = Flipper.Spring.new
 
-	return function(Theme, Parent, DialogCheck)
+	return function(Theme, Parent, DialogCheck, TagSet)
 		DialogCheck = DialogCheck or false
+		TagSet = TagSet or { Background = "DialogButton", Border = "DialogButtonBorder" }
 		local Button = {}
 
 		Button.Title = New("TextLabel", {
@@ -39,7 +40,7 @@ Components.Button = (function()
 			Size = UDim2.new(0, 0, 0, 32),
 			Parent = Parent,
 			ThemeTag = {
-				BackgroundColor3 = "DialogButton",
+				BackgroundColor3 = TagSet.Background,
 			},
 		}, {
 			New("UICorner", {
@@ -49,7 +50,7 @@ Components.Button = (function()
 				ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
 				Transparency = 0.65,
 				ThemeTag = {
-					Color = "DialogButtonBorder",
+					Color = TagSet.Border,
 				},
 			}),
 			Button.HoverFrame,

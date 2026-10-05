@@ -1,5 +1,6 @@
+local TextService: TextService = cloneref(game:GetService("TextService"))
+
 Components.Textbox = (function()
-	local TextService = game:GetService("TextService")
 	local New = Creator.New
 
 	return function(Parent, Acrylic, TagSet)

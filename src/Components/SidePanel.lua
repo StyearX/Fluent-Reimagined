@@ -1,3 +1,5 @@
+local TweenService: TweenService = cloneref(game:GetService("TweenService"))
+
 Components.SidePanel = (function()
 	local Spring = Flipper.Spring.new
 	local New = Creator.New
@@ -10,6 +12,14 @@ Components.SidePanel = (function()
 		SidePanel.Window = Window
 		return SidePanel
 	end
+
+	local MenuButtonTags = { Background = "MenuButton", Border = "MenuButtonBorder" }
+	local MenuInputTags = {
+		Input = "MenuInput",
+		InputLine = "MenuInputLine",
+		InputBorder = "MenuButtonBorder",
+		InputFocused = "MenuInputFocused",
+	}
 
 	function SidePanel:Create(Config)
 		Config = Config or {}
@@ -97,7 +107,7 @@ Components.SidePanel = (function()
 		NewPanel.HolderLine = New("Frame", {
 			Size = UDim2.new(1, 0, 0, 1),
 			ThemeTag = {
-				BackgroundColor3 = "DialogHolderLine",
+				BackgroundColor3 = "MenuHolderLine",
 			},
 		})
 
@@ -119,7 +129,7 @@ Components.SidePanel = (function()
 			Size = UDim2.new(1, 0, 0, 64),
 			Position = UDim2.new(0, 0, 1, -64),
 			ThemeTag = {
-				BackgroundColor3 = "DialogHolder",
+				BackgroundColor3 = "MenuHolder",
 			},
 		}, {
 			NewPanel.HolderLine,
@@ -134,10 +144,8 @@ Components.SidePanel = (function()
 			AnchorPoint = Vector2.new(AnchorX, 0.5),
 			Position = UDim2.new(AnchorX, NewPanel.SlideOffset, 0.5, 0),
 			GroupTransparency = 1,
+			BackgroundTransparency = 1,
 			Parent = NewPanel.TintFrame,
-			ThemeTag = {
-				BackgroundColor3 = "Dialog",
-			},
 		}, {
 			New("UICorner", {
 				CornerRadius = UDim.new(0, 8),
@@ -145,8 +153,23 @@ Components.SidePanel = (function()
 			New("UIStroke", {
 				Transparency = 0.5,
 				ThemeTag = {
-					Color = "DialogBorder",
+					Color = "MenuBorder",
 				},
+			}),
+			New("Frame", {
+				Name = "MenuBackground",
+				Size = UDim2.fromScale(1, 1),
+				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+			}, {
+				New("UICorner", {
+					CornerRadius = UDim.new(0, 8),
+				}),
+				New("UIGradient", {
+					ThemeTag = {
+						Color = "MenuBackground",
+						Rotation = "MenuBackgroundRotation",
+					},
+				}),
 			}),
 			NewPanel.Title,
 			NewPanel.Description,
@@ -174,15 +197,40 @@ Components.SidePanel = (function()
 		end)
 
 		function NewPanel:Close()
+			if NewPanel.Closing then
+				return
+			end
+			NewPanel.Closing = true
 			Library.DialogOpen = false
-			TintTransparency(1)
-			RootTransparency(1)
-			SlideMotor:setGoal(Spring(NewPanel.SlideOffset, { frequency = 5 }))
+
+			-- stop the open springs so they do not fight the close tween
 			pcall(function()
-				NewPanel.Root.UIStroke:Destroy()
+				SlideMotor:stop()
+				RootMotor:stop()
+				TintMotor:stop()
 			end)
-			task.wait(0.2)
-			NewPanel.TintFrame:Destroy()
+
+			local SlideInfo = TweenInfo.new(0.32, Enum.EasingStyle.Quart, Enum.EasingDirection.In)
+
+			TweenService:Create(NewPanel.TintFrame, TweenInfo.new(0.32, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				BackgroundTransparency = 1,
+			}):Play()
+
+			TweenService:Create(NewPanel.Root, SlideInfo, {
+				Position = UDim2.new(AnchorX, NewPanel.SlideOffset, 0.5, 0),
+				GroupTransparency = 1,
+			}):Play()
+
+			local Stroke = NewPanel.Root:FindFirstChildOfClass("UIStroke")
+			if Stroke then
+				TweenService:Create(Stroke, SlideInfo, { Transparency = 1 }):Play()
+			end
+
+			task.delay(0.34, function()
+				pcall(function()
+					NewPanel.TintFrame:Destroy()
+				end)
+			end)
 		end
 
 		function NewPanel:Button(Title, Callback)
@@ -190,7 +238,7 @@ Components.SidePanel = (function()
 			Title = Title or "Button"
 			Callback = Callback or function() end
 
-			local Button = Components.Button("", NewPanel.ButtonHolder, true)
+			local Button = Components.Button("", NewPanel.ButtonHolder, true, MenuButtonTags)
 			Button.Title.Text = Title
 			Button.Frame.LayoutOrder = NewPanel.Buttons
 
@@ -224,10 +272,10 @@ Components.SidePanel = (function()
 				false,
 				NewPanel.Rows,
 				RowConfig.Icon,
-				RowConfig.Marquee == true
+				RowConfig.Marquee ~= false
 			)
 
-			local Textbox = Components.Textbox(Row.Frame, true)
+			local Textbox = Components.Textbox(Row.Frame, true, MenuInputTags)
 			Textbox.Frame.Position = UDim2.new(1, -10, 0.5, 0)
 			Textbox.Frame.AnchorPoint = Vector2.new(1, 0.5)
 			Textbox.Frame.Size = UDim2.fromOffset(140, 30)
@@ -287,7 +335,7 @@ Components.SidePanel = (function()
 				true,
 				NewPanel.Rows,
 				RowConfig.Icon,
-				RowConfig.Marquee == true
+				RowConfig.Marquee ~= false
 			)
 
 			New("ImageLabel", {
