@@ -1,12 +1,18 @@
--- hello world 
-local Lighting = game:GetService("Lighting")
-local RunService = game:GetService("RunService")
-local Players = game:GetService("Players")
+local cloneref = (cloneref or clonereference or function(instance: any)
+	return instance
+end)
+local AssetService: AssetService = cloneref(game:GetService("AssetService"))
+local CoreGui: CoreGui = cloneref(game:GetService("CoreGui"))
+local HttpService: HttpService = cloneref(game:GetService("HttpService"))
+local Lighting: Lighting = cloneref(game:GetService("Lighting"))
+local Players: Players = cloneref(game:GetService("Players"))
+local RunService: RunService = cloneref(game:GetService("RunService"))
+local TextService: TextService = cloneref(game:GetService("TextService"))
+local TweenService: TweenService = cloneref(game:GetService("TweenService"))
+local UserInputService: UserInputService = cloneref(game:GetService("UserInputService"))
+local Workspace: Workspace = cloneref(game:GetService("Workspace"))
+
 local LocalPlayer = Players.LocalPlayer
-local UserInputService = game:GetService("UserInputService")
-local TweenService = game:GetService("TweenService")
-local Workspace = game:GetService("Workspace")
-local CoreGui = game:GetService("CoreGui")
 local Camera = Workspace.CurrentCamera
 local Mouse = LocalPlayer:GetMouse()
 local ProtectGui = protectgui or (syn and syn.protect_gui) or function() end
@@ -79,6 +85,17 @@ local Themes = {
 	ColorpickerInputBorder = Color3.fromRGB(80, 80, 80),
 	ColorpickerInputFocused = Color3.fromRGB(35, 35, 35),
 
+	MenuBackground = ColorSequence.new(Color3.fromRGB(38, 38, 38), Color3.fromRGB(12, 12, 12)),
+	MenuBackgroundRotation = 90,
+	MenuBorder = Color3.fromRGB(72, 72, 72),
+	MenuHolder = Color3.fromRGB(14, 14, 14),
+	MenuHolderLine = Color3.fromRGB(40, 40, 40),
+	MenuButton = Color3.fromRGB(30, 30, 30),
+	MenuButtonBorder = Color3.fromRGB(66, 66, 66),
+	MenuInput = Color3.fromRGB(24, 24, 24),
+	MenuInputLine = Color3.fromRGB(160, 160, 160),
+	MenuInputFocused = Color3.fromRGB(14, 14, 14),
+
 	Text = Color3.fromRGB(240, 240, 240),
 	SubText = Color3.fromRGB(170, 170, 170),
 	Hover = Color3.fromRGB(120, 120, 120),
@@ -128,6 +145,17 @@ local Themes = {
 	ColorpickerInputLine = Color3.fromRGB(120, 120, 120),
 	ColorpickerInputBorder = Color3.fromRGB(55, 55, 55),
 	ColorpickerInputFocused = Color3.fromRGB(25, 25, 25),
+
+	MenuBackground = ColorSequence.new(Color3.fromRGB(26, 26, 26), Color3.fromRGB(7, 7, 7)),
+	MenuBackgroundRotation = 90,
+	MenuBorder = Color3.fromRGB(58, 58, 58),
+	MenuHolder = Color3.fromRGB(9, 9, 9),
+	MenuHolderLine = Color3.fromRGB(30, 30, 30),
+	MenuButton = Color3.fromRGB(22, 22, 22),
+	MenuButtonBorder = Color3.fromRGB(52, 52, 52),
+	MenuInput = Color3.fromRGB(17, 17, 17),
+	MenuInputLine = Color3.fromRGB(130, 130, 130),
+	MenuInputFocused = Color3.fromRGB(9, 9, 9),
 },
 
 	Light = {
@@ -185,6 +213,17 @@ local Themes = {
 	ColorpickerInputLine = Color3.fromRGB(160, 160, 160),
 	ColorpickerInputBorder = Color3.fromRGB(190, 190, 190),
 	ColorpickerInputFocused = Color3.fromRGB(240, 240, 240),
+
+	MenuBackground = ColorSequence.new(Color3.fromRGB(206, 206, 206), Color3.fromRGB(182, 182, 182)),
+	MenuBackgroundRotation = 90,
+	MenuBorder = Color3.fromRGB(130, 130, 130),
+	MenuHolder = Color3.fromRGB(172, 172, 172),
+	MenuHolderLine = Color3.fromRGB(150, 150, 150),
+	MenuButton = Color3.fromRGB(224, 224, 224),
+	MenuButtonBorder = Color3.fromRGB(128, 128, 128),
+	MenuInput = Color3.fromRGB(198, 198, 198),
+	MenuInputLine = Color3.fromRGB(70, 70, 70),
+	MenuInputFocused = Color3.fromRGB(232, 232, 232),
 
 	Text = Color3.fromRGB(0, 0, 0),
 	SubText = Color3.fromRGB(40, 40, 40),
@@ -248,6 +287,17 @@ local Themes = {
 	ColorpickerInputBorder = Color3.fromRGB(80, 110, 110),
 	ColorpickerInputFocused = Color3.fromRGB(30, 60, 60),
 
+	MenuBackground = ColorSequence.new(Color3.fromRGB(42, 98, 98), Color3.fromRGB(8, 16, 16)),
+	MenuBackgroundRotation = 90,
+	MenuBorder = Color3.fromRGB(57, 133, 133),
+	MenuHolder = Color3.fromRGB(13, 24, 24),
+	MenuHolderLine = Color3.fromRGB(24, 56, 56),
+	MenuButton = Color3.fromRGB(14, 26, 26),
+	MenuButtonBorder = Color3.fromRGB(45, 105, 105),
+	MenuInput = Color3.fromRGB(16, 28, 28),
+	MenuInputLine = Color3.fromRGB(148, 206, 206),
+	MenuInputFocused = Color3.fromRGB(8, 15, 15),
+
 	Text = Color3.fromRGB(240, 240, 240),
 	SubText = Color3.fromRGB(170, 170, 170),
 	Hover = Color3.fromRGB(110, 160, 160),
@@ -309,6 +359,17 @@ local Themes = {
 	ColorpickerInputLine = Color3.fromRGB(175, 160, 190),
 	ColorpickerInputBorder = Color3.fromRGB(95, 80, 110),
 	ColorpickerInputFocused = Color3.fromRGB(45, 30, 65),
+
+	MenuBackground = ColorSequence.new(Color3.fromRGB(59, 40, 97), Color3.fromRGB(8, 5, 13)),
+	MenuBackgroundRotation = 90,
+	MenuBorder = Color3.fromRGB(81, 54, 132),
+	MenuHolder = Color3.fromRGB(13, 9, 20),
+	MenuHolderLine = Color3.fromRGB(34, 23, 56),
+	MenuButton = Color3.fromRGB(18, 14, 25),
+	MenuButtonBorder = Color3.fromRGB(64, 43, 104),
+	MenuInput = Color3.fromRGB(20, 15, 28),
+	MenuInputLine = Color3.fromRGB(168, 149, 207),
+	MenuInputFocused = Color3.fromRGB(8, 6, 12),
 
 	Text = Color3.fromRGB(240, 240, 240),
 	SubText = Color3.fromRGB(170, 170, 170),
@@ -372,6 +433,17 @@ local Themes = {
 	ColorpickerInputBorder = Color3.fromRGB(155, 90, 115),
 	ColorpickerInputFocused = Color3.fromRGB(95, 40, 60),
 
+	MenuBackground = ColorSequence.new(Color3.fromRGB(133, 42, 94), Color3.fromRGB(18, 6, 9)),
+	MenuBackgroundRotation = 90,
+	MenuBorder = Color3.fromRGB(180, 57, 128),
+	MenuHolder = Color3.fromRGB(24, 9, 13),
+	MenuHolderLine = Color3.fromRGB(76, 24, 54),
+	MenuButton = Color3.fromRGB(33, 14, 25),
+	MenuButtonBorder = Color3.fromRGB(142, 45, 101),
+	MenuInput = Color3.fromRGB(36, 16, 28),
+	MenuInputLine = Color3.fromRGB(214, 145, 164),
+	MenuInputFocused = Color3.fromRGB(16, 6, 9),
+
 	Text = Color3.fromRGB(240, 240, 240),
 	SubText = Color3.fromRGB(170, 170, 170),
 	Hover = Color3.fromRGB(200, 120, 170),
@@ -433,6 +505,17 @@ local Themes = {
 	ColorpickerInputLine = Color3.fromRGB(230, 30, 70),
 	ColorpickerInputBorder = Color3.fromRGB(110, 3, 35),
 	ColorpickerInputFocused = Color3.fromRGB(20, 8, 13),
+
+	MenuBackground = ColorSequence.new(Color3.fromRGB(138, 14, 44), Color3.fromRGB(5, 3, 5)),
+	MenuBackgroundRotation = 90,
+	MenuBorder = Color3.fromRGB(170, 20, 60),
+	MenuHolder = Color3.fromRGB(9, 5, 7),
+	MenuHolderLine = Color3.fromRGB(60, 14, 26),
+	MenuButton = Color3.fromRGB(20, 12, 15),
+	MenuButtonBorder = Color3.fromRGB(96, 14, 36),
+	MenuInput = Color3.fromRGB(30, 18, 22),
+	MenuInputLine = Color3.fromRGB(255, 60, 100),
+	MenuInputFocused = Color3.fromRGB(8, 6, 8),
 
 	Text = Color3.fromRGB(245, 235, 237),
 	SubText = Color3.fromRGB(190, 130, 145),
@@ -496,6 +579,17 @@ local Themes = {
 	ColorpickerInputBorder = Color3.fromRGB(105, 79, 19),
 	ColorpickerInputFocused = Color3.fromRGB(52, 39, 9),
 
+	MenuBackground = ColorSequence.new(Color3.fromRGB(84, 63, 13), Color3.fromRGB(11, 8, 2)),
+	MenuBackgroundRotation = 90,
+	MenuBorder = Color3.fromRGB(114, 86, 17),
+	MenuHolder = Color3.fromRGB(17, 13, 4),
+	MenuHolderLine = Color3.fromRGB(48, 36, 7),
+	MenuButton = Color3.fromRGB(23, 19, 9),
+	MenuButtonBorder = Color3.fromRGB(90, 68, 14),
+	MenuInput = Color3.fromRGB(25, 20, 9),
+	MenuInputLine = Color3.fromRGB(255, 224, 137),
+	MenuInputFocused = Color3.fromRGB(11, 8, 3),
+
 	Text = Color3.fromRGB(255, 248, 225),
 	SubText = Color3.fromRGB(215, 185, 115),
 	Hover = Color3.fromRGB(160, 122, 38),
@@ -506,7 +600,7 @@ local Themes = {
 local Elements
 
 local Library = {
-	Version = "1.0.0",
+	Version = "1.0.2",
 
 	OpenFrames = {},
 	Options = {},
@@ -516,7 +610,7 @@ local Library = {
 	WindowFrame = nil,
 	Unloaded = false,
 
-	Theme = "Light",
+	Theme = "Dark",
 	Font = "rbxasset://fonts/families/GothamSSm.json",
 	DialogOpen = false,
 	UseAcrylic = false,
@@ -733,7 +827,6 @@ function Spring:step(state, dt)
 	}
 end
 
-local RunService = game:GetService("RunService")
 
 local noop = function() end
 
@@ -970,7 +1063,6 @@ local Creator = {
 	FontChangedCallbacks = {},
 	Signals = {},
 	TransparencyMotors = {},
-	DropdownTransparencyFrames = {},
 	ThemeChangedCallbacks = {},
 	DefaultProperties = {
 		ScreenGui = {
@@ -1160,11 +1252,6 @@ function Creator.New(Name, Properties, Children)
 
 	ApplyCustomProps(Object, Properties)
 	return Object
-end
-
-function Creator.RegisterDropdownTransparency(Instance)
-	table.insert(Creator.DropdownTransparencyFrames, Instance)
-	Instance.BackgroundTransparency = Library.Transparency
 end
 
 function Creator.AttachTitleDesc(Target, TitleLabel, DescLabel)
@@ -1360,7 +1447,7 @@ function Library:Round(Number, Factor)
 end
 
 local function viewportPointToWorld(location, distance)
-	local unitRay = game:GetService("Workspace").CurrentCamera:ScreenPointToRay(location.X, location.Y)
+	local unitRay = Workspace.CurrentCamera:ScreenPointToRay(location.X, location.Y)
 	return unitRay.Origin + unitRay.Direction * distance
 end
 
@@ -1386,7 +1473,7 @@ local function createAcrylic()
 	return Part
 end
 
-local BlurFolder = Instance.new("Folder", game:GetService("Workspace").CurrentCamera)
+local BlurFolder = Instance.new("Folder", Workspace.CurrentCamera)
 
 local function createAcrylicBlur(distance)
 	local cleanups = {}
@@ -1407,7 +1494,7 @@ local function createAcrylicBlur(distance)
 	end
 
 	local function render()
-		local res = game:GetService("Workspace").CurrentCamera
+		local res = Workspace.CurrentCamera
 		if res then
 			res = res.CFrame
 		end
@@ -1442,7 +1529,7 @@ local function createAcrylicBlur(distance)
 	end
 
 	local function renderOnChange()
-		local camera = game:GetService("Workspace").CurrentCamera
+		local camera = Workspace.CurrentCamera
 		if not camera then
 			return
 		end
@@ -1854,8 +1941,9 @@ Components.Button = (function()
 
 	local Spring = Flipper.Spring.new
 
-	return function(Theme, Parent, DialogCheck)
+	return function(Theme, Parent, DialogCheck, TagSet)
 		DialogCheck = DialogCheck or false
+		TagSet = TagSet or { Background = "DialogButton", Border = "DialogButtonBorder" }
 		local Button = {}
 
 		Button.Title = New("TextLabel", {
@@ -1890,7 +1978,7 @@ Components.Button = (function()
 			Size = UDim2.new(0, 0, 0, 32),
 			Parent = Parent,
 			ThemeTag = {
-				BackgroundColor3 = "DialogButton",
+				BackgroundColor3 = TagSet.Background,
 			},
 		}, {
 			New("UICorner", {
@@ -1900,7 +1988,7 @@ Components.Button = (function()
 				ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
 				Transparency = 0.65,
 				ThemeTag = {
-					Color = "DialogButtonBorder",
+					Color = TagSet.Border,
 				},
 			}),
 			Button.HoverFrame,
@@ -1926,7 +2014,6 @@ Components.Button = (function()
 end)()
 
 Components.Textbox = (function()
-	local TextService = game:GetService("TextService")
 	local New = Creator.New
 
 	return function(Parent, Acrylic, TagSet)
@@ -2522,6 +2609,359 @@ Components.Notification = (function()
 	return Notification
 end)()
 
+Components.Toast = (function()
+	local New = Creator.New
+
+	local Toast = {
+		Holders = {},
+		Order = 0,
+	}
+
+	local TypeStyles = {
+		Info = { Icons = { "info" }, Color = nil },
+		Success = { Icons = { "circle-check", "check-circle", "check" }, Color = Color3.fromRGB(80, 200, 120) },
+		Warning = { Icons = { "triangle-alert", "alert-triangle", "alert-circle" }, Color = Color3.fromRGB(255, 190, 70) },
+		Error = { Icons = { "circle-x", "x-circle", "x" }, Color = Color3.fromRGB(240, 85, 85) },
+	}
+
+	function Toast:Init(GUI)
+		Toast.GUI = GUI
+	end
+
+	local function ResolveIcon(Name)
+		if type(Name) ~= "string" or Name == "" then
+			return nil
+		end
+		if Name:match("^rbxassetid://") or Name:match("^rbxasset://") or Name:match("^http") then
+			return { Image = Name }
+		end
+		local Ok, Icon = pcall(function()
+			return Library:GetIcon(Name)
+		end)
+		if Ok and type(Icon) == "table" and Icon.Image then
+			return Icon
+		end
+		return nil
+	end
+
+	local function GetHolder(Position)
+		local Key = Position == "Top" and "Top" or "Bottom"
+		local Existing = Toast.Holders[Key]
+		if Existing and Existing.Parent then
+			return Existing, Key == "Top"
+		end
+
+		local IsTop = Key == "Top"
+		local Holder = New("Frame", {
+			Name = "ToastHolder" .. Key,
+			AnchorPoint = Vector2.new(0.5, IsTop and 0 or 1),
+			Position = UDim2.new(0.5, 0, IsTop and 0 or 1, IsTop and 30 or -30),
+			Size = UDim2.new(0, 380, 1, -60),
+			BackgroundTransparency = 1,
+			Parent = Toast.GUI,
+		}, {
+			New("UIListLayout", {
+				HorizontalAlignment = Enum.HorizontalAlignment.Center,
+				VerticalAlignment = IsTop and Enum.VerticalAlignment.Top or Enum.VerticalAlignment.Bottom,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				Padding = UDim.new(0, 8),
+			}),
+		})
+
+		Toast.Holders[Key] = Holder
+		return Holder, IsTop
+	end
+
+	function Toast:New(Config)
+		if type(Config) == "string" then
+			Config = { Content = Config }
+		end
+		Config = Config or {}
+
+		local Title = Config.Title and tostring(Config.Title) or ""
+		local Content = Config.Content and tostring(Config.Content) or ""
+		local Duration = Config.Duration
+		if Duration == nil then
+			Duration = 3
+		end
+		local ShowProgress = type(Duration) == "number" and Duration > 0 and Config.Progress ~= false
+		local Style = TypeStyles[Config.Type or "Info"] or TypeStyles.Info
+		local Holder, IsTop = GetHolder(Config.Position)
+		local Offset = IsTop and -16 or 16
+
+		local NewToast = {
+			Closed = false,
+			Ready = false,
+		}
+
+		local IconData
+		if Config.Icon ~= false then
+			if type(Config.Icon) == "string" then
+				IconData = ResolveIcon(Config.Icon)
+			end
+			if not IconData and Config.Icon == nil then
+				for _, Name in ipairs(Style.Icons) do
+					IconData = ResolveIcon(Name)
+					if IconData then
+						break
+					end
+				end
+			end
+		end
+
+		local function AccentTag(Property)
+			if Style.Color then
+				return nil
+			end
+			return { [Property] = "Accent" }
+		end
+
+		local ContentChildren = {}
+
+		if IconData then
+			table.insert(ContentChildren, New("ImageLabel", {
+				Name = "ToastIcon",
+				Image = IconData.Image,
+				ImageRectOffset = IconData.ImageRectOffset or Vector2.zero,
+				ImageRectSize = IconData.ImageRectSize or Vector2.zero,
+				ImageColor3 = Style.Color or Color3.fromRGB(255, 255, 255),
+				Size = UDim2.fromOffset(18, 18),
+				BackgroundTransparency = 1,
+				LayoutOrder = 1,
+				ThemeTag = AccentTag("ImageColor3"),
+			}))
+		end
+
+		local TextChildren = {
+			New("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				Padding = UDim.new(0, 2),
+			}),
+		}
+
+		if Title ~= "" then
+			table.insert(TextChildren, New("TextLabel", {
+				Name = "ToastTitle",
+				FontFace = Font.new(Library.Font, Enum.FontWeight.Medium, Enum.FontStyle.Normal),
+				Text = Title,
+				RichText = true,
+				TextSize = 13,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextWrapped = true,
+				AutomaticSize = Enum.AutomaticSize.XY,
+				Size = UDim2.fromOffset(0, 14),
+				BackgroundTransparency = 1,
+				LayoutOrder = 1,
+				ThemeTag = {
+					TextColor3 = "Text",
+				},
+			}, {
+				New("UISizeConstraint", {
+					MaxSize = Vector2.new(290, math.huge),
+				}),
+			}))
+		end
+
+		if Content ~= "" then
+			table.insert(TextChildren, New("TextLabel", {
+				Name = "ToastContent",
+				FontFace = Font.new(Library.Font),
+				Text = Content,
+				RichText = true,
+				TextSize = 13,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextWrapped = true,
+				AutomaticSize = Enum.AutomaticSize.XY,
+				Size = UDim2.fromOffset(0, 14),
+				BackgroundTransparency = 1,
+				LayoutOrder = 2,
+				ThemeTag = {
+					TextColor3 = Title ~= "" and "SubText" or "Text",
+				},
+			}, {
+				New("UISizeConstraint", {
+					MaxSize = Vector2.new(290, math.huge),
+				}),
+			}))
+		end
+
+		table.insert(ContentChildren, New("Frame", {
+			Name = "ToastText",
+			BackgroundTransparency = 1,
+			AutomaticSize = Enum.AutomaticSize.XY,
+			Size = UDim2.fromOffset(0, 0),
+			LayoutOrder = 2,
+		}, TextChildren))
+
+		table.insert(ContentChildren, New("UIListLayout", {
+			FillDirection = Enum.FillDirection.Horizontal,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Padding = UDim.new(0, 10),
+		}))
+		table.insert(ContentChildren, New("UIPadding", {
+			PaddingTop = UDim.new(0, 10),
+			PaddingBottom = UDim.new(0, 10),
+			PaddingLeft = UDim.new(0, 14),
+			PaddingRight = UDim.new(0, 14),
+		}))
+
+		local ContentButton = New("TextButton", {
+			Name = "ToastContentHolder",
+			Text = "",
+			BackgroundTransparency = 1,
+			AutomaticSize = Enum.AutomaticSize.XY,
+			Size = UDim2.fromOffset(0, 0),
+			LayoutOrder = 1,
+		}, ContentChildren)
+
+		local ProgressFill = New("Frame", {
+			Name = "ToastProgressFill",
+			Size = UDim2.fromScale(1, 1),
+			BackgroundColor3 = Style.Color or Color3.fromRGB(255, 255, 255),
+			BorderSizePixel = 0,
+			ThemeTag = AccentTag("BackgroundColor3"),
+		})
+
+		local PillChildren = {
+			New("UICorner", {
+				CornerRadius = UDim.new(0, 8),
+			}),
+			New("UIStroke", {
+				Transparency = 0.3,
+				ThemeTag = {
+					Color = "DialogBorder",
+				},
+			}),
+			New("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			}),
+			ContentButton,
+		}
+
+		if ShowProgress then
+			table.insert(PillChildren, New("Frame", {
+				Name = "ToastProgress",
+				Size = UDim2.new(1, 0, 0, 2),
+				BackgroundTransparency = 1,
+				LayoutOrder = 2,
+			}, {
+				ProgressFill,
+			}))
+		end
+
+		NewToast.Wrapper = New("Frame", {
+			Name = "ToastWrapper",
+			Size = UDim2.new(1, 0, 0, 0),
+			AutomaticSize = Enum.AutomaticSize.Y,
+			BackgroundTransparency = 1,
+			LayoutOrder = (function()
+				Toast.Order = Toast.Order + 1
+				return Toast.Order
+			end)(),
+			Parent = Holder,
+		})
+
+		NewToast.Pill = New("CanvasGroup", {
+			Name = "Toast",
+			AnchorPoint = Vector2.new(0.5, 0),
+			Position = UDim2.new(0.5, 0, 0, 0),
+			Size = UDim2.fromOffset(0, 0),
+			AutomaticSize = Enum.AutomaticSize.XY,
+			GroupTransparency = 1,
+			BackgroundTransparency = 0,
+			BackgroundColor3 = Color3.fromRGB(30, 30, 30),
+			Parent = NewToast.Wrapper,
+			ThemeTag = {
+				BackgroundColor3 = "Dialog",
+			},
+		}, PillChildren)
+
+		function NewToast:Close()
+			if NewToast.Closed then
+				return
+			end
+			NewToast.Closed = true
+
+			local Wrapper, Pill = NewToast.Wrapper, NewToast.Pill
+			if not Wrapper or not Wrapper.Parent then
+				return
+			end
+
+			if not NewToast.Ready then
+				Wrapper:Destroy()
+				return
+			end
+
+			TweenService:Create(Pill, TweenInfo.new(0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.In), {
+				GroupTransparency = 1,
+				Position = UDim2.new(0.5, 0, 0, Offset),
+			}):Play()
+
+			task.delay(0.12, function()
+				if not Wrapper.Parent then
+					return
+				end
+				local Collapse = TweenService:Create(Wrapper, TweenInfo.new(0.25, Enum.EasingStyle.Quart, Enum.EasingDirection.InOut), {
+					Size = UDim2.new(1, 0, 0, 0),
+				})
+				Collapse:Play()
+				task.delay(0.27, function()
+					Wrapper:Destroy()
+				end)
+			end)
+
+			if Config.OnClose then
+				Library:SafeCallback(Config.OnClose)
+			end
+		end
+
+		if Config.Closable ~= false then
+			Creator.AddSignal(ContentButton.MouseButton1Click, function()
+				NewToast:Close()
+			end)
+		end
+
+		task.spawn(function()
+			task.wait()
+			local Wrapper, Pill = NewToast.Wrapper, NewToast.Pill
+			if NewToast.Closed or not Wrapper.Parent then
+				return
+			end
+
+			local Height = Pill.AbsoluteSize.Y
+			Wrapper.AutomaticSize = Enum.AutomaticSize.None
+			Wrapper.Size = UDim2.new(1, 0, 0, 0)
+			Pill.Position = UDim2.new(0.5, 0, 0, Offset)
+			NewToast.Ready = true
+
+			TweenService:Create(Wrapper, TweenInfo.new(0.25, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+				Size = UDim2.new(1, 0, 0, Height),
+			}):Play()
+			TweenService:Create(Pill, TweenInfo.new(0.3, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+				GroupTransparency = 0,
+				Position = UDim2.new(0.5, 0, 0, 0),
+			}):Play()
+
+			if type(Duration) == "number" and Duration > 0 then
+				if ShowProgress then
+					TweenService:Create(ProgressFill, TweenInfo.new(Duration, Enum.EasingStyle.Linear), {
+						Size = UDim2.fromScale(0, 1),
+					}):Play()
+				end
+				task.delay(Duration, function()
+					NewToast:Close()
+				end)
+			end
+		end)
+
+		return NewToast
+	end
+
+	return Toast
+end)()
+
 Components.Dialog = (function()
 	local Spring = Flipper.Spring.new
 	local Instant = Flipper.Instant.new
@@ -2696,6 +3136,14 @@ Components.SidePanel = (function()
 		return SidePanel
 	end
 
+	local MenuButtonTags = { Background = "MenuButton", Border = "MenuButtonBorder" }
+	local MenuInputTags = {
+		Input = "MenuInput",
+		InputLine = "MenuInputLine",
+		InputBorder = "MenuButtonBorder",
+		InputFocused = "MenuInputFocused",
+	}
+
 	function SidePanel:Create(Config)
 		Config = Config or {}
 		local Side = Config.Side == "Left" and "Left" or "Right"
@@ -2782,7 +3230,7 @@ Components.SidePanel = (function()
 		NewPanel.HolderLine = New("Frame", {
 			Size = UDim2.new(1, 0, 0, 1),
 			ThemeTag = {
-				BackgroundColor3 = "DialogHolderLine",
+				BackgroundColor3 = "MenuHolderLine",
 			},
 		})
 
@@ -2804,7 +3252,7 @@ Components.SidePanel = (function()
 			Size = UDim2.new(1, 0, 0, 64),
 			Position = UDim2.new(0, 0, 1, -64),
 			ThemeTag = {
-				BackgroundColor3 = "DialogHolder",
+				BackgroundColor3 = "MenuHolder",
 			},
 		}, {
 			NewPanel.HolderLine,
@@ -2819,10 +3267,8 @@ Components.SidePanel = (function()
 			AnchorPoint = Vector2.new(AnchorX, 0.5),
 			Position = UDim2.new(AnchorX, NewPanel.SlideOffset, 0.5, 0),
 			GroupTransparency = 1,
+			BackgroundTransparency = 1,
 			Parent = NewPanel.TintFrame,
-			ThemeTag = {
-				BackgroundColor3 = "Dialog",
-			},
 		}, {
 			New("UICorner", {
 				CornerRadius = UDim.new(0, 8),
@@ -2830,8 +3276,23 @@ Components.SidePanel = (function()
 			New("UIStroke", {
 				Transparency = 0.5,
 				ThemeTag = {
-					Color = "DialogBorder",
+					Color = "MenuBorder",
 				},
+			}),
+			New("Frame", {
+				Name = "MenuBackground",
+				Size = UDim2.fromScale(1, 1),
+				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+			}, {
+				New("UICorner", {
+					CornerRadius = UDim.new(0, 8),
+				}),
+				New("UIGradient", {
+					ThemeTag = {
+						Color = "MenuBackground",
+						Rotation = "MenuBackgroundRotation",
+					},
+				}),
 			}),
 			NewPanel.Title,
 			NewPanel.Description,
@@ -2859,15 +3320,40 @@ Components.SidePanel = (function()
 		end)
 
 		function NewPanel:Close()
+			if NewPanel.Closing then
+				return
+			end
+			NewPanel.Closing = true
 			Library.DialogOpen = false
-			TintTransparency(1)
-			RootTransparency(1)
-			SlideMotor:setGoal(Spring(NewPanel.SlideOffset, { frequency = 5 }))
+
+			-- stop the open springs so they do not fight the close tween
 			pcall(function()
-				NewPanel.Root.UIStroke:Destroy()
+				SlideMotor:stop()
+				RootMotor:stop()
+				TintMotor:stop()
 			end)
-			task.wait(0.2)
-			NewPanel.TintFrame:Destroy()
+
+			local SlideInfo = TweenInfo.new(0.32, Enum.EasingStyle.Quart, Enum.EasingDirection.In)
+
+			TweenService:Create(NewPanel.TintFrame, TweenInfo.new(0.32, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				BackgroundTransparency = 1,
+			}):Play()
+
+			TweenService:Create(NewPanel.Root, SlideInfo, {
+				Position = UDim2.new(AnchorX, NewPanel.SlideOffset, 0.5, 0),
+				GroupTransparency = 1,
+			}):Play()
+
+			local Stroke = NewPanel.Root:FindFirstChildOfClass("UIStroke")
+			if Stroke then
+				TweenService:Create(Stroke, SlideInfo, { Transparency = 1 }):Play()
+			end
+
+			task.delay(0.34, function()
+				pcall(function()
+					NewPanel.TintFrame:Destroy()
+				end)
+			end)
 		end
 
 		function NewPanel:Button(Title, Callback)
@@ -2875,7 +3361,7 @@ Components.SidePanel = (function()
 			Title = Title or "Button"
 			Callback = Callback or function() end
 
-			local Button = Components.Button("", NewPanel.ButtonHolder, true)
+			local Button = Components.Button("", NewPanel.ButtonHolder, true, MenuButtonTags)
 			Button.Title.Text = Title
 			Button.Frame.LayoutOrder = NewPanel.Buttons
 
@@ -2909,10 +3395,10 @@ Components.SidePanel = (function()
 				false,
 				NewPanel.Rows,
 				RowConfig.Icon,
-				RowConfig.Marquee == true
+				RowConfig.Marquee ~= false
 			)
 
-			local Textbox = Components.Textbox(Row.Frame, true)
+			local Textbox = Components.Textbox(Row.Frame, true, MenuInputTags)
 			Textbox.Frame.Position = UDim2.new(1, -10, 0.5, 0)
 			Textbox.Frame.AnchorPoint = Vector2.new(1, 0.5)
 			Textbox.Frame.Size = UDim2.fromOffset(140, 30)
@@ -2972,7 +3458,7 @@ Components.SidePanel = (function()
 				true,
 				NewPanel.Rows,
 				RowConfig.Icon,
-				RowConfig.Marquee == true
+				RowConfig.Marquee ~= false
 			)
 
 			New("ImageLabel", {
@@ -3081,7 +3567,6 @@ Components.Tab = (function()
 	local New = Creator.New
 	local Spring = Flipper.Spring.new
 	local Instant = Flipper.Instant.new
-	local TextService = game:GetService("TextService")
 
 	local function GetHeaderTextWidth(Text)
 		return TextService:GetTextSize(
@@ -3796,9 +4281,6 @@ Components.Window = (function()
 			BackgroundTransparency = 1,
 			ScaleType = Enum.ScaleType.Crop,
 			ImageTransparency = 0,
-			ThemeTag = {
-				Image = "Background",
-			},
 		}, {
 			New("UICorner", {
 				CornerRadius = UDim.new(0, 8),
@@ -4551,7 +5033,6 @@ ElementsTable.Button = (function()
 end)()
 
 ElementsTable.Colorpicker = (function()
-	local TouchInputService = game:GetService("TouchInputService")
 
 	local RenderStepped = RunService.RenderStepped
 	local Mouse = LocalPlayer:GetMouse()
@@ -5580,9 +6061,21 @@ ElementsTable.Dropdown = (function()
 	function Element:New(Idx, Config)
 		local Library = self.Library
 
+		local InitialValue = Config.Default
+		if Config.Multi then
+			InitialValue = {}
+			if type(Config.Default) == "table" then
+				for Key, State in next, Config.Default do
+					if type(Key) == "string" and State == true then
+						InitialValue[Key] = true
+					end
+				end
+			end
+		end
+
 		local Dropdown = {
 			Values = Config.Values,
-			Value = Config.Default,
+			Value = InitialValue,
 			Multi = Config.Multi,
 			Buttons = {},
 			Opened = false,
@@ -5611,7 +6104,7 @@ ElementsTable.Dropdown = (function()
 			TextColor3 = Color3.fromRGB(240, 240, 240),
 			TextSize = 13,
 			TextXAlignment = Enum.TextXAlignment.Left,
-			Size = UDim2.new(1, -30, 0, 14),
+			Size = UDim2.new(1, -40, 1, 0),
 			Position = UDim2.new(0, 8, 0.5, 0),
 			AnchorPoint = Vector2.new(0, 0.5),
 			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
@@ -5632,6 +6125,8 @@ ElementsTable.Dropdown = (function()
 				ImageColor3 = "SubText",
 			},
 		})
+
+		local IcoMotor, SetIcoRotation = Creator.SpringMotor(0, DropdownIco, "Rotation", true)
 
 		local DropdownInner = New("TextButton", {
 			Size = IsGrouped and UDim2.new(1, 0, 0, 30) or UDim2.fromOffset(160, 30),
@@ -5669,34 +6164,37 @@ ElementsTable.Dropdown = (function()
 			Padding = UDim.new(0, 3),
 		})
 
+		local DROPDOWN_Z_INDEX = 100000 -- keeps the list above every window layer
+
 		local DropdownScrollFrame = New("ScrollingFrame", {
-			Size = UDim2.new(1, -8, 1, -10),
+			Size = UDim2.new(1, -5, 1, -10),
 			Position = UDim2.fromOffset(5, 5),
 			BackgroundTransparency = 1,
-			BottomImage = "rbxassetid://6889812791",
-			MidImage = "rbxassetid://6889812721",
-			TopImage = "rbxassetid://6276641225",
-			ScrollBarImageColor3 = Color3.fromRGB(255, 255, 255),
-			ScrollBarImageTransparency = 0.95,
+			ScrollBarImageColor3 = Color3.fromRGB(200, 200, 200),
+			ScrollBarImageTransparency = 0.4,
 			ScrollBarThickness = 3,
 			BorderSizePixel = 0,
 			CanvasSize = UDim2.fromScale(0, 0),
 			ScrollingDirection = Enum.ScrollingDirection.Y,
+			ElasticBehavior = Enum.ElasticBehavior.Always,
+			ZIndex = DROPDOWN_Z_INDEX + 2,
+			ThemeTag = {
+				ScrollBarImageColor3 = "SubText",
+			},
 		}, {
 			DropdownListLayout,
-			New("UIPadding", {
-				PaddingRight = UDim.new(0, 4),
-			}),
 		})
 
 		local DropdownSearchBox, DropdownSearchHolder
 		if Config.Search then
 			local DropdownSearchIcon = New("ImageLabel", {
 				Image = "rbxassetid://10734943674",
-				Size = UDim2.fromOffset(14, 14),
+				Size = UDim2.fromOffset(16, 16),
 				AnchorPoint = Vector2.new(0, 0.5),
-				Position = UDim2.new(0, 8, 0.5, 0),
+				Position = UDim2.new(0, 10, 0.5, 0),
 				BackgroundTransparency = 1,
+				ImageTransparency = 0.3,
+				ZIndex = DROPDOWN_Z_INDEX + 4,
 				ThemeTag = {
 					ImageColor3 = "SubText",
 				},
@@ -5704,16 +6202,18 @@ ElementsTable.Dropdown = (function()
 
 			DropdownSearchBox = New("TextBox", {
 				FontFace = Font.new(Library.Font, Enum.FontWeight.Regular, Enum.FontStyle.Normal),
-				PlaceholderText = "Search....",
+				PlaceholderText = "Search...",
 				Text = "",
 				ClearTextOnFocus = false,
-				TextColor3 = Color3.fromRGB(240, 240, 240),
+				TextColor3 = Color3.fromRGB(200, 200, 200),
+				PlaceholderColor3 = Color3.fromRGB(120, 120, 120),
 				TextSize = 13,
 				TextXAlignment = Enum.TextXAlignment.Left,
-				Size = UDim2.new(1, -32, 1, 0),
-				Position = UDim2.new(0, 28, 0, 0),
+				TextYAlignment = Enum.TextYAlignment.Center,
+				Size = UDim2.new(1, -36, 1, 0),
+				Position = UDim2.new(0, 32, 0, 0),
 				BackgroundTransparency = 1,
-				ZIndex = 24,
+				ZIndex = DROPDOWN_Z_INDEX + 3,
 				ThemeTag = {
 					TextColor3 = "Text",
 					PlaceholderColor3 = "SubText",
@@ -5723,14 +6223,15 @@ ElementsTable.Dropdown = (function()
 			DropdownSearchHolder = New("Frame", {
 				Size = UDim2.new(1, -10, 0, 28),
 				Position = UDim2.fromOffset(5, 5),
-				BackgroundTransparency = 0.9,
-				ZIndex = 24,
+				BackgroundTransparency = 0.7,
+				BackgroundColor3 = Color3.fromRGB(20, 20, 20),
+				ZIndex = DROPDOWN_Z_INDEX + 2,
 				ThemeTag = {
-					BackgroundColor3 = "DropdownFrame",
+					BackgroundColor3 = "Element",
 				},
 			}, {
 				New("UICorner", {
-					CornerRadius = UDim.new(0, 5),
+					CornerRadius = UDim.new(0, 4),
 				}),
 				DropdownSearchIcon,
 				DropdownSearchBox,
@@ -5760,6 +6261,7 @@ ElementsTable.Dropdown = (function()
 				Position = UDim2.fromOffset(-15, -15),
 				ImageColor3 = Color3.fromRGB(0, 0, 0),
 				ImageTransparency = 0.1,
+				ZIndex = DROPDOWN_Z_INDEX,
 			}),
 		}
 		if DropdownSearchHolder then
@@ -5768,18 +6270,19 @@ ElementsTable.Dropdown = (function()
 
 		local DropdownHolderFrame = New("Frame", {
 			Size = UDim2.fromScale(1, 1),
+			BackgroundTransparency = 0,
+			ZIndex = DROPDOWN_Z_INDEX + 1,
 			ThemeTag = {
 				BackgroundColor3 = "DropdownHolder",
 			},
 		}, DropdownHolderChildren)
-
-		Creator.RegisterDropdownTransparency(DropdownHolderFrame)
 
 		local DropdownHolderCanvas = New("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.fromOffset(170, 300),
 			Parent = self.Library.GUI,
 			Visible = false,
+			ZIndex = DROPDOWN_Z_INDEX,
 		}, {
 			DropdownHolderFrame,
 			New("UISizeConstraint", {
@@ -5801,22 +6304,25 @@ ElementsTable.Dropdown = (function()
 		end
 
 		local ListSizeX = 0
-		local function CountVisibleOptions()
-			local Count = 0
-			for _, Option in next, DropdownScrollFrame:GetChildren() do
-				if Option:IsA("TextButton") and Option.Visible then
-					Count = Count + 1
-				end
-			end
-			return Count
-		end
 
 		local function RecalculateListSize()
-			if CountVisibleOptions() > 10 then
-				DropdownHolderCanvas.Size = UDim2.fromOffset(ListSizeX, 392)
-			else
-				DropdownHolderCanvas.Size = UDim2.fromOffset(ListSizeX, DropdownListLayout.AbsoluteContentSize.Y + 120)
+			local VisibleCount = 0
+			for _, Option in next, DropdownScrollFrame:GetChildren() do
+				if Option:IsA("TextButton") and Option.Visible then
+					VisibleCount = VisibleCount + 1
+				end
 			end
+
+			local ItemHeight = 32
+			local ItemPadding = 3
+			local InnerMargins = 10
+			local SearchHeight = DropdownSearchHolder and 38 or 0
+			local Content = VisibleCount > 0 and (VisibleCount * ItemHeight + (VisibleCount - 1) * ItemPadding) or 0
+			local Height = math.min(Content + InnerMargins + SearchHeight, 392)
+			local Width = math.max(DropdownInner.AbsoluteSize.X, ListSizeX)
+
+			DropdownHolderCanvas.Size = UDim2.fromOffset(Width, Height)
+			RecalculateListPosition()
 		end
 
 		local function RecalculateCanvasSize()
@@ -5873,6 +6379,7 @@ ElementsTable.Dropdown = (function()
 			Dropdown.Opened = true
 			ScrollFrame.ScrollingEnabled = false
 			DropdownHolderCanvas.Visible = true
+			SetIcoRotation(180)
 			if DropdownSearchBox then
 				DropdownSearchBox.Text = ""
 				Dropdown:FilterOptions("")
@@ -5889,6 +6396,7 @@ ElementsTable.Dropdown = (function()
 			ScrollFrame.ScrollingEnabled = true
 			DropdownHolderFrame.Size = UDim2.fromScale(1, 0.6)
 			DropdownHolderCanvas.Visible = false
+			SetIcoRotation(0)
 		end
 
 		if DropdownSearchBox then
@@ -5960,25 +6468,81 @@ ElementsTable.Dropdown = (function()
 
 			local Count = 0
 
+			local CheckIconData
+			if Library.NewVisual then
+				local Ok, Icon = pcall(function()
+					return Library:GetIcon("check")
+				end)
+				if Ok and type(Icon) == "table" and Icon.Image then
+					CheckIconData = Icon
+				end
+			end
+
 			for Idx, Value in next, Values do
 				local Table = {}
 
 				Count = Count + 1
 
-				local ButtonSelector = New("Frame", {
-					Size = UDim2.fromOffset(4, 6),
-					BackgroundColor3 = Color3.fromRGB(76, 194, 255),
-					BackgroundTransparency = 1,
-					Position = UDim2.new(0, -1, 0.5, 0),
-					AnchorPoint = Vector2.new(0, 0.5),
-					ThemeTag = {
-						BackgroundColor3 = "Accent",
-					},
-				}, {
-					New("UICorner", {
-						CornerRadius = UDim.new(0, 2),
-					}),
-				})
+				local NewVisual = Library.NewVisual == true
+				local TextOffset = 10
+				local CheckTextOffset = 32
+
+				local ButtonSelector
+				local SelectorProp
+				if NewVisual then
+					if CheckIconData then
+						ButtonSelector = New("ImageLabel", {
+							Name = "ButtonCheck",
+							Image = CheckIconData.Image,
+							ImageRectOffset = CheckIconData.ImageRectOffset or Vector2.zero,
+							ImageRectSize = CheckIconData.ImageRectSize or Vector2.zero,
+							Size = UDim2.fromOffset(14, 14),
+							Position = UDim2.new(0, 10, 0.5, 0),
+							AnchorPoint = Vector2.new(0, 0.5),
+							BackgroundTransparency = 1,
+							ImageTransparency = 1,
+							ZIndex = DROPDOWN_Z_INDEX + 4,
+							ThemeTag = {
+								ImageColor3 = "Accent",
+							},
+						})
+						SelectorProp = "ImageTransparency"
+					else
+						ButtonSelector = New("TextLabel", {
+							Name = "ButtonCheck",
+							Text = "v",
+							TextSize = 13,
+							FontFace = Font.new(Library.Font, Enum.FontWeight.Bold, Enum.FontStyle.Normal),
+							Size = UDim2.fromOffset(14, 14),
+							Position = UDim2.new(0, 10, 0.5, 0),
+							AnchorPoint = Vector2.new(0, 0.5),
+							BackgroundTransparency = 1,
+							TextTransparency = 1,
+							ZIndex = DROPDOWN_Z_INDEX + 4,
+							ThemeTag = {
+								TextColor3 = "Accent",
+							},
+						})
+						SelectorProp = "TextTransparency"
+					end
+				else
+					ButtonSelector = New("Frame", {
+						Size = UDim2.fromOffset(4, 6),
+						BackgroundColor3 = Color3.fromRGB(76, 194, 255),
+						BackgroundTransparency = 1,
+						Position = UDim2.new(0, -1, 0.5, 0),
+						AnchorPoint = Vector2.new(0, 0.5),
+						ZIndex = DROPDOWN_Z_INDEX + 4,
+						ThemeTag = {
+							BackgroundColor3 = "Accent",
+						},
+					}, {
+						New("UICorner", {
+							CornerRadius = UDim.new(0, 2),
+						}),
+					})
+					SelectorProp = "BackgroundTransparency"
+				end
 
 				local ButtonLabel = New("TextLabel", {
 					FontFace = Font.new(Library.Font),
@@ -5989,8 +6553,9 @@ ElementsTable.Dropdown = (function()
 					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 					AutomaticSize = Enum.AutomaticSize.Y,
 					BackgroundTransparency = 1,
-					Size = UDim2.fromScale(1, 1),
-					Position = UDim2.fromOffset(10, 0),
+					Size = UDim2.new(1, -TextOffset, 1, 0),
+					Position = UDim2.fromOffset(TextOffset, 0),
+					ZIndex = DROPDOWN_Z_INDEX + 4,
 					Name = "ButtonLabel",
 					ThemeTag = {
 						TextColor3 = "Text",
@@ -6000,7 +6565,7 @@ ElementsTable.Dropdown = (function()
 				local Button = New("TextButton", {
 					Size = UDim2.new(1, -5, 0, 32),
 					BackgroundTransparency = 1,
-					ZIndex = 23,
+					ZIndex = DROPDOWN_Z_INDEX + 3,
 					Text = "",
 					Parent = DropdownScrollFrame,
 					ThemeTag = {
@@ -6023,11 +6588,19 @@ ElementsTable.Dropdown = (function()
 				end
 
 				local BackMotor, SetBackTransparency = Creator.SpringMotor(1, Button, "BackgroundTransparency", true)
-				local SelMotor, SetSelTransparency = Creator.SpringMotor(1, ButtonSelector, "BackgroundTransparency", true)
+				local SelMotor, SetSelTransparency = Creator.SpringMotor(1, ButtonSelector, SelectorProp, true, not NewVisual)
 				local SelectorSizeMotor = Flipper.SingleMotor.new(6)
+				local LabelMotor = Flipper.SingleMotor.new(TextOffset)
 
 				SelectorSizeMotor:onStep(function(value)
-					ButtonSelector.Size = UDim2.new(0, 4, 0, value)
+					if not NewVisual then
+						ButtonSelector.Size = UDim2.new(0, 4, 0, value)
+					end
+				end)
+
+				LabelMotor:onStep(function(value)
+					ButtonLabel.Position = UDim2.fromOffset(value, 0)
+					ButtonLabel.Size = UDim2.new(1, -value, 1, 0)
 				end)
 
 				Creator.AddSignal(Button.MouseEnter, function()
@@ -6054,37 +6627,36 @@ ElementsTable.Dropdown = (function()
 						SetBackTransparency(Selected and 0.89 or 1)
 					end
 
-					SelectorSizeMotor:setGoal(Flipper.Spring.new(Selected and 14 or 6, { frequency = 6 }))
+					if NewVisual then
+						LabelMotor:setGoal(Flipper.Spring.new(Selected and CheckTextOffset or TextOffset, { frequency = 6 }))
+					else
+						SelectorSizeMotor:setGoal(Flipper.Spring.new(Selected and 14 or 6, { frequency = 6 }))
+					end
 					SetSelTransparency(Selected and 0 or 1)
 				end
 
-				ButtonLabel.InputBegan:Connect(function(Input)
-					if
-						Input.UserInputType == Enum.UserInputType.MouseButton1
-						or Input.UserInputType == Enum.UserInputType.Touch
-					then
-						local Try = not Selected
+				Creator.AddSignal(Button.Activated, function()
+					local Try = not Selected
 
-						if Dropdown:GetActiveValues() == 1 and not Try and not Config.AllowNull then
+					if Dropdown:GetActiveValues() == 1 and not Try and not Config.AllowNull then
+					else
+						if Config.Multi then
+							Selected = Try
+							Dropdown.Value[Value] = Selected and true or nil
 						else
-							if Config.Multi then
-								Selected = Try
-								Dropdown.Value[Value] = Selected and true or nil
-							else
-								Selected = Try
-								Dropdown.Value = Selected and Value or nil
+							Selected = Try
+							Dropdown.Value = Selected and Value or nil
 
-								for _, OtherButton in next, Buttons do
-									OtherButton:UpdateButton()
-								end
+							for _, OtherButton in next, Buttons do
+								OtherButton:UpdateButton()
 							end
-
-							Table:UpdateButton()
-							Dropdown:Display()
-
-							Library:SafeCallback(Dropdown.Callback, Dropdown.Value)
-							Library:SafeCallback(Dropdown.Changed, Dropdown.Value)
 						end
+
+						Table:UpdateButton()
+						Dropdown:Display()
+
+						Library:SafeCallback(Dropdown.Callback, Dropdown.Value)
+						Library:SafeCallback(Dropdown.Changed, Dropdown.Value)
 					end
 				end)
 
@@ -6102,7 +6674,7 @@ ElementsTable.Dropdown = (function()
 					end
 				end
 			end
-			ListSizeX = ListSizeX + 30
+			ListSizeX = ListSizeX + (Library.NewVisual and 52 or 30)
 
 			RecalculateCanvasSize()
 			RecalculateListSize()
@@ -6554,11 +7126,16 @@ ElementsTable.Slider = (function()
 		}
 
 		local Dragging = false
+		local UseButtons = Config.StepButtons == true
+		local LeftIconName = Config.LeftIcon or (UseButtons and "minus" or nil)
+		local RightIconName = Config.RightIcon or (UseButtons and "plus" or nil)
+		local PadLeft = LeftIconName and 22 or 0
+		local PadRight = RightIconName and 22 or 0
 		local IsGrouped = self.Type == "Group" or self.Type == "HStack" or self.Type == "VStack"
 
 		local SliderFrame = Components.Element(Config.Title, Config.Description, self.Container, false, Config.LayoutOrder, Config.Icon, Config.Marquee)
 
-		local SliderDot, SliderRail, SliderFill, SliderDisplay, SliderInner, SliderRow, SliderHit, SliderValueTooltip, SliderConstraint
+		local SliderDot, SliderRail, SliderFill, SliderDisplay, SliderInner, SliderRow, SliderHit, SliderValueTooltip, SliderConstraint, SliderTooltipStroke
 		local ShowTooltip, HideTooltip
 
 		SliderRow = New("Frame", {
@@ -6570,6 +7147,14 @@ ElementsTable.Slider = (function()
 		})
 
 		if Library.NewVisual then
+
+			SliderTooltipStroke = New("UIStroke", {
+				Thickness = 1,
+				Transparency = 1,
+				ThemeTag = {
+					Color = "InElementBorder",
+				},
+			})
 
 			SliderValueTooltip = New("CanvasGroup", {
 				AnchorPoint = Vector2.new(0.5, 1),
@@ -6586,13 +7171,7 @@ ElementsTable.Slider = (function()
 				New("UICorner", {
 					CornerRadius = UDim.new(0, 4),
 				}),
-				New("UIStroke", {
-					Thickness = 1,
-					Transparency = 0.5,
-					ThemeTag = {
-						Color = "InElementBorder",
-					},
-				}),
+				SliderTooltipStroke,
 				New("TextLabel", {
 					Name = "ValueLabel",
 					FontFace = Font.new(Library.Font, Enum.FontWeight.Medium, Enum.FontStyle.Normal),
@@ -6665,23 +7244,6 @@ ElementsTable.Slider = (function()
 				}),
 			})
 
-			SliderDisplay = New("TextLabel", {
-				FontFace = Font.new(Library.Font),
-				Text = "Value",
-				TextSize = 12,
-				TextWrapped = true,
-				TextXAlignment = Enum.TextXAlignment.Right,
-				BackgroundTransparency = 1,
-				Size = UDim2.new(0, 100, 0, 14),
-				Position = UDim2.new(0, -4, 0.5, 0),
-				AnchorPoint = Vector2.new(1, 0.5),
-				Visible = IsGrouped,
-				Parent = SliderInner,
-				ThemeTag = {
-					TextColor3 = "SubText",
-				},
-			})
-
 			SliderConstraint = New("UISizeConstraint", {
 				MaxSize = IsGrouped and Vector2.new(math.huge, math.huge) or Vector2.new(150, math.huge),
 				Parent = SliderInner,
@@ -6700,17 +7262,24 @@ ElementsTable.Slider = (function()
 			})
 
 			local TooltipTween
+			local TooltipStrokeTween
 
 			local function SetTooltipVisible(Visible)
 				if TooltipTween then
 					TooltipTween:Cancel()
 				end
-				TooltipTween = TweenService:Create(
-					SliderValueTooltip,
-					TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-					{ GroupTransparency = Visible and 0 or 1 }
+				if TooltipStrokeTween then
+					TooltipStrokeTween:Cancel()
+				end
+				local Info = TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+				TooltipTween = TweenService:Create(SliderValueTooltip, Info, { GroupTransparency = Visible and 0 or 1 })
+				TooltipStrokeTween = TweenService:Create(
+					SliderTooltipStroke,
+					Info,
+					{ Transparency = Visible and 0.5 or 1 }
 				)
 				TooltipTween:Play()
+				TooltipStrokeTween:Play()
 			end
 
 			ShowTooltip = function()
@@ -6759,7 +7328,7 @@ ElementsTable.Slider = (function()
 				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 				BackgroundTransparency = 1,
 				Size = UDim2.new(0, 100, 0, 14),
-				Position = UDim2.new(0, -4, 0.5, 0),
+				Position = UDim2.new(0, -4 - PadLeft, 0.5, 0),
 				AnchorPoint = Vector2.new(1, 0.5),
 				ThemeTag = {
 					TextColor3 = "SubText",
@@ -6790,15 +7359,40 @@ ElementsTable.Slider = (function()
 			})
 		end
 
-		Creator.Adaptive(SliderFrame, 170, 340, not IsGrouped, function(Inline)
+		local MinusButton, PlusButton
+
+		local function CreateSideIcon(IconName, Direction, Interactive)
+			local Icon = Library:GetIcon(IconName)
+			return New(Interactive and "ImageButton" or "ImageLabel", {
+				Size = UDim2.fromOffset(16, 16),
+				AnchorPoint = Direction < 0 and Vector2.new(1, 0.5) or Vector2.new(0, 0.5),
+				Position = Direction < 0 and UDim2.new(0, -4, 0.5, 0) or UDim2.new(1, 4, 0.5, 0),
+				BackgroundTransparency = 1,
+				Image = Icon and Icon.Image or "",
+				ImageRectOffset = Icon and Icon.ImageRectOffset or Vector2.zero,
+				ImageRectSize = Icon and Icon.ImageRectSize or Vector2.zero,
+				ZIndex = 4,
+				Parent = SliderInner,
+				ThemeTag = {
+					ImageColor3 = "SubText",
+				},
+			})
+		end
+
+		if LeftIconName then
+			MinusButton = CreateSideIcon(LeftIconName, -1, UseButtons)
+		end
+
+		if RightIconName then
+			PlusButton = CreateSideIcon(RightIconName, 1, UseButtons)
+		end
+
+		Creator.Adaptive(SliderFrame, 170 + PadLeft + PadRight, 340 + PadLeft + PadRight, not IsGrouped, function(Inline)
 			SliderRow.Visible = not Inline
 			SliderInner.Parent = Inline and SliderFrame.Frame or SliderRow
-			SliderInner.Size = Inline and UDim2.new(1, 0, 0, 4) or UDim2.new(1, -40, 0, 4)
-			SliderInner.Position = Inline and UDim2.new(1, -10, 0.5, 0) or UDim2.new(1, -8, 0.5, 0)
+			SliderInner.Size = Inline and UDim2.new(1, 0, 0, 4) or UDim2.new(1, -(Library.NewVisual and 16 or 40) - PadLeft - PadRight, 0, 4)
+			SliderInner.Position = Inline and UDim2.new(1, -10 - PadRight, 0.5, 0) or UDim2.new(1, -8 - PadRight, 0.5, 0)
 			SliderConstraint.MaxSize = Inline and Vector2.new(150, math.huge) or Vector2.new(math.huge, math.huge)
-			if Library.NewVisual then
-				SliderDisplay.Visible = not Inline
-			end
 		end)
 
 		Slider.SetTitle = SliderFrame.SetTitle
@@ -6889,6 +7483,72 @@ ElementsTable.Slider = (function()
 		function Slider:Destroy()
 			SliderFrame:Destroy()
 			Library.Options[Idx] = nil
+		end
+
+		if UseButtons then
+			local HoldToken = 0
+			local StepSize = Config.Step or (1 / 10 ^ Slider.Rounding)
+
+			local function IsPress(Input)
+				return Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch
+			end
+
+			local function StopHold()
+				HoldToken = HoldToken + 1
+				if HideTooltip then
+					HideTooltip()
+				end
+			end
+
+			local function StartHold(Direction)
+				HoldToken = HoldToken + 1
+				local Token = HoldToken
+				Slider:SetValue(Slider.Value + StepSize * Direction)
+				if ShowTooltip then
+					ShowTooltip()
+				end
+
+				task.spawn(function()
+					task.wait(0.4)
+					local Interval = 0.12
+					local Ticks = 0
+					while Token == HoldToken do
+						local Multiplier = 1 + math.floor(Ticks / 15)
+						Slider:SetValue(Slider.Value + StepSize * Direction * Multiplier)
+						Ticks = Ticks + 1
+						Interval = math.max(Interval * 0.92, 0.03)
+						task.wait(Interval)
+					end
+				end)
+			end
+
+			for Button, Direction in pairs({ [MinusButton] = -1, [PlusButton] = 1 }) do
+				Creator.AddSignal(Button.InputBegan, function(Input)
+					if IsPress(Input) then
+						StartHold(Direction)
+					end
+				end)
+
+				Creator.AddSignal(Button.InputEnded, function(Input)
+					if IsPress(Input) then
+						StopHold()
+					end
+				end)
+
+				Creator.AddSignal(Button.MouseEnter, function()
+					Button.ImageColor3 = Creator.GetThemeProperty("Text")
+				end)
+
+				Creator.AddSignal(Button.MouseLeave, function()
+					Button.ImageColor3 = Creator.GetThemeProperty("SubText")
+				end)
+			end
+
+			Creator.AddSignal(UserInputService.InputEnded, function(Input)
+				if IsPress(Input) then
+					StopHold()
+				end
+			end)
 		end
 
 		Slider:SetValue(Config.Default)
@@ -7096,20 +7756,33 @@ ElementsTable.Image = (function()
 		Creator.AddSignal(Wrap:GetPropertyChangedSignal("AbsoluteSize"), RecalcAspectRatio)
 		task.defer(RecalcAspectRatio)
 
+		local Library = self.Library
+
 		local ImageLabel = New("ImageLabel", {
 			Size = UDim2.fromScale(1, 1),
 			BackgroundTransparency = 1,
-			Image = ResolveImage(Config.Image or ""),
+			Image = "",
 			ScaleType = Enum.ScaleType.Fit,
 			Parent = Wrap,
 		}, {
 			New("UICorner", { CornerRadius = UDim.new(0, Radius) }),
 		})
 
+		local function ApplyImage(Source)
+			local Resolved = ResolveImage(Source)
+			if Resolved:match("^rbxasset") then
+				ImageLabel.Image = Resolved
+			else
+				ImageLabel.Image = Library:ResolveMedia(Resolved)
+			end
+		end
+
+		task.spawn(ApplyImage, Config.Image or "")
+
 		local Image = { Frame = Wrap, Type = "Image" }
 
 		function Image:SetImage(Source)
-			ImageLabel.Image = ResolveImage(Source)
+			task.spawn(ApplyImage, Source)
 		end
 
 		function Image:SetAspectRatio(Ratio)
@@ -7122,6 +7795,410 @@ ElementsTable.Image = (function()
 		end
 
 		return Image
+	end
+
+	return Element
+end)()
+
+ElementsTable.Viewport = (function()
+	local New = Creator.New
+
+	local Element = {}
+	Element.__index = Element
+	Element.__type = "Viewport"
+
+	local function ParseAspectRatio(Ratio)
+		if type(Ratio) == "number" then
+			return Ratio
+		end
+		if type(Ratio) == "string" then
+			local Width, Height = Ratio:match("(%d+):(%d+)")
+			if Width and Height and tonumber(Height) ~= 0 then
+				return tonumber(Width) / tonumber(Height)
+			end
+		end
+		return nil
+	end
+
+	function Element:New(IdxOrConfig, MaybeConfig)
+		local SaveIndex, Config
+		if type(IdxOrConfig) == "string" then
+			SaveIndex, Config = IdxOrConfig, MaybeConfig
+		else
+			Config = IdxOrConfig
+		end
+		Config = Config or {}
+
+		local Parent = self.Container
+		if not Parent then return end
+
+		local Library = self.Library
+		local ScrollFrame = self.ScrollFrame
+		local IsGrouped = self.Type == "Group" or self.Type == "HStack" or self.Type == "VStack"
+		local OffsetX = IsGrouped and 0 or -16
+		local Radius = Config.Radius or 8
+
+		local Viewport = {
+			__type = "Viewport",
+			Type = "Viewport",
+			Object = nil,
+			Camera = Config.Camera or Instance.new("Camera"),
+			Interactive = Config.Interactive or false,
+			Height = Config.Height or 200,
+			Focused = Config.Focused ~= false,
+			Ambient = Config.Ambient,
+			LightColor = Config.LightColor,
+			LightDirection = Config.LightDirection,
+			Value = nil,
+		}
+
+		local IsDragging, IsPinching = false, false
+		local LastMousePosition, LastPinchDistance = nil, 0
+		local AspectRatio = ParseAspectRatio(Config.AspectRatio)
+
+		local HolderFrame = New("Frame", {
+			Name = "ViewportHolder",
+			Size = UDim2.new(1, OffsetX, 0, Viewport.Height),
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			LayoutOrder = Config.LayoutOrder or 0,
+			Parent = Parent,
+		}, {
+			New("UICorner", { CornerRadius = UDim.new(0, Radius) }),
+			New("UIStroke", {
+				Transparency = 0.6,
+				ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+				ThemeTag = {
+					Color = "InElementBorder",
+				},
+			}),
+		})
+
+		local function RecalculateAspect()
+			if not AspectRatio or AspectRatio <= 0 then return end
+			local Width = HolderFrame.AbsoluteSize.X
+			if Width > 0 then
+				HolderFrame.Size = UDim2.new(1, OffsetX, 0, math.floor(Width / AspectRatio))
+			end
+		end
+
+		Creator.AddSignal(HolderFrame:GetPropertyChangedSignal("AbsoluteSize"), RecalculateAspect)
+		if AspectRatio then
+			task.defer(RecalculateAspect)
+		end
+
+		local Background = New("ImageLabel", {
+			Name = "ViewportBackground",
+			Size = UDim2.fromScale(1, 1),
+			BackgroundColor3 = Config.BackgroundColor or Color3.fromRGB(15, 15, 20),
+			BackgroundTransparency = Config.BackgroundTransparency or 0.1,
+			BorderSizePixel = 0,
+			Image = "",
+			ImageTransparency = Config.ImageTransparency or 0,
+			ScaleType = Config.ScaleType or Enum.ScaleType.Crop,
+			Parent = HolderFrame,
+		}, {
+			New("UICorner", { CornerRadius = UDim.new(0, Radius) }),
+		})
+
+		if Config.Noise ~= false then
+			New("ImageLabel", {
+				Name = "ViewportNoise",
+				Image = "rbxassetid://9968344227",
+				ScaleType = Enum.ScaleType.Tile,
+				TileSize = UDim2.fromOffset(128, 128),
+				Size = UDim2.fromScale(1, 1),
+				BackgroundTransparency = 1,
+				ImageTransparency = 0.92,
+				Parent = Background,
+			}, {
+				New("UICorner", { CornerRadius = UDim.new(0, Radius) }),
+			})
+		end
+
+		local function ApplyImage(Image)
+			if Image and Image ~= "" then
+				Background.Image = Library:ResolveMedia(Image)
+			else
+				Background.Image = ""
+			end
+		end
+
+		if Config.Image then
+			task.spawn(ApplyImage, Config.Image)
+		end
+
+		local Canvas = New("CanvasGroup", {
+			Size = UDim2.fromScale(1, 1),
+			BackgroundTransparency = 1,
+			Parent = HolderFrame,
+		}, {
+			New("UICorner", { CornerRadius = UDim.new(0, Radius) }),
+		})
+
+		local ViewportFrame = New("ViewportFrame", {
+			Name = "Viewport",
+			Size = UDim2.fromScale(1, 1),
+			BackgroundTransparency = 1,
+			CurrentCamera = Viewport.Camera,
+			Active = Viewport.Interactive,
+			Parent = Canvas,
+		})
+
+		if Viewport.Ambient then
+			ViewportFrame.Ambient = Viewport.Ambient
+		end
+		if Viewport.LightColor then
+			ViewportFrame.LightColor = Viewport.LightColor
+		end
+		if Viewport.LightDirection then
+			ViewportFrame.LightDirection = Viewport.LightDirection
+		end
+
+		Viewport.Camera.Parent = ViewportFrame
+		Viewport.Viewport = ViewportFrame
+
+		local function GetPivot()
+			if not Viewport.Object then return nil end
+			local Success, Pivot = pcall(function()
+				return Viewport.Object:GetPivot().Position
+			end)
+			return Success and Pivot or nil
+		end
+
+		local function UpdateZoomValue()
+			local Pivot = GetPivot()
+			if Pivot then
+				Viewport.Value = (Viewport.Camera.CFrame.Position - Pivot).Magnitude
+			end
+		end
+
+		local function Zoom(Amount)
+			local Pivot = GetPivot()
+			if not Pivot then return end
+			local Camera = Viewport.Camera
+			local Distance = (Camera.CFrame.Position - Pivot).Magnitude - Amount
+			if Config.ZoomMin then
+				Distance = math.max(Distance, Config.ZoomMin)
+			end
+			if Config.ZoomMax then
+				Distance = math.min(Distance, Config.ZoomMax)
+			end
+			Distance = math.max(Distance, 0.1)
+			Camera.CFrame = CFrame.lookAt(Pivot - Camera.CFrame.LookVector * Distance, Pivot)
+			UpdateZoomValue()
+		end
+
+		local function IsPositionInViewport(Position)
+			local FramePosition, FrameSize = ViewportFrame.AbsolutePosition, ViewportFrame.AbsoluteSize
+			return Position.X >= FramePosition.X and Position.X <= FramePosition.X + FrameSize.X
+				and Position.Y >= FramePosition.Y and Position.Y <= FramePosition.Y + FrameSize.Y
+		end
+
+		local function SetScrolling(Enabled)
+			if ScrollFrame then
+				ScrollFrame.ScrollingEnabled = Enabled
+			end
+		end
+
+		Creator.AddSignal(ViewportFrame.MouseEnter, function()
+			if Viewport.Interactive then
+				SetScrolling(false)
+			end
+		end)
+
+		Creator.AddSignal(ViewportFrame.InputEnded, function(Input)
+			if Input.UserInputType == Enum.UserInputType.MouseMovement or Input.UserInputType == Enum.UserInputType.Touch then
+				SetScrolling(true)
+			end
+		end)
+
+		Creator.AddSignal(ViewportFrame.InputBegan, function(Input)
+			if not Viewport.Interactive then return end
+			if Input.UserInputType == Enum.UserInputType.MouseButton1
+				or (Input.UserInputType == Enum.UserInputType.Touch and not IsPinching) then
+				IsDragging = true
+				LastMousePosition = Input.Position
+			end
+		end)
+
+		Creator.AddSignal(UserInputService.InputEnded, function(Input)
+			if not Viewport.Interactive then return end
+			if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
+				IsDragging = false
+			end
+		end)
+
+		Creator.AddSignal(UserInputService.InputChanged, function(Input)
+			if not (Viewport.Interactive and IsDragging and not IsPinching) then return end
+			if Input.UserInputType ~= Enum.UserInputType.MouseMovement and Input.UserInputType ~= Enum.UserInputType.Touch then return end
+			local Pivot = GetPivot()
+			if not Pivot then return end
+
+			local Delta = Input.Position - LastMousePosition
+			LastMousePosition = Input.Position
+
+			local Camera = Viewport.Camera
+			local Yaw = CFrame.fromAxisAngle(Vector3.new(0, 1, 0), -Delta.X * 0.02)
+			Camera.CFrame = CFrame.new(Pivot) * Yaw * CFrame.new(-Pivot) * Camera.CFrame
+
+			local Pitch = CFrame.fromAxisAngle(Camera.CFrame.RightVector, -Delta.Y * 0.02)
+			local Pitched = CFrame.new(Pivot) * Pitch * CFrame.new(-Pivot) * Camera.CFrame
+			if Pitched.UpVector.Y > 0.1 then
+				Camera.CFrame = Pitched
+			end
+		end)
+
+		Creator.AddSignal(ViewportFrame.InputChanged, function(Input)
+			if Viewport.Interactive and Input.UserInputType == Enum.UserInputType.MouseWheel then
+				Zoom(Input.Position.Z * 2)
+			end
+		end)
+
+		Creator.AddSignal(UserInputService.TouchPinch, function(TouchPositions, _, _, State)
+			if not Viewport.Interactive then return end
+			if State == Enum.UserInputState.Begin then
+				local Midpoint = (TouchPositions[1] + TouchPositions[2]) / 2
+				if not IsPositionInViewport(Midpoint) then return end
+				IsPinching = true
+				IsDragging = false
+				LastPinchDistance = (TouchPositions[1] - TouchPositions[2]).Magnitude
+			elseif State == Enum.UserInputState.Change then
+				if not IsPinching then return end
+				local CurrentDistance = (TouchPositions[1] - TouchPositions[2]).Magnitude
+				Zoom((CurrentDistance - LastPinchDistance) * 0.03)
+				LastPinchDistance = CurrentDistance
+			elseif State == Enum.UserInputState.End or State == Enum.UserInputState.Cancel then
+				IsPinching = false
+			end
+		end)
+
+		local function FocusCamera()
+			local Object = Viewport.Object
+			if not Object then return end
+
+			local Size
+			if Object:IsA("BasePart") then
+				Size = Object.Size
+			elseif Object:IsA("Model") then
+				Size = select(2, Object:GetBoundingBox())
+			else
+				return
+			end
+
+			local Extent = math.max(Size.X, Size.Y, Size.Z)
+			local Pivot = Object:GetPivot().Position
+			Viewport.Camera.CFrame = CFrame.lookAt(Pivot + Vector3.new(0, Extent / 2, Extent * 2), Pivot)
+			UpdateZoomValue()
+		end
+
+		function Viewport:SetObject(NewObject, Clone)
+			if Clone and NewObject then
+				local WasArchivable = NewObject.Archivable
+				NewObject.Archivable = true
+				local Copy = NewObject:Clone()
+				NewObject.Archivable = WasArchivable
+				NewObject = Copy
+			end
+			if Viewport.Object then
+				Viewport.Object:Destroy()
+			end
+			Viewport.Object = NewObject
+			if NewObject then
+				NewObject.Parent = ViewportFrame
+				if Viewport.Focused then
+					FocusCamera()
+				end
+			end
+		end
+
+		function Viewport:SetModel(Model)
+			Viewport:SetObject(Model, true)
+		end
+
+		function Viewport:SetHeight(NewHeight)
+			Viewport.Height = NewHeight
+			AspectRatio = nil
+			HolderFrame.Size = UDim2.new(1, OffsetX, 0, NewHeight)
+		end
+
+		function Viewport:SetAspectRatio(Ratio)
+			AspectRatio = ParseAspectRatio(Ratio)
+			if AspectRatio then
+				RecalculateAspect()
+			else
+				HolderFrame.Size = UDim2.new(1, OffsetX, 0, Viewport.Height)
+			end
+		end
+
+		function Viewport:Focus()
+			FocusCamera()
+		end
+
+		function Viewport:SetCamera(NewCamera)
+			Viewport.Camera = NewCamera
+			ViewportFrame.CurrentCamera = NewCamera
+		end
+
+		function Viewport:SetInteractive(Value)
+			Viewport.Interactive = Value
+			ViewportFrame.Active = Value
+		end
+
+		function Viewport:SetValue(Distance)
+			if type(Distance) ~= "number" then return end
+			local Pivot = GetPivot()
+			if not Pivot then return end
+			local Direction = Viewport.Camera.CFrame.Position - Pivot
+			if Direction.Magnitude < 1e-4 then
+				Direction = Vector3.new(0, 0, 1)
+			end
+			Viewport.Camera.CFrame = CFrame.lookAt(Pivot + Direction.Unit * Distance, Pivot)
+			Viewport.Value = Distance
+		end
+
+		function Viewport:SetAmbient(Color)
+			Viewport.Ambient = Color
+			ViewportFrame.Ambient = Color
+		end
+
+		function Viewport:SetLightColor(Color)
+			Viewport.LightColor = Color
+			ViewportFrame.LightColor = Color
+		end
+
+		function Viewport:SetLightDirection(Direction)
+			Viewport.LightDirection = Direction
+			ViewportFrame.LightDirection = Direction
+		end
+
+		function Viewport:SetImage(Image)
+			task.spawn(ApplyImage, Image)
+		end
+
+		function Viewport:SetImageTransparency(Value)
+			Background.ImageTransparency = Value
+		end
+
+		function Viewport:SetBackgroundColor(Color)
+			Background.BackgroundColor3 = Color
+		end
+
+		function Viewport:Destroy()
+			HolderFrame:Destroy()
+		end
+
+		Viewport.Frame = HolderFrame
+
+		if Config.Object then
+			Viewport:SetObject(Config.Object, Config.Clone)
+		end
+
+		if SaveIndex and Library.Options then
+			Library.Options[SaveIndex] = Viewport
+		end
+
+		return Viewport
 	end
 
 	return Element
@@ -7515,6 +8592,128 @@ ElementsTable.VStack = (function()
 	return Element
 end)()
 
+ElementsTable.Divider = (function()
+	local New = Creator.New
+
+	local Element = {}
+	Element.__index = Element
+	Element.__type = "Divider"
+
+	function Element:New(Idx, Config)
+		if type(Idx) == "table" and Config == nil then
+			Config = Idx
+		end
+		if type(Config) ~= "table" then
+			Config = {}
+		end
+
+		local Parent = self.Container
+		if not Parent then
+			return
+		end
+
+		local Library = self.Library
+		local Text = Config.Text and tostring(Config.Text) or ""
+		local Height = tonumber(Config.Height) or (Text ~= "" and 26 or 14)
+		local Thickness = math.max(tonumber(Config.Thickness) or 1, 1)
+		local LineTransparency = tonumber(Config.Transparency) or 0.82
+		local Gap = tonumber(Config.Gap) or 10
+
+		local Divider = { Type = "Divider" }
+
+		local Wrap = New("Frame", {
+			Name = "DividerElement",
+			Size = UDim2.new(1, 0, 0, Height),
+			BackgroundTransparency = 1,
+			LayoutOrder = Config.LayoutOrder or 0,
+			Parent = Parent,
+		})
+
+		local Left = New("Frame", {
+			Name = "LineLeft",
+			AnchorPoint = Vector2.new(0, 0.5),
+			Position = UDim2.fromScale(0, 0.5),
+			Size = UDim2.new(1, 0, 0, Thickness),
+			BackgroundTransparency = LineTransparency,
+			BorderSizePixel = 0,
+			Parent = Wrap,
+			ThemeTag = {
+				BackgroundColor3 = "Text",
+			},
+		})
+
+		local Right = New("Frame", {
+			Name = "LineRight",
+			AnchorPoint = Vector2.new(1, 0.5),
+			Position = UDim2.fromScale(1, 0.5),
+			Size = UDim2.new(0.5, 0, 0, Thickness),
+			BackgroundTransparency = LineTransparency,
+			BorderSizePixel = 0,
+			Visible = false,
+			Parent = Wrap,
+			ThemeTag = {
+				BackgroundColor3 = "Text",
+			},
+		})
+
+		local Label = New("TextLabel", {
+			Name = "DividerText",
+			FontFace = Font.new(Library.Font, Enum.FontWeight.Medium, Enum.FontStyle.Normal),
+			Text = Text,
+			TextSize = 12,
+			AutomaticSize = Enum.AutomaticSize.X,
+			Size = UDim2.fromOffset(0, 14),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.fromScale(0.5, 0.5),
+			BackgroundTransparency = 1,
+			Visible = Text ~= "",
+			Parent = Wrap,
+			ThemeTag = {
+				TextColor3 = "SubText",
+			},
+		})
+
+		local function Update()
+			if Label.Text == "" then
+				Label.Visible = false
+				Right.Visible = false
+				Left.Size = UDim2.new(1, 0, 0, Thickness)
+				return
+			end
+
+			Label.Visible = true
+			Right.Visible = true
+			local Half = Label.AbsoluteSize.X / 2 + Gap
+			Left.Size = UDim2.new(0.5, -Half, 0, Thickness)
+			Right.Size = UDim2.new(0.5, -Half, 0, Thickness)
+		end
+
+		Creator.AddSignal(Label:GetPropertyChangedSignal("AbsoluteSize"), Update)
+		Update()
+		task.defer(Update)
+
+		Divider.Frame = Wrap
+		Divider.Label = Label
+
+		function Divider:SetText(NewText)
+			Label.Text = NewText and tostring(NewText) or ""
+			Update()
+		end
+
+		function Divider:SetVisible(State)
+			Wrap.Visible = State and true or false
+		end
+
+		function Divider:Destroy()
+			Wrap:Destroy()
+		end
+
+		return Divider
+	end
+
+	return Element
+end)()
+
 local IconCache = {}
 
 local IconURLsFlat = {
@@ -7652,6 +8851,8 @@ local function LookupInSource(src, iconName)
 end
 
 local NotificationModule = Components.Notification
+local ToastModule = Components.Toast
+ToastModule:Init(GUI)
 NotificationModule:Init(GUI)
 
 function Library:GetIcon(Name)
@@ -7766,6 +8967,12 @@ for _, ElementComponent in pairs(ElementsTable) do
 			resolvedConfig = Idx
 		end
 
+		-- Divider takes no flag, AddDivider() and AddDivider("Text") are also valid
+		if ElementComponent.__type == "Divider" and type(resolvedConfig) ~= "table" then
+			resolvedConfig = { Text = type(Idx) == "string" and Idx or nil }
+			Idx, Config = resolvedConfig, nil
+		end
+
 		if type(resolvedConfig) == "table" and not resolvedConfig.LayoutOrder then
 			self._layoutOrder = (self._layoutOrder or 0) + 1
 			resolvedConfig.LayoutOrder = self._layoutOrder
@@ -7782,6 +8989,8 @@ Elements.Switch = Elements.Toggle
 Elements.AddSwitch = Elements.AddToggle
 Elements.EmptyFrame = Elements.Space
 Elements.AddEmptyFrame = Elements.AddSpace
+Elements.ViewportFrame = Elements.Viewport
+Elements.AddViewportFrame = Elements.AddViewport
 
 Library.Elements = Elements
 
@@ -7817,6 +9026,26 @@ function Library:CreateWindow(Config)
 	Library.Window = Window
 	Library:SetTheme(Config.Theme)
 
+	if Config.Font then
+		Library:SetFont(Config.Font)
+	end
+	if Config.Transparency ~= nil then
+		local Transparency = Config.Transparency
+		if type(Transparency) == "number" and Transparency > 1 then
+			Transparency = Transparency / 100
+		end
+		Library:SetTransparency(Transparency)
+	end
+	if Config.ShowUserInfo ~= nil then
+		Library:ToggleUserInfo(Config.ShowUserInfo)
+	end
+	if Config.DisableBackground ~= nil then
+		Library.DisableBackground = Config.DisableBackground
+	end
+	if Config.KeepWindowInsideFrame ~= nil then
+		Library:ToggleKeepWindowInsideFrame(Config.KeepWindowInsideFrame)
+	end
+
 	return Window
 end
 
@@ -7831,6 +9060,102 @@ function Library:SetTheme(Value)
 		Library.CustomThemeData = nil
 		Creator.UpdateTheme()
 	end
+end
+
+local OriginalThemes = {}
+
+for _, ThemeName in ipairs(Themes.Names) do
+	OriginalThemes[ThemeName] = Themes[ThemeName]
+end
+
+Library.ThemeOverrides = {}
+Library.PendingOverrides = {}
+
+function Library:OverrideTheme(Name, Data)
+	local Original = OriginalThemes[Name]
+	if not Original then
+		Library.PendingOverrides[Name] = Data
+		return nil
+	end
+
+	local Theme = {}
+	for Key, Value in next, Original do
+		Theme[Key] = Value
+	end
+	for Key, Value in next, Data do
+		Theme[Key] = Value
+	end
+	Theme.Name = Name
+
+	Themes[Name] = Theme
+	Library.ThemeOverrides[Name] = true
+
+	if Library.Window and Library.Theme == Name and not Library.CustomThemeData then
+		Creator.UpdateTheme()
+	end
+	if Library.OnThemeAdded then
+		Library.OnThemeAdded(Name)
+	end
+
+	return Theme
+end
+
+function Library:ResetTheme(Name)
+	local Original = OriginalThemes[Name]
+	Library.PendingOverrides[Name] = nil
+	if not Original then
+		return nil
+	end
+
+	Themes[Name] = Original
+	Library.ThemeOverrides[Name] = nil
+
+	if Library.Window and Library.Theme == Name and not Library.CustomThemeData then
+		Creator.UpdateTheme()
+	end
+	if Library.OnThemeAdded then
+		Library.OnThemeAdded(Name)
+	end
+
+	return Original
+end
+
+function Library:AddTheme(Data)
+	assert(type(Data) == "table" and type(Data.Name) == "string", "AddTheme - Missing Name")
+	assert(Data.Name ~= "Names", "AddTheme - Invalid Name")
+
+	local Theme = {}
+	for Key, Value in next, Themes[Data.Base or "Dark"] or Themes.Dark do
+		Theme[Key] = Value
+	end
+	for Key, Value in next, Data do
+		Theme[Key] = Value
+	end
+
+	Themes[Data.Name] = Theme
+	OriginalThemes[Data.Name] = Theme
+	Library.ThemeOverrides[Data.Name] = nil
+
+	if not table.find(Themes.Names, Data.Name) then
+		table.insert(Themes.Names, Data.Name)
+	end
+
+	local Pending = Library.PendingOverrides[Data.Name]
+	if Pending then
+		Library.PendingOverrides[Data.Name] = nil
+		Library:OverrideTheme(Data.Name, Pending)
+		return Themes[Data.Name]
+	end
+
+	if Library.Window and Library.Theme == Data.Name and not Library.CustomThemeData then
+		Creator.UpdateTheme()
+	end
+
+	if Library.OnThemeAdded then
+		Library.OnThemeAdded(Data.Name)
+	end
+
+	return Theme
 end
 
 function Library:SetFont(fontAsset)
@@ -7872,9 +9197,6 @@ function Library:SetTransparency(Value)
 	if Library.Window then
 		Library.Window.AcrylicPaint.Frame.Background.BackgroundTransparency = Value
 	end
-	for _, DropdownFrame in next, Creator.DropdownTransparencyFrames do
-		DropdownFrame.BackgroundTransparency = Value
-	end
 end
 
 function Library:ToggleTransparency(Value)
@@ -7911,18 +9233,67 @@ function Library:SetBoundaryInset(Inset)
 	end
 end
 
-local backgroundImageCache = {}
-local backgroundCacheFolder = "FluentReimaginedBackgroundCache"
+local MediaCache = {
+	DefaultFolder = "FluentReimaginedCache",
+	Folder = nil,
+}
 
-local function hashBackgroundUrl(Url)
-	local hash = 0
-	for i = 1, #Url do
-		hash = (hash * 31 + string.byte(Url, i)) % 1000000007
-	end
-	return tostring(hash)
+function MediaCache:GetFolder()
+	return self.Folder or self.DefaultFolder
 end
 
-function Library:ResolveBackgroundImage(Input)
+function MediaCache:SetFolder(Folder)
+	self.Folder = Folder
+	self:EnsureFolder()
+end
+
+function MediaCache:EnsureFolder()
+	local Path = ""
+	for Part in self:GetFolder():gmatch("[^/]+") do
+		Path = Path == "" and Part or (Path .. "/" .. Part)
+		if not isfolder(Path) then
+			makefolder(Path)
+		end
+	end
+end
+
+function MediaCache:Download(Url, Extension)
+	local Success, Result = pcall(function()
+		self:EnsureFolder()
+
+		local Hash = 0
+		for Index = 1, #Url do
+			Hash = (Hash * 31 + string.byte(Url, Index)) % 1000000007
+		end
+
+		local Path = self:GetFolder() .. "/" .. tostring(Hash) .. Extension
+		if isfile(Path) and #readfile(Path) == 0 then
+			delfile(Path)
+		end
+		if not isfile(Path) then
+			writefile(Path, game:HttpGet(Url))
+		end
+
+		return Path
+	end)
+
+	if Success then
+		return Result
+	end
+
+	warn("[MediaCache] Failed to download: " .. Url)
+	return nil
+end
+
+Library.MediaCache = MediaCache
+
+local backgroundImageCache = {}
+
+function Library:CacheFile(Url, Extension)
+	return MediaCache:Download(Url, Extension)
+end
+
+function Library:ResolveMedia(Input)
 	if not Input or Input == "" then
 		return ""
 	end
@@ -7939,22 +9310,24 @@ function Library:ResolveBackgroundImage(Input)
 		return "rbxassetid://" .. Input
 	end
 
+	if isfile and getcustomasset then
+		local Ok, Exists = pcall(isfile, Input)
+		if Ok and Exists then
+			local Loaded, Asset = pcall(getcustomasset, Input)
+			if Loaded and Asset then
+				return Asset
+			end
+			return "rbxasset://" .. Input
+		end
+	end
+
 	if Input:match("^https?://") then
 		if backgroundImageCache[Input] then
 			return backgroundImageCache[Input]
 		end
 
 		local success, result = pcall(function()
-			if not isfolder(backgroundCacheFolder) then
-				makefolder(backgroundCacheFolder)
-			end
-
-			local fileName = backgroundCacheFolder .. "/" .. hashBackgroundUrl(Input) .. ".png"
-			if not isfile(fileName) then
-				writefile(fileName, game:HttpGet(Input))
-			end
-
-			return getcustomasset(fileName)
+			return getcustomasset(Library:CacheFile(Input, ".png"))
 		end)
 
 		if success and result then
@@ -7969,20 +9342,315 @@ function Library:ResolveBackgroundImage(Input)
 	return Input
 end
 
+
+local backgroundAnimation
+local backgroundLabels = {}
+local backgroundToken = 0
+local backgroundEditable
+local backgroundKey
+local backgroundReady = false
+local backgroundDecoded = setmetatable({}, { __mode = "k" })
+
+local Base64Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+local Base64Lookup = table.create(128, 0)
+
+for Index = 1, #Base64Alphabet do
+	Base64Lookup[string.byte(Base64Alphabet, Index)] = Index - 1
+end
+
+local function DecodeBase64(Text)
+	local Bytes = buffer.create(math.floor(#Text / 4) * 3)
+	local Size = 0
+
+	for Index = 1, #Text - 3, 4 do
+		local A, B, C, D = string.byte(Text, Index, Index + 3)
+		local Value = Base64Lookup[A] * 262144 + Base64Lookup[B] * 4096 + Base64Lookup[C] * 64 + Base64Lookup[D]
+		buffer.writeu8(Bytes, Size, math.floor(Value / 65536))
+		buffer.writeu8(Bytes, Size + 1, math.floor(Value / 256) % 256)
+		buffer.writeu8(Bytes, Size + 2, Value % 256)
+		Size = Size + 3
+	end
+
+	return Bytes, Size
+end
+
+local function DecodePaletteFrame(Text, Pixels, Palette, Previous)
+	local Bytes, Size = DecodeBase64(Text)
+	if Size == 0 then
+		return nil
+	end
+
+	local Flag = buffer.readu8(Bytes, 0)
+	local Output = buffer.create(Pixels * 4)
+
+	if Flag == 1 then
+		for Pixel = 0, Pixels - 1 do
+			if Pixel + 1 >= Size then break end
+			buffer.writeu32(Output, Pixel * 4, Palette[buffer.readu8(Bytes, Pixel + 1)])
+		end
+	elseif Flag == 2 and Previous then
+		buffer.copy(Output, 0, Previous)
+		local Pixel = 0
+		local Read = 1
+
+		while Pixel < Pixels and Read < Size do
+			local Operation = buffer.readu8(Bytes, Read)
+			Read = Read + 1
+
+			if Operation < 128 then
+				Pixel = Pixel + Operation + 1
+			else
+				for _ = 1, Operation - 127 do
+					if Pixel < Pixels and Read < Size then
+						buffer.writeu32(Output, Pixel * 4, Palette[buffer.readu8(Bytes, Read)])
+					end
+					Read = Read + 1
+					Pixel = Pixel + 1
+				end
+			end
+		end
+	else
+		return nil
+	end
+
+	return Output
+end
+
+local function DecodeFrame(Text, Pixels)
+	local Bytes, Size = DecodeBase64(Text)
+
+	if Size == 0 or buffer.readu8(Bytes, 0) ~= 1 then
+		return nil
+	end
+
+	local Output = buffer.create(Pixels * 4)
+	local Read = 1
+	local Pixel = 0
+
+	while Pixel < Pixels and Read + 2 < Size do
+		local X = buffer.readu8(Bytes, Read)
+		local Y = buffer.readu8(Bytes, Read + 1)
+		local Z = buffer.readu8(Bytes, Read + 2)
+		Read = Read + 3
+
+		local Offset = Pixel * 4
+		buffer.writeu8(Output, Offset, math.floor(X / 16) * 17)
+		buffer.writeu8(Output, Offset + 1, (X % 16) * 17)
+		buffer.writeu8(Output, Offset + 2, math.floor(Y / 16) * 17)
+		buffer.writeu8(Output, Offset + 3, 255)
+		Pixel = Pixel + 1
+
+		if Pixel < Pixels then
+			Offset = Pixel * 4
+			buffer.writeu8(Output, Offset, (Y % 16) * 17)
+			buffer.writeu8(Output, Offset + 1, math.floor(Z / 16) * 17)
+			buffer.writeu8(Output, Offset + 2, (Z % 16) * 17)
+			buffer.writeu8(Output, Offset + 3, 255)
+			Pixel = Pixel + 1
+		end
+	end
+
+	return Output
+end
+
+local function StopBackgroundAnimation()
+	backgroundToken = backgroundToken + 1
+	if backgroundAnimation then
+		backgroundAnimation:Disconnect()
+		backgroundAnimation = nil
+	end
+	if backgroundEditable then
+		pcall(function()
+			backgroundEditable:Destroy()
+		end)
+		backgroundEditable = nil
+	end
+	for _, Label in ipairs(backgroundLabels) do
+		Label:Destroy()
+	end
+	backgroundLabels = {}
+	backgroundKey = nil
+	backgroundReady = false
+end
+
 function Library:UpdateBackground()
 	if not Library.Window or not Library.Window.BackgroundImage then
 		return
 	end
 
 	local backgroundImage = Library.Window.BackgroundImage
+	local Background = Creator.GetThemeProperty("Background")
+	local Transparency = Creator.GetThemeProperty("BackgroundTransparency")
 
 	if Library.DisableBackground then
+		StopBackgroundAnimation()
 		backgroundImage.ImageTransparency = 1
 		return
 	end
 
-	backgroundImage.Image = Library:ResolveBackgroundImage(Creator.GetThemeProperty("Background"))
-	backgroundImage.ImageTransparency = Creator.GetThemeProperty("BackgroundTransparency")
+	if backgroundKey ~= nil and backgroundKey == Background then
+		if type(Background) == "table" then
+			if backgroundReady then
+				for _, Label in ipairs(backgroundLabels) do
+					Label.ImageTransparency = Transparency
+				end
+			end
+		else
+			backgroundImage.ImageTransparency = Transparency
+		end
+		return
+	end
+
+	StopBackgroundAnimation()
+	backgroundKey = Background
+
+	if type(Background) ~= "table" then
+		backgroundImage.ImageTransparency = Transparency
+		backgroundImage.ImageRectOffset = Vector2.zero
+		backgroundImage.ImageRectSize = Vector2.zero
+		backgroundImage.Image = Library:ResolveMedia(Background)
+		return
+	end
+
+	local Token = backgroundToken
+	backgroundImage.Image = ""
+	backgroundImage.ImageTransparency = 1
+
+	local function Play(Decoded)
+		local Created, Editable = pcall(function()
+			return AssetService:CreateEditableImage({ Size = Vector2.new(Decoded.Width, Decoded.Height) })
+		end)
+		if not Created or not Editable then
+			warn("[Background] EditableImage is not available in this environment")
+			return
+		end
+
+		if Token ~= backgroundToken then
+			Editable:Destroy()
+			return
+		end
+
+		backgroundEditable = Editable
+
+		local Buffers = Decoded.Buffers
+		local Size = Vector2.new(Decoded.Width, Decoded.Height)
+		Editable:WritePixelsBuffer(Vector2.zero, Size, Buffers[1])
+
+		local FrameLabel = New("ImageLabel", {
+			Name = "BackgroundFrames",
+			ImageTransparency = Creator.GetThemeProperty("BackgroundTransparency"),
+			ScaleType = Enum.ScaleType.Crop,
+			Size = UDim2.fromScale(1, 1),
+			BackgroundTransparency = 1,
+			Parent = backgroundImage,
+		}, {
+			New("UICorner", {
+				CornerRadius = UDim.new(0, 8),
+			}),
+		})
+
+		backgroundLabels[1] = FrameLabel
+		FrameLabel.ImageContent = Content.fromObject(Editable)
+		backgroundReady = true
+
+		local Index = 1
+		local Elapsed = 0
+		local Step = 1 / Decoded.FPS
+
+		backgroundAnimation = RunService.Heartbeat:Connect(function(Delta)
+			Elapsed = Elapsed + Delta
+			if Elapsed < Step then return end
+			Elapsed = Elapsed % Step
+			Index = Index % #Buffers + 1
+			if Buffers[Index] then
+				Editable:WritePixelsBuffer(Vector2.zero, Size, Buffers[Index])
+			end
+		end)
+	end
+
+	local Cached = backgroundDecoded[Background]
+	if Cached then
+		Play(Cached)
+		return
+	end
+
+	local FrameSource = Background.Source
+
+	if not FrameSource and not (type(Background.Frames) == "table" and type(Background.Frames[1]) == "string") then
+		warn("[Background] Unknown background table, use Source or Frames")
+		return
+	end
+
+	task.spawn(function()
+		local Data = Background
+
+		if FrameSource then
+			local Loaded, Result = pcall(function()
+				local Path = FrameSource
+				if Path:match("^https?://") then
+					Path = Library:CacheFile(Path, ".lua")
+				end
+				return loadstring(readfile(Path))()
+			end)
+			if not Loaded or type(Result) ~= "table" then
+				warn("[Background] Frame file could not be loaded: " .. tostring(FrameSource))
+				return
+			end
+			Data = Result
+		end
+
+		local Frames = Data.Frames
+		local Width = Background.Width or Data.Width
+		local Height = Background.Height or Data.Height
+		local FPS = Background.FPS or Data.FPS or 15
+
+		if type(Frames) ~= "table" or #Frames == 0 or not Width or not Height then
+			warn("[Background] Frame data needs Frames, Width and Height")
+			return
+		end
+
+		local Pixels = Width * Height
+		local PaletteData = Background.Palette or Data.Palette
+		local Palette
+
+		if PaletteData then
+			Palette = table.create(256, 0)
+			for Index = 0, 255 do
+				Palette[Index] = (PaletteData[Index * 3 + 1] or 0)
+					+ (PaletteData[Index * 3 + 2] or 0) * 256
+					+ (PaletteData[Index * 3 + 3] or 0) * 65536
+					+ 255 * 16777216
+			end
+		end
+
+		local Buffers = {}
+		local SliceStart = os.clock()
+
+		for Index = 1, #Frames do
+			if Token ~= backgroundToken then return end
+
+			if Palette then
+				Buffers[Index] = DecodePaletteFrame(Frames[Index], Pixels, Palette, Buffers[Index - 1])
+			else
+				Buffers[Index] = DecodeFrame(Frames[Index], Pixels)
+			end
+
+			if FrameSource then
+				Frames[Index] = false
+			end
+
+			if os.clock() - SliceStart > 0.003 then
+				task.wait()
+				SliceStart = os.clock()
+			end
+		end
+
+		if Token ~= backgroundToken then return end
+
+		local Decoded = { Buffers = Buffers, Width = Width, Height = Height, FPS = FPS }
+		backgroundDecoded[Background] = Decoded
+		Play(Decoded)
+	end)
 end
 
 function Library:ToggleBackground(Value)
@@ -7998,7 +9666,10 @@ function Library:Notify(Config)
 	return NotificationModule:New(Config)
 end
 
-local httpService = game:GetService("HttpService")
+function Library:Toast(Config)
+	return ToastModule:New(Config)
+end
+
 
 local InterfaceManager = {} do
 	InterfaceManager.Folder = "FluentReimaginedSettings"
@@ -8028,6 +9699,8 @@ local InterfaceManager = {} do
 		"ColorpickerDialog","ColorpickerDialogBorder","ColorpickerHolder","ColorpickerHolderLine",
 		"ColorpickerButton","ColorpickerButtonBorder","ColorpickerInput","ColorpickerInputLine",
 		"ColorpickerInputBorder","ColorpickerInputFocused",
+		"MenuBackground","MenuBackgroundRotation","MenuBorder","MenuHolder","MenuHolderLine",
+		"MenuButton","MenuButtonBorder","MenuInput","MenuInputLine","MenuInputFocused",
 		"Text","SubText","Hover","HoverChange",
 	}
 
@@ -8069,17 +9742,52 @@ local InterfaceManager = {} do
 		{ key = "ColorpickerInputLine", title = "Colorpicker Input Line", description = "Colorpicker input focus line color." },
 		{ key = "ColorpickerInputBorder", title = "Colorpicker Input Border", description = "Colorpicker input border color." },
 		{ key = "ColorpickerInputFocused", title = "Colorpicker Input Focused", description = "Colorpicker input color when focused." },
+		{ key = "MenuBorder", title = "Menu Border", description = "Border color of the menu." },
+		{ key = "MenuHolder", title = "Menu Holder", description = "Background color of the menu button area." },
+		{ key = "MenuHolderLine", title = "Menu Holder Line", description = "Divider line above the menu buttons." },
+		{ key = "MenuButton", title = "Menu Button", description = "Menu button color." },
+		{ key = "MenuButtonBorder", title = "Menu Button Border", description = "Menu button border color." },
+		{ key = "MenuInput", title = "Menu Input", description = "Menu input field color." },
+		{ key = "MenuInputLine", title = "Menu Input Line", description = "Menu input focus line color." },
+		{ key = "MenuInputFocused", title = "Menu Input Focused", description = "Menu input color when focused." },
 		{ key = "Text", title = "Text", description = "Primary text color." },
 		{ key = "SubText", title = "SubText", description = "Secondary text color." },
 		{ key = "Hover", title = "Hover", description = "Hover highlight color." },
 	}
+
+	local backgroundTables = {}
+
+	local function backgroundToText(value)
+		if type(value) == "table" then
+			return value.Source or ""
+		end
+		return type(value) == "string" and value or ""
+	end
+
+	local function textToBackground(text)
+		if type(text) == "string" and text:lower():match("%.lua$") then
+			backgroundTables[text] = backgroundTables[text] or { Source = text }
+			return backgroundTables[text]
+		end
+		return text
+	end
 
 	local function sanitizeFileName(name)
 		return (name:gsub('[\\/:%*%?"<>|]', "_"))
 	end
 
 	local function color3ToHex(c)
-		return string.format("%02X%02X%02X", math.floor(c.R*255), math.floor(c.G*255), math.floor(c.B*255))
+		return string.format("%02X%02X%02X", math.floor(c.R * 255 + 0.5), math.floor(c.G * 255 + 0.5), math.floor(c.B * 255 + 0.5))
+	end
+
+	local function colorToText(c, format)
+		if format == "RGB" then
+			return string.format("%d, %d, %d", math.floor(c.R * 255 + 0.5), math.floor(c.G * 255 + 0.5), math.floor(c.B * 255 + 0.5))
+		elseif format == "HSV" then
+			local h, s, v = c:ToHSV()
+			return string.format("hsv(%d, %d, %d)", math.floor(h * 360 + 0.5), math.floor(s * 100 + 0.5), math.floor(v * 100 + 0.5))
+		end
+		return color3ToHex(c)
 	end
 
 	local function hexToColor3(h)
@@ -8089,10 +9797,10 @@ local InterfaceManager = {} do
 		return Color3.fromRGB(r,g,b)
 	end
 
-	local function colorSeqToArray(cs)
+	local function colorSeqToArray(cs, format)
 		local arr = {}
 		for _, kp in ipairs(cs.Keypoints) do
-			table.insert(arr, { t = kp.Time, c = color3ToHex(kp.Value) })
+			table.insert(arr, { t = kp.Time, c = colorToText(kp.Value, format) })
 		end
 		return arr
 	end
@@ -8125,16 +9833,16 @@ local InterfaceManager = {} do
 		return { filtered[1], filtered[#filtered] }
 	end
 
-	function ThemeManager.serializeTheme(themeData)
+	function ThemeManager.serializeTheme(themeData, format)
 		local raw = {}
 		for _, key in ipairs(themePropertyKeys) do
 			local val = themeData[key]
 			if val == nil then
 				raw[key] = nil
 			elseif typeof(val) == "Color3" then
-				raw[key] = { __type = "Color3", value = color3ToHex(val) }
+				raw[key] = { __type = "Color3", value = colorToText(val, format) }
 			elseif typeof(val) == "ColorSequence" then
-				raw[key] = { __type = "ColorSequence", value = colorSeqToArray(val) }
+				raw[key] = { __type = "ColorSequence", value = colorSeqToArray(val, format) }
 			else
 				raw[key] = val
 			end
@@ -8147,17 +9855,59 @@ local InterfaceManager = {} do
 		raw.__meta = {
 			Name = themeData.Name or "Custom",
 			Id = themeData.Id,
+			BuiltIn = themeData.BuiltIn,
 			CardGradient = metaGrad,
 			Author = {
 				Name = LocalPlayer and LocalPlayer.Name or "Unknown",
 				UserId = LocalPlayer and LocalPlayer.UserId or 0,
 			},
 		}
-		return httpService:JSONEncode(raw)
+		return HttpService:JSONEncode(raw)
+	end
+
+	function ThemeManager.toAddThemeCode(themeData, format)
+		local function colorCode(c)
+			if format == "RGB" then
+				return string.format("Color3.fromRGB(%d, %d, %d)", math.floor(c.R * 255 + 0.5), math.floor(c.G * 255 + 0.5), math.floor(c.B * 255 + 0.5))
+			elseif format == "HSV" then
+				local h, s, v = c:ToHSV()
+				return string.format("Color3.fromHSV(%.3f, %.3f, %.3f)", h, s, v)
+			end
+			return string.format('Color3.fromHex("%s")', color3ToHex(c))
+		end
+
+		local lines = { "Library:AddTheme({", string.format("\tName = %q,", themeData.Name or "Custom") }
+
+		for _, key in ipairs(themePropertyKeys) do
+			local val = themeData[key]
+			if typeof(val) == "Color3" then
+				table.insert(lines, string.format("\t%s = %s,", key, colorCode(val)))
+			elseif typeof(val) == "ColorSequence" then
+				table.insert(lines, string.format("\t%s = ColorSequence.new({", key))
+				for _, kp in ipairs(val.Keypoints) do
+					table.insert(lines, string.format("\t\tColorSequenceKeypoint.new(%s, %s),", tostring(math.floor(kp.Time * 1000 + 0.5) / 1000), colorCode(kp.Value)))
+				end
+				table.insert(lines, "\t}),")
+			elseif type(val) == "table" and val.Source then
+				table.insert(lines, string.format("\t%s = { Source = %q },", key, val.Source))
+			elseif type(val) == "string" then
+				table.insert(lines, string.format("\t%s = %q,", key, val))
+			elseif type(val) == "number" then
+				table.insert(lines, string.format("\t%s = %s,", key, tostring(math.floor(val * 1000 + 0.5) / 1000)))
+			end
+		end
+
+		local gradient = generateGradientColors(themeData)
+		if #gradient >= 2 then
+			table.insert(lines, string.format("\tCardGradient = { %s, %s },", colorCode(gradient[1]), colorCode(gradient[2])))
+		end
+
+		table.insert(lines, "})")
+		return table.concat(lines, "\n")
 	end
 
 	function ThemeManager.deserializeTheme(jsonStr)
-		local success, decoded = pcall(httpService.JSONDecode, httpService, jsonStr)
+		local success, decoded = pcall(HttpService.JSONDecode, HttpService, jsonStr)
 		if not success or type(decoded) ~= "table" then return nil end
 
 		local themeData = {}
@@ -8176,6 +9926,7 @@ local InterfaceManager = {} do
 		if decoded.__meta then
 			themeData.Name = decoded.__meta.Name or "Custom"
 			themeData.Id = decoded.__meta.Id
+			themeData.BuiltIn = decoded.__meta.BuiltIn
 			local gradArr = decoded.__meta.CardGradient
 			if gradArr and #gradArr >= 2 then
 				themeData.__cardGradient = { hexToColor3(gradArr[1]), hexToColor3(gradArr[2]) }
@@ -8208,8 +9959,18 @@ local InterfaceManager = {} do
 			themeData.AcrylicGradientRotation = acrylicGradientOption.Rotation
 		end
 
+		local menuGradientValue = optionValues.PanelMenuBackground
+		if typeof(menuGradientValue) == "ColorSequence" then
+			themeData.MenuBackground = menuGradientValue
+		end
+
+		local menuGradientOption = Library.Options.PanelMenuBackground
+		if menuGradientOption and typeof(menuGradientOption.Rotation) == "number" then
+			themeData.MenuBackgroundRotation = menuGradientOption.Rotation
+		end
+
 		if optionValues.PanelBackground ~= nil then
-			themeData.Background = optionValues.PanelBackground
+			themeData.Background = textToBackground(optionValues.PanelBackground)
 		end
 		if optionValues.PanelBackgroundTransparency then
 			themeData.BackgroundTransparency = optionValues.PanelBackgroundTransparency / 100
@@ -8230,14 +9991,16 @@ local InterfaceManager = {} do
 		return themeData
 	end
 
-	local function normalizeColorValue(value)
+	local normalizeColorValue
+
+	function normalizeColorValue(value)
 		if typeof(value) == "Color3" then
 			return value
 		end
 
 		if type(value) == "table" then
 			if value.__type == "Color3" and value.value then
-				return hexToColor3(value.value)
+				return normalizeColorValue(value.value)
 			end
 
 			local r = value.r or value.R or value[1]
@@ -8257,9 +10020,17 @@ local InterfaceManager = {} do
 				return hexToColor3(cleanHex)
 			end
 
-			local r, g, b = value:match("^%s*(%d+)%s*,%s*(%d+)%s*,%s*(%d+)%s*$")
+			local r, g, b = value:match("^%s*rgb%(%s*(%d+)%s*,%s*(%d+)%s*,%s*(%d+)%s*%)%s*$")
+			if not r then
+				r, g, b = value:match("^%s*(%d+)%s*,%s*(%d+)%s*,%s*(%d+)%s*$")
+			end
 			if r then
 				return Color3.fromRGB(tonumber(r), tonumber(g), tonumber(b))
+			end
+
+			local h, s, v = value:match("^%s*hsv%(%s*([%d%.]+)%s*,%s*([%d%.]+)%s*,%s*([%d%.]+)%s*%)%s*$")
+			if h then
+				return Color3.fromHSV(math.clamp(tonumber(h) / 360, 0, 1), math.clamp(tonumber(s) / 100, 0, 1), math.clamp(tonumber(v) / 100, 0, 1))
 			end
 		end
 
@@ -8315,6 +10086,7 @@ local InterfaceManager = {} do
 
 	local rawNumericThemeKeys = {
 		AcrylicGradientRotation = true,
+		MenuBackgroundRotation = true,
 	}
 
 	local function finalizeThemeData(extracted)
@@ -8326,6 +10098,7 @@ local InterfaceManager = {} do
 
 		local gradientThemeKeys = {
 			AcrylicGradient = true,
+			MenuBackground = true,
 		}
 
 		for _, key in ipairs(themePropertyKeys) do
@@ -8337,7 +10110,7 @@ local InterfaceManager = {} do
 						themeData[key] = gradient
 					end
 				elseif key == "Background" then
-					themeData.Background = tostring(value)
+					themeData.Background = type(value) == "table" and value or tostring(value)
 				elseif rawNumericThemeKeys[key] then
 					local num = tonumber(value)
 					if num then
@@ -8383,7 +10156,7 @@ local InterfaceManager = {} do
 	end
 
 	local function parseJsonFormat(text)
-		local success, decoded = pcall(httpService.JSONDecode, httpService, text)
+		local success, decoded = pcall(HttpService.JSONDecode, HttpService, text)
 		if not success or type(decoded) ~= "table" then
 			return nil
 		end
@@ -8518,6 +10291,48 @@ local InterfaceManager = {} do
 		self.Library = library
 	end
 
+	-- Same as Library:AddTheme but the theme comes from an import format
+	-- Raw can be the text from Copy Theme Data (JSON), a Lua table style text, a line style text or a table with hex strings
+	-- Options can be a string (theme name) or a table: Name, Base, Select
+	function InterfaceManager:ImportTheme(Raw, Options)
+		assert(self.Library, "Must set InterfaceManager.Library")
+		local Lib = self.Library
+
+		if type(Options) == "string" then
+			Options = { Name = Options }
+		end
+		Options = Options or {}
+
+		local Parsed
+		if type(Raw) == "table" then
+			Parsed = finalizeThemeData(Raw)
+		elseif type(Raw) == "string" then
+			Parsed = ThemeManager.parseImportString(Raw)
+		end
+
+		if not Parsed then
+			return nil, "ImportTheme - Invalid theme format"
+		end
+
+		if type(Options.Name) == "string" and Options.Name ~= "" then
+			Parsed.Name = Options.Name
+		end
+		if type(Options.Base) == "string" then
+			Parsed.Base = Options.Base
+		end
+
+		Parsed.CardGradient = Parsed.__cardGradient
+		Parsed.__cardGradient = nil
+
+		local Theme = Lib:AddTheme(Parsed)
+
+		if Options.Select then
+			Lib:SetTheme(Parsed.Name)
+		end
+
+		return Theme
+	end
+
 	function InterfaceManager:BuildFolderTree()
 		local paths = {}
 
@@ -8591,18 +10406,224 @@ local InterfaceManager = {} do
 		end
 	end
 
+	local FontWeightValues = {
+		Thin = 100, ExtraLight = 200, Light = 300, Regular = 400, Medium = 500,
+		SemiBold = 600, Bold = 700, ExtraBold = 800, Heavy = 900,
+	}
+	InterfaceManager.FontWeightNames = { "Thin", "ExtraLight", "Light", "Regular", "Medium", "SemiBold", "Bold", "ExtraBold", "Heavy" }
+	InterfaceManager.FontStyleNames = { "Normal", "Italic" }
+	InterfaceManager.CustomFontAssets = {}
+
+	local FontWeightNamesByValue = {}
+	for Name, Value in next, FontWeightValues do
+		FontWeightNamesByValue[Value] = Name
+	end
+
+	local function ResolveFontWeightName(Raw)
+		if Raw == nil then
+			return nil
+		end
+		local Number = tonumber(Raw)
+		if Number then
+			return FontWeightNamesByValue[Number]
+		end
+		local Text = tostring(Raw):lower()
+		for _, Name in ipairs(InterfaceManager.FontWeightNames) do
+			if Name:lower() == Text then
+				return Name
+			end
+		end
+		return nil
+	end
+
+	local function ResolveFontStyleName(Raw)
+		if tostring(Raw or ""):lower() == "italic" then
+			return "Italic"
+		end
+		return "Normal"
+	end
+
+	function InterfaceManager.ParseFontImport(Raw)
+		if type(Raw) ~= "string" or not Raw:match("%S") then
+			return nil
+		end
+
+		local Text = Raw:match("^%s*(.-)%s*$")
+		local Entry
+
+		local Ok, Decoded = pcall(HttpService.JSONDecode, HttpService, Text)
+		if Ok and type(Decoded) == "table" then
+			if type(Decoded.faces) == "table" and type(Decoded.faces[1]) == "table" then
+				local Face = Decoded.faces[1]
+				Entry = {
+					Name = Decoded.name,
+					Weight = Face.weight,
+					Style = Face.style,
+					AssetId = Face.assetId,
+				}
+			else
+				Entry = {
+					Name = Decoded.Name or Decoded.name,
+					Weight = Decoded.Weight or Decoded.weight,
+					Style = Decoded.Style or Decoded.style,
+					AssetId = Decoded.AssetId or Decoded.assetId or Decoded.assetid,
+				}
+			end
+		else
+			local function Find(Key)
+				local Quoted = Text:match(Key .. "%s*[=:]%s*\"([^\"]*)\"") or Text:match(Key .. "%s*[=:]%s*'([^']*)'")
+				if Quoted then
+					return Quoted
+				end
+				local Loose = Text:match(Key .. "%s*[=:]%s*([^\n,}]+)")
+				return Loose and Loose:match("^%s*(.-)%s*$") or nil
+			end
+			Entry = {
+				Name = Find("Name"),
+				Weight = Find("Weight"),
+				Style = Find("Style"),
+				AssetId = Find("AssetId"),
+			}
+		end
+
+		if not Entry or type(Entry.Name) ~= "string" or not Entry.Name:match("%S") then
+			return nil
+		end
+		if Entry.AssetId == nil or tostring(Entry.AssetId) == "" then
+			return nil
+		end
+
+		return {
+			Name = Entry.Name:match("^%s*(.-)%s*$"),
+			Weight = ResolveFontWeightName(Entry.Weight) or "Regular",
+			Style = ResolveFontStyleName(Entry.Style),
+			AssetId = tostring(Entry.AssetId),
+		}
+	end
+
+	function InterfaceManager:FontId(name)
+		return "custom:" .. sanitizeFileName(tostring(name or "Font"))
+	end
+	function InterfaceManager:IsLocalFontSource(source)
+		source = tostring(source or ""):match("^%s*(.-)%s*$")
+		if tonumber(source) then return false end
+		if source:match("^rbxassetid://") or source:match("^rbxasset://") or source:match("^https?://www%.roblox%.com/asset") then
+			return false
+		end
+		return true
+	end
+	function InterfaceManager:ResolveCustomFont(entry)
+		local source = tostring(entry.AssetId or ""):match("^%s*(.-)%s*$")
+		if source == "" then
+			return nil, "Asset Id is empty."
+		end
+		if tonumber(source) then
+			return "rbxassetid://" .. source
+		end
+		if not self:IsLocalFontSource(source) then
+			return source
+		end
+
+		if not (isfile and writefile and getcustomasset) then
+			return nil, "Your executor does not support getcustomasset."
+		end
+
+		local folder = self.Folder .. "/Fonts"
+		if not isfolder(folder) then
+			makefolder(folder)
+		end
+
+		local id = sanitizeFileName(tostring(entry.Name))
+		local path = source
+
+		if source:match("^https?://") then
+			path = folder .. "/" .. id .. ".ttf"
+			if not isfile(path) then
+				local ok, body = pcall(game.HttpGet, game, source)
+				if not ok or type(body) ~= "string" or #body == 0 then
+					return nil, "Failed to download the font."
+				end
+				writefile(path, body)
+			end
+		end
+
+		if not isfile(path) then
+			return nil, "File not found: " .. path
+		end
+		if path:lower():match("%.json$") then
+			local ok, asset = pcall(getcustomasset, path)
+			if ok and asset then return asset end
+			return nil, "getcustomasset failed."
+		end
+		local weightName = FontWeightValues[entry.Weight] and entry.Weight or "Regular"
+		local okFile, fileAsset = pcall(getcustomasset, path)
+		if not okFile or not fileAsset then
+			return nil, "getcustomasset failed."
+		end
+
+		local jsonPath = folder .. "/" .. id .. ".json"
+		writefile(jsonPath, HttpService:JSONEncode({
+			name = tostring(entry.Name),
+			faces = {{
+				name = weightName,
+				weight = FontWeightValues[weightName],
+				style = entry.Style == "Italic" and "italic" or "normal",
+				assetId = fileAsset,
+			}},
+		}))
+
+		local okJson, jsonAsset = pcall(getcustomasset, jsonPath)
+		if okJson and jsonAsset then return jsonAsset end
+		return nil, "Failed to create the font family."
+	end
+
+	function InterfaceManager:DeleteCustomFontFile(name)
+		local jsonPath = self.Folder .. "/Fonts/" .. sanitizeFileName(tostring(name)) .. ".json"
+		if isfile and isfile(jsonPath) then
+			pcall(delfile, jsonPath)
+		end
+	end
+
+
 	function InterfaceManager:SaveSettings()
-		writefile(self.Folder .. "/options.json", httpService:JSONEncode(InterfaceManager.Settings))
+		local Path = self.Folder .. "/options.json"
+		if InterfaceManager.Building and not isfile(Path) then
+			return
+		end
+		writefile(Path, HttpService:JSONEncode(InterfaceManager.Settings))
 	end
 
 	function InterfaceManager:LoadSettings()
-		local customThemes = self:LoadCustomThemes()
+		local allThemes = self:LoadCustomThemes()
+		local customThemes = {}
+		InterfaceManager.Overrides = {}
+
+		for _, themeData in ipairs(allThemes) do
+			if themeData.BuiltIn then
+				InterfaceManager.Overrides[themeData.BuiltIn] = themeData
+				Library:OverrideTheme(themeData.BuiltIn, themeData)
+			else
+				table.insert(customThemes, themeData)
+			end
+		end
+
+		local WindowSettings = InterfaceManager.Settings
+		local UserInfoFrame = Library.Window and Library.Window.UserInfoFrame
+		WindowSettings.Theme = Library.Theme
+		WindowSettings.Font = Library.Font
+		WindowSettings.Acrylic = Library.Acrylic
+		WindowSettings.Transparency = math.floor((Library.Transparency or 0.35) * 100 + 0.5)
+		WindowSettings.MenuKeybind = (Library.MinimizeKey and Library.MinimizeKey.Name) or WindowSettings.MenuKeybind
+		WindowSettings.ShowUserInfo = UserInfoFrame == nil or UserInfoFrame.Visible
+		WindowSettings.DisableBackground = Library.DisableBackground
+		WindowSettings.KeepWindowInsideFrame = Library.KeepWindowInsideFrame
+		WindowSettings.ActiveCustomTheme = nil
 
 		local activeCustomName = nil
 		local optionsPath = self.Folder .. "/options.json"
 		if isfile(optionsPath) then
 			local data = readfile(optionsPath)
-			local success, decoded = pcall(httpService.JSONDecode, httpService, data)
+			local success, decoded = pcall(HttpService.JSONDecode, HttpService, data)
 			if success then
 				for i, v in next, decoded do
 					InterfaceManager.Settings[i] = v
@@ -8646,6 +10667,7 @@ local InterfaceManager = {} do
 		local library = self.Library
 		local settings = InterfaceManager.Settings
 
+		InterfaceManager.Building = true
 		local loadedCustomThemes = InterfaceManager:LoadSettings()
 
 		if type(settings.Transparency) == "boolean" then
@@ -8659,8 +10681,29 @@ local InterfaceManager = {} do
 			library:SetTheme(settings.Theme)
 		end
 
-		settings.Font = settings.Font or Library.Font
-		library:SetFont(settings.Font)
+		settings.CustomFonts = type(settings.CustomFonts) == "table" and settings.CustomFonts or {}
+		InterfaceManager.CustomFontAssets = {}
+		for _, entry in ipairs(settings.CustomFonts) do
+			local ok, asset = pcall(InterfaceManager.ResolveCustomFont, InterfaceManager, entry)
+			if ok and asset then
+				InterfaceManager.CustomFontAssets[InterfaceManager:FontId(entry.Name)] = asset
+			else
+				warn("[Font] Failed to load custom font '" .. tostring(entry.Name) .. "'")
+			end
+		end
+
+		local startFontKey = settings.Font or Library.Font
+		local startFontAsset = startFontKey
+		if type(startFontKey) == "string" and startFontKey:sub(1, 7) == "custom:" then
+			startFontAsset = InterfaceManager.CustomFontAssets[startFontKey]
+			if not startFontAsset then
+				startFontKey = Library.Font
+				startFontAsset = Library.Font
+			end
+		end
+		settings.Font = startFontKey
+		library:SetFont(startFontAsset)
+
 
 		library:ToggleUserInfo(settings.ShowUserInfo)
 		library:ToggleBackground(settings.DisableBackground)
@@ -8903,6 +10946,9 @@ local InterfaceManager = {} do
 			for id, cardData in pairs(customThemeCards) do
 				table.insert(entries, { name = cardData.themeData.Name, id = id })
 			end
+			for builtInName, record in pairs(InterfaceManager.Overrides) do
+				table.insert(entries, { name = builtInName .. " (Built-in)", id = record.Id })
+			end
 			table.sort(entries, function(a, b) return a.name < b.name end)
 
 			themeTargetLabelToId = {}
@@ -9004,7 +11050,46 @@ local InterfaceManager = {} do
 			return nil
 		end
 
+		local function persistBuiltInOverride(themeData, builtInName)
+			local record = InterfaceManager.Overrides[builtInName]
+			themeData.Name = builtInName
+			themeData.BuiltIn = builtInName
+			themeData.Id = record and record.Id or InterfaceManager:GenerateThemeId(builtInName)
+
+			InterfaceManager:SaveCustomTheme(themeData)
+			InterfaceManager.Overrides[builtInName] = themeData
+
+			library:OverrideTheme(builtInName, themeData)
+			library:SetTheme(builtInName)
+
+			currentSelectedName = builtInName
+			settings.Theme = builtInName
+			settings.ActiveCustomTheme = nil
+			InterfaceManager:SaveSettings()
+			setSelectedCard(builtInName)
+			refreshThemeTargetDropdown()
+		end
+
 		local function confirmAndPersistTheme(themeData, successMessage)
+			if table.find(library.Themes, themeData.Name) then
+				library.Window:Dialog({
+					Title = "Built-in Theme",
+					Content = "'" .. themeData.Name .. "' is a built-in theme. Overwrite it with these values? Deleting the override restores the original.",
+					Buttons = {
+						{ Title = "Cancel", Callback = function() end },
+						{ Title = "Duplicate", Callback = function()
+							persistCustomTheme(themeData, false)
+							library:Notify({ Title = "Theme", Content = "Custom", SubContent = successMessage, Duration = 5 })
+						end },
+						{ Title = "Overwrite", Callback = function()
+							persistBuiltInOverride(themeData, themeData.Name)
+							library:Notify({ Title = "Theme", Content = "Custom", SubContent = "Built-in theme '" .. themeData.Name .. "' overwritten.", Duration = 5 })
+						end },
+					},
+				})
+				return
+			end
+
 			local existingId = findExistingCustomThemeId(themeData.Name)
 
 			if not existingId then
@@ -9150,8 +11235,15 @@ local InterfaceManager = {} do
 									Library.Options["PanelAcrylicGradient"]:SetRotation(parsed.AcrylicGradientRotation)
 								end
 
+								if parsed.MenuBackground and Library.Options["PanelMenuBackground"] then
+									Library.Options["PanelMenuBackground"]:SetValueSequence(parsed.MenuBackground)
+								end
+								if parsed.MenuBackgroundRotation and Library.Options["PanelMenuBackground"] then
+									Library.Options["PanelMenuBackground"]:SetRotation(parsed.MenuBackgroundRotation)
+								end
+
 								if parsed.Background ~= nil and Library.Options["PanelBackground"] then
-									Library.Options["PanelBackground"]:SetValue(parsed.Background)
+									Library.Options["PanelBackground"]:SetValue(backgroundToText(parsed.Background))
 								end
 								if parsed.BackgroundTransparency and Library.Options["PanelBackgroundTransparency"] then
 									Library.Options["PanelBackgroundTransparency"]:SetValue(math.floor(parsed.BackgroundTransparency * 100))
@@ -9207,6 +11299,15 @@ local InterfaceManager = {} do
 					Default = Creator.GetThemeProperty(field.key),
 					Callback = function() end,
 				})
+				if field.key == "MenuBorder" then
+					Panel:AddGradientPicker("PanelMenuBackground", {
+						Title = "Menu Background",
+						Description = "Start and end color of the menu background gradient. Rotation controls its direction.",
+						Default = Creator.GetThemeProperty("MenuBackground"),
+						Rotation = Creator.GetThemeProperty("MenuBackgroundRotation"),
+						Callback = function() end,
+					})
+				end
 				if field.key == "AcrylicBorder" then
 					Panel:AddGradientPicker("PanelAcrylicGradient", {
 						Title = "Acrylic Gradient",
@@ -9219,17 +11320,17 @@ local InterfaceManager = {} do
 			end
 
 			Panel:AddInput("PanelBackground", {
-				Title = "Background Image",
-				Description = "Background image asset or URL. Leave empty for none.",
+				Title = "Background",
+				Description = "Background image asset or URL, or a .lua frame file (local path or URL) for an animated background. Leave empty for none.",
 				Placeholder = "rbxassetid://0",
 				Finished = true,
-				Default = Creator.GetThemeProperty("Background"),
+				Default = backgroundToText(Creator.GetThemeProperty("Background")),
 				Callback = function() end,
 			})
 
 			Panel:AddSlider("PanelBackgroundTransparency", {
 				Title = "Background Transparency",
-				Description = "Transparency of the background image (0-100).",
+				Description = "Transparency of the background (0-100).",
 				Min = 0,
 				Max = 100,
 				Default = math.floor((Creator.GetThemeProperty("BackgroundTransparency") or 0) * 100),
@@ -9267,40 +11368,72 @@ local InterfaceManager = {} do
 				Callback = function() end,
 			})
 
+			Panel:AddDropdown("PanelCopyFormat", {
+				Title = "Color Format",
+				Description = "Format of the colors when copying theme data.",
+				Values = { "Hex", "RGB", "HSV" },
+				Default = 1,
+				Multi = false,
+				Callback = function() end,
+			})
+
+			local function buildShareTheme()
+				local nameOpt = Library.Options["PanelThemeName"]
+				local shareName = resolveThemeName(nameOpt and nameOpt.Value)
+				if not shareName then
+					library:Notify({ Title = "Theme", Content = "Copy", SubContent = "Enter a theme name first.", Duration = 5 })
+					return nil
+				end
+
+				local optionValues = {}
+				for key, option in pairs(Library.Options) do
+					if key:sub(1, 5) == "Panel" then
+						optionValues[key] = option.Value
+					end
+				end
+
+				local formatOpt = Library.Options["PanelCopyFormat"]
+				local format = formatOpt and formatOpt.Value or "Hex"
+
+				return ThemeManager.buildFromCurrentOptions(shareName, optionValues), format
+			end
+
+			local function copyText(text, message)
+				if setclipboard then
+					setclipboard(text)
+					library:Notify({ Title = "Theme", Content = "Copy", SubContent = message, Duration = 5 })
+				else
+					library:Notify({ Title = "Theme", Content = "Copy", SubContent = "Your executor does not support setclipboard.", Duration = 5 })
+				end
+			end
+
 			Panel:AddButton({
 				Title = "Copy Theme Data",
 				Description = "Copies this theme so it can be pasted into Import, or shared with others.",
 				Icon = "copy",
 				Callback = function()
-					local nameOpt = Library.Options["PanelThemeName"]
-					local shareName = resolveThemeName(nameOpt and nameOpt.Value)
-					if not shareName then
-						library:Notify({ Title = "Theme", Content = "Copy", SubContent = "Enter a theme name first.", Duration = 5 })
-						return
+					local shareTheme, format = buildShareTheme()
+					if shareTheme then
+						copyText(ThemeManager.serializeTheme(shareTheme, format), "Theme data copied. Paste it into Import to share.")
 					end
+				end,
+			})
 
-					local optionValues = {}
-					for key, option in pairs(Library.Options) do
-						if key:sub(1, 5) == "Panel" then
-							optionValues[key] = option.Value
-						end
-					end
-
-					local shareTheme = ThemeManager.buildFromCurrentOptions(shareName, optionValues)
-					local exportString = ThemeManager.serializeTheme(shareTheme)
-
-					if setclipboard then
-						setclipboard(exportString)
-						library:Notify({ Title = "Theme", Content = "Copy", SubContent = "Theme data copied. Paste it into Import to share.", Duration = 5 })
-					else
-						library:Notify({ Title = "Theme", Content = "Copy", SubContent = "Your executor does not support setclipboard.", Duration = 5 })
+			Panel:AddButton({
+				Title = "Copy AddTheme Code",
+				Description = "Copies this theme as a Library:AddTheme call that developers can place in a script.",
+				Icon = "code",
+				Callback = function()
+					local shareTheme, format = buildShareTheme()
+					if shareTheme then
+						copyText(ThemeManager.toAddThemeCode(shareTheme, format), "AddTheme code copied.")
 					end
 				end,
 			})
 
 			themeTargetDropdown = Panel:AddDropdown("PanelCustomThemeTarget", {
 				Title = "Custom Theme",
-				Description = "Pick an existing custom theme to delete or overwrite.",
+				Description = "Pick an existing custom theme, or a built-in theme you overwrote, to delete or overwrite.",
 				Values = getCustomThemeNames(),
 				Multi = false,
 				AllowNull = true,
@@ -9320,6 +11453,33 @@ local InterfaceManager = {} do
 					end
 
 					local targetId = themeTargetLabelToId[targetLabel]
+
+					local overrideName
+					for builtInName, record in pairs(InterfaceManager.Overrides) do
+						if record.Id == targetId then
+							overrideName = builtInName
+						end
+					end
+
+					if overrideName then
+						library.Window:Dialog({
+							Title = "Delete Override?",
+							Content = "This deletes your changes to '" .. overrideName .. "' and restores the original built-in theme.",
+							Buttons = {
+								{ Title = "Cancel", Callback = function() end },
+								{ Title = "Delete", Callback = function()
+									InterfaceManager:DeleteCustomTheme(targetId)
+									InterfaceManager.Overrides[overrideName] = nil
+									library:ResetTheme(overrideName)
+									refreshThemeTargetDropdown()
+									targetOpt:SetValue(nil)
+									library:Notify({ Title = "Theme", Content = "Delete", SubContent = "'" .. overrideName .. "' restored to the built-in theme.", Duration = 5 })
+								end },
+							},
+						})
+						return
+					end
+
 					if not targetId or not customThemeCards[targetId] then
 						library:Notify({ Title = "Theme", Content = "Delete", SubContent = "Could not find that custom theme.", Duration = 5 })
 						return
@@ -9381,6 +11541,35 @@ local InterfaceManager = {} do
 					end
 
 					local targetId = themeTargetLabelToId[targetLabel]
+
+					local overrideName
+					for builtInName, record in pairs(InterfaceManager.Overrides) do
+						if record.Id == targetId then
+							overrideName = builtInName
+						end
+					end
+
+					if overrideName then
+						library.Window:Dialog({
+							Title = "Overwrite Theme?",
+							Content = "This replaces your changes to '" .. overrideName .. "' with the values currently set in this panel.",
+							Buttons = {
+								{ Title = "Cancel", Callback = function() end },
+								{ Title = "Overwrite", Callback = function()
+									local optionValues = {}
+									for key, option in pairs(Library.Options) do
+										if key:sub(1, 5) == "Panel" then
+											optionValues[key] = option.Value
+										end
+									end
+									persistBuiltInOverride(ThemeManager.buildFromCurrentOptions(overrideName, optionValues), overrideName)
+									library:Notify({ Title = "Theme", Content = "Overwrite", SubContent = "'" .. overrideName .. "' updated.", Duration = 5 })
+								end },
+							},
+						})
+						return
+					end
+
 					if not targetId or not customThemeCards[targetId] then
 						library:Notify({ Title = "Theme", Content = "Overwrite", SubContent = "Could not find that custom theme.", Duration = 5 })
 						return
@@ -9412,8 +11601,28 @@ local InterfaceManager = {} do
 			})
 		end)
 
-		for idx, themeName in ipairs(library.Themes) do
-			local colors = themeGradients[themeName] or { Color3.fromRGB(50, 50, 50), Color3.fromRGB(20, 20, 20) }
+		local function getCardColors(themeName)
+			if library.ThemeOverrides[themeName] then
+				return generateGradientColors(Themes[themeName])
+			end
+			if themeGradients[themeName] then
+				return themeGradients[themeName]
+			end
+			local data = Themes[themeName]
+			if data and data.CardGradient then
+				return data.CardGradient
+			end
+			local accent = data and data.Accent or Color3.fromRGB(50, 50, 50)
+			return { accent, accent:Lerp(Color3.new(0, 0, 0), 0.6) }
+		end
+
+		local function addBuiltInThemeCard(themeName, idx)
+			if themeCards[themeName] then
+				themeCards[themeName].card:Destroy()
+				themeCards[themeName] = nil
+			end
+
+			local colors = getCardColors(themeName)
 			local colorA, colorB = colors[1], colors[2]
 
 			local card = New("Frame", {
@@ -9512,6 +11721,15 @@ local InterfaceManager = {} do
 				InterfaceManager:SaveSettings()
 				setSelectedCard(themeName)
 			end)
+		end
+
+		for idx, themeName in ipairs(library.Themes) do
+			addBuiltInThemeCard(themeName, idx)
+		end
+
+		library.OnThemeAdded = function(themeName)
+			addBuiltInThemeCard(themeName, table.find(library.Themes, themeName))
+			setSelectedCard(currentSelectedName)
 		end
 
 		for cIdx, themeData in ipairs(loadedCustomThemes) do
@@ -9657,14 +11875,24 @@ local InterfaceManager = {} do
 			end
 		end
 
-		for idx, fontData in ipairs(uiFonts) do
+		local uiFontByName = {}
+		for idx, f in ipairs(uiFonts) do
+			f.key = f.asset
+			f.order = idx
+			uiFontByName[f.name] = f
+		end
+
+		local customFontData = {}
+		local customFontOrder = 100
+
+		local function addFontCard(fontData, layoutOrder)
 			local fontCard = New("Frame", {
 				Name = "FontCard_" .. fontData.name,
 				Size = UDim2.fromOffset(72, 72),
 				BackgroundTransparency = 0.89,
 				BackgroundColor3 = Color3.fromRGB(130, 130, 130),
 				BorderSizePixel = 0,
-				LayoutOrder = idx,
+				LayoutOrder = layoutOrder,
 				Parent = fontScrollFrame,
 				ClipsDescendants = true,
 				ThemeTag = {
@@ -9677,7 +11905,7 @@ local InterfaceManager = {} do
 
 			New("TextLabel", {
 				Text = fontData.label,
-				FontFace = Font.new(fontData.asset, fontData.weight, Enum.FontStyle.Normal),
+				FontFace = Font.new(fontData.asset, fontData.weight, fontData.style or Enum.FontStyle.Normal),
 				IgnoreFontUpdate = true,
 				TextSize = 26,
 				TextColor3 = Color3.fromRGB(240, 240, 240),
@@ -9696,6 +11924,7 @@ local InterfaceManager = {} do
 				FontFace = Font.new(fontData.asset, Enum.FontWeight.Regular, Enum.FontStyle.Normal),
 				IgnoreFontUpdate = true,
 				TextSize = 9,
+				TextTruncate = Enum.TextTruncate.AtEnd,
 				TextColor3 = Color3.fromRGB(200, 200, 200),
 				TextXAlignment = Enum.TextXAlignment.Center,
 				Size = UDim2.new(1, -4, 0, 14),
@@ -9736,11 +11965,12 @@ local InterfaceManager = {} do
 				Parent = fontCheckBadge,
 			})
 
-			fontCards[fontData.asset] = {
+			local cardData = {
 				card = fontCard,
 				stroke = fontStroke,
 				checkBadge = fontCheckBadge,
 			}
+			fontCards[fontData.key] = cardData
 
 			local fontHitBox = New("TextButton", {
 				Size = UDim2.fromScale(1, 1),
@@ -9751,21 +11981,410 @@ local InterfaceManager = {} do
 			})
 
 			Creator.AddSignal(fontHitBox.MouseEnter, function()
-				if settings.Font ~= fontData.asset then
+				if settings.Font ~= fontData.key then
 					fontStroke.Transparency = 0.4
 				end
 			end)
 			Creator.AddSignal(fontHitBox.MouseLeave, function()
-				if settings.Font ~= fontData.asset then
+				if settings.Font ~= fontData.key then
 					fontStroke.Transparency = 0.7
 				end
 			end)
 			Creator.AddSignal(fontHitBox.MouseButton1Click, function()
 				library:SetFont(fontData.asset)
-				settings.Font = fontData.asset
+				settings.Font = fontData.key
 				InterfaceManager:SaveSettings()
-				setSelectedFont(fontData.asset)
+				setSelectedFont(fontData.key)
 			end)
+
+			return cardData
+		end
+
+		for idx, fontData in ipairs(uiFonts) do
+			addFontCard(fontData, idx)
+		end
+
+		local function removeCustomFontCard(id)
+			local data = customFontData[id]
+			if not data then return end
+
+			local cardData = fontCards[data.key]
+			if cardData then
+				cardData.card:Destroy()
+			end
+			fontCards[data.key] = nil
+			customFontData[id] = nil
+		end
+
+		local function mountCustomFont(entry, asset)
+			local id = InterfaceManager:FontId(entry.Name)
+			removeCustomFontCard(id)
+
+			customFontOrder = customFontOrder + 1
+			local order = customFontOrder
+
+			local fontData = {
+				name = entry.Name,
+				asset = asset,
+				key = id,
+				label = "Aa",
+				weight = Enum.FontWeight[entry.Weight] or Enum.FontWeight.Regular,
+				style = Enum.FontStyle[entry.Style] or Enum.FontStyle.Normal,
+				source = entry.AssetId,
+			}
+			customFontData[id] = fontData
+			addFontCard(fontData, order)
+			return fontData
+		end
+
+		local function upsertCustomFontEntry(entry)
+			local id = InterfaceManager:FontId(entry.Name)
+			for i, existing in ipairs(settings.CustomFonts) do
+				if InterfaceManager:FontId(existing.Name) == id then
+					settings.CustomFonts[i] = entry
+					return
+				end
+			end
+			table.insert(settings.CustomFonts, entry)
+		end
+
+		local function getCustomFontNames()
+			local names = {}
+			for _, entry in ipairs(settings.CustomFonts) do
+				table.insert(names, entry.Name)
+			end
+			return names
+		end
+
+		local function getBaseFont()
+			local data = customFontData[settings.Font]
+			if data then
+				return {
+					Name = data.name,
+					Weight = data.weight.Name,
+					Style = data.style.Name,
+					AssetId = data.source,
+				}
+			end
+			for _, font in ipairs(uiFonts) do
+				if font.key == settings.Font then
+					return {
+						Name = font.name .. " Custom",
+						Weight = font.weight.Name,
+						Style = Enum.FontStyle.Normal.Name,
+						AssetId = font.asset,
+					}
+				end
+			end
+			return { Name = "Custom Font", Weight = "Regular", Style = "Normal", AssetId = "" }
+		end
+
+		local function fontNotify(message)
+			library:Notify({ Title = "Font", Content = "Custom", SubContent = message, Duration = 5 })
+		end
+
+		local function confirmCustomFont(Panel)
+			local function opt(key)
+				local o = Library.Options[key]
+				return o and o.Value
+			end
+			local function trim(s)
+				return tostring(s or ""):match("^%s*(.-)%s*$")
+			end
+
+			local name = trim(opt("FontPanelName"))
+			local assetId = trim(opt("FontPanelAssetId"))
+			local weight = opt("FontPanelWeight") or "Regular"
+			local style = opt("FontPanelStyle") or "Normal"
+
+			if name == "" then
+				return fontNotify("Enter a font name first.")
+			end
+			if assetId == "" then
+				return fontNotify("Enter an Asset Id first.")
+			end
+			if uiFontByName[name] then
+				return fontNotify("That name is already used by a built-in font.")
+			end
+
+			local id = InterfaceManager:FontId(name)
+
+			local entry = { Name = name, Weight = weight, Style = style, AssetId = assetId }
+
+			local ok, asset, err = pcall(InterfaceManager.ResolveCustomFont, InterfaceManager, entry)
+			if not ok then
+				return fontNotify("Failed to load font: " .. tostring(asset))
+			end
+			if not asset then
+				return fontNotify(err or "Failed to load font.")
+			end
+
+			InterfaceManager.CustomFontAssets[id] = asset
+			upsertCustomFontEntry(entry)
+			mountCustomFont(entry, asset)
+
+			library:SetFont(asset)
+			settings.Font = id
+			InterfaceManager:SaveSettings()
+			setSelectedFont(id)
+
+			Panel:Close()
+			fontNotify("Font '" .. name .. "' saved and applied.")
+		end
+
+		local function deleteCustomFont(name)
+			local id = InterfaceManager:FontId(name)
+
+			for i, entry in ipairs(settings.CustomFonts) do
+				if InterfaceManager:FontId(entry.Name) == id then
+					table.remove(settings.CustomFonts, i)
+					break
+				end
+			end
+
+			removeCustomFontCard(id)
+			InterfaceManager.CustomFontAssets[id] = nil
+			InterfaceManager:DeleteCustomFontFile(name)
+
+			if settings.Font == id then
+				local default = uiFontByName["Gotham"]
+				library:SetFont(default.asset)
+				settings.Font = default.key
+				setSelectedFont(default.key)
+			end
+			InterfaceManager:SaveSettings()
+		end
+
+		local function openCustomFontPanel()
+			local Panel
+			local customFontTarget
+			local base = getBaseFont()
+
+			Panel = library.Window:SidePanel({
+				Title = "Custom Font",
+				Description = "Create or import a custom font.",
+				Side = "Right",
+				Width = 320,
+				Buttons = {
+					{ Title = "Cancel", CloseOnClick = true, Callback = function() end },
+					{ Title = "Import", CloseOnClick = false, Callback = function()
+						Panel:PromptImport({
+							Title = "Paste font code",
+							Placeholder = '{"Name":"Minecraft","Weight":"Regular","Style":"Normal","AssetId":"rbxassetid://0"}',
+							Callback = function(rawText)
+								if not rawText or rawText:gsub("%s", "") == "" then
+									return fontNotify("The pasted text is empty.")
+								end
+
+								local parsed = InterfaceManager.ParseFontImport(rawText)
+								if not parsed then
+									return fontNotify("Invalid font format.")
+								end
+
+								for key, value in pairs({
+									FontPanelName = parsed.Name,
+									FontPanelWeight = parsed.Weight,
+									FontPanelStyle = parsed.Style,
+									FontPanelAssetId = parsed.AssetId,
+								}) do
+									if Library.Options[key] then
+										Library.Options[key]:SetValue(value)
+									end
+								end
+
+								confirmCustomFont(Panel)
+							end,
+						})
+					end },
+					{ Title = "Confirm", CloseOnClick = false, Callback = function()
+						confirmCustomFont(Panel)
+					end },
+				},
+			})
+
+			Panel:AddInput("FontPanelName", {
+				Title = "Name",
+				Description = "Name shown on the font card.",
+				Default = base.Name,
+				Placeholder = base.Name,
+				Marquee = true,
+				Callback = function() end,
+			})
+
+			Panel:AddDropdown("FontPanelWeight", {
+				Title = "Weight",
+				Description = "Weight of the font face.",
+				Values = InterfaceManager.FontWeightNames,
+				Default = base.Weight,
+				Multi = false,
+				Callback = function() end,
+			})
+
+			Panel:AddDropdown("FontPanelStyle", {
+				Title = "Style",
+				Description = "Style of the font face.",
+				Values = InterfaceManager.FontStyleNames,
+				Default = base.Style,
+				Multi = false,
+				Callback = function() end,
+			})
+
+			Panel:AddInput("FontPanelAssetId", {
+				Title = "Asset Id",
+				Description = "Asset id, file path or URL.",
+				Default = base.AssetId,
+				Placeholder = base.AssetId,
+				Marquee = true,
+				Callback = function() end,
+			})
+
+			customFontTarget = Panel:AddDropdown("FontPanelCustomTarget", {
+				Title = "Custom Font",
+				Description = "Pick a custom font to delete.",
+				Values = getCustomFontNames(),
+				Multi = false,
+				AllowNull = true,
+				Callback = function() end,
+			})
+
+			Panel:AddButton({
+				Title = "Copy Font Code",
+				Description = "Copies the font in this panel as a code that Import accepts.",
+				Icon = "copy",
+				Marquee = true,
+				Callback = function()
+					local function value(key)
+						local option = Library.Options[key]
+						return option and option.Value and tostring(option.Value) or ""
+					end
+
+					local name = value("FontPanelName"):match("^%s*(.-)%s*$")
+					local assetId = value("FontPanelAssetId"):match("^%s*(.-)%s*$")
+					if name == "" or assetId == "" then
+						return fontNotify("Enter a name and an Asset Id first.")
+					end
+					if not setclipboard then
+						return fontNotify("Your executor does not support setclipboard.")
+					end
+
+					local encode = function(text)
+						return HttpService:JSONEncode(text)
+					end
+					setclipboard(string.format(
+						'{"Name":%s,"Weight":%s,"Style":%s,"AssetId":%s}',
+						encode(name),
+						encode(value("FontPanelWeight") ~= "" and value("FontPanelWeight") or "Regular"),
+						encode(value("FontPanelStyle") ~= "" and value("FontPanelStyle") or "Normal"),
+						encode(assetId)
+					))
+					fontNotify("Font code copied.")
+				end,
+			})
+
+			Panel:AddButton({
+				Title = "Delete Custom Font",
+				Description = "Deletes the custom font selected in the dropdown above.",
+				Icon = "trash-2",
+				Marquee = true,
+				Callback = function()
+					local targetName = customFontTarget and customFontTarget.Value
+					if not targetName or targetName == "" then
+						return fontNotify("Select a custom font to delete first.")
+					end
+
+					library.Window:Dialog({
+						Title = "Delete Font?",
+						Content = "This permanently deletes '" .. targetName .. "'. This can't be undone.",
+						Buttons = {
+							{ Title = "Cancel", Callback = function() end },
+							{ Title = "Delete", Callback = function()
+								deleteCustomFont(targetName)
+								pcall(function()
+									customFontTarget:SetValues(getCustomFontNames())
+									customFontTarget:SetValue(nil)
+								end)
+								fontNotify("Font '" .. targetName .. "' deleted.")
+							end },
+						},
+					})
+				end,
+			})
+		end
+
+		local addFontCardButton = New("Frame", {
+			Name = "FontCard_AddCustom",
+			Size = UDim2.fromOffset(72, 72),
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			LayoutOrder = 0,
+			Parent = fontScrollFrame,
+			ClipsDescendants = true,
+			ThemeTag = {
+				BackgroundColor3 = "Element",
+				BackgroundTransparency = "ElementTransparency",
+			},
+		}, {
+			New("UICorner", { CornerRadius = UDim.new(0, 8) }),
+			New("UIStroke", {
+				Thickness = 1,
+				ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+				Transparency = 0.5,
+				ThemeTag = { Color = "DialogBorder" },
+			}),
+		})
+
+		local addFontIcon = Library:GetIcon("plus")
+		local addFontImage = New("ImageLabel", {
+			Size = UDim2.fromOffset(20, 20),
+			Position = UDim2.fromScale(0.5, 0.44),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			BackgroundTransparency = 1,
+			ZIndex = 3,
+			Parent = addFontCardButton,
+			ThemeTag = { ImageColor3 = "SubText" },
+		})
+
+		if type(addFontIcon) == "table" then
+			addFontImage.Image = addFontIcon.Image
+			addFontImage.ImageRectOffset = addFontIcon.ImageRectOffset
+			addFontImage.ImageRectSize = addFontIcon.ImageRectSize
+		else
+			addFontImage.Image = addFontIcon or "rbxassetid://111774323017047"
+		end
+
+		New("TextLabel", {
+			Text = "Custom",
+			FontFace = Font.new(Library.Font, Enum.FontWeight.SemiBold, Enum.FontStyle.Normal),
+			TextSize = 9,
+			TextXAlignment = Enum.TextXAlignment.Center,
+			Size = UDim2.new(1, -4, 0, 14),
+			Position = UDim2.new(0, 2, 1, -16),
+			BackgroundTransparency = 1,
+			ZIndex = 3,
+			Parent = addFontCardButton,
+			ThemeTag = { TextColor3 = "SubText" },
+		})
+
+		local addFontHitBox = New("TextButton", {
+			Size = UDim2.fromScale(1, 1),
+			BackgroundTransparency = 1,
+			Text = "",
+			ZIndex = 6,
+			Parent = addFontCardButton,
+		})
+
+		Creator.AddSignal(addFontHitBox.MouseEnter, function()
+			addFontCardButton.UIStroke.Transparency = 0.2
+		end)
+		Creator.AddSignal(addFontHitBox.MouseLeave, function()
+			addFontCardButton.UIStroke.Transparency = 0.5
+		end)
+		Creator.AddSignal(addFontHitBox.MouseButton1Click, openCustomFontPanel)
+		for _, entry in ipairs(settings.CustomFonts) do
+			local asset = InterfaceManager.CustomFontAssets[InterfaceManager:FontId(entry.Name)]
+			if asset then
+				mountCustomFont(entry, asset)
+			end
 		end
 
 		settings.Font = settings.Font or Library.Font
@@ -9829,7 +12448,7 @@ local InterfaceManager = {} do
 
 		section:AddToggle("DisableBackgroundToggle", {
 			Title = "Disable Background",
-			Description = "Hides the window background image.",
+			Description = "Hides the window background.",
 			Default = settings.DisableBackground,
 			LayoutOrder = 8,
 			Icon = "rbxassetid://81934811700938",
@@ -9839,6 +12458,8 @@ local InterfaceManager = {} do
 				InterfaceManager:SaveSettings()
 			end,
 		})
+
+		InterfaceManager.Building = false
 	end
 end
 
@@ -9935,7 +12556,7 @@ local SaveManager = {} do
 			table.insert(data.objects, self.Parser[option.Type].Save(idx, option))
 		end
 
-		local success, encoded = pcall(httpService.JSONEncode, httpService, data)
+		local success, encoded = pcall(HttpService.JSONEncode, HttpService, data)
 		if not success then
 			return false, "failed to encode data"
 		end
@@ -9952,7 +12573,7 @@ local SaveManager = {} do
 		local file = self.Folder .. "/settings/" .. name .. ".json"
 		if not isfile(file) then return false, "invalid file" end
 
-		local success, decoded = pcall(httpService.JSONDecode, httpService, readfile(file))
+		local success, decoded = pcall(HttpService.JSONDecode, HttpService, readfile(file))
 		if not success then return false, "decode error" end
 
 		for _, option in next, decoded.objects do
@@ -9987,10 +12608,20 @@ local SaveManager = {} do
 			"ShowUserInfoToggle",
 			"DisableBackgroundToggle",
 			"PanelThemeName",
+			"PanelCopyFormat",
 			"PanelAccent",
 			"PanelAcrylicMain",
 			"PanelAcrylicBorder",
 			"PanelAcrylicGradient",
+			"PanelMenuBackground",
+			"PanelMenuBorder",
+			"PanelMenuHolder",
+			"PanelMenuHolderLine",
+			"PanelMenuButton",
+			"PanelMenuButtonBorder",
+			"PanelMenuInput",
+			"PanelMenuInputLine",
+			"PanelMenuInputFocused",
 			"PanelAcrylicNoise",
 			"PanelBackground",
 			"PanelBackgroundTransparency",
@@ -10507,4 +13138,4 @@ if getgenv then
 	getgenv().FluentReimaginedExtension = Extension
 end
 
-return Library, SaveManager, InterfaceManager
+return Library, SaveManager, InterfaceManager, MediaCache
