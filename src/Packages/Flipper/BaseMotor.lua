@@ -1,4 +1,4 @@
-local RunService = game:GetService("RunService")
+local RunService: RunService = cloneref(game:GetService("RunService"))
 
 local noop = function() end
 
