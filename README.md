@@ -9,8 +9,7 @@ Beautiful Good Looking UI library which is based on Fluent Dawid 1.1.0 but rewri
 - [violin-suzutsuki/LinoriaLib](https://github.com/violin-suzutsuki/LinoriaLib) — element code, save manager
 - [7kayoh/Acrylic](https://github.com/7kayoh/Acrylic) — Lua acrylic blur port
 
-- #### Icons (https://github.com/StyearX/Icons)
-
+- #### Icons credit (https://github.com/StyearX/Icons)
 - [Lucide-Icons](https://github.com/lucide-icons/lucide)
 - [Craft Icons](https://www.figma.com/community/file/1415718327120418204)
 - [Geist Icons](https://vercel.com/geist/icons)
