@@ -1,10 +1,11 @@
+local RunService: RunService = cloneref(game:GetService("RunService"))
+
 local Creator = {
 	Registry = {},
 	FontRegistry = {},
 	FontChangedCallbacks = {},
 	Signals = {},
 	TransparencyMotors = {},
-	DropdownTransparencyFrames = {},
 	ThemeChangedCallbacks = {},
 	DefaultProperties = {
 		ScreenGui = {
@@ -194,11 +195,6 @@ function Creator.New(Name, Properties, Children)
 
 	ApplyCustomProps(Object, Properties)
 	return Object
-end
-
-function Creator.RegisterDropdownTransparency(Instance)
-	table.insert(Creator.DropdownTransparencyFrames, Instance)
-	Instance.BackgroundTransparency = Library.Transparency
 end
 
 function Creator.AttachTitleDesc(Target, TitleLabel, DescLabel)
