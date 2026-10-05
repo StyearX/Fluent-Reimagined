@@ -1,7 +1,7 @@
 local Elements
 
 local Library = {
-	Version = "1.0.0",
+	Version = "1.0.2",
 
 	OpenFrames = {},
 	Options = {},
@@ -11,7 +11,7 @@ local Library = {
 	WindowFrame = nil,
 	Unloaded = false,
 
-	Theme = "Light",
+	Theme = "Dark",
 	Font = "rbxasset://fonts/families/GothamSSm.json",
 	DialogOpen = false,
 	UseAcrylic = false,
