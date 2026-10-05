@@ -1,5 +1,7 @@
+local RunService: RunService = cloneref(game:GetService("RunService"))
+local UserInputService: UserInputService = cloneref(game:GetService("UserInputService"))
+
 ElementsTable.Colorpicker = (function()
-	local TouchInputService = game:GetService("TouchInputService")
 
 	local RenderStepped = RunService.RenderStepped
 	local Mouse = LocalPlayer:GetMouse()

@@ -1,3 +1,5 @@
+local TweenService: TweenService = cloneref(game:GetService("TweenService"))
+
 ElementsTable.Toggle = (function()
 	local New = Creator.New
 

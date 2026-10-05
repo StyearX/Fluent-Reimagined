@@ -1,3 +1,6 @@
+local TweenService: TweenService = cloneref(game:GetService("TweenService"))
+local UserInputService: UserInputService = cloneref(game:GetService("UserInputService"))
+
 ElementsTable.Slider = (function()
 	local New = Creator.New
 
@@ -23,11 +26,16 @@ ElementsTable.Slider = (function()
 		}
 
 		local Dragging = false
+		local UseButtons = Config.StepButtons == true
+		local LeftIconName = Config.LeftIcon or (UseButtons and "minus" or nil)
+		local RightIconName = Config.RightIcon or (UseButtons and "plus" or nil)
+		local PadLeft = LeftIconName and 22 or 0
+		local PadRight = RightIconName and 22 or 0
 		local IsGrouped = self.Type == "Group" or self.Type == "HStack" or self.Type == "VStack"
 
 		local SliderFrame = Components.Element(Config.Title, Config.Description, self.Container, false, Config.LayoutOrder, Config.Icon, Config.Marquee)
 
-		local SliderDot, SliderRail, SliderFill, SliderDisplay, SliderInner, SliderRow, SliderHit, SliderValueTooltip, SliderConstraint
+		local SliderDot, SliderRail, SliderFill, SliderDisplay, SliderInner, SliderRow, SliderHit, SliderValueTooltip, SliderConstraint, SliderTooltipStroke
 		local ShowTooltip, HideTooltip
 
 		SliderRow = New("Frame", {
@@ -39,6 +47,14 @@ ElementsTable.Slider = (function()
 		})
 
 		if Library.NewVisual then
+
+			SliderTooltipStroke = New("UIStroke", {
+				Thickness = 1,
+				Transparency = 1,
+				ThemeTag = {
+					Color = "InElementBorder",
+				},
+			})
 
 			SliderValueTooltip = New("CanvasGroup", {
 				AnchorPoint = Vector2.new(0.5, 1),
@@ -55,13 +71,7 @@ ElementsTable.Slider = (function()
 				New("UICorner", {
 					CornerRadius = UDim.new(0, 4),
 				}),
-				New("UIStroke", {
-					Thickness = 1,
-					Transparency = 0.5,
-					ThemeTag = {
-						Color = "InElementBorder",
-					},
-				}),
+				SliderTooltipStroke,
 				New("TextLabel", {
 					Name = "ValueLabel",
 					FontFace = Font.new(Library.Font, Enum.FontWeight.Medium, Enum.FontStyle.Normal),
@@ -134,23 +144,6 @@ ElementsTable.Slider = (function()
 				}),
 			})
 
-			SliderDisplay = New("TextLabel", {
-				FontFace = Font.new(Library.Font),
-				Text = "Value",
-				TextSize = 12,
-				TextWrapped = true,
-				TextXAlignment = Enum.TextXAlignment.Right,
-				BackgroundTransparency = 1,
-				Size = UDim2.new(0, 100, 0, 14),
-				Position = UDim2.new(0, -4, 0.5, 0),
-				AnchorPoint = Vector2.new(1, 0.5),
-				Visible = IsGrouped,
-				Parent = SliderInner,
-				ThemeTag = {
-					TextColor3 = "SubText",
-				},
-			})
-
 			SliderConstraint = New("UISizeConstraint", {
 				MaxSize = IsGrouped and Vector2.new(math.huge, math.huge) or Vector2.new(150, math.huge),
 				Parent = SliderInner,
@@ -169,17 +162,24 @@ ElementsTable.Slider = (function()
 			})
 
 			local TooltipTween
+			local TooltipStrokeTween
 
 			local function SetTooltipVisible(Visible)
 				if TooltipTween then
 					TooltipTween:Cancel()
 				end
-				TooltipTween = TweenService:Create(
-					SliderValueTooltip,
-					TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-					{ GroupTransparency = Visible and 0 or 1 }
+				if TooltipStrokeTween then
+					TooltipStrokeTween:Cancel()
+				end
+				local Info = TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+				TooltipTween = TweenService:Create(SliderValueTooltip, Info, { GroupTransparency = Visible and 0 or 1 })
+				TooltipStrokeTween = TweenService:Create(
+					SliderTooltipStroke,
+					Info,
+					{ Transparency = Visible and 0.5 or 1 }
 				)
 				TooltipTween:Play()
+				TooltipStrokeTween:Play()
 			end
 
 			ShowTooltip = function()
@@ -228,7 +228,7 @@ ElementsTable.Slider = (function()
 				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 				BackgroundTransparency = 1,
 				Size = UDim2.new(0, 100, 0, 14),
-				Position = UDim2.new(0, -4, 0.5, 0),
+				Position = UDim2.new(0, -4 - PadLeft, 0.5, 0),
 				AnchorPoint = Vector2.new(1, 0.5),
 				ThemeTag = {
 					TextColor3 = "SubText",
@@ -259,15 +259,40 @@ ElementsTable.Slider = (function()
 			})
 		end
 
-		Creator.Adaptive(SliderFrame, 170, 340, not IsGrouped, function(Inline)
+		local MinusButton, PlusButton
+
+		local function CreateSideIcon(IconName, Direction, Interactive)
+			local Icon = Library:GetIcon(IconName)
+			return New(Interactive and "ImageButton" or "ImageLabel", {
+				Size = UDim2.fromOffset(16, 16),
+				AnchorPoint = Direction < 0 and Vector2.new(1, 0.5) or Vector2.new(0, 0.5),
+				Position = Direction < 0 and UDim2.new(0, -4, 0.5, 0) or UDim2.new(1, 4, 0.5, 0),
+				BackgroundTransparency = 1,
+				Image = Icon and Icon.Image or "",
+				ImageRectOffset = Icon and Icon.ImageRectOffset or Vector2.zero,
+				ImageRectSize = Icon and Icon.ImageRectSize or Vector2.zero,
+				ZIndex = 4,
+				Parent = SliderInner,
+				ThemeTag = {
+					ImageColor3 = "SubText",
+				},
+			})
+		end
+
+		if LeftIconName then
+			MinusButton = CreateSideIcon(LeftIconName, -1, UseButtons)
+		end
+
+		if RightIconName then
+			PlusButton = CreateSideIcon(RightIconName, 1, UseButtons)
+		end
+
+		Creator.Adaptive(SliderFrame, 170 + PadLeft + PadRight, 340 + PadLeft + PadRight, not IsGrouped, function(Inline)
 			SliderRow.Visible = not Inline
 			SliderInner.Parent = Inline and SliderFrame.Frame or SliderRow
-			SliderInner.Size = Inline and UDim2.new(1, 0, 0, 4) or UDim2.new(1, -40, 0, 4)
-			SliderInner.Position = Inline and UDim2.new(1, -10, 0.5, 0) or UDim2.new(1, -8, 0.5, 0)
+			SliderInner.Size = Inline and UDim2.new(1, 0, 0, 4) or UDim2.new(1, -(Library.NewVisual and 16 or 40) - PadLeft - PadRight, 0, 4)
+			SliderInner.Position = Inline and UDim2.new(1, -10 - PadRight, 0.5, 0) or UDim2.new(1, -8 - PadRight, 0.5, 0)
 			SliderConstraint.MaxSize = Inline and Vector2.new(150, math.huge) or Vector2.new(math.huge, math.huge)
-			if Library.NewVisual then
-				SliderDisplay.Visible = not Inline
-			end
 		end)
 
 		Slider.SetTitle = SliderFrame.SetTitle
@@ -358,6 +383,72 @@ ElementsTable.Slider = (function()
 		function Slider:Destroy()
 			SliderFrame:Destroy()
 			Library.Options[Idx] = nil
+		end
+
+		if UseButtons then
+			local HoldToken = 0
+			local StepSize = Config.Step or (1 / 10 ^ Slider.Rounding)
+
+			local function IsPress(Input)
+				return Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch
+			end
+
+			local function StopHold()
+				HoldToken = HoldToken + 1
+				if HideTooltip then
+					HideTooltip()
+				end
+			end
+
+			local function StartHold(Direction)
+				HoldToken = HoldToken + 1
+				local Token = HoldToken
+				Slider:SetValue(Slider.Value + StepSize * Direction)
+				if ShowTooltip then
+					ShowTooltip()
+				end
+
+				task.spawn(function()
+					task.wait(0.4)
+					local Interval = 0.12
+					local Ticks = 0
+					while Token == HoldToken do
+						local Multiplier = 1 + math.floor(Ticks / 15)
+						Slider:SetValue(Slider.Value + StepSize * Direction * Multiplier)
+						Ticks = Ticks + 1
+						Interval = math.max(Interval * 0.92, 0.03)
+						task.wait(Interval)
+					end
+				end)
+			end
+
+			for Button, Direction in pairs({ [MinusButton] = -1, [PlusButton] = 1 }) do
+				Creator.AddSignal(Button.InputBegan, function(Input)
+					if IsPress(Input) then
+						StartHold(Direction)
+					end
+				end)
+
+				Creator.AddSignal(Button.InputEnded, function(Input)
+					if IsPress(Input) then
+						StopHold()
+					end
+				end)
+
+				Creator.AddSignal(Button.MouseEnter, function()
+					Button.ImageColor3 = Creator.GetThemeProperty("Text")
+				end)
+
+				Creator.AddSignal(Button.MouseLeave, function()
+					Button.ImageColor3 = Creator.GetThemeProperty("SubText")
+				end)
+			end
+
+			Creator.AddSignal(UserInputService.InputEnded, function(Input)
+				if IsPress(Input) then
+					StopHold()
+				end
+			end)
 		end
 
 		Slider:SetValue(Config.Default)

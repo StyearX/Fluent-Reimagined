@@ -1,3 +1,5 @@
+local UserInputService: UserInputService = cloneref(game:GetService("UserInputService"))
+
 ElementsTable.Keybind = (function()
 	local New = Creator.New
 

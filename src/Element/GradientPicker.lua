@@ -1,3 +1,6 @@
+local RunService: RunService = cloneref(game:GetService("RunService"))
+local UserInputService: UserInputService = cloneref(game:GetService("UserInputService"))
+
 ElementsTable.GradientPicker = (function()
 	local RenderStepped = RunService.RenderStepped
 	local Mouse = LocalPlayer:GetMouse()

@@ -59,20 +59,33 @@ ElementsTable.Image = (function()
 		Creator.AddSignal(Wrap:GetPropertyChangedSignal("AbsoluteSize"), RecalcAspectRatio)
 		task.defer(RecalcAspectRatio)
 
+		local Library = self.Library
+
 		local ImageLabel = New("ImageLabel", {
 			Size = UDim2.fromScale(1, 1),
 			BackgroundTransparency = 1,
-			Image = ResolveImage(Config.Image or ""),
+			Image = "",
 			ScaleType = Enum.ScaleType.Fit,
 			Parent = Wrap,
 		}, {
 			New("UICorner", { CornerRadius = UDim.new(0, Radius) }),
 		})
 
+		local function ApplyImage(Source)
+			local Resolved = ResolveImage(Source)
+			if Resolved:match("^rbxasset") then
+				ImageLabel.Image = Resolved
+			else
+				ImageLabel.Image = Library:ResolveMedia(Resolved)
+			end
+		end
+
+		task.spawn(ApplyImage, Config.Image or "")
+
 		local Image = { Frame = Wrap, Type = "Image" }
 
 		function Image:SetImage(Source)
-			ImageLabel.Image = ResolveImage(Source)
+			task.spawn(ApplyImage, Source)
 		end
 
 		function Image:SetAspectRatio(Ratio)
