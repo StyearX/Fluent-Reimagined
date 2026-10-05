@@ -54,6 +54,17 @@
 	ColorpickerInputBorder = Color3.fromRGB(80, 80, 80),
 	ColorpickerInputFocused = Color3.fromRGB(35, 35, 35),
 
+	MenuBackground = ColorSequence.new(Color3.fromRGB(38, 38, 38), Color3.fromRGB(12, 12, 12)),
+	MenuBackgroundRotation = 90,
+	MenuBorder = Color3.fromRGB(72, 72, 72),
+	MenuHolder = Color3.fromRGB(14, 14, 14),
+	MenuHolderLine = Color3.fromRGB(40, 40, 40),
+	MenuButton = Color3.fromRGB(30, 30, 30),
+	MenuButtonBorder = Color3.fromRGB(66, 66, 66),
+	MenuInput = Color3.fromRGB(24, 24, 24),
+	MenuInputLine = Color3.fromRGB(160, 160, 160),
+	MenuInputFocused = Color3.fromRGB(14, 14, 14),
+
 	Text = Color3.fromRGB(240, 240, 240),
 	SubText = Color3.fromRGB(170, 170, 170),
 	Hover = Color3.fromRGB(120, 120, 120),
