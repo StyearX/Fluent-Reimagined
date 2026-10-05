@@ -1,1 +1,1 @@
-return Library, SaveManager, InterfaceManager
+return Library, SaveManager, InterfaceManager, MediaCache
