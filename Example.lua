@@ -1585,7 +1585,7 @@ SaveManager:SetFolder("FluentReimagined/Configs")
 InterfaceManager:BuildInterfaceSection(Tabs.Settings)
 SaveManager:BuildConfigSection(Tabs.Settings)
 
-local Skybox = loadstring(readfile("Skybox.lua"))()
+local Skybox = loadstring(game:HttpGet("https://raw.githubusercontent.com/StyearX/Custom-skybox/refs/heads/main/Skybox.lua"))()
 Skybox:SetLibrary(FluentReimagined)
 Skybox:SetFolder("FluentReimaginedScriptHub/Skyboxes")
 Skybox:BuildSkyboxSection(Tabs.Visual)
