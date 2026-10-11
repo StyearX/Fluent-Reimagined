@@ -5,7 +5,7 @@ local Players: Players = cloneref(game:GetService("Players"))
 local RunService: RunService = cloneref(game:GetService("RunService"))
 local UserInputService: UserInputService = cloneref(game:GetService("UserInputService"))
 
-local Library, SaveManager, InterfaceManager, MediaCache = loadstring(readfile("FluentReimagined/main.lua"))()
+local Library, SaveManager, InterfaceManager, MediaCache = loadstring(game:HttpGet("https://raw.githubusercontent.com/StyearX/Fluent-Reimagined/refs/heads/beta/dist/Main.lua"))()
 local Options = Library.Options
 
 local LocalPlayer = Players.LocalPlayer
@@ -22,9 +22,9 @@ local Window = Library:CreateWindow({
 	Theme = "Dark",
 	Search = true,
 	AllowNull = true,
-   NewVisual = true,
+    NewVisual = true,
 	MinimizeKey = Enum.KeyCode.LeftControl,
-   UserInfo = {
+    UserInfo = {
 		Position = "Bottom",
 		Icon = "rbxthumb://type=AvatarHeadShot&id=" .. LocalPlayer.UserId .. "&w=420&h=420",
 		Title = LocalPlayer.DisplayName,
@@ -1590,11 +1590,11 @@ Skybox:SetLibrary(FluentReimagined)
 Skybox:SetFolder("FluentReimaginedScriptHub/Skyboxes")
 Skybox:BuildSkyboxSection(Tabs.Visual)
 
-local Lighting = loadstring(readfile("Lighting.lua"))()
+local Lighting = loadstring(game:HttpGet("https://raw.githubusercontent.com/StyearX/Assets/refs/heads/main/Lighting.lua"))()
 Lighting:SetLibrary(FluentReimagined)
 Lighting:BuildLightingSection(Tabs.Visual)
 
-local ModelInserter = loadstring(readfile("ModelInserter.lua"))()
+local ModelInserter = loadstring(game:HttpGet("https://raw.githubusercontent.com/StyearX/Assets/refs/heads/main/ModelInserter.lua"))()
 ModelInserter:SetLibrary(FluentReimagined)
 ModelInserter:SetFolder("FluentReimaginedScriptHub/ModelInserter")
 ModelInserter:BuildModelSection(Tabs.Visual)
@@ -1697,7 +1697,7 @@ local function MakeDraggable(TopbarObject, Object, Locked)
         local NewState = not Object:GetAttribute("Locked")
         Object:SetAttribute("Locked", NewState)
 
-        Fluent:Notify({
+        Library:Notify({
             Title = NewState and "Button Locked" or "Button Unlocked",
             Content = NewState and "This button is now locked in place." or "This button can now be moved.",
             Duration = 2
