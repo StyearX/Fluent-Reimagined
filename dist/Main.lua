@@ -2,6 +2,7 @@ local cloneref = (cloneref or clonereference or function(instance: any)
 	return instance
 end)
 local AssetService: AssetService = cloneref(game:GetService("AssetService"))
+local ContentProvider: ContentProvider = cloneref(game:GetService("ContentProvider"))
 local CoreGui: CoreGui = cloneref(game:GetService("CoreGui"))
 local HttpService: HttpService = cloneref(game:GetService("HttpService"))
 local Lighting: Lighting = cloneref(game:GetService("Lighting"))
@@ -32,51 +33,57 @@ local Themes = {
 	Dark = {
 	Name = "Dark",
 	Accent = Color3.fromRGB(96, 205, 255),
-
 	AcrylicMain = Color3.fromRGB(60, 60, 60),
 	AcrylicBorder = Color3.fromRGB(90, 90, 90),
+	AcrylicBorderTransparency = 0.5,
 	AcrylicGradient = ColorSequence.new(Color3.fromRGB(40, 40, 40), Color3.fromRGB(40, 40, 40)),
 	AcrylicGradientRotation = 90,
+	AcrylicGradientTransparency = NumberSequence.new(0.4),
 	AcrylicNoise = 0.9,
 	Background = "",
 	BackgroundTransparency = 0,
-
 	TitleBarLine = Color3.fromRGB(75, 75, 75),
+	TitleBarLineTransparency = 0.5,
 	Tab = Color3.fromRGB(120, 120, 120),
-
+	TabOverlay = Color3.fromRGB(120, 120, 120),
+	ScrollBar = Color3.fromRGB(170, 170, 170),
 	Element = Color3.fromRGB(120, 120, 120),
 	ElementBorder = Color3.fromRGB(35, 35, 35),
 	InElementBorder = Color3.fromRGB(90, 90, 90),
 	ElementTransparency = 0.87,
-
+	ElementBorderTransparency = 0.5,
+	InElementBorderTransparency = 0.5,
 	ToggleSlider = Color3.fromRGB(120, 120, 120),
 	ToggleToggled = Color3.fromRGB(0, 0, 0),
-
 	SliderRail = Color3.fromRGB(120, 120, 120),
-
 	DropdownFrame = Color3.fromRGB(160, 160, 160),
-	DropdownHolder = Color3.fromRGB(45, 45, 45),
+	DropdownHolder = ColorSequence.new(Color3.fromRGB(56, 56, 56), Color3.fromRGB(36, 36, 36)),
+	DropdownHolderRotation = 90,
+	DropdownHolderTransparency = NumberSequence.new(0),
 	DropdownBorder = Color3.fromRGB(35, 35, 35),
+	DropdownBorderTransparency = 0,
 	DropdownOption = Color3.fromRGB(120, 120, 120),
-
 	Keybind = Color3.fromRGB(120, 120, 120),
-
 	Input = Color3.fromRGB(160, 160, 160),
 	InputFocused = Color3.fromRGB(10, 10, 10),
 	InputIndicator = Color3.fromRGB(150, 150, 150),
-
 	Dialog = Color3.fromRGB(45, 45, 45),
-	DialogHolder = Color3.fromRGB(35, 35, 35),
+	DialogHolder = ColorSequence.new(Color3.fromRGB(45, 45, 45), Color3.fromRGB(27, 27, 27)),
+	DialogHolderRotation = 90,
+	DialogHolderTransparency = NumberSequence.new(0),
 	DialogHolderLine = Color3.fromRGB(30, 30, 30),
 	DialogButton = Color3.fromRGB(45, 45, 45),
 	DialogButtonBorder = Color3.fromRGB(80, 80, 80),
 	DialogBorder = Color3.fromRGB(70, 70, 70),
+	DialogBorderTransparency = 0.3,
 	DialogInput = Color3.fromRGB(55, 55, 55),
 	DialogInputLine = Color3.fromRGB(160, 160, 160),
-
+	DialogInputFocused = Color3.fromRGB(35, 35, 35),
 	ColorpickerDialog = Color3.fromRGB(45, 45, 45),
 	ColorpickerDialogBorder = Color3.fromRGB(70, 70, 70),
-	ColorpickerHolder = Color3.fromRGB(35, 35, 35),
+	ColorpickerHolder = ColorSequence.new(Color3.fromRGB(45, 45, 45), Color3.fromRGB(27, 27, 27)),
+	ColorpickerHolderRotation = 90,
+	ColorpickerHolderTransparency = NumberSequence.new(0),
 	ColorpickerHolderLine = Color3.fromRGB(30, 30, 30),
 	ColorpickerButton = Color3.fromRGB(45, 45, 45),
 	ColorpickerButtonBorder = Color3.fromRGB(80, 80, 80),
@@ -84,10 +91,11 @@ local Themes = {
 	ColorpickerInputLine = Color3.fromRGB(160, 160, 160),
 	ColorpickerInputBorder = Color3.fromRGB(80, 80, 80),
 	ColorpickerInputFocused = Color3.fromRGB(35, 35, 35),
-
 	MenuBackground = ColorSequence.new(Color3.fromRGB(38, 38, 38), Color3.fromRGB(12, 12, 12)),
 	MenuBackgroundRotation = 90,
+	MenuBackgroundTransparency = NumberSequence.new(0),
 	MenuBorder = Color3.fromRGB(72, 72, 72),
+	MenuBorderTransparency = 0.5,
 	MenuHolder = Color3.fromRGB(14, 14, 14),
 	MenuHolderLine = Color3.fromRGB(40, 40, 40),
 	MenuButton = Color3.fromRGB(30, 30, 30),
@@ -95,9 +103,14 @@ local Themes = {
 	MenuInput = Color3.fromRGB(24, 24, 24),
 	MenuInputLine = Color3.fromRGB(160, 160, 160),
 	MenuInputFocused = Color3.fromRGB(14, 14, 14),
-
+	ClassHint = Color3.fromRGB(45, 45, 45),
+	ClassHintBorder = Color3.fromRGB(70, 70, 70),
+	ClassHintBorderTransparency = 0.3,
+	ClassHintText = Color3.fromRGB(240, 240, 240),
 	Text = Color3.fromRGB(240, 240, 240),
+	TextRotation = 0,
 	SubText = Color3.fromRGB(170, 170, 170),
+	SubTextRotation = 0,
 	Hover = Color3.fromRGB(120, 120, 120),
 	HoverChange = 0.07,
 },
@@ -105,39 +118,44 @@ local Themes = {
 	Darker = {
 	Name = "Darker",
 	Accent = Color3.fromRGB(72, 138, 182),
-
 	AcrylicMain = Color3.fromRGB(30, 30, 30),
 	AcrylicBorder = Color3.fromRGB(60, 60, 60),
 	AcrylicGradient = ColorSequence.new(Color3.fromRGB(25, 25, 25), Color3.fromRGB(15, 15, 15)),
 	AcrylicGradientRotation = 90,
+	AcrylicGradientTransparency = NumberSequence.new(0.4),
 	AcrylicNoise = 0.94,
 	Background = "",
 	BackgroundTransparency = 0,
-
 	TitleBarLine = Color3.fromRGB(65, 65, 65),
+	TitleBarLineTransparency = 0.5,
 	Tab = Color3.fromRGB(100, 100, 100),
-
+	TabOverlay = Color3.fromRGB(100, 100, 100),
+	ScrollBar = Color3.fromRGB(170, 170, 170),
 	Element = Color3.fromRGB(70, 70, 70),
 	ElementBorder = Color3.fromRGB(25, 25, 25),
 	InElementBorder = Color3.fromRGB(55, 55, 55),
 	ElementTransparency = 0.82,
-
 	DropdownFrame = Color3.fromRGB(120, 120, 120),
-	DropdownHolder = Color3.fromRGB(35, 35, 35),
+	DropdownHolder = ColorSequence.new(Color3.fromRGB(44, 44, 44), Color3.fromRGB(24, 24, 24)),
+	DropdownHolderRotation = 90,
+	DropdownHolderTransparency = NumberSequence.new(0),
 	DropdownBorder = Color3.fromRGB(25, 25, 25),
-
 	Dialog = Color3.fromRGB(35, 35, 35),
-	DialogHolder = Color3.fromRGB(25, 25, 25),
+	DialogHolder = ColorSequence.new(Color3.fromRGB(32, 32, 32), Color3.fromRGB(20, 20, 20)),
+	DialogHolderRotation = 90,
+	DialogHolderTransparency = NumberSequence.new(0),
 	DialogHolderLine = Color3.fromRGB(20, 20, 20),
 	DialogButton = Color3.fromRGB(35, 35, 35),
 	DialogButtonBorder = Color3.fromRGB(55, 55, 55),
 	DialogBorder = Color3.fromRGB(50, 50, 50),
 	DialogInput = Color3.fromRGB(45, 45, 45),
 	DialogInputLine = Color3.fromRGB(120, 120, 120),
-
+	DialogInputFocused = Color3.fromRGB(25, 25, 25),
 	ColorpickerDialog = Color3.fromRGB(35, 35, 35),
 	ColorpickerDialogBorder = Color3.fromRGB(50, 50, 50),
-	ColorpickerHolder = Color3.fromRGB(25, 25, 25),
+	ColorpickerHolder = ColorSequence.new(Color3.fromRGB(32, 32, 32), Color3.fromRGB(20, 20, 20)),
+	ColorpickerHolderRotation = 90,
+	ColorpickerHolderTransparency = NumberSequence.new(0),
 	ColorpickerHolderLine = Color3.fromRGB(20, 20, 20),
 	ColorpickerButton = Color3.fromRGB(35, 35, 35),
 	ColorpickerButtonBorder = Color3.fromRGB(55, 55, 55),
@@ -145,9 +163,9 @@ local Themes = {
 	ColorpickerInputLine = Color3.fromRGB(120, 120, 120),
 	ColorpickerInputBorder = Color3.fromRGB(55, 55, 55),
 	ColorpickerInputFocused = Color3.fromRGB(25, 25, 25),
-
 	MenuBackground = ColorSequence.new(Color3.fromRGB(26, 26, 26), Color3.fromRGB(7, 7, 7)),
 	MenuBackgroundRotation = 90,
+	MenuBackgroundTransparency = NumberSequence.new(0),
 	MenuBorder = Color3.fromRGB(58, 58, 58),
 	MenuHolder = Color3.fromRGB(9, 9, 9),
 	MenuHolderLine = Color3.fromRGB(30, 30, 30),
@@ -156,129 +174,140 @@ local Themes = {
 	MenuInput = Color3.fromRGB(17, 17, 17),
 	MenuInputLine = Color3.fromRGB(130, 130, 130),
 	MenuInputFocused = Color3.fromRGB(9, 9, 9),
+	ClassHint = Color3.fromRGB(35, 35, 35),
+	ClassHintBorder = Color3.fromRGB(50, 50, 50),
+	ClassHintBorderTransparency = 0.3,
+	ClassHintText = Color3.fromRGB(240, 240, 240),
 },
 
 	Light = {
 	Name = "Light",
-	Accent = Color3.fromRGB(0, 103, 192),
-
-	AcrylicMain = Color3.fromRGB(200, 200, 200),
-	AcrylicBorder = Color3.fromRGB(120, 120, 120),
-	AcrylicGradient = ColorSequence.new(Color3.fromRGB(255, 255, 255), Color3.fromRGB(255, 255, 255)),
-	AcrylicGradientRotation = 90,
-	AcrylicNoise = 0.96,
+	Accent = Color3.fromRGB(90, 90, 95),
+	AcrylicMain = Color3.fromRGB(255, 253, 255),
+	AcrylicBorder = Color3.fromRGB(208, 207, 211),
+	AcrylicGradient = ColorSequence.new(Color3.fromRGB(255, 255, 255), Color3.fromRGB(238, 237, 238)),
+	AcrylicGradientRotation = 350,
+	AcrylicGradientTransparency = NumberSequence.new(0.4),
+	AcrylicNoise = 0.93,
 	Background = "",
 	BackgroundTransparency = 0,
-
-	TitleBarLine = Color3.fromRGB(160, 160, 160),
-	Tab = Color3.fromRGB(90, 90, 90),
-
-	Element = Color3.fromRGB(255, 255, 255),
-	ElementBorder = Color3.fromRGB(180, 180, 180),
-	InElementBorder = Color3.fromRGB(150, 150, 150),
-	ElementTransparency = 0.65,
-
-	ToggleSlider = Color3.fromRGB(40, 40, 40),
+	TitleBarLine = Color3.fromRGB(225, 223, 225),
+	TitleBarLineTransparency = 0.5,
+	Tab = Color3.fromRGB(225, 223, 225),
+	TabOverlay = Color3.fromRGB(90, 90, 90),
+	ScrollBar = Color3.fromRGB(110, 110, 110),
+	Element = Color3.fromRGB(225, 223, 225),
+	ElementBorder = Color3.fromRGB(225, 223, 225),
+	InElementBorder = Color3.fromRGB(208, 207, 211),
+	ElementTransparency = 0.87,
+	ToggleSlider = Color3.fromRGB(181, 181, 183),
 	ToggleToggled = Color3.fromRGB(255, 255, 255),
-
-	SliderRail = Color3.fromRGB(40, 40, 40),
-
-	DropdownFrame = Color3.fromRGB(200, 200, 200),
-	DropdownHolder = Color3.fromRGB(240, 240, 240),
-	DropdownBorder = Color3.fromRGB(200, 200, 200),
-	DropdownOption = Color3.fromRGB(150, 150, 150),
-
-	Keybind = Color3.fromRGB(120, 120, 120),
-
-	Input = Color3.fromRGB(200, 200, 200),
-	InputFocused = Color3.fromRGB(100, 100, 100),
-	InputIndicator = Color3.fromRGB(80, 80, 80),
-
-	Dialog = Color3.fromRGB(255, 255, 255),
-	DialogHolder = Color3.fromRGB(240, 240, 240),
-	DialogHolderLine = Color3.fromRGB(228, 228, 228),
+	SliderRail = Color3.fromRGB(208, 207, 211),
+	DropdownFrame = Color3.fromRGB(238, 237, 238),
+	DropdownHolder = ColorSequence.new(Color3.fromRGB(255, 253, 255), Color3.fromRGB(244, 243, 245)),
+	DropdownHolderRotation = 90,
+	DropdownHolderTransparency = NumberSequence.new(0),
+	DropdownBorder = Color3.fromRGB(208, 207, 211),
+	DropdownOption = Color3.fromRGB(225, 223, 225),
+	Keybind = Color3.fromRGB(225, 223, 225),
+	Input = Color3.fromRGB(238, 237, 238),
+	InputFocused = Color3.fromRGB(255, 255, 255),
+	InputIndicator = Color3.fromRGB(90, 90, 95),
+	Dialog = Color3.fromRGB(249, 248, 250),
+	DialogHolder = ColorSequence.new(Color3.fromRGB(254, 253, 255), Color3.fromRGB(229, 228, 230)),
+	DialogHolderRotation = 90,
+	DialogHolderTransparency = NumberSequence.new(0),
+	DialogHolderLine = Color3.fromRGB(225, 223, 225),
 	DialogButton = Color3.fromRGB(255, 255, 255),
-	DialogButtonBorder = Color3.fromRGB(190, 190, 190),
-	DialogBorder = Color3.fromRGB(140, 140, 140),
-	DialogInput = Color3.fromRGB(250, 250, 250),
-	DialogInputLine = Color3.fromRGB(160, 160, 160),
-
-	ColorpickerDialog = Color3.fromRGB(255, 255, 255),
-	ColorpickerDialogBorder = Color3.fromRGB(140, 140, 140),
-	ColorpickerHolder = Color3.fromRGB(240, 240, 240),
-	ColorpickerHolderLine = Color3.fromRGB(228, 228, 228),
+	DialogButtonBorder = Color3.fromRGB(181, 181, 183),
+	DialogBorder = Color3.fromRGB(208, 207, 211),
+	DialogInput = Color3.fromRGB(244, 243, 245),
+	DialogInputLine = Color3.fromRGB(90, 90, 95),
+	DialogInputFocused = Color3.fromRGB(244, 243, 245),
+	ColorpickerDialog = Color3.fromRGB(249, 248, 250),
+	ColorpickerDialogBorder = Color3.fromRGB(208, 207, 211),
+	ColorpickerHolder = ColorSequence.new(Color3.fromRGB(255, 255, 255), Color3.fromRGB(234, 233, 235)),
+	ColorpickerHolderRotation = 90,
+	ColorpickerHolderTransparency = NumberSequence.new(0),
+	ColorpickerHolderLine = Color3.fromRGB(225, 223, 225),
 	ColorpickerButton = Color3.fromRGB(255, 255, 255),
-	ColorpickerButtonBorder = Color3.fromRGB(190, 190, 190),
-	ColorpickerInput = Color3.fromRGB(250, 250, 250),
-	ColorpickerInputLine = Color3.fromRGB(160, 160, 160),
-	ColorpickerInputBorder = Color3.fromRGB(190, 190, 190),
-	ColorpickerInputFocused = Color3.fromRGB(240, 240, 240),
-
-	MenuBackground = ColorSequence.new(Color3.fromRGB(206, 206, 206), Color3.fromRGB(182, 182, 182)),
+	ColorpickerButtonBorder = Color3.fromRGB(181, 181, 183),
+	ColorpickerInput = Color3.fromRGB(244, 243, 245),
+	ColorpickerInputLine = Color3.fromRGB(90, 90, 95),
+	ColorpickerInputBorder = Color3.fromRGB(181, 181, 183),
+	ColorpickerInputFocused = Color3.fromRGB(255, 255, 255),
+	MenuBackground = ColorSequence.new(Color3.fromRGB(242, 242, 242), Color3.fromRGB(242, 242, 242)),
 	MenuBackgroundRotation = 90,
-	MenuBorder = Color3.fromRGB(130, 130, 130),
-	MenuHolder = Color3.fromRGB(172, 172, 172),
-	MenuHolderLine = Color3.fromRGB(150, 150, 150),
-	MenuButton = Color3.fromRGB(224, 224, 224),
-	MenuButtonBorder = Color3.fromRGB(128, 128, 128),
-	MenuInput = Color3.fromRGB(198, 198, 198),
-	MenuInputLine = Color3.fromRGB(70, 70, 70),
-	MenuInputFocused = Color3.fromRGB(232, 232, 232),
-
-	Text = Color3.fromRGB(0, 0, 0),
-	SubText = Color3.fromRGB(40, 40, 40),
-	Hover = Color3.fromRGB(50, 50, 50),
-	HoverChange = 0.16,
+	MenuBackgroundTransparency = NumberSequence.new(0),
+	MenuBorder = Color3.fromRGB(208, 207, 211),
+	MenuHolder = Color3.fromRGB(249, 248, 250),
+	MenuHolderLine = Color3.fromRGB(225, 223, 225),
+	MenuButton = Color3.fromRGB(238, 237, 238),
+	MenuButtonBorder = Color3.fromRGB(208, 207, 211),
+	MenuInput = Color3.fromRGB(238, 237, 238),
+	MenuInputLine = Color3.fromRGB(181, 181, 183),
+	MenuInputFocused = Color3.fromRGB(255, 255, 255),
+	ClassHint = Color3.fromRGB(249, 248, 250),
+	ClassHintBorder = Color3.fromRGB(208, 207, 211),
+	ClassHintBorderTransparency = 0.3,
+	ClassHintText = Color3.fromRGB(28, 28, 30),
+	Text = Color3.fromRGB(28, 28, 30),
+	TextRotation = 0,
+	SubText = Color3.fromRGB(110, 109, 115),
+	SubTextRotation = 0,
+	Hover = Color3.fromRGB(208, 207, 211),
+	HoverChange = 0.07,
 },
 
 	Aqua = {
 	Name = "Aqua",
 	Accent = Color3.fromRGB(60, 165, 165),
-
 	AcrylicMain = Color3.fromRGB(20, 20, 20),
 	AcrylicBorder = Color3.fromRGB(50, 100, 100),
 	AcrylicGradient = ColorSequence.new(Color3.fromRGB(60, 140, 140), Color3.fromRGB(40, 80, 80)),
 	AcrylicGradientRotation = 90,
+	AcrylicGradientTransparency = NumberSequence.new(0.4),
 	AcrylicNoise = 0.92,
 	Background = "",
 	BackgroundTransparency = 0,
-
 	TitleBarLine = Color3.fromRGB(60, 120, 120),
+	TitleBarLineTransparency = 0.5,
 	Tab = Color3.fromRGB(140, 180, 180),
-
+	TabOverlay = Color3.fromRGB(140, 180, 180),
+	ScrollBar = Color3.fromRGB(170, 170, 170),
 	Element = Color3.fromRGB(110, 160, 160),
 	ElementBorder = Color3.fromRGB(40, 70, 70),
 	InElementBorder = Color3.fromRGB(80, 110, 110),
 	ElementTransparency = 0.84,
-
 	ToggleSlider = Color3.fromRGB(110, 160, 160),
 	ToggleToggled = Color3.fromRGB(0, 0, 0),
-
 	SliderRail = Color3.fromRGB(110, 160, 160),
-
 	DropdownFrame = Color3.fromRGB(160, 200, 200),
-	DropdownHolder = Color3.fromRGB(40, 80, 80),
+	DropdownHolder = ColorSequence.new(Color3.fromRGB(54, 108, 108), Color3.fromRGB(28, 58, 58)),
+	DropdownHolderRotation = 90,
+	DropdownHolderTransparency = NumberSequence.new(0),
 	DropdownBorder = Color3.fromRGB(40, 65, 65),
 	DropdownOption = Color3.fromRGB(110, 160, 160),
-
 	Keybind = Color3.fromRGB(110, 160, 160),
-
 	Input = Color3.fromRGB(110, 160, 160),
 	InputFocused = Color3.fromRGB(20, 10, 30),
 	InputIndicator = Color3.fromRGB(130, 170, 170),
-
 	Dialog = Color3.fromRGB(40, 80, 80),
-	DialogHolder = Color3.fromRGB(30, 60, 60),
+	DialogHolder = ColorSequence.new(Color3.fromRGB(38, 77, 77), Color3.fromRGB(23, 47, 47)),
+	DialogHolderRotation = 90,
+	DialogHolderTransparency = NumberSequence.new(0),
 	DialogHolderLine = Color3.fromRGB(25, 50, 50),
 	DialogButton = Color3.fromRGB(40, 80, 80),
 	DialogButtonBorder = Color3.fromRGB(80, 110, 110),
 	DialogBorder = Color3.fromRGB(50, 100, 100),
 	DialogInput = Color3.fromRGB(45, 90, 90),
 	DialogInputLine = Color3.fromRGB(130, 170, 170),
-
+	DialogInputFocused = Color3.fromRGB(30, 60, 60),
 	ColorpickerDialog = Color3.fromRGB(40, 80, 80),
 	ColorpickerDialogBorder = Color3.fromRGB(50, 100, 100),
-	ColorpickerHolder = Color3.fromRGB(30, 60, 60),
+	ColorpickerHolder = ColorSequence.new(Color3.fromRGB(38, 77, 77), Color3.fromRGB(23, 47, 47)),
+	ColorpickerHolderRotation = 90,
+	ColorpickerHolderTransparency = NumberSequence.new(0),
 	ColorpickerHolderLine = Color3.fromRGB(25, 50, 50),
 	ColorpickerButton = Color3.fromRGB(40, 80, 80),
 	ColorpickerButtonBorder = Color3.fromRGB(80, 110, 110),
@@ -286,9 +315,9 @@ local Themes = {
 	ColorpickerInputLine = Color3.fromRGB(130, 170, 170),
 	ColorpickerInputBorder = Color3.fromRGB(80, 110, 110),
 	ColorpickerInputFocused = Color3.fromRGB(30, 60, 60),
-
 	MenuBackground = ColorSequence.new(Color3.fromRGB(42, 98, 98), Color3.fromRGB(8, 16, 16)),
 	MenuBackgroundRotation = 90,
+	MenuBackgroundTransparency = NumberSequence.new(0),
 	MenuBorder = Color3.fromRGB(57, 133, 133),
 	MenuHolder = Color3.fromRGB(13, 24, 24),
 	MenuHolderLine = Color3.fromRGB(24, 56, 56),
@@ -297,9 +326,14 @@ local Themes = {
 	MenuInput = Color3.fromRGB(16, 28, 28),
 	MenuInputLine = Color3.fromRGB(148, 206, 206),
 	MenuInputFocused = Color3.fromRGB(8, 15, 15),
-
+	ClassHint = Color3.fromRGB(40, 80, 80),
+	ClassHintBorder = Color3.fromRGB(50, 100, 100),
+	ClassHintBorderTransparency = 0.3,
+	ClassHintText = Color3.fromRGB(240, 240, 240),
 	Text = Color3.fromRGB(240, 240, 240),
+	TextRotation = 0,
 	SubText = Color3.fromRGB(170, 170, 170),
+	SubTextRotation = 0,
 	Hover = Color3.fromRGB(110, 160, 160),
 	HoverChange = 0.04,
 },
@@ -307,51 +341,52 @@ local Themes = {
 	Amethyst = {
 	Name = "Amethyst",
 	Accent = Color3.fromRGB(97, 62, 167),
-
 	AcrylicMain = Color3.fromRGB(20, 20, 20),
 	AcrylicBorder = Color3.fromRGB(110, 90, 130),
 	AcrylicGradient = ColorSequence.new(Color3.fromRGB(85, 57, 139), Color3.fromRGB(40, 25, 65)),
 	AcrylicGradientRotation = 90,
+	AcrylicGradientTransparency = NumberSequence.new(0.4),
 	AcrylicNoise = 0.92,
 	Background = "",
 	BackgroundTransparency = 0,
-
 	TitleBarLine = Color3.fromRGB(95, 75, 110),
+	TitleBarLineTransparency = 0.5,
 	Tab = Color3.fromRGB(160, 140, 180),
-
+	TabOverlay = Color3.fromRGB(160, 140, 180),
+	ScrollBar = Color3.fromRGB(170, 170, 170),
 	Element = Color3.fromRGB(140, 120, 160),
 	ElementBorder = Color3.fromRGB(60, 50, 70),
 	InElementBorder = Color3.fromRGB(100, 90, 110),
 	ElementTransparency = 0.87,
-
 	ToggleSlider = Color3.fromRGB(140, 120, 160),
 	ToggleToggled = Color3.fromRGB(0, 0, 0),
-
 	SliderRail = Color3.fromRGB(140, 120, 160),
-
 	DropdownFrame = Color3.fromRGB(170, 160, 200),
-	DropdownHolder = Color3.fromRGB(60, 45, 80),
+	DropdownHolder = ColorSequence.new(Color3.fromRGB(78, 58, 106), Color3.fromRGB(42, 30, 60)),
+	DropdownHolderRotation = 90,
+	DropdownHolderTransparency = NumberSequence.new(0),
 	DropdownBorder = Color3.fromRGB(50, 40, 65),
 	DropdownOption = Color3.fromRGB(140, 120, 160),
-
 	Keybind = Color3.fromRGB(140, 120, 160),
-
 	Input = Color3.fromRGB(140, 120, 160),
 	InputFocused = Color3.fromRGB(20, 10, 30),
 	InputIndicator = Color3.fromRGB(170, 150, 190),
-
 	Dialog = Color3.fromRGB(60, 45, 80),
-	DialogHolder = Color3.fromRGB(45, 30, 65),
+	DialogHolder = ColorSequence.new(Color3.fromRGB(58, 38, 83), Color3.fromRGB(35, 23, 51)),
+	DialogHolderRotation = 90,
+	DialogHolderTransparency = NumberSequence.new(0),
 	DialogHolderLine = Color3.fromRGB(40, 25, 60),
 	DialogButton = Color3.fromRGB(60, 45, 80),
 	DialogButtonBorder = Color3.fromRGB(95, 80, 110),
 	DialogBorder = Color3.fromRGB(85, 70, 100),
 	DialogInput = Color3.fromRGB(70, 55, 85),
 	DialogInputLine = Color3.fromRGB(175, 160, 190),
-
+	DialogInputFocused = Color3.fromRGB(45, 30, 65),
 	ColorpickerDialog = Color3.fromRGB(60, 45, 80),
 	ColorpickerDialogBorder = Color3.fromRGB(85, 70, 100),
-	ColorpickerHolder = Color3.fromRGB(45, 30, 65),
+	ColorpickerHolder = ColorSequence.new(Color3.fromRGB(58, 38, 83), Color3.fromRGB(35, 23, 51)),
+	ColorpickerHolderRotation = 90,
+	ColorpickerHolderTransparency = NumberSequence.new(0),
 	ColorpickerHolderLine = Color3.fromRGB(40, 25, 60),
 	ColorpickerButton = Color3.fromRGB(60, 45, 80),
 	ColorpickerButtonBorder = Color3.fromRGB(95, 80, 110),
@@ -359,9 +394,9 @@ local Themes = {
 	ColorpickerInputLine = Color3.fromRGB(175, 160, 190),
 	ColorpickerInputBorder = Color3.fromRGB(95, 80, 110),
 	ColorpickerInputFocused = Color3.fromRGB(45, 30, 65),
-
 	MenuBackground = ColorSequence.new(Color3.fromRGB(59, 40, 97), Color3.fromRGB(8, 5, 13)),
 	MenuBackgroundRotation = 90,
+	MenuBackgroundTransparency = NumberSequence.new(0),
 	MenuBorder = Color3.fromRGB(81, 54, 132),
 	MenuHolder = Color3.fromRGB(13, 9, 20),
 	MenuHolderLine = Color3.fromRGB(34, 23, 56),
@@ -370,9 +405,14 @@ local Themes = {
 	MenuInput = Color3.fromRGB(20, 15, 28),
 	MenuInputLine = Color3.fromRGB(168, 149, 207),
 	MenuInputFocused = Color3.fromRGB(8, 6, 12),
-
-	Text = Color3.fromRGB(240, 240, 240),
-	SubText = Color3.fromRGB(170, 170, 170),
+	ClassHint = Color3.fromRGB(60, 45, 80),
+	ClassHintBorder = Color3.fromRGB(85, 70, 100),
+	ClassHintBorderTransparency = 0.3,
+	ClassHintText = Color3.fromRGB(240, 240, 240),
+	Text = ColorSequence.new(Color3.fromRGB(245, 238, 255), Color3.fromRGB(196, 170, 255)),
+	TextRotation = 0,
+	SubText = ColorSequence.new(Color3.fromRGB(176, 160, 205), Color3.fromRGB(140, 115, 190)),
+	SubTextRotation = 0,
 	Hover = Color3.fromRGB(140, 120, 160),
 	HoverChange = 0.04,
 },
@@ -380,51 +420,52 @@ local Themes = {
 	Rose = {
 	Name = "Rose",
 	Accent = Color3.fromRGB(180, 55, 90),
-
 	AcrylicMain = Color3.fromRGB(40, 40, 40),
 	AcrylicBorder = Color3.fromRGB(130, 90, 110),
 	AcrylicGradient = ColorSequence.new(Color3.fromRGB(190, 60, 135), Color3.fromRGB(165, 50, 70)),
 	AcrylicGradientRotation = 90,
+	AcrylicGradientTransparency = NumberSequence.new(0.4),
 	AcrylicNoise = 0.92,
 	Background = "",
 	BackgroundTransparency = 0,
-
 	TitleBarLine = Color3.fromRGB(140, 85, 105),
+	TitleBarLineTransparency = 0.5,
 	Tab = Color3.fromRGB(180, 140, 160),
-
+	TabOverlay = Color3.fromRGB(180, 140, 160),
+	ScrollBar = Color3.fromRGB(170, 170, 170),
 	Element = Color3.fromRGB(200, 120, 170),
 	ElementBorder = Color3.fromRGB(110, 70, 85),
 	InElementBorder = Color3.fromRGB(120, 90, 90),
 	ElementTransparency = 0.86,
-
 	ToggleSlider = Color3.fromRGB(200, 120, 170),
 	ToggleToggled = Color3.fromRGB(0, 0, 0),
-
 	SliderRail = Color3.fromRGB(200, 120, 170),
-
 	DropdownFrame = Color3.fromRGB(200, 160, 180),
-	DropdownHolder = Color3.fromRGB(120, 50, 75),
+	DropdownHolder = ColorSequence.new(Color3.fromRGB(150, 64, 95), Color3.fromRGB(92, 38, 58)),
+	DropdownHolderRotation = 90,
+	DropdownHolderTransparency = NumberSequence.new(0),
 	DropdownBorder = Color3.fromRGB(90, 40, 55),
 	DropdownOption = Color3.fromRGB(200, 120, 170),
-
 	Keybind = Color3.fromRGB(200, 120, 170),
-
 	Input = Color3.fromRGB(200, 120, 170),
 	InputFocused = Color3.fromRGB(20, 10, 30),
 	InputIndicator = Color3.fromRGB(170, 150, 190),
-
 	Dialog = Color3.fromRGB(120, 50, 75),
-	DialogHolder = Color3.fromRGB(95, 40, 60),
+	DialogHolder = ColorSequence.new(Color3.fromRGB(122, 51, 77), Color3.fromRGB(74, 31, 47)),
+	DialogHolderRotation = 90,
+	DialogHolderTransparency = NumberSequence.new(0),
 	DialogHolderLine = Color3.fromRGB(90, 35, 55),
 	DialogButton = Color3.fromRGB(120, 50, 75),
 	DialogButtonBorder = Color3.fromRGB(155, 90, 115),
 	DialogBorder = Color3.fromRGB(100, 70, 90),
 	DialogInput = Color3.fromRGB(135, 55, 80),
 	DialogInputLine = Color3.fromRGB(190, 160, 180),
-
+	DialogInputFocused = Color3.fromRGB(95, 40, 60),
 	ColorpickerDialog = Color3.fromRGB(120, 50, 75),
 	ColorpickerDialogBorder = Color3.fromRGB(100, 70, 90),
-	ColorpickerHolder = Color3.fromRGB(95, 40, 60),
+	ColorpickerHolder = ColorSequence.new(Color3.fromRGB(122, 51, 77), Color3.fromRGB(74, 31, 47)),
+	ColorpickerHolderRotation = 90,
+	ColorpickerHolderTransparency = NumberSequence.new(0),
 	ColorpickerHolderLine = Color3.fromRGB(90, 35, 55),
 	ColorpickerButton = Color3.fromRGB(120, 50, 75),
 	ColorpickerButtonBorder = Color3.fromRGB(155, 90, 115),
@@ -432,9 +473,9 @@ local Themes = {
 	ColorpickerInputLine = Color3.fromRGB(190, 160, 180),
 	ColorpickerInputBorder = Color3.fromRGB(155, 90, 115),
 	ColorpickerInputFocused = Color3.fromRGB(95, 40, 60),
-
 	MenuBackground = ColorSequence.new(Color3.fromRGB(133, 42, 94), Color3.fromRGB(18, 6, 9)),
 	MenuBackgroundRotation = 90,
+	MenuBackgroundTransparency = NumberSequence.new(0),
 	MenuBorder = Color3.fromRGB(180, 57, 128),
 	MenuHolder = Color3.fromRGB(24, 9, 13),
 	MenuHolderLine = Color3.fromRGB(76, 24, 54),
@@ -443,9 +484,14 @@ local Themes = {
 	MenuInput = Color3.fromRGB(36, 16, 28),
 	MenuInputLine = Color3.fromRGB(214, 145, 164),
 	MenuInputFocused = Color3.fromRGB(16, 6, 9),
-
-	Text = Color3.fromRGB(240, 240, 240),
-	SubText = Color3.fromRGB(170, 170, 170),
+	ClassHint = Color3.fromRGB(120, 50, 75),
+	ClassHintBorder = Color3.fromRGB(100, 70, 90),
+	ClassHintBorderTransparency = 0.3,
+	ClassHintText = Color3.fromRGB(240, 240, 240),
+	Text = ColorSequence.new(Color3.fromRGB(255, 240, 246), Color3.fromRGB(255, 176, 208)),
+	TextRotation = 0,
+	SubText = ColorSequence.new(Color3.fromRGB(205, 160, 178), Color3.fromRGB(215, 120, 160)),
+	SubTextRotation = 0,
 	Hover = Color3.fromRGB(200, 120, 170),
 	HoverChange = 0.04,
 },
@@ -453,51 +499,52 @@ local Themes = {
 	["Crimson Noir"] = {
 	Name = "Crimson Noir",
 	Accent = Color3.fromRGB(197, 3, 55),
-
 	AcrylicMain = Color3.fromRGB(10, 6, 10),
 	AcrylicBorder = Color3.fromRGB(90, 12, 35),
 	AcrylicGradient = ColorSequence.new(Color3.fromRGB(197, 3, 55), Color3.fromRGB(2, 6, 14)),
 	AcrylicGradientRotation = 90,
+	AcrylicGradientTransparency = NumberSequence.new(0.4),
 	AcrylicNoise = 0.93,
 	Background = "",
 	BackgroundTransparency = 0,
-
 	TitleBarLine = Color3.fromRGB(80, 12, 35),
+	TitleBarLineTransparency = 0.5,
 	Tab = Color3.fromRGB(110, 18, 45),
-
+	TabOverlay = Color3.fromRGB(110, 18, 45),
+	ScrollBar = Color3.fromRGB(170, 170, 170),
 	Element = Color3.fromRGB(130, 12, 40),
 	ElementBorder = Color3.fromRGB(35, 6, 15),
 	InElementBorder = Color3.fromRGB(90, 15, 32),
 	ElementTransparency = 0.87,
-
 	ToggleSlider = Color3.fromRGB(130, 12, 40),
 	ToggleToggled = Color3.fromRGB(2, 6, 14),
-
 	SliderRail = Color3.fromRGB(130, 12, 40),
-
 	DropdownFrame = Color3.fromRGB(150, 18, 48),
-	DropdownHolder = Color3.fromRGB(10, 6, 10),
+	DropdownHolder = ColorSequence.new(Color3.fromRGB(38, 10, 18), Color3.fromRGB(8, 4, 8)),
+	DropdownHolderRotation = 90,
+	DropdownHolderTransparency = NumberSequence.new(0),
 	DropdownBorder = Color3.fromRGB(6, 4, 8),
 	DropdownOption = Color3.fromRGB(130, 12, 40),
-
 	Keybind = Color3.fromRGB(130, 12, 40),
-
 	Input = Color3.fromRGB(150, 18, 48),
 	InputFocused = Color3.fromRGB(6, 4, 9),
 	InputIndicator = Color3.fromRGB(190, 25, 60),
-
 	Dialog = Color3.fromRGB(40, 5, 14),
-	DialogHolder = Color3.fromRGB(28, 4, 10),
+	DialogHolder = ColorSequence.new(Color3.fromRGB(36, 5, 13), Color3.fromRGB(22, 3, 8)),
+	DialogHolderRotation = 90,
+	DialogHolderTransparency = NumberSequence.new(0),
 	DialogHolderLine = Color3.fromRGB(20, 3, 7),
 	DialogButton = Color3.fromRGB(0, 0, 0),
 	DialogButtonBorder = Color3.fromRGB(120, 3, 38),
 	DialogBorder = Color3.fromRGB(110, 3, 35),
 	DialogInput = Color3.fromRGB(20, 8, 13),
 	DialogInputLine = Color3.fromRGB(230, 30, 70),
-
+	DialogInputFocused = Color3.fromRGB(28, 4, 10),
 	ColorpickerDialog = Color3.fromRGB(40, 5, 14),
 	ColorpickerDialogBorder = Color3.fromRGB(110, 3, 35),
-	ColorpickerHolder = Color3.fromRGB(28, 4, 10),
+	ColorpickerHolder = ColorSequence.new(Color3.fromRGB(36, 5, 13), Color3.fromRGB(22, 3, 8)),
+	ColorpickerHolderRotation = 90,
+	ColorpickerHolderTransparency = NumberSequence.new(0),
 	ColorpickerHolderLine = Color3.fromRGB(20, 3, 7),
 	ColorpickerButton = Color3.fromRGB(0, 0, 0),
 	ColorpickerButtonBorder = Color3.fromRGB(110, 3, 35),
@@ -505,9 +552,9 @@ local Themes = {
 	ColorpickerInputLine = Color3.fromRGB(230, 30, 70),
 	ColorpickerInputBorder = Color3.fromRGB(110, 3, 35),
 	ColorpickerInputFocused = Color3.fromRGB(20, 8, 13),
-
 	MenuBackground = ColorSequence.new(Color3.fromRGB(138, 14, 44), Color3.fromRGB(5, 3, 5)),
 	MenuBackgroundRotation = 90,
+	MenuBackgroundTransparency = NumberSequence.new(0),
 	MenuBorder = Color3.fromRGB(170, 20, 60),
 	MenuHolder = Color3.fromRGB(9, 5, 7),
 	MenuHolderLine = Color3.fromRGB(60, 14, 26),
@@ -516,9 +563,14 @@ local Themes = {
 	MenuInput = Color3.fromRGB(30, 18, 22),
 	MenuInputLine = Color3.fromRGB(255, 60, 100),
 	MenuInputFocused = Color3.fromRGB(8, 6, 8),
-
-	Text = Color3.fromRGB(245, 235, 237),
-	SubText = Color3.fromRGB(190, 130, 145),
+	ClassHint = Color3.fromRGB(40, 5, 14),
+	ClassHintBorder = Color3.fromRGB(110, 3, 35),
+	ClassHintBorderTransparency = 0.3,
+	ClassHintText = Color3.fromRGB(245, 235, 237),
+	Text = ColorSequence.new(Color3.fromRGB(245, 240, 242), Color3.fromRGB(255, 120, 140)),
+	TextRotation = 0,
+	SubText = ColorSequence.new(Color3.fromRGB(190, 130, 145), Color3.fromRGB(150, 80, 100)),
+	SubTextRotation = 0,
 	Hover = Color3.fromRGB(110, 18, 45),
 	HoverChange = 0.07,
 },
@@ -526,51 +578,57 @@ local Themes = {
 	Gold = {
 	Name = "Gold",
 	Accent = Color3.fromRGB(255, 198, 41),
-
-	AcrylicMain = Color3.fromRGB(58, 43, 8),
-	AcrylicBorder = Color3.fromRGB(130, 98, 22),
-	AcrylicGradient = ColorSequence.new(Color3.fromRGB(120, 90, 18), Color3.fromRGB(55, 40, 8)),
+	AcrylicMain = Color3.fromRGB(150, 112, 30),
+	AcrylicBorder = Color3.fromRGB(200, 156, 52),
+	AcrylicGradient = ColorSequence.new({
+		ColorSequenceKeypoint.new(0, Color3.fromRGB(40, 30, 10)),
+		ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 210, 120)),
+		ColorSequenceKeypoint.new(1, Color3.fromRGB(40, 30, 10)),
+	}),
 	AcrylicGradientRotation = 90,
+	AcrylicGradientTransparency = NumberSequence.new(0.25),
+	CardGradient = { Color3.fromRGB(250, 204, 84), Color3.fromRGB(184, 136, 38) },
 	AcrylicNoise = 0.93,
 	Background = "",
 	BackgroundTransparency = 0,
-
 	TitleBarLine = Color3.fromRGB(125, 94, 20),
-	Tab = Color3.fromRGB(160, 122, 38),
-
-	Element = Color3.fromRGB(140, 106, 28),
-	ElementBorder = Color3.fromRGB(85, 63, 12),
-	InElementBorder = Color3.fromRGB(115, 88, 20),
+	TitleBarLineTransparency = 0.5,
+	Tab = Color3.fromRGB(205, 160, 60),
+	TabOverlay = Color3.fromRGB(205, 160, 60),
+	ScrollBar = Color3.fromRGB(170, 170, 170),
+	Element = Color3.fromRGB(190, 146, 48),
+	ElementBorder = Color3.fromRGB(130, 98, 22),
+	InElementBorder = Color3.fromRGB(165, 125, 34),
 	ElementTransparency = 0.87,
-
-	ToggleSlider = Color3.fromRGB(140, 106, 28),
+	ToggleSlider = Color3.fromRGB(190, 146, 48),
 	ToggleToggled = Color3.fromRGB(255, 255, 255),
-
-	SliderRail = Color3.fromRGB(140, 106, 28),
-
-	DropdownFrame = Color3.fromRGB(190, 148, 48),
-	DropdownHolder = Color3.fromRGB(62, 46, 10),
+	SliderRail = Color3.fromRGB(190, 146, 48),
+	DropdownFrame = Color3.fromRGB(225, 178, 70),
+	DropdownHolder = ColorSequence.new(Color3.fromRGB(130, 98, 24), Color3.fromRGB(78, 58, 14)),
+	DropdownHolderRotation = 90,
+	DropdownHolderTransparency = NumberSequence.new(0),
 	DropdownBorder = Color3.fromRGB(52, 39, 8),
-	DropdownOption = Color3.fromRGB(140, 106, 28),
-
-	Keybind = Color3.fromRGB(140, 106, 28),
-
-	Input = Color3.fromRGB(190, 148, 48),
+	DropdownOption = Color3.fromRGB(190, 146, 48),
+	Keybind = Color3.fromRGB(190, 146, 48),
+	Input = Color3.fromRGB(225, 178, 70),
 	InputFocused = Color3.fromRGB(48, 35, 8),
 	InputIndicator = Color3.fromRGB(215, 172, 55),
-
 	Dialog = Color3.fromRGB(68, 51, 13),
-	DialogHolder = Color3.fromRGB(52, 39, 9),
+	DialogHolder = ColorSequence.new(Color3.fromRGB(110, 83, 20), Color3.fromRGB(66, 49, 12)),
+	DialogHolderRotation = 90,
+	DialogHolderTransparency = NumberSequence.new(0),
 	DialogHolderLine = Color3.fromRGB(42, 31, 7),
 	DialogButton = Color3.fromRGB(68, 51, 13),
 	DialogButtonBorder = Color3.fromRGB(105, 79, 19),
 	DialogBorder = Color3.fromRGB(125, 94, 20),
 	DialogInput = Color3.fromRGB(78, 58, 15),
 	DialogInputLine = Color3.fromRGB(230, 188, 62),
-
+	DialogInputFocused = Color3.fromRGB(52, 39, 9),
 	ColorpickerDialog = Color3.fromRGB(68, 51, 13),
 	ColorpickerDialogBorder = Color3.fromRGB(125, 94, 20),
-	ColorpickerHolder = Color3.fromRGB(52, 39, 9),
+	ColorpickerHolder = ColorSequence.new(Color3.fromRGB(110, 83, 20), Color3.fromRGB(66, 49, 12)),
+	ColorpickerHolderRotation = 90,
+	ColorpickerHolderTransparency = NumberSequence.new(0),
 	ColorpickerHolderLine = Color3.fromRGB(42, 31, 7),
 	ColorpickerButton = Color3.fromRGB(68, 51, 13),
 	ColorpickerButtonBorder = Color3.fromRGB(105, 79, 19),
@@ -578,21 +636,35 @@ local Themes = {
 	ColorpickerInputLine = Color3.fromRGB(230, 188, 62),
 	ColorpickerInputBorder = Color3.fromRGB(105, 79, 19),
 	ColorpickerInputFocused = Color3.fromRGB(52, 39, 9),
-
-	MenuBackground = ColorSequence.new(Color3.fromRGB(84, 63, 13), Color3.fromRGB(11, 8, 2)),
+	MenuBackground = ColorSequence.new({
+		ColorSequenceKeypoint.new(0, Color3.fromRGB(40, 30, 10)),
+		ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 210, 120)),
+		ColorSequenceKeypoint.new(0.776, Color3.fromRGB(0, 0, 0)),
+		ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 0)),
+	}),
 	MenuBackgroundRotation = 90,
+	MenuBackgroundTransparency = NumberSequence.new({
+		NumberSequenceKeypoint.new(0, 0),
+		NumberSequenceKeypoint.new(1, 0),
+	}),
 	MenuBorder = Color3.fromRGB(114, 86, 17),
-	MenuHolder = Color3.fromRGB(17, 13, 4),
+	MenuBorderTransparency = 0.5,
+	MenuHolder = Color3.fromRGB(0, 0, 0),
 	MenuHolderLine = Color3.fromRGB(48, 36, 7),
 	MenuButton = Color3.fromRGB(23, 19, 9),
 	MenuButtonBorder = Color3.fromRGB(90, 68, 14),
 	MenuInput = Color3.fromRGB(25, 20, 9),
 	MenuInputLine = Color3.fromRGB(255, 224, 137),
 	MenuInputFocused = Color3.fromRGB(11, 8, 3),
-
-	Text = Color3.fromRGB(255, 248, 225),
-	SubText = Color3.fromRGB(215, 185, 115),
-	Hover = Color3.fromRGB(160, 122, 38),
+	ClassHint = Color3.fromRGB(68, 51, 13),
+	ClassHintBorder = Color3.fromRGB(125, 94, 20),
+	ClassHintBorderTransparency = 0.3,
+	ClassHintText = Color3.fromRGB(255, 248, 225),
+	Text = ColorSequence.new(Color3.fromRGB(255, 248, 225), Color3.fromRGB(255, 214, 102)),
+	TextRotation = 0,
+	SubText = ColorSequence.new(Color3.fromRGB(240, 212, 150), Color3.fromRGB(205, 165, 78)),
+	SubTextRotation = 0,
+	Hover = Color3.fromRGB(205, 160, 60),
 	HoverChange = 0.07,
 },
 }
@@ -600,19 +672,18 @@ local Themes = {
 local Elements
 
 local Library = {
-	Version = "1.0.2",
-
+	Version = "1.0.3",
 	OpenFrames = {},
 	Options = {},
 	Themes = Themes.Names,
-
 	Window = nil,
 	WindowFrame = nil,
 	Unloaded = false,
-
 	Theme = "Dark",
 	Font = "rbxasset://fonts/families/GothamSSm.json",
 	DialogOpen = false,
+	WindowCorner = 8,
+	DPIScale = 1,
 	UseAcrylic = false,
 	Acrylic = false,
 	Transparency = 0.35,
@@ -623,6 +694,11 @@ local Library = {
 	BoundaryMargin = 8,
 	BoundaryInset = { Top = 0, Bottom = 0, Left = 0, Right = 0 },
 	CustomThemeData = nil,
+	PanelSizes = {},
+	SeasonalHats = {
+		Enabled = false,
+		Force = nil,
+	},
 }
 
 local function isMotor(value)
@@ -1078,6 +1154,7 @@ local Creator = {
 			BackgroundColor3 = Color3.new(1, 1, 1),
 			BorderColor3 = Color3.new(0, 0, 0),
 			ScrollBarImageColor3 = Color3.new(0, 0, 0),
+			ScrollBarImageTransparency = 1,
 		},
 		TextLabel = {
 			BackgroundColor3 = Color3.new(1, 1, 1),
@@ -1129,6 +1206,9 @@ local function ApplyCustomProps(Object, Props)
 	if Props.ThemeTag then
 		Creator.AddThemeObject(Object, Props.ThemeTag)
 	end
+	if Props.SeasonalHat then
+		Creator.AttachHat(Object, Props.SeasonalHat)
+	end
 end
 
 function Creator.AddSignal(Signal, Function)
@@ -1142,14 +1222,56 @@ function Creator.Disconnect()
 	end
 end
 
+local GradientTransparencyKeys = {
+	AcrylicGradientTransparency = true,
+	DropdownHolderTransparency = true,
+	DialogHolderTransparency = true,
+	ColorpickerHolderTransparency = true,
+	MenuBackgroundTransparency = true,
+}
+
+local GradientThemeKeys = {
+	DropdownHolder = true,
+	DialogHolder = true,
+	ColorpickerHolder = true,
+}
+
+local function ResolveThemeValue(Source, Property)
+	if not Source then
+		return nil
+	end
+
+	if Source[Property] ~= nil then
+		return Source[Property]
+	end
+
+	if Property == "DialogInputFocused" and typeof(Source.DialogHolder) == "Color3" then
+		return Source.DialogHolder
+	end
+
+	return nil
+end
+
 function Creator.GetThemeProperty(Property)
-	if Library.CustomThemeData and Library.CustomThemeData[Property] ~= nil then
-		return Library.CustomThemeData[Property]
+	local Value = ResolveThemeValue(Library.CustomThemeData, Property)
+
+	if Value == nil then
+		Value = ResolveThemeValue(Themes[Library.Theme], Property)
 	end
-	if Themes[Library.Theme] and Themes[Library.Theme][Property] ~= nil then
-		return Themes[Library.Theme][Property]
+
+	if Value == nil then
+		Value = Themes["Dark"][Property]
 	end
-	return Themes["Dark"][Property]
+
+	if GradientThemeKeys[Property] and typeof(Value) == "Color3" then
+		return ColorSequence.new(Value)
+	end
+
+	if GradientTransparencyKeys[Property] and type(Value) == "number" then
+		return NumberSequence.new(Value)
+	end
+
+	return Value
 end
 
 function Creator.GetKnobColor()
@@ -1157,10 +1279,118 @@ function Creator.GetKnobColor()
 	return Color3.new(1 - Color.R, 1 - Color.G, 1 - Color.B)
 end
 
+local ThemeGradients = setmetatable({}, { __mode = "k" })
+
+local SequenceProperties = {
+	TextColor3 = true,
+	ImageColor3 = true,
+	BackgroundColor3 = true,
+}
+
+local SequenceTags = {
+	Text = true,
+	SubText = true,
+}
+
+local function IsSolidSequence(Sequence)
+	local First = Sequence.Keypoints[1].Value
+	for _, Keypoint in ipairs(Sequence.Keypoints) do
+		if Keypoint.Value ~= First then
+			return false
+		end
+	end
+	return true
+end
+
+function Creator.ResolveColor(Value)
+	if typeof(Value) == "ColorSequence" then
+		return Value.Keypoints[1].Value
+	end
+	return Value
+end
+
+local function EnsureGradient(Object)
+	local Gradient = ThemeGradients[Object]
+	if not Gradient then
+		Gradient = Instance.new("UIGradient")
+		Gradient.Name = "ThemeSequence"
+		Gradient.Enabled = false
+		Gradient.Parent = Object
+		ThemeGradients[Object] = Gradient
+	end
+	return Gradient
+end
+
+function Creator.ApplyThemeValue(Object, Property, Value, Rotation)
+	local Gradient = ThemeGradients[Object]
+
+	if typeof(Value) ~= "ColorSequence" then
+		Object[Property] = Value
+		if Gradient and Gradient.Enabled then
+			Gradient.Enabled = false
+		end
+		return
+	end
+
+	local Tinted = Property ~= "BackgroundColor3" and Object.BackgroundTransparency < 1
+	if Tinted or IsSolidSequence(Value) then
+		Object[Property] = Creator.ResolveColor(Value)
+		if Gradient and Gradient.Enabled then
+			Gradient.Enabled = false
+		end
+		return
+	end
+
+	Object[Property] = Color3.new(1, 1, 1)
+
+	Gradient = Gradient or EnsureGradient(Object)
+	if Gradient.Color ~= Value then
+		Gradient.Color = Value
+	end
+	if Gradient.Rotation ~= (Rotation or 0) then
+		Gradient.Rotation = Rotation or 0
+	end
+	if not Gradient.Enabled then
+		Gradient.Enabled = true
+	end
+end
+
+function Creator.ApplyTag(Object, Property, ColorIdx)
+	local Value = Creator.GetThemeProperty(ColorIdx)
+
+	if not SequenceProperties[Property] then
+		if typeof(Value) == "ColorSequence" and typeof(Object[Property]) == "Color3" then
+			Value = Creator.ResolveColor(Value)
+		end
+		Object[Property] = Value
+		return
+	end
+
+	if typeof(Value) ~= "ColorSequence" then
+		if ThemeGradients[Object] then
+			Creator.ApplyThemeValue(Object, Property, Value)
+		else
+			Object[Property] = Value
+		end
+		return
+	end
+
+	local Rotation = tonumber(Creator.GetThemeProperty(ColorIdx .. "Rotation")) or 0
+	Creator.ApplyThemeValue(Object, Property, Value, Rotation)
+end
+
+function Creator.PrepareTween(Object, Property, ColorIdx)
+	local Previous = Object[Property]
+	Creator.ApplyTag(Object, Property, ColorIdx)
+	local Goal = Object[Property]
+	Object[Property] = Previous
+	return Goal
+end
+
 function Creator.UpdateTheme()
 	for Instance, Object in next, Creator.Registry do
 		for Property, ColorIdx in next, Object.Properties do
-			Instance[Property] = Creator.GetThemeProperty(ColorIdx)
+			Creator.ApplyTag(Instance, Property, ColorIdx)
 		end
 	end
 
@@ -1178,6 +1408,271 @@ function Creator.OnThemeChanged(Callback)
 	return Callback
 end
 
+function Creator.AttachScrollBar(ScrollFrame, Options)
+	Options = Options or {}
+
+	local Thickness = Options.Thickness or 4
+	local DotSize = Thickness
+	local Cap = DotSize + 3
+	local BarWidth = Thickness + 6
+	local MinThumb = 16
+	local SquashFactor = 2
+	local ShownTransparency = 0.35
+	local IdleDelay = 0.9
+	local FadeInTime = 0.12
+	local FadeOutTime = 0.35
+
+	ScrollFrame.ScrollBarThickness = 0
+	ScrollFrame.ScrollBarImageTransparency = 1
+	ScrollFrame.TopImage = ""
+	ScrollFrame.MidImage = ""
+	ScrollFrame.BottomImage = ""
+
+	local Scrollable = false
+	local Dragging = false
+	local Hovering = false
+	local Shown = false
+	local RevealId = 0
+	local DragStartY = 0
+	local DragStartCanvas = 0
+	local Fades = {}
+	local ActiveTweens = {}
+
+	local function NewFade(Object)
+		table.insert(Fades, Object)
+		return Object
+	end
+
+	local function NewDot(Name, Anchor)
+		return NewFade(Creator.New("Frame", {
+			Name = Name,
+			AnchorPoint = Vector2.new(0.5, Anchor),
+			Position = UDim2.fromScale(0.5, Anchor),
+			Size = UDim2.fromOffset(DotSize, DotSize),
+			BackgroundTransparency = 1,
+			ThemeTag = {
+				BackgroundColor3 = "ScrollBar",
+			},
+		}, {
+			Creator.New("UICorner", {
+				CornerRadius = UDim.new(1, 0),
+			}),
+		}))
+	end
+
+	local ThumbVisual = NewFade(Creator.New("Frame", {
+		Name = "ScrollBarVisual",
+		AnchorPoint = Vector2.new(0.5, 0),
+		Position = UDim2.fromScale(0.5, 0),
+		Size = UDim2.new(0, Thickness, 1, 0),
+		BackgroundTransparency = 1,
+		ThemeTag = {
+			BackgroundColor3 = "ScrollBar",
+		},
+	}, {
+		Creator.New("UICorner", {
+			CornerRadius = UDim.new(1, 0),
+		}),
+	}))
+
+	local Thumb = Creator.New("TextButton", {
+		Name = "ScrollBarThumb",
+		Text = "",
+		AutoButtonColor = false,
+		BackgroundTransparency = 1,
+		AnchorPoint = Vector2.new(0.5, 0),
+		Position = UDim2.fromScale(0.5, 0),
+		Size = UDim2.new(1, 0, 0, MinThumb),
+	}, {
+		ThumbVisual,
+	})
+
+	local Track = Creator.New("Frame", {
+		Name = "ScrollBarTrack",
+		BackgroundTransparency = 1,
+		AnchorPoint = Vector2.new(0.5, 0),
+		Position = UDim2.new(0.5, 0, 0, Cap),
+		Size = UDim2.new(1, 0, 1, -Cap * 2),
+	}, {
+		Thumb,
+	})
+
+	local Bar = Creator.New("Frame", {
+		Name = "ScrollBar",
+		BackgroundTransparency = 1,
+		ZIndex = ScrollFrame.ZIndex + 1,
+		Visible = false,
+	}, {
+		NewDot("ScrollBarTopDot", 0),
+		NewDot("ScrollBarBottomDot", 1),
+		Track,
+	})
+
+	local function FadeTo(Transparency, Duration)
+		for _, Tween in next, ActiveTweens do
+			Tween:Cancel()
+		end
+		table.clear(ActiveTweens)
+
+		for _, Object in next, Fades do
+			local Tween = TweenService:Create(Object, TweenInfo.new(Duration, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				BackgroundTransparency = Transparency,
+			})
+			table.insert(ActiveTweens, Tween)
+			Tween:Play()
+		end
+	end
+
+	local function Reveal()
+		if not Scrollable then
+			return
+		end
+
+		RevealId = RevealId + 1
+		local CurrentId = RevealId
+
+		if not Shown then
+			Shown = true
+			FadeTo(ShownTransparency, FadeInTime)
+		end
+
+		task.delay(IdleDelay, function()
+			if CurrentId == RevealId and not Dragging and not Hovering then
+				Shown = false
+				FadeTo(1, FadeOutTime)
+			end
+		end)
+	end
+
+	local function SyncLayout()
+		local Position = ScrollFrame.Position
+		local Size = ScrollFrame.Size
+		local Anchor = ScrollFrame.AnchorPoint
+		Bar.AnchorPoint = Vector2.new(1, Anchor.Y)
+		Bar.Position = UDim2.new(
+			Position.X.Scale + Size.X.Scale * (1 - Anchor.X),
+			Position.X.Offset + Size.X.Offset * (1 - Anchor.X),
+			Position.Y.Scale,
+			Position.Y.Offset
+		)
+		Bar.Size = UDim2.new(0, BarWidth, Size.Y.Scale, Size.Y.Offset)
+		Bar.ZIndex = ScrollFrame.ZIndex + 1
+	end
+
+	local function Update()
+		local WindowHeight = ScrollFrame.AbsoluteWindowSize.Y
+		local CanvasHeight = ScrollFrame.AbsoluteCanvasSize.Y
+		local MaxScroll = CanvasHeight - WindowHeight
+		Scrollable = MaxScroll > 1
+
+		local TrackHeight = math.max(0, ScrollFrame.AbsoluteSize.Y / Library.DPIScale - Cap * 2)
+		local Ratio = Scrollable and math.clamp(WindowHeight / CanvasHeight, 0, 1) or 1
+		local ThumbHeight = math.min(TrackHeight, math.max(MinThumb, TrackHeight * Ratio))
+		local Offset = 0
+
+		if Scrollable then
+			local CanvasY = ScrollFrame.CanvasPosition.Y
+			local Over = 0
+
+			if CanvasY < 0 then
+				Over = -CanvasY
+			elseif CanvasY > MaxScroll then
+				Over = CanvasY - MaxScroll
+			end
+
+			Offset = (TrackHeight - ThumbHeight) * math.clamp(CanvasY / MaxScroll, 0, 1)
+
+			if Over > 0 then
+				ThumbHeight = math.max(Thickness, ThumbHeight - Over * (TrackHeight / CanvasHeight) * SquashFactor)
+				Offset = CanvasY < 0 and 0 or TrackHeight - ThumbHeight
+			end
+		end
+
+		Thumb.Size = UDim2.new(1, 0, 0, ThumbHeight)
+		Thumb.Position = UDim2.new(0.5, 0, 0, Offset)
+		Bar.Visible = ScrollFrame.Visible and ScrollFrame.Parent ~= nil and Scrollable
+	end
+
+	local function Reparent()
+		Bar.Parent = ScrollFrame.Parent
+		SyncLayout()
+		Update()
+	end
+
+	Creator.AddSignal(ScrollFrame:GetPropertyChangedSignal("Parent"), Reparent)
+	Creator.AddSignal(ScrollFrame:GetPropertyChangedSignal("Position"), SyncLayout)
+	Creator.AddSignal(ScrollFrame:GetPropertyChangedSignal("Size"), SyncLayout)
+	Creator.AddSignal(ScrollFrame:GetPropertyChangedSignal("AnchorPoint"), SyncLayout)
+	Creator.AddSignal(ScrollFrame:GetPropertyChangedSignal("ZIndex"), SyncLayout)
+	Creator.AddSignal(ScrollFrame:GetPropertyChangedSignal("Visible"), Update)
+	Creator.AddSignal(ScrollFrame:GetPropertyChangedSignal("AbsoluteCanvasSize"), Update)
+	Creator.AddSignal(ScrollFrame:GetPropertyChangedSignal("AbsoluteWindowSize"), Update)
+	Creator.AddSignal(ScrollFrame:GetPropertyChangedSignal("AbsoluteSize"), Update)
+
+	Creator.AddSignal(ScrollFrame:GetPropertyChangedSignal("CanvasPosition"), function()
+		Update()
+		Reveal()
+	end)
+
+	Creator.AddSignal(ScrollFrame.Destroying, function()
+		RevealId = RevealId + 1
+		Bar:Destroy()
+	end)
+
+	Creator.AddSignal(Thumb.MouseEnter, function()
+		Hovering = true
+		Reveal()
+	end)
+
+	Creator.AddSignal(Thumb.MouseLeave, function()
+		Hovering = false
+		Reveal()
+	end)
+
+	Creator.AddSignal(Thumb.InputBegan, function(Input)
+		if Input.UserInputType ~= Enum.UserInputType.MouseButton1 and Input.UserInputType ~= Enum.UserInputType.Touch then
+			return
+		end
+		if not Scrollable then
+			return
+		end
+		Dragging = true
+		DragStartY = Input.Position.Y
+		DragStartCanvas = ScrollFrame.CanvasPosition.Y
+		Reveal()
+	end)
+
+	Creator.AddSignal(UserInputService.InputChanged, function(Input)
+		if not Dragging then
+			return
+		end
+		if Input.UserInputType ~= Enum.UserInputType.MouseMovement and Input.UserInputType ~= Enum.UserInputType.Touch then
+			return
+		end
+		local MaxScroll = ScrollFrame.AbsoluteCanvasSize.Y - ScrollFrame.AbsoluteWindowSize.Y
+		local TrackHeight = math.max(0, ScrollFrame.AbsoluteSize.Y - Cap * 2 * Library.DPIScale)
+		local Travel = TrackHeight - Thumb.AbsoluteSize.Y
+		if MaxScroll <= 0 or Travel <= 0 then
+			return
+		end
+		local Delta = Input.Position.Y - DragStartY
+		ScrollFrame.CanvasPosition = Vector2.new(0, math.clamp(DragStartCanvas + Delta * MaxScroll / Travel, 0, MaxScroll))
+	end)
+
+	Creator.AddSignal(UserInputService.InputEnded, function(Input)
+		if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
+			if Dragging then
+				Dragging = false
+				Reveal()
+			end
+		end
+	end)
+
+	Reparent()
+
+	return Bar
+end
+
 function Creator.AddThemeObject(Object, Properties)
 	Creator.RegistryCount = (Creator.RegistryCount or 0) + 1
 
@@ -1190,7 +1685,10 @@ function Creator.AddThemeObject(Object, Properties)
 	Creator.Registry[Object] = Data
 
 	for Property, ColorIdx in next, Properties do
-		Object[Property] = Creator.GetThemeProperty(ColorIdx)
+		Creator.ApplyTag(Object, Property, ColorIdx)
+		if SequenceProperties[Property] and SequenceTags[ColorIdx] and (Property == "BackgroundColor3" or Object.BackgroundTransparency >= 1) then
+			EnsureGradient(Object)
+		end
 	end
 
 	return Object
@@ -1198,7 +1696,26 @@ end
 
 function Creator.OverrideTag(Object, Properties)
 	Creator.Registry[Object].Properties = Properties
-	Creator.UpdateTheme()
+
+	for Property, ColorIdx in next, Properties do
+		Creator.ApplyTag(Object, Property, ColorIdx)
+	end
+end
+
+function Creator.Release(Root)
+	local Released = { [Root] = true }
+	Creator.Registry[Root] = nil
+
+	for _, Descendant in ipairs(Root:GetDescendants()) do
+		Released[Descendant] = true
+		Creator.Registry[Descendant] = nil
+	end
+
+	for Index = #Creator.FontRegistry, 1, -1 do
+		if Released[Creator.FontRegistry[Index].object] then
+			table.remove(Creator.FontRegistry, Index)
+		end
+	end
 end
 
 function Creator.RegisterFontObject(object, weight, style)
@@ -1220,6 +1737,128 @@ function Creator.UpdateFont()
 	end
 end
 
+Creator.Hats = setmetatable({}, { __mode = "k" })
+Creator.ActiveHat = nil
+Creator.HatClockRunning = false
+Creator.HatOrder = { "Santa", "Witch" }
+
+Creator.HatEvents = {
+	Santa = {
+		Texture = "rbxassetid://122021075307136",
+		Months = { 12 },
+		Aspect = 666 / 375,
+		Width = 321 / 375,
+		OriginX = 0.5,
+		OriginY = 439 / 666,
+		Rotation = -10,
+		Scale = { Avatar = 1, Icon = 1 },
+	},
+	Witch = {
+		Texture = "rbxassetid://83060455252227",
+		Months = { 10 },
+		Aspect = 1,
+		Width = 325 / 500,
+		OriginX = 249.5 / 500,
+		OriginY = 375 / 500,
+		Rotation = 0,
+		Scale = { Avatar = 0.85, Icon = 0.85 },
+	},
+}
+
+Creator.HatPlacement = {
+	Avatar = { Width = 0.95, X = 0.5, Y = 0.3 },
+	Icon = { Width = 1, X = 0.5, Y = 0.2 },
+}
+
+function Creator.GetActiveHat()
+	local Settings = Library.SeasonalHats
+	if Settings.Enabled ~= true then
+		return nil
+	end
+	if Settings.Force then
+		return Creator.HatEvents[Settings.Force] and Settings.Force or nil
+	end
+	local Month = os.date("*t").month
+	for _, Name in ipairs(Creator.HatOrder) do
+		if table.find(Creator.HatEvents[Name].Months, Month) then
+			return Name
+		end
+	end
+	return nil
+end
+
+local function StyleHat(Hat, Kind)
+	local Event = Creator.ActiveHat and Creator.HatEvents[Creator.ActiveHat]
+	if not Event then
+		Hat.Visible = false
+		return
+	end
+	local Place = Creator.HatPlacement[Kind] or Creator.HatPlacement.Icon
+	local Width = Place.Width * (Event.Scale[Kind] or 1) / Event.Width
+	Hat.Image = Event.Texture
+	Hat.AnchorPoint = Vector2.new(Event.OriginX, Event.OriginY)
+	Hat.Position = UDim2.fromScale(Place.X, Place.Y)
+	Hat.Size = UDim2.fromScale(Width, Width * Event.Aspect)
+	Hat.Rotation = Event.Rotation
+	Hat.Visible = true
+end
+
+function Creator.RefreshHats()
+	Creator.ActiveHat = Creator.GetActiveHat()
+	for Hat, Kind in next, Creator.Hats do
+		StyleHat(Hat, Kind)
+	end
+end
+
+function Creator.AttachHat(Object, Kind)
+	local Hat = Instance.new("ImageLabel")
+	Hat.Name = "SeasonalHat"
+	Hat.BackgroundTransparency = 1
+	Hat.BorderSizePixel = 0
+	Hat.ScaleType = Enum.ScaleType.Stretch
+	Hat.ZIndex = 20
+	Hat.Visible = false
+	Hat.Parent = Object
+	Creator.Hats[Hat] = Kind
+	StyleHat(Hat, Kind)
+	return Hat
+end
+
+function Creator.StartHatClock()
+	if Creator.HatClockRunning then
+		return
+	end
+	Creator.HatClockRunning = true
+	task.spawn(function()
+		local LastKey
+		while not Library.Unloaded do
+			local Now = os.date("*t")
+			local Key = Now.year * 10000 + Now.month * 100 + Now.day
+			if Key ~= LastKey then
+				LastKey = Key
+				Creator.RefreshHats()
+			end
+			task.wait(30)
+		end
+		Creator.HatClockRunning = false
+	end)
+end
+
+Creator.ActiveHat = Creator.GetActiveHat()
+Creator.StartHatClock()
+
+task.spawn(function()
+	pcall(function()
+		ContentProvider:PreloadAsync({
+			"rbxassetid://4155801252",
+			"rbxassetid://4805639000",
+			"rbxassetid://14204231522",
+			"rbxassetid://12266946128",
+			"rbxassetid://5554236805",
+		})
+	end)
+end)
+
 local fontTextTypes = { TextLabel = true, TextButton = true, TextBox = true }
 
 function Creator.New(Name, Properties, Children)
@@ -1233,7 +1872,7 @@ function Creator.New(Name, Properties, Children)
 	local fontStyle = Enum.FontStyle.Normal
 
 	for Name, Value in next, Properties or {} do
-		if Name ~= "ThemeTag" and Name ~= "IgnoreFontUpdate" then
+		if Name ~= "ThemeTag" and Name ~= "IgnoreFontUpdate" and Name ~= "SeasonalHat" then
 			Object[Name] = Value
 		end
 		if Name == "FontFace" and typeof(Value) == "Font" then
@@ -1270,6 +1909,124 @@ function Creator.AttachTitleDesc(Target, TitleLabel, DescLabel)
 	end
 end
 
+function Creator.AttachLock(Frame, Locked, Options)
+	Options = Options or {}
+
+	local Lock = {
+		Locked = false,
+		Targets = {},
+	}
+
+	local Overlay = Creator.New("TextButton", {
+		Name = "LockOverlay",
+		Text = "",
+		AutoButtonColor = false,
+		BackgroundColor3 = Color3.fromRGB(30, 30, 30),
+		BackgroundTransparency = 0.45,
+		BorderSizePixel = 0,
+		Size = UDim2.fromScale(1, 1),
+		ZIndex = 20,
+		Visible = false,
+		Parent = Frame,
+		ThemeTag = {
+			BackgroundColor3 = "Dialog",
+		},
+	}, {
+		Creator.New("UICorner", {
+			CornerRadius = UDim.new(0, Options.Radius or 4),
+		}),
+		Creator.New("Frame", {
+			Name = "LockBadge",
+			Size = UDim2.fromOffset(24, 24),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.fromScale(0.5, 0.5),
+			BackgroundColor3 = Color3.fromRGB(45, 45, 45),
+			BorderSizePixel = 0,
+			ZIndex = 21,
+			ThemeTag = {
+				BackgroundColor3 = "Element",
+			},
+		}, {
+			Creator.New("UICorner", {
+				CornerRadius = UDim.new(1, 0),
+			}),
+			Creator.New("UIStroke", {
+				Transparency = 0.5,
+				ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+				ThemeTag = {
+					Color = "ElementBorder",
+					Transparency = "ElementBorderTransparency",
+				},
+			}),
+			Creator.New("ImageLabel", {
+				Name = "LockIcon",
+				Image = "rbxassetid://134724289526879",
+				Size = UDim2.fromOffset(12, 12),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.fromScale(0.5, 0.5),
+				BackgroundTransparency = 1,
+				ZIndex = 22,
+				ThemeTag = {
+					ImageColor3 = "SubText",
+				},
+			}),
+		}),
+	})
+
+	function Lock.Set(Value)
+		Value = Value == true
+		if Value == Lock.Locked then
+			return
+		end
+
+		Lock.Locked = Value
+		Overlay.Visible = Value
+
+		for _, Target in ipairs(Lock.Targets) do
+			Target.Locked = Value
+		end
+
+		if Value then
+			for _, Descendant in ipairs(Frame:GetDescendants()) do
+				if Descendant:IsA("TextBox") then
+					Descendant:ReleaseFocus()
+				end
+			end
+		end
+
+		if Lock.OnChanged then
+			Lock.OnChanged(Value)
+		end
+	end
+
+	function Lock.Bind(Target)
+		table.insert(Lock.Targets, Target)
+		Target.Locked = Lock.Locked
+
+		function Target:SetLocked(Value)
+			Lock.Set(Value)
+		end
+
+		function Target:Lock()
+			Lock.Set(true)
+		end
+
+		function Target:Unlock()
+			Lock.Set(false)
+		end
+
+		Target.OpenLocked = Target.Unlock
+
+		function Target:IsLocked()
+			return Lock.Locked
+		end
+	end
+
+	Lock.Set(Locked)
+
+	return Lock
+end
+
 Creator.Marquees = {}
 
 local MarqueePause = 1.2
@@ -1281,7 +2038,7 @@ local function UpdateMarquees(Delta)
 		if not Entry.Label.Parent then
 			table.remove(Creator.Marquees, Index)
 		elseif Entry.Label.Visible and Entry.Label.AbsoluteSize.X > 0 then
-			local Overflow = Entry.Child.TextBounds.X - Entry.Label.AbsoluteSize.X
+			local Overflow = Entry.Child.TextBounds.X - Entry.Label.AbsoluteSize.X / Library.DPIScale
 			local Offset = 0
 
 			if Overflow > 1 then
@@ -1324,6 +2081,7 @@ function Creator.Marquee(Label, ColorTag)
 
 	local Child = Creator.New("TextLabel", {
 		Name = "MarqueeText",
+		RichText = Label.RichText,
 		Text = Label.Text,
 		FontFace = Label.FontFace,
 		TextSize = Label.TextSize,
@@ -1342,11 +2100,20 @@ function Creator.Marquee(Label, ColorTag)
 		Child.Text = Label.Text
 	end)
 
+	Creator.AddSignal(Label:GetPropertyChangedSignal("RichText"), function()
+		Child.RichText = Label.RichText
+	end)
+
 	table.insert(Creator.Marquees, { Label = Label, Child = Child, Time = 0, Offset = 0 })
 end
 
 function Creator.Adaptive(ElementFrame, Slot, Threshold, StartInline, Apply)
 	local Inline = StartInline
+
+	local Holder = ElementFrame.Frame.Parent
+	if Holder and Holder:GetAttribute("SidePanelRows") then
+		Threshold = math.min(Threshold, Slot + 140)
+	end
 
 	local function Place(Value)
 		Inline = Value
@@ -1357,7 +2124,7 @@ function Creator.Adaptive(ElementFrame, Slot, Threshold, StartInline, Apply)
 	end
 
 	local function Update()
-		local Width = ElementFrame.Frame.AbsoluteSize.X
+		local Width = ElementFrame.Frame.AbsoluteSize.X / Library.DPIScale
 		if Width <= 0 then return end
 		local Want
 		if Inline then
@@ -1374,6 +2141,535 @@ function Creator.Adaptive(ElementFrame, Slot, Threshold, StartInline, Apply)
 	if StartInline then return end
 	Creator.AddSignal(ElementFrame.Frame:GetPropertyChangedSignal("AbsoluteSize"), Update)
 	task.defer(Update)
+end
+
+Creator.WindowCorners = {}
+
+function Creator.WindowCorner()
+	local Corner = Creator.New("UICorner", {
+		CornerRadius = UDim.new(0, Library.WindowCorner),
+	})
+	table.insert(Creator.WindowCorners, Corner)
+	return Corner
+end
+
+function Creator.ApplyWindowCorner()
+	for Index = #Creator.WindowCorners, 1, -1 do
+		local Corner = Creator.WindowCorners[Index]
+		if Corner.Parent then
+			Corner.CornerRadius = UDim.new(0, Library.WindowCorner)
+		else
+			table.remove(Creator.WindowCorners, Index)
+		end
+	end
+end
+
+function Creator.HoverShift(Rest, DefaultDelta)
+	local Change = tonumber(Creator.GetThemeProperty("HoverChange")) or 0.07
+	return math.clamp(Rest - DefaultDelta * (Change / 0.07), 0, 1)
+end
+
+function Creator.AttachCardHover(Card, HitBox, Config)
+	Config = Config or {}
+
+	local Overlay = Creator.New("Frame", {
+		Name = "HoverOverlay",
+		Size = UDim2.fromScale(1, 1),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		ZIndex = Config.ZIndex or 1,
+		Parent = Card,
+	}, {
+		Creator.New("UICorner", {
+			CornerRadius = UDim.new(0, Config.Corner or 8),
+		}),
+	})
+
+	local Motor, SetTransparency = Creator.SpringMotor(1, Overlay, "BackgroundTransparency", true)
+
+	local function Level(Multiplier)
+		local Change = tonumber(Creator.GetThemeProperty("HoverChange")) or 0.07
+		return 1 - math.clamp(Change * Multiplier, 0, 1)
+	end
+
+	Creator.AddSignal(HitBox.MouseEnter, function()
+		SetTransparency(Level(2))
+	end)
+	Creator.AddSignal(HitBox.MouseLeave, function()
+		SetTransparency(1)
+	end)
+	Creator.AddSignal(HitBox.MouseButton1Down, function()
+		SetTransparency(Level(3))
+	end)
+	Creator.AddSignal(HitBox.MouseButton1Up, function()
+		SetTransparency(Level(2))
+	end)
+
+	return Overlay
+end
+
+local TooltipState = {
+	Token = 0,
+}
+
+local function EnsureTooltipUI()
+	if TooltipState.Root and TooltipState.Root.Parent then
+		return TooltipState
+	end
+
+	local Layer = Creator.New("Frame", {
+		Name = "TooltipLayer",
+		Size = UDim2.fromScale(1, 1),
+		BackgroundTransparency = 1,
+		Active = false,
+		ZIndex = 200,
+		Parent = Library.Scaler or Library.GUI,
+	})
+
+	local TitleRow = Creator.New("Frame", {
+		Name = "TitleRow",
+		Size = UDim2.new(1, 0, 0, 0),
+		AutomaticSize = Enum.AutomaticSize.Y,
+		BackgroundTransparency = 1,
+		LayoutOrder = 1,
+		ZIndex = 202,
+	})
+
+	local Icon = Creator.New("ImageLabel", {
+		Name = "Icon",
+		Size = UDim2.fromOffset(16, 16),
+		Position = UDim2.fromOffset(0, 0),
+		BackgroundTransparency = 1,
+		ZIndex = 203,
+		Parent = TitleRow,
+		ThemeTag = {
+			ImageColor3 = "Accent",
+		},
+	})
+
+	local Title = Creator.New("TextLabel", {
+		Name = "Title",
+		Text = "",
+		FontFace = Font.new(Library.Font, Enum.FontWeight.SemiBold, Enum.FontStyle.Normal),
+		TextSize = 13,
+		TextWrapped = true,
+		TextXAlignment = Enum.TextXAlignment.Left,
+		TextYAlignment = Enum.TextYAlignment.Top,
+		Size = UDim2.new(1, 0, 0, 0),
+		AutomaticSize = Enum.AutomaticSize.Y,
+		BackgroundTransparency = 1,
+		ZIndex = 203,
+		Parent = TitleRow,
+		ThemeTag = {
+			TextColor3 = "Text",
+		},
+	})
+
+	local Content = Creator.New("TextLabel", {
+		Name = "Content",
+		Text = "",
+		FontFace = Font.new(Library.Font, Enum.FontWeight.Regular, Enum.FontStyle.Normal),
+		TextSize = 12,
+		TextWrapped = true,
+		RichText = true,
+		TextXAlignment = Enum.TextXAlignment.Left,
+		TextYAlignment = Enum.TextYAlignment.Top,
+		Size = UDim2.new(1, 0, 0, 0),
+		AutomaticSize = Enum.AutomaticSize.Y,
+		BackgroundTransparency = 1,
+		LayoutOrder = 2,
+		ZIndex = 202,
+		ThemeTag = {
+			TextColor3 = "SubText",
+		},
+	})
+
+	local Custom = Creator.New("Frame", {
+		Name = "Custom",
+		Size = UDim2.new(1, 0, 0, 0),
+		AutomaticSize = Enum.AutomaticSize.Y,
+		BackgroundTransparency = 1,
+		LayoutOrder = 3,
+		ZIndex = 202,
+	}, {
+		Creator.New("UIListLayout", {
+			Padding = UDim.new(0, 4),
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
+	})
+
+	local Root = Creator.New("CanvasGroup", {
+		Name = "Tooltip",
+		Size = UDim2.fromOffset(230, 0),
+		AutomaticSize = Enum.AutomaticSize.Y,
+		BackgroundTransparency = 0,
+		GroupTransparency = 1,
+		Visible = false,
+		ZIndex = 201,
+		Parent = Layer,
+		ThemeTag = {
+			BackgroundColor3 = "Dialog",
+		},
+	}, {
+		Creator.New("UICorner", {
+			CornerRadius = UDim.new(0, 6),
+		}),
+		Creator.New("UIStroke", {
+			Transparency = 0.3,
+			ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+			ThemeTag = {
+				Color = "DialogBorder",
+			},
+		}),
+		Creator.New("UIPadding", {
+			PaddingTop = UDim.new(0, 9),
+			PaddingBottom = UDim.new(0, 9),
+			PaddingLeft = UDim.new(0, 11),
+			PaddingRight = UDim.new(0, 11),
+		}),
+		Creator.New("UIListLayout", {
+			Padding = UDim.new(0, 4),
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
+		TitleRow,
+		Content,
+		Custom,
+	})
+
+	TooltipState.Layer = Layer
+	TooltipState.Root = Root
+	TooltipState.TitleRow = TitleRow
+	TooltipState.Icon = Icon
+	TooltipState.Title = Title
+	TooltipState.Content = Content
+	TooltipState.Custom = Custom
+
+	return TooltipState
+end
+
+local function HideTooltipUI(Owner)
+	if TooltipState.Owner ~= Owner then
+		return
+	end
+
+	TooltipState.Owner = nil
+	TooltipState.Token = TooltipState.Token + 1
+	local Token = TooltipState.Token
+	local Root = TooltipState.Root
+	if not Root or not Root.Parent then
+		return
+	end
+
+	TweenService:Create(Root, TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		GroupTransparency = 1,
+	}):Play()
+
+	task.delay(0.14, function()
+		if TooltipState.Token == Token and Root.Parent then
+			Root.Visible = false
+		end
+	end)
+
+	if Owner.Config and Owner.Config.OnHide then
+		Library:SafeCallback(Owner.Config.OnHide)
+	end
+end
+
+local function ShowTooltipUI(Owner, Config, Target)
+	local UI = EnsureTooltipUI()
+
+	if UI.Owner and UI.Owner ~= Owner then
+		HideTooltipUI(UI.Owner)
+	end
+
+	UI.Owner = Owner
+	UI.Token = UI.Token + 1
+	local Token = UI.Token
+
+	local HasIcon = false
+	if Config.Icon then
+		local Resolved = type(Config.Icon) == "string" and not Config.Icon:match("^rbxasset") and Library:GetIcon(Config.Icon) or Config.Icon
+		if type(Resolved) == "table" then
+			UI.Icon.Image = Resolved.Image
+			UI.Icon.ImageRectOffset = Resolved.ImageRectOffset or Vector2.zero
+			UI.Icon.ImageRectSize = Resolved.ImageRectSize or Vector2.zero
+			HasIcon = true
+		elseif type(Resolved) == "string" then
+			UI.Icon.Image = Resolved
+			UI.Icon.ImageRectOffset = Vector2.zero
+			UI.Icon.ImageRectSize = Vector2.zero
+			HasIcon = true
+		end
+	end
+
+	local HasTitle = type(Config.Title) == "string" and Config.Title ~= ""
+	UI.Icon.Visible = HasIcon
+	UI.TitleRow.Visible = HasTitle or HasIcon
+	UI.Title.Text = HasTitle and Config.Title or ""
+	UI.Title.Position = HasIcon and UDim2.fromOffset(22, 0) or UDim2.fromOffset(0, 0)
+	UI.Title.Size = HasIcon and UDim2.new(1, -22, 0, 16) or UDim2.new(1, 0, 0, 0)
+
+	local HasContent = type(Config.Content) == "string" and Config.Content ~= ""
+	UI.Content.Visible = HasContent
+	UI.Content.Text = HasContent and Config.Content or ""
+
+	for _, Child in ipairs(UI.Custom:GetChildren()) do
+		if not Child:IsA("UIListLayout") then
+			Child:Destroy()
+		end
+	end
+	UI.Custom.Visible = Config.Render ~= nil
+	if Config.Render then
+		Library:SafeCallback(Config.Render, UI.Custom, Owner)
+	end
+
+	UI.Root.Size = UDim2.fromOffset(Config.Width, 0)
+	UI.Root.GroupTransparency = 1
+	UI.Root.Visible = true
+
+	RunService.Heartbeat:Wait()
+	RunService.Heartbeat:Wait()
+	if UI.Token ~= Token or UI.Owner ~= Owner or not Target.Parent then
+		return false
+	end
+
+	local Layer = UI.Layer
+	local Origin = Layer.AbsolutePosition
+	local Area = Layer.AbsoluteSize
+	local Size = UI.Root.AbsoluteSize
+	local TargetPosition = Target.AbsolutePosition - Origin
+	local TargetSize = Target.AbsoluteSize
+
+	local X = TargetPosition.X + TargetSize.X / 2 - Size.X / 2
+	local Above = TargetPosition.Y - Size.Y - 8
+	local Below = TargetPosition.Y + TargetSize.Y + 8
+	local Y
+	if Config.Position == "Bottom" then
+		Y = Below
+	elseif Config.Position == "Top" then
+		Y = Above
+	else
+		Y = Above >= 6 and Above or Below
+	end
+
+	X = math.clamp(X, 6, math.max(6, Area.X - Size.X - 6))
+	Y = math.clamp(Y, 6, math.max(6, Area.Y - Size.Y - 6))
+	UI.Root.Position = UDim2.fromOffset(math.floor(X / Library.DPIScale), math.floor(Y / Library.DPIScale))
+
+	TweenService:Create(UI.Root, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		GroupTransparency = 0,
+	}):Play()
+
+	if Config.OnShow then
+		Library:SafeCallback(Config.OnShow)
+	end
+
+	return true
+end
+
+local function NormalizeTooltip(Value)
+	if Value == nil or Value == false then
+		return nil
+	end
+	if type(Value) == "string" then
+		Value = { Content = Value }
+	end
+	if type(Value) ~= "table" then
+		return nil
+	end
+
+	local Triggers = Value.Trigger or Value.Triggers or "Hold"
+	if type(Triggers) == "string" then
+		Triggers = { Triggers }
+	end
+	local Set = {}
+	for _, Trigger in ipairs(Triggers) do
+		Set[tostring(Trigger):lower()] = true
+	end
+
+	return {
+		Title = Value.Title,
+		Content = Value.Content or Value.Text or Value.Description,
+		Icon = Value.Icon,
+		Triggers = Set,
+		HoldTime = tonumber(Value.HoldTime) or 0.45,
+		HoverDelay = tonumber(Value.HoverDelay) or 0.45,
+		Duration = tonumber(Value.Duration),
+		Width = tonumber(Value.Width) or 230,
+		Position = Value.Position or "Auto",
+		Render = Value.Render,
+		OnShow = Value.OnShow,
+		OnHide = Value.OnHide,
+	}
+end
+
+function Creator.AttachTooltip(Frame, Value)
+	local Handle = {
+		Config = NormalizeTooltip(Value),
+	}
+
+	local Pressed = false
+	local PressToken = 0
+	local HoverToken = 0
+	local HoldFired = false
+	local Shield
+
+	local function IsPointer(Input)
+		return Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch
+	end
+
+	local function EngageShield()
+		if Shield then
+			return
+		end
+		Shield = Creator.New("TextButton", {
+			Name = "TooltipShield",
+			Text = "",
+			AutoButtonColor = false,
+			BackgroundTransparency = 1,
+			Size = UDim2.fromScale(1, 1),
+			ZIndex = 40,
+			Parent = Frame,
+		})
+	end
+
+	local function ReleaseShield()
+		local Current = Shield
+		Shield = nil
+		if Current then
+			task.delay(0.1, function()
+				Current:Destroy()
+			end)
+		end
+	end
+
+	function Handle:Hide()
+		PressToken = PressToken + 1
+		HoverToken = HoverToken + 1
+		HideTooltipUI(Handle)
+	end
+
+	function Handle:Show()
+		local Config = Handle.Config
+		if not Config then
+			return
+		end
+
+		local Shown = ShowTooltipUI(Handle, Config, Frame)
+		if Shown and Config.Duration then
+			local Token = TooltipState.Token
+			task.delay(Config.Duration, function()
+				if TooltipState.Owner == Handle and TooltipState.Token == Token then
+					Handle:Hide()
+				end
+			end)
+		end
+	end
+
+	function Handle:Set(NewValue)
+		Handle.Config = NormalizeTooltip(NewValue)
+		if not Handle.Config then
+			Handle:Hide()
+		end
+	end
+
+	function Handle:Destroy()
+		Handle:Hide()
+		Handle.Config = nil
+		ReleaseShield()
+	end
+
+	Creator.AddSignal(Frame.InputBegan, function(Input)
+		local Config = Handle.Config
+		if not Config or not Config.Triggers.hold or not IsPointer(Input) then
+			return
+		end
+
+		PressToken = PressToken + 1
+		local Mine = PressToken
+		Pressed = true
+
+		task.delay(Config.HoldTime, function()
+			if Pressed and PressToken == Mine and Handle.Config == Config then
+				HoldFired = true
+				EngageShield()
+				Handle:Show()
+			end
+		end)
+	end)
+
+	Creator.AddSignal(UserInputService.InputEnded, function(Input)
+		if not IsPointer(Input) or not Pressed then
+			return
+		end
+
+		Pressed = false
+		PressToken = PressToken + 1
+
+		if HoldFired then
+			HoldFired = false
+			ReleaseShield()
+			local Config = Handle.Config
+			if not Config or not Config.Duration then
+				Handle:Hide()
+			end
+		end
+	end)
+
+	Creator.AddSignal(Frame.MouseLeave, function()
+		local Config = Handle.Config
+		if not Config then
+			return
+		end
+
+		HoverToken = HoverToken + 1
+		if Config.Triggers.hover or (Pressed and Config.Triggers.hold) then
+			if not Config.Duration then
+				Handle:Hide()
+			end
+		end
+	end)
+
+	Creator.AddSignal(Frame.MouseEnter, function()
+		local Config = Handle.Config
+		if not Config or not Config.Triggers.hover then
+			return
+		end
+
+		HoverToken = HoverToken + 1
+		local Mine = HoverToken
+		task.delay(Config.HoverDelay, function()
+			if HoverToken == Mine and Handle.Config == Config then
+				Handle:Show()
+			end
+		end)
+	end)
+
+	Creator.AddSignal(Frame.MouseButton1Click, function()
+		local Config = Handle.Config
+		if not Config or not Config.Triggers.click then
+			return
+		end
+
+		if TooltipState.Owner == Handle then
+			Handle:Hide()
+			return
+		end
+
+		local Shown = Config.Duration
+		Handle:Show()
+		if not Shown then
+			local Token = TooltipState.Token
+			task.delay(3.5, function()
+				if TooltipState.Owner == Handle and TooltipState.Token == Token then
+					Handle:Hide()
+				end
+			end)
+		end
+	end)
+
+	return Handle
 end
 
 function Creator.SpringMotor(Initial, Instance, Prop, IgnoreDialogCheck, ResetOnThemeChange)
@@ -1410,6 +2706,18 @@ local GUI = New("ScreenGui", {
 })
 ProtectGui(GUI)
 Library.GUI = GUI
+
+local Scaler = New("Frame", {
+	Name = "DPIScaler",
+	BackgroundTransparency = 1,
+	BorderSizePixel = 0,
+	Size = UDim2.fromScale(1, 1),
+	Parent = GUI,
+}, {
+	New("UIScale", { Scale = 1 }),
+})
+Library.Scaler = Scaler
+Library.ScalerScale = Scaler:FindFirstChildOfClass("UIScale")
 
 function Library:SafeCallback(Function, ...)
 	if not Function then
@@ -1475,57 +2783,97 @@ end
 
 local BlurFolder = Instance.new("Folder", Workspace.CurrentCamera)
 
-local function createAcrylicBlur(distance)
+local function createAcrylicBlur(distance, getRadius)
 	local cleanups = {}
 
 	distance = distance or 0.001
-	local positions = {
-		topLeft = Vector2.new(),
-		topRight = Vector2.new(),
-		bottomRight = Vector2.new(),
-	}
-	local model = createAcrylic()
-	model.Parent = BlurFolder
+	local position = Vector2.new()
+	local size = Vector2.new()
+	local visible = true
+	local strips = {}
 
-	local function updatePositions(size, position)
-		positions.topLeft = position
-		positions.topRight = position + Vector2.new(size.X, 0)
-		positions.bottomRight = position + size
+	local model = Creator.New("Folder", {
+		Name = "Body",
+		Parent = BlurFolder,
+	})
+
+	local function getStrip(index)
+		local strip = strips[index]
+		if not strip then
+			strip = createAcrylic()
+			strip.Transparency = visible and 0.98 or 1
+			strip.Parent = model
+			strips[index] = strip
+		end
+		return strip
+	end
+
+	local function buildRows(width, height, radius)
+		radius = math.clamp(radius, 0, math.min(width, height) / 2)
+		if radius < 1 then
+			return { { 0, 0, width, height } }
+		end
+
+		local rows = {}
+		local steps = math.clamp(math.floor(radius / 2), 2, 8)
+		local stepHeight = radius / steps
+
+		for index = 1, steps do
+			local top = (index - 1) * stepHeight
+			local bottom = index * stepHeight
+			local middle = (top + bottom) / 2
+			local inset = radius - math.sqrt(radius * radius - (radius - middle) ^ 2)
+			table.insert(rows, { inset, top, width - inset, bottom })
+			table.insert(rows, { inset, height - bottom, width - inset, height - top })
+		end
+
+		if height - radius * 2 > 0.5 then
+			table.insert(rows, { 0, radius, width, height - radius })
+		end
+
+		return rows
 	end
 
 	local function render()
-		local res = Workspace.CurrentCamera
-		if res then
-			res = res.CFrame
+		local camera = Workspace.CurrentCamera
+		local cframe = camera and camera.CFrame or CFrame.new()
+		local rows = buildRows(size.X, size.Y, (getRadius and getRadius() or 0) * Library.DPIScale)
+
+		for index, row in ipairs(rows) do
+			local strip = getStrip(index)
+			local topLeft = position + Vector2.new(row[1], row[2])
+			local bottomRight = position + Vector2.new(row[3], row[4])
+
+			local topLeft3D = viewportPointToWorld(topLeft, distance)
+			local topRight3D = viewportPointToWorld(Vector2.new(bottomRight.X, topLeft.Y), distance)
+			local bottomRight3D = viewportPointToWorld(bottomRight, distance)
+
+			strip.CFrame =
+				CFrame.fromMatrix((topLeft3D + bottomRight3D) / 2, cframe.XVector, cframe.YVector, cframe.ZVector)
+			strip.Mesh.Scale = Vector3.new(
+				(topRight3D - topLeft3D).Magnitude,
+				(topRight3D - bottomRight3D).Magnitude,
+				0
+			)
 		end
-		local cond = res
-		if not cond then
-			cond = CFrame.new()
+
+		for index = #strips, #rows + 1, -1 do
+			strips[index]:Destroy()
+			strips[index] = nil
 		end
-
-		local camera = cond
-		local topLeft = positions.topLeft
-		local topRight = positions.topRight
-		local bottomRight = positions.bottomRight
-
-		local topLeft3D = viewportPointToWorld(topLeft, distance)
-		local topRight3D = viewportPointToWorld(topRight, distance)
-		local bottomRight3D = viewportPointToWorld(bottomRight, distance)
-
-		local width = (topRight3D - topLeft3D).Magnitude
-		local height = (topRight3D - bottomRight3D).Magnitude
-
-		model.CFrame =
-			CFrame.fromMatrix((topLeft3D + bottomRight3D) / 2, camera.XVector, camera.YVector, camera.ZVector)
-		model.Mesh.Scale = Vector3.new(width, height, 0)
 	end
 
 	local function onChange(rbx)
-		local size = rbx.AbsoluteSize
-		local position = rbx.AbsolutePosition
-
-		updatePositions(size, position)
+		size = rbx.AbsoluteSize
+		position = rbx.AbsolutePosition
 		task.spawn(render)
+	end
+
+	local function setVisibility(value)
+		visible = value
+		for _, strip in ipairs(strips) do
+			strip.Transparency = value and 0.98 or 1
+		end
 	end
 
 	local function renderOnChange()
@@ -1550,12 +2898,12 @@ local function createAcrylicBlur(distance)
 
 	renderOnChange()
 
-	return onChange, model
+	return onChange, model, render, setVisibility
 end
 
-local AcrylicBlur = function(distance)
+local AcrylicBlur = function(distance, getRadius)
 	local Blur = {}
-	local onChange, model = createAcrylicBlur(distance)
+	local onChange, model, render, setVisibility = createAcrylicBlur(distance, getRadius)
 
 	local comp = Creator.New("Frame", {
 		BackgroundTransparency = 1,
@@ -1576,9 +2924,8 @@ local AcrylicBlur = function(distance)
 		end)
 	end
 
-	Blur.SetVisibility = function(Value)
-		model.Transparency = Value and 0.98 or 1
-	end
+	Blur.SetVisibility = setVisibility
+	Blur.Refresh = render
 
 	Blur.Frame = comp
 	Blur.Model = model
@@ -1590,6 +2937,16 @@ local New = Creator.New
 
 local AcrylicPaint = function(props)
 	local AcrylicPaint = {}
+	local Tracked = props and props.Tracked == true
+
+	local function Corner()
+		if Tracked then
+			return Creator.WindowCorner()
+		end
+		return New("UICorner", {
+			CornerRadius = UDim.new(0, 8),
+		})
+	end
 
 	AcrylicPaint.Frame = New("Frame", {
 		Size = UDim2.fromScale(1, 1),
@@ -1609,9 +2966,7 @@ local AcrylicPaint = function(props)
 			ImageTransparency = 0.7,
 		}),
 
-		New("UICorner", {
-			CornerRadius = UDim.new(0, 8),
-		}),
+		Corner(),
 
 		New("Frame", {
 			BackgroundTransparency = 0.45,
@@ -1621,24 +2976,20 @@ local AcrylicPaint = function(props)
 				BackgroundColor3 = "AcrylicMain",
 			},
 		}, {
-			New("UICorner", {
-				CornerRadius = UDim.new(0, 8),
-			}),
+			Corner(),
 		}),
 
 		New("Frame", {
 			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-			BackgroundTransparency = 0.4,
 			Size = UDim2.fromScale(1, 1),
 		}, {
-			New("UICorner", {
-				CornerRadius = UDim.new(0, 8),
-			}),
+			Corner(),
 
 			New("UIGradient", {
 				ThemeTag = {
 					Color = "AcrylicGradient",
 					Rotation = "AcrylicGradientRotation",
+					Transparency = "AcrylicGradientTransparency",
 				},
 			}),
 		}),
@@ -1651,9 +3002,7 @@ local AcrylicPaint = function(props)
 			Size = UDim2.fromScale(1, 1),
 			BackgroundTransparency = 1,
 		}, {
-			New("UICorner", {
-				CornerRadius = UDim.new(0, 8),
-			}),
+			Corner(),
 		}),
 
 		New("ImageLabel", {
@@ -1667,9 +3016,7 @@ local AcrylicPaint = function(props)
 				ImageTransparency = "AcrylicNoise",
 			},
 		}, {
-			New("UICorner", {
-				CornerRadius = UDim.new(0, 8),
-			}),
+			Corner(),
 		}),
 
 		New("Frame", {
@@ -1677,14 +3024,13 @@ local AcrylicPaint = function(props)
 			Size = UDim2.fromScale(1, 1),
 			ZIndex = 2,
 		}, {
-			New("UICorner", {
-				CornerRadius = UDim.new(0, 8),
-			}),
+			Corner(),
 			New("UIStroke", {
 				Transparency = 0.5,
 				Thickness = 1,
 				ThemeTag = {
 					Color = "AcrylicBorder",
+					Transparency = "AcrylicBorderTransparency",
 				},
 			}),
 		}),
@@ -1693,11 +3039,14 @@ local AcrylicPaint = function(props)
 	local Blur
 
 	if Library.UseAcrylic then
-		Blur = AcrylicBlur()
+		Blur = AcrylicBlur(nil, function()
+			return Tracked and Library.WindowCorner or 8
+		end)
 		Blur.Frame.Parent = AcrylicPaint.Frame
 		AcrylicPaint.Model = Blur.Model
 		AcrylicPaint.AddParent = Blur.AddParent
 		AcrylicPaint.SetVisibility = Blur.SetVisibility
+		AcrylicPaint.Refresh = Blur.Refresh
 	end
 
 	return AcrylicPaint
@@ -1773,8 +3122,9 @@ Components.Element = (function()
 
 	local Spring = Flipper.Spring.new
 
-	return function(Title, Desc, Parent, Hover, ElementLayoutOrder, ElementIcon, Marquee)
+	return function(Title, Desc, Parent, Hover, ElementLayoutOrder, ElementIcon, Marquee, Locked, TooltipConfig, RichText)
 		local Element = {}
+		local UseRichText = RichText ~= false
 
 		local ResolvedIcon = ElementIcon
 		if type(ResolvedIcon) == "string" and ResolvedIcon ~= ""
@@ -1797,6 +3147,7 @@ Components.Element = (function()
 
 		Element.TitleLabel = New("TextLabel", {
 			Name = "ElementTitle",
+			RichText = UseRichText,
 			FontFace = Font.new(Library.Font, Enum.FontWeight.Medium, Enum.FontStyle.Normal),
 			Text = Title,
 			TextColor3 = Color3.fromRGB(240, 240, 240),
@@ -1811,6 +3162,7 @@ Components.Element = (function()
 		})
 
 		Element.DescLabel = New("TextLabel", {
+			RichText = UseRichText,
 			FontFace = Font.new(Library.Font),
 			Text = Desc,
 			TextColor3 = Color3.fromRGB(200, 200, 200),
@@ -1861,6 +3213,7 @@ Components.Element = (function()
 				Position = UDim2.new(0, 10, 0.5, -8),
 				BackgroundTransparency = 1,
 				ZIndex = 2,
+				SeasonalHat = "Icon",
 				ThemeTag = { ImageColor3 = "Text" },
 			})
 		end
@@ -1871,6 +3224,7 @@ Components.Element = (function()
 			Color = Color3.fromRGB(0, 0, 0),
 			ThemeTag = {
 				Color = "ElementBorder",
+				Transparency = "ElementBorderTransparency",
 			},
 		})
 
@@ -1902,14 +3256,39 @@ Components.Element = (function()
 
 		Creator.AttachTitleDesc(Element, Element.TitleLabel, Element.DescLabel)
 
+		Element.LockHandle = Creator.AttachLock(Element.Frame, Locked)
+		Element.LockHandle.Bind(Element)
+
 		function Element:Destroy()
+			if Element.Tooltip then
+				Element.Tooltip:Destroy()
+			end
 			Element.Frame:Destroy()
+		end
+
+		function Element:SetRichText(Value)
+			Value = Value ~= false
+			Element.TitleLabel.RichText = Value
+			Element.DescLabel.RichText = Value
+		end
+
+		function Element:SetTooltip(Value)
+			if Element.Tooltip then
+				Element.Tooltip:Set(Value)
+			else
+				Element.Tooltip = Creator.AttachTooltip(Element.Frame, Value)
+			end
 		end
 
 		Element:SetTitle(Title)
 		Element:SetDesc(Desc)
 
+		if TooltipConfig ~= nil then
+			Element:SetTooltip(TooltipConfig)
+		end
+
 		if Hover then
+			local PressEffect = Hover ~= "Hover"
 			local Motor, SetTransparency = Creator.SpringMotor(
 				Creator.GetThemeProperty("ElementTransparency"),
 				Element.Frame,
@@ -1919,17 +3298,28 @@ Components.Element = (function()
 			)
 
 			Creator.AddSignal(Element.Frame.MouseEnter, function()
+				if Element.Locked then
+					return
+				end
 				SetTransparency(Creator.GetThemeProperty("ElementTransparency") - Creator.GetThemeProperty("HoverChange"))
 			end)
 			Creator.AddSignal(Element.Frame.MouseLeave, function()
 				SetTransparency(Creator.GetThemeProperty("ElementTransparency"))
 			end)
-			Creator.AddSignal(Element.Frame.MouseButton1Down, function()
-				SetTransparency(Creator.GetThemeProperty("ElementTransparency") + Creator.GetThemeProperty("HoverChange"))
-			end)
-			Creator.AddSignal(Element.Frame.MouseButton1Up, function()
-				SetTransparency(Creator.GetThemeProperty("ElementTransparency") - Creator.GetThemeProperty("HoverChange"))
-			end)
+			if PressEffect then
+				Creator.AddSignal(Element.Frame.MouseButton1Down, function()
+					if Element.Locked then
+						return
+					end
+					SetTransparency(Creator.GetThemeProperty("ElementTransparency") + Creator.GetThemeProperty("HoverChange"))
+				end)
+				Creator.AddSignal(Element.Frame.MouseButton1Up, function()
+					if Element.Locked then
+						return
+					end
+					SetTransparency(Creator.GetThemeProperty("ElementTransparency") - Creator.GetThemeProperty("HoverChange"))
+				end)
+			end
 		end
 
 		return Element
@@ -1941,8 +3331,26 @@ Components.Button = (function()
 
 	local Spring = Flipper.Spring.new
 
-	return function(Theme, Parent, DialogCheck, TagSet)
+	local DestructiveColor = Color3.fromRGB(196, 43, 28)
+	local DestructiveBorder = Color3.fromRGB(232, 99, 84)
+
+	local function NormalizeStyle(Style)
+		if type(Style) ~= "string" then
+			return "Standard"
+		end
+		local Lower = Style:lower()
+		if Lower == "suggested" then
+			return "Suggested"
+		elseif Lower == "destructive" then
+			return "Destructive"
+		end
+		return "Standard"
+	end
+	Creator.NormalizeButtonStyle = NormalizeStyle
+
+	return function(Theme, Parent, DialogCheck, TagSet, Style)
 		DialogCheck = DialogCheck or false
+		Style = NormalizeStyle(Style)
 		TagSet = TagSet or { Background = "DialogButton", Border = "DialogButtonBorder" }
 		local Button = {}
 
@@ -1995,9 +3403,45 @@ Components.Button = (function()
 			Button.Title,
 		})
 
+		if Style ~= "Standard" then
+			local Stroke = Button.Frame:FindFirstChildOfClass("UIStroke")
+			Creator.OverrideTag(Button.Title, {})
+
+			local function ApplyStyle()
+				if Style == "Suggested" then
+					local Accent = Creator.GetThemeProperty("Accent")
+					local Luminance = 0.299 * Accent.R + 0.587 * Accent.G + 0.114 * Accent.B
+					Button.Title.TextColor3 = Luminance > 0.62 and Color3.fromRGB(20, 20, 20) or Color3.fromRGB(255, 255, 255)
+				else
+					Button.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+				end
+			end
+
+			if Style == "Suggested" then
+				Creator.OverrideTag(Button.Frame, { BackgroundColor3 = "Accent" })
+				if Stroke then
+					Creator.OverrideTag(Stroke, { Color = "Accent" })
+				end
+			else
+				Creator.OverrideTag(Button.Frame, {})
+				Button.Frame.BackgroundColor3 = DestructiveColor
+				if Stroke then
+					Creator.OverrideTag(Stroke, {})
+					Stroke.Color = DestructiveBorder
+				end
+			end
+
+			ApplyStyle()
+			Creator.OnThemeChanged(function()
+				if Button.Title.Parent then
+					ApplyStyle()
+				end
+			end)
+		end
+
 		local Motor, SetTransparency = Creator.SpringMotor(1, Button.HoverFrame, "BackgroundTransparency", DialogCheck)
 		Creator.AddSignal(Button.Frame.MouseEnter, function()
-			SetTransparency(0.97)
+			SetTransparency(Creator.HoverShift(1, 0.03))
 		end)
 		Creator.AddSignal(Button.Frame.MouseLeave, function()
 			SetTransparency(1)
@@ -2006,7 +3450,7 @@ Components.Button = (function()
 			SetTransparency(1)
 		end)
 		Creator.AddSignal(Button.Frame.MouseButton1Up, function()
-			SetTransparency(0.97)
+			SetTransparency(Creator.HoverShift(1, 0.03))
 		end)
 
 		return Button
@@ -2022,7 +3466,7 @@ Components.Textbox = (function()
 			Input = "DialogInput",
 			InputLine = "DialogInputLine",
 			InputBorder = "DialogButtonBorder",
-			InputFocused = "DialogHolder",
+			InputFocused = "DialogInputFocused",
 		}
 		local Textbox = {}
 
@@ -2086,7 +3530,7 @@ Components.Textbox = (function()
 
 		local function Update()
 			local PADDING = 2
-			local Reveal = Textbox.Container.AbsoluteSize.X
+			local Reveal = Textbox.Container.AbsoluteSize.X / Library.DPIScale
 
 			if not Textbox.Input:IsFocused() or Textbox.Input.TextBounds.X <= Reveal - 2 * PADDING then
 				Textbox.Input.Position = UDim2.new(0, PADDING, 0, 0)
@@ -2186,8 +3630,9 @@ Components.Section = (function()
 		Creator.AttachTitleDesc(Section, Section.TitleLabel, nil)
 
 		Creator.AddSignal(Section.Layout:GetPropertyChangedSignal("AbsoluteContentSize"), function()
-			Section.Container.Size = UDim2.new(1, 0, 0, Section.Layout.AbsoluteContentSize.Y)
-			Section.Root.Size = UDim2.new(1, 0, 0, Section.Layout.AbsoluteContentSize.Y + 25)
+			local ContentY = Section.Layout.AbsoluteContentSize.Y / Library.DPIScale
+			Section.Container.Size = UDim2.new(1, 0, 0, ContentY)
+			Section.Root.Size = UDim2.new(1, 0, 0, ContentY + 25)
 		end)
 		return Section
 	end
@@ -2236,16 +3681,16 @@ Components.TitleBar = (function()
 			local Motor, SetTransparency = Creator.SpringMotor(1, Button.Frame, "BackgroundTransparency")
 
 			AddSignal(Button.Frame.MouseEnter, function()
-				SetTransparency(0.94)
+				SetTransparency(Creator.HoverShift(1, 0.06))
 			end)
 			AddSignal(Button.Frame.MouseLeave, function()
 				SetTransparency(1, true)
 			end)
 			AddSignal(Button.Frame.MouseButton1Down, function()
-				SetTransparency(0.96)
+				SetTransparency(Creator.HoverShift(1, 0.04))
 			end)
 			AddSignal(Button.Frame.MouseButton1Up, function()
-				SetTransparency(0.94)
+				SetTransparency(Creator.HoverShift(1, 0.06))
 			end)
 			AddSignal(Button.Frame.MouseButton1Click, Button.Callback)
 
@@ -2292,31 +3737,78 @@ Components.TitleBar = (function()
 		Creator.AttachTitleDesc(TitleBar, WindowTitleLabel, WindowSubTitleLabel)
 		TitleBar.SetSubTitle = TitleBar.SetDesc
 
+		local function ResolveTitleIcon(Value)
+			local Resolved = Value
+			if type(Resolved) == "string" and Resolved ~= ""
+				and not Resolved:match("^rbxassetid://")
+				and not Resolved:match("^rbxasset://")
+				and not Resolved:match("^rbxthumb://")
+				and not Resolved:match("^http") then
+				Resolved = Library:GetIcon(Resolved)
+			end
+
+			if type(Resolved) == "table" then
+				return Resolved.Image, Resolved.ImageRectOffset, Resolved.ImageRectSize
+			elseif type(Resolved) == "number" then
+				return "rbxassetid://" .. Resolved
+			elseif type(Resolved) == "string" and Resolved ~= "" then
+				return Resolved
+			end
+		end
+
+		local TitleIconImage, TitleIconRectOffset, TitleIconRectSize = ResolveTitleIcon(Config.Icon)
+
+		local TitleIconLabel = New("ImageLabel", {
+			Name = "TitleIcon",
+			Image = TitleIconImage or "",
+			ImageRectOffset = TitleIconRectOffset or Vector2.zero,
+			ImageRectSize = TitleIconRectSize or Vector2.zero,
+			Size = UDim2.fromOffset(18, 18),
+			Position = UDim2.new(0, 16, 0.5, -9),
+			BackgroundTransparency = 1,
+			Visible = TitleIconImage ~= nil,
+			ZIndex = 2,
+			ThemeTag = { ImageColor3 = "Text" },
+		})
+
+		local TitleTextHolder = New("Frame", {
+			Size = TitleIconImage and UDim2.new(1, -42, 1, 0) or UDim2.new(1, -16, 1, 0),
+			Position = TitleIconImage and UDim2.new(0, 42, 0, 0) or UDim2.new(0, 16, 0, 0),
+			BackgroundTransparency = 1,
+		}, {
+			New("UIListLayout", {
+				Padding = UDim.new(0, 1),
+				FillDirection = Enum.FillDirection.Vertical,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
+			WindowTitleLabel,
+			WindowSubTitleLabel,
+		})
+
+		function TitleBar:SetIcon(Value)
+			local Image, RectOffset, RectSize = ResolveTitleIcon(Value)
+			TitleIconLabel.Image = Image or ""
+			TitleIconLabel.ImageRectOffset = RectOffset or Vector2.zero
+			TitleIconLabel.ImageRectSize = RectSize or Vector2.zero
+			TitleIconLabel.Visible = Image ~= nil
+			TitleTextHolder.Size = Image and UDim2.new(1, -42, 1, 0) or UDim2.new(1, -16, 1, 0)
+			TitleTextHolder.Position = Image and UDim2.new(0, 42, 0, 0) or UDim2.new(0, 16, 0, 0)
+		end
+
 		TitleBar.Frame = New("Frame", {
 			Size = UDim2.new(1, 0, 0, 42),
 			BackgroundTransparency = 1,
 			Parent = Config.Parent,
 		}, {
+			TitleIconLabel,
+			TitleTextHolder,
 			New("Frame", {
-				Size = UDim2.new(1, -16, 1, 0),
-				Position = UDim2.new(0, 16, 0, 0),
-				BackgroundTransparency = 1,
-			}, {
-				New("UIListLayout", {
-					Padding = UDim.new(0, 1),
-					FillDirection = Enum.FillDirection.Vertical,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-				}),
-				WindowTitleLabel,
-				WindowSubTitleLabel,
-			}),
-			New("Frame", {
-				BackgroundTransparency = 0.5,
 				Size = UDim2.new(1, 0, 0, 1),
 				Position = UDim2.new(0, 0, 1, 0),
 				ThemeTag = {
 					BackgroundColor3 = "TitleBarLine",
+					BackgroundTransparency = "TitleBarLineTransparency",
 				},
 			}),
 		})
@@ -2499,7 +3991,7 @@ Components.Notification = (function()
 			})
 
 			local function UpdateIconPosition()
-				local TextHeight = NewNotification.TextHolder.AbsoluteSize.Y
+				local TextHeight = NewNotification.TextHolder.AbsoluteSize.Y / Library.DPIScale
 				NewNotification.IconLabel.Position = UDim2.fromOffset(14, 17 + (TextHeight / 2) - 10)
 			end
 
@@ -2571,7 +4063,7 @@ Components.Notification = (function()
 		end)
 
 		function NewNotification:Open()
-			local ContentSize = NewNotification.LabelHolder.AbsoluteSize.Y
+			local ContentSize = NewNotification.LabelHolder.AbsoluteSize.Y / Library.DPIScale
 			NewNotification.Holder.Size = UDim2.new(1, 0, 0, 58 + ContentSize)
 
 			RootMotor:setGoal({
@@ -2618,25 +4110,37 @@ Components.Toast = (function()
 	}
 
 	local TypeStyles = {
-		Info = { Icons = { "info" }, Color = nil },
-		Success = { Icons = { "circle-check", "check-circle", "check" }, Color = Color3.fromRGB(80, 200, 120) },
-		Warning = { Icons = { "triangle-alert", "alert-triangle", "alert-circle" }, Color = Color3.fromRGB(255, 190, 70) },
-		Error = { Icons = { "circle-x", "x-circle", "x" }, Color = Color3.fromRGB(240, 85, 85) },
+		Info = { Icon = "rbxassetid://124560466474914", Color = nil },
+		Success = { Icon = "rbxassetid://85262178816537", Color = Color3.fromRGB(80, 200, 120) },
+		Warning = { Icon = "rbxassetid://125920361880643", Color = Color3.fromRGB(255, 190, 70) },
+		Error = { Icon = "rbxassetid://76821953846248", Color = Color3.fromRGB(240, 85, 85) },
 	}
 
 	function Toast:Init(GUI)
 		Toast.GUI = GUI
 	end
 
-	local function ResolveIcon(Name)
-		if type(Name) ~= "string" or Name == "" then
+	local function ResolveIcon(Source)
+		if type(Source) == "number" then
+			return { Image = "rbxassetid://" .. Source }
+		end
+		if type(Source) == "table" then
+			if Source.Image then
+				return Source
+			end
 			return nil
 		end
-		if Name:match("^rbxassetid://") or Name:match("^rbxasset://") or Name:match("^http") then
-			return { Image = Name }
+		if type(Source) ~= "string" or Source == "" then
+			return nil
+		end
+		if Source:match("^%d+$") then
+			return { Image = "rbxassetid://" .. Source }
+		end
+		if Source:match("^rbxassetid://") or Source:match("^rbxasset://") or Source:match("^http") then
+			return { Image = Source }
 		end
 		local Ok, Icon = pcall(function()
-			return Library:GetIcon(Name)
+			return Library:GetIcon(Source)
 		end)
 		if Ok and type(Icon) == "table" and Icon.Image then
 			return Icon
@@ -2694,21 +4198,6 @@ Components.Toast = (function()
 			Ready = false,
 		}
 
-		local IconData
-		if Config.Icon ~= false then
-			if type(Config.Icon) == "string" then
-				IconData = ResolveIcon(Config.Icon)
-			end
-			if not IconData and Config.Icon == nil then
-				for _, Name in ipairs(Style.Icons) do
-					IconData = ResolveIcon(Name)
-					if IconData then
-						break
-					end
-				end
-			end
-		end
-
 		local function AccentTag(Property)
 			if Style.Color then
 				return nil
@@ -2716,95 +4205,72 @@ Components.Toast = (function()
 			return { [Property] = "Accent" }
 		end
 
-		local ContentChildren = {}
-
-		if IconData then
-			table.insert(ContentChildren, New("ImageLabel", {
-				Name = "ToastIcon",
-				Image = IconData.Image,
-				ImageRectOffset = IconData.ImageRectOffset or Vector2.zero,
-				ImageRectSize = IconData.ImageRectSize or Vector2.zero,
-				ImageColor3 = Style.Color or Color3.fromRGB(255, 255, 255),
-				Size = UDim2.fromOffset(18, 18),
-				BackgroundTransparency = 1,
-				LayoutOrder = 1,
-				ThemeTag = AccentTag("ImageColor3"),
-			}))
-		end
-
-		local TextChildren = {
-			New("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				Padding = UDim.new(0, 2),
-			}),
-		}
-
-		if Title ~= "" then
-			table.insert(TextChildren, New("TextLabel", {
-				Name = "ToastTitle",
-				FontFace = Font.new(Library.Font, Enum.FontWeight.Medium, Enum.FontStyle.Normal),
-				Text = Title,
-				RichText = true,
-				TextSize = 13,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextWrapped = true,
-				AutomaticSize = Enum.AutomaticSize.XY,
-				Size = UDim2.fromOffset(0, 14),
-				BackgroundTransparency = 1,
-				LayoutOrder = 1,
-				ThemeTag = {
-					TextColor3 = "Text",
-				},
-			}, {
-				New("UISizeConstraint", {
-					MaxSize = Vector2.new(290, math.huge),
-				}),
-			}))
-		end
-
-		if Content ~= "" then
-			table.insert(TextChildren, New("TextLabel", {
-				Name = "ToastContent",
-				FontFace = Font.new(Library.Font),
-				Text = Content,
-				RichText = true,
-				TextSize = 13,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextWrapped = true,
-				AutomaticSize = Enum.AutomaticSize.XY,
-				Size = UDim2.fromOffset(0, 14),
-				BackgroundTransparency = 1,
-				LayoutOrder = 2,
-				ThemeTag = {
-					TextColor3 = Title ~= "" and "SubText" or "Text",
-				},
-			}, {
-				New("UISizeConstraint", {
-					MaxSize = Vector2.new(290, math.huge),
-				}),
-			}))
-		end
-
-		table.insert(ContentChildren, New("Frame", {
-			Name = "ToastText",
+		local IconLabel = New("ImageLabel", {
+			Name = "ToastIcon",
+			ImageColor3 = Style.Color or Color3.fromRGB(255, 255, 255),
+			Size = UDim2.fromOffset(18, 18),
 			BackgroundTransparency = 1,
-			AutomaticSize = Enum.AutomaticSize.XY,
-			Size = UDim2.fromOffset(0, 0),
-			LayoutOrder = 2,
-		}, TextChildren))
+			LayoutOrder = 1,
+			Visible = false,
+			ThemeTag = AccentTag("ImageColor3"),
+		})
 
-		table.insert(ContentChildren, New("UIListLayout", {
-			FillDirection = Enum.FillDirection.Horizontal,
-			VerticalAlignment = Enum.VerticalAlignment.Center,
-			SortOrder = Enum.SortOrder.LayoutOrder,
-			Padding = UDim.new(0, 10),
-		}))
-		table.insert(ContentChildren, New("UIPadding", {
-			PaddingTop = UDim.new(0, 10),
-			PaddingBottom = UDim.new(0, 10),
-			PaddingLeft = UDim.new(0, 14),
-			PaddingRight = UDim.new(0, 14),
-		}))
+		local function ApplyIcon(Data)
+			IconLabel.Visible = Data ~= nil
+			if Data then
+				IconLabel.Image = Data.Image
+				IconLabel.ImageRectOffset = Data.ImageRectOffset or Vector2.zero
+				IconLabel.ImageRectSize = Data.ImageRectSize or Vector2.zero
+			end
+		end
+
+		if Config.Icon ~= false then
+			ApplyIcon(ResolveIcon(Config.Icon) or ResolveIcon(Style.Icon))
+		end
+
+		local TitleLabel = New("TextLabel", {
+			Name = "ToastTitle",
+			FontFace = Font.new(Library.Font, Enum.FontWeight.Medium, Enum.FontStyle.Normal),
+			Text = Title,
+			RichText = true,
+			TextSize = 13,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextWrapped = true,
+			AutomaticSize = Enum.AutomaticSize.XY,
+			Size = UDim2.fromOffset(0, 14),
+			BackgroundTransparency = 1,
+			Visible = Title ~= "",
+			LayoutOrder = 1,
+			ThemeTag = {
+				TextColor3 = "Text",
+			},
+		}, {
+			New("UISizeConstraint", {
+				MaxSize = Vector2.new(290, math.huge),
+			}),
+		})
+
+		local ContentLabel = New("TextLabel", {
+			Name = "ToastContent",
+			FontFace = Font.new(Library.Font),
+			Text = Content,
+			RichText = true,
+			TextSize = 13,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextWrapped = true,
+			AutomaticSize = Enum.AutomaticSize.XY,
+			Size = UDim2.fromOffset(0, 14),
+			BackgroundTransparency = 1,
+			Visible = Content ~= "",
+			LayoutOrder = 2,
+			ThemeTag = {
+				TextColor3 = Title ~= "" and "SubText" or "Text",
+			},
+		}, {
+			New("UISizeConstraint", {
+				MaxSize = Vector2.new(290, math.huge),
+			}),
+		})
 
 		local ContentButton = New("TextButton", {
 			Name = "ToastContentHolder",
@@ -2813,7 +4279,35 @@ Components.Toast = (function()
 			AutomaticSize = Enum.AutomaticSize.XY,
 			Size = UDim2.fromOffset(0, 0),
 			LayoutOrder = 1,
-		}, ContentChildren)
+		}, {
+			IconLabel,
+			New("Frame", {
+				Name = "ToastText",
+				BackgroundTransparency = 1,
+				AutomaticSize = Enum.AutomaticSize.XY,
+				Size = UDim2.fromOffset(0, 0),
+				LayoutOrder = 2,
+			}, {
+				New("UIListLayout", {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					Padding = UDim.new(0, 2),
+				}),
+				TitleLabel,
+				ContentLabel,
+			}),
+			New("UIListLayout", {
+				FillDirection = Enum.FillDirection.Horizontal,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				Padding = UDim.new(0, 10),
+			}),
+			New("UIPadding", {
+				PaddingTop = UDim.new(0, 10),
+				PaddingBottom = UDim.new(0, 10),
+				PaddingLeft = UDim.new(0, 14),
+				PaddingRight = UDim.new(0, 14),
+			}),
+		})
 
 		local ProgressFill = New("Frame", {
 			Name = "ToastProgressFill",
@@ -2831,6 +4325,7 @@ Components.Toast = (function()
 				Transparency = 0.3,
 				ThemeTag = {
 					Color = "DialogBorder",
+					Transparency = "DialogBorderTransparency",
 				},
 			}),
 			New("UIListLayout", {
@@ -2877,6 +4372,20 @@ Components.Toast = (function()
 				BackgroundColor3 = "Dialog",
 			},
 		}, PillChildren)
+
+		function NewToast:SetTitle(Text)
+			TitleLabel.Text = Text and tostring(Text) or ""
+			TitleLabel.Visible = TitleLabel.Text ~= ""
+		end
+
+		function NewToast:SetContent(Text)
+			ContentLabel.Text = Text and tostring(Text) or ""
+			ContentLabel.Visible = ContentLabel.Text ~= ""
+		end
+
+		function NewToast:SetIcon(Source)
+			ApplyIcon(ResolveIcon(Source))
+		end
 
 		function NewToast:Close()
 			if NewToast.Closed then
@@ -2930,7 +4439,7 @@ Components.Toast = (function()
 				return
 			end
 
-			local Height = Pill.AbsoluteSize.Y
+			local Height = Pill.AbsoluteSize.Y / Library.DPIScale
 			Wrapper.AutomaticSize = Enum.AutomaticSize.None
 			Wrapper.Size = UDim2.new(1, 0, 0, 0)
 			Pill.Position = UDim2.new(0.5, 0, 0, Offset)
@@ -2988,9 +4497,7 @@ Components.Dialog = (function()
 			BackgroundTransparency = 1,
 			Parent = Dialog.Window.Root,
 		}, {
-			New("UICorner", {
-				CornerRadius = UDim.new(0, 8),
-			}),
+			Creator.WindowCorner(),
 		})
 
 		local TintMotor, TintTransparency = Creator.SpringMotor(1, NewDialog.TintFrame, "BackgroundTransparency", true)
@@ -3016,13 +4523,20 @@ Components.Dialog = (function()
 			},
 		})
 
+		NewDialog.HolderGradient = New("UIGradient", {
+			ThemeTag = {
+				Color = "DialogHolder",
+				Rotation = "DialogHolderRotation",
+				Transparency = "DialogHolderTransparency",
+			},
+		})
+
 		NewDialog.ButtonHolderFrame = New("Frame", {
 			Size = UDim2.new(1, 0, 0, 70),
 			Position = UDim2.new(0, 0, 1, -70),
-			ThemeTag = {
-				BackgroundColor3 = "DialogHolder",
-			},
+			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 		}, {
+			NewDialog.HolderGradient,
 			NewDialog.HolderLine,
 			NewDialog.ButtonHolder,
 		})
@@ -3089,15 +4603,16 @@ Components.Dialog = (function()
 			Scale(1.1)
 			NewDialog.Root.UIStroke:Destroy()
 			task.wait(0.15)
+			Creator.Release(NewDialog.TintFrame)
 			NewDialog.TintFrame:Destroy()
 		end
 
-		function NewDialog:Button(Title, Callback)
+		function NewDialog:Button(Title, Callback, Style)
 			NewDialog.Buttons = NewDialog.Buttons + 1
 			Title = Title or "Button"
 			Callback = Callback or function() end
 
-			local Button = Components.Button("", NewDialog.ButtonHolder, true)
+			local Button = Components.Button("", NewDialog.ButtonHolder, true, nil, Style)
 			Button.Title.Text = Title
 
 			for _, Btn in next, NewDialog.ButtonHolder:GetChildren() do
@@ -3108,7 +4623,15 @@ Components.Dialog = (function()
 			end
 
 			Creator.AddSignal(Button.Frame.MouseButton1Click, function()
-				Library:SafeCallback(Callback)
+				local KeepOpen = false
+				Library:SafeCallback(function()
+					if Callback() == false then
+						KeepOpen = true
+					end
+				end)
+				if KeepOpen then
+					return
+				end
 				pcall(function()
 					NewDialog:Close()
 				end)
@@ -3147,8 +4670,13 @@ Components.SidePanel = (function()
 	function SidePanel:Create(Config)
 		Config = Config or {}
 		local Side = Config.Side == "Left" and "Left" or "Right"
-		local PanelWidth = Config.Width or 300
-		local AnchorX = Side == "Right" and 1 or 0
+		local PanelId = Config.Id or Config.Title or "Panel"
+		local SavedState = Library.PanelSizes[PanelId]
+		local SizeConfig = typeof(Config.Size) == "UDim2" and Config.Size or nil
+		local PanelWidth = (SavedState and tonumber(SavedState.Width)) or (SizeConfig and SizeConfig.X.Offset) or Config.Width or 300
+		local PanelHeight = SizeConfig and SizeConfig.Y.Offset > 0 and SizeConfig.Y.Offset or nil
+		local Dock = SavedState and (SavedState.Dock == "Left" or SavedState.Dock == "Right") and SavedState.Dock or Side
+		local AnchorX = Dock == "Right" and 1 or 0
 
 		local NewPanel = {
 			Buttons = 0,
@@ -3222,6 +4750,7 @@ Components.SidePanel = (function()
 			}),
 		})
 
+		NewPanel.RowHolder:SetAttribute("SidePanelRows", true)
 		NewPanel.Container = NewPanel.RowHolder
 		NewPanel.Type = "Group"
 		NewPanel.ScrollFrame = NewPanel.RowHolder
@@ -3259,11 +4788,77 @@ Components.SidePanel = (function()
 			NewPanel.ButtonHolder,
 		})
 
-		NewPanel.SlideOffset = Side == "Right" and (PanelWidth + 24) or -(PanelWidth + 24)
+		local MinPanelWidth = Config.MinWidth or 240
+
+		local function GetMaxWidth()
+			local WindowWidth = SidePanel.Window.Root.AbsoluteSize.X / Library.DPIScale
+			local Limit = WindowWidth > 0 and WindowWidth or math.huge
+			if Config.MaxWidth then
+				Limit = math.min(Limit, Config.MaxWidth)
+			end
+			return math.max(MinPanelWidth, Limit)
+		end
+
+		PanelWidth = math.floor(math.clamp(PanelWidth, MinPanelWidth, GetMaxWidth()))
+
+		local function GetRootSize()
+			if PanelHeight then
+				return UDim2.fromOffset(PanelWidth, PanelHeight)
+			end
+			return UDim2.new(0, PanelWidth, 1, -20)
+		end
+
+		local function GetSlideOffset()
+			return Dock == "Right" and (PanelWidth + 24) or -(PanelWidth + 24)
+		end
+
+		NewPanel.Dock = Dock
+		NewPanel.Size = GetRootSize()
+		NewPanel.SlideOffset = GetSlideOffset()
 		local SlideMotor = Flipper.SingleMotor.new(NewPanel.SlideOffset)
 
+		local ResizeActive = false
+		local ResizeMoveConnection
+		local ResizeEndConnection
+		local LeftGrip
+		local RightGrip
+
+		local function CreateResizeHandle(OnLeft)
+			local Grip = New("Frame", {
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.fromScale(0.5, 0.5),
+				Size = UDim2.fromOffset(3, 36),
+				BackgroundTransparency = 0.6,
+				ThemeTag = {
+					BackgroundColor3 = "SubText",
+				},
+			}, {
+				New("UICorner", {
+					CornerRadius = UDim.new(1, 0),
+				}),
+			})
+
+			local Handle = New("TextButton", {
+				Name = OnLeft and "ResizeHandleLeft" or "ResizeHandleRight",
+				Text = "",
+				AutoButtonColor = false,
+				BackgroundTransparency = 1,
+				AnchorPoint = Vector2.new(OnLeft and 0 or 1, 0),
+				Position = UDim2.fromScale(OnLeft and 0 or 1, 0),
+				Size = UDim2.new(0, 10, 1, 0),
+				ZIndex = 10,
+			}, {
+				Grip,
+			})
+
+			return Handle, Grip
+		end
+
+		NewPanel.ResizeLeft, LeftGrip = CreateResizeHandle(true)
+		NewPanel.ResizeRight, RightGrip = CreateResizeHandle(false)
+
 		NewPanel.Root = New("CanvasGroup", {
-			Size = UDim2.new(0, PanelWidth, 1, -20),
+			Size = NewPanel.Size,
 			AnchorPoint = Vector2.new(AnchorX, 0.5),
 			Position = UDim2.new(AnchorX, NewPanel.SlideOffset, 0.5, 0),
 			GroupTransparency = 1,
@@ -3277,6 +4872,7 @@ Components.SidePanel = (function()
 				Transparency = 0.5,
 				ThemeTag = {
 					Color = "MenuBorder",
+					Transparency = "MenuBorderTransparency",
 				},
 			}),
 			New("Frame", {
@@ -3291,6 +4887,7 @@ Components.SidePanel = (function()
 					ThemeTag = {
 						Color = "MenuBackground",
 						Rotation = "MenuBackgroundRotation",
+						Transparency = "MenuBackgroundTransparency",
 					},
 				}),
 			}),
@@ -3298,7 +4895,127 @@ Components.SidePanel = (function()
 			NewPanel.Description,
 			NewPanel.RowHolder,
 			NewPanel.ButtonHolderFrame,
+			NewPanel.ResizeLeft,
+			NewPanel.ResizeRight,
 		})
+
+		local function UpdateHandles()
+			local Full = PanelWidth >= GetMaxWidth()
+			NewPanel.ResizeLeft.Visible = Full or Dock == "Right"
+			NewPanel.ResizeRight.Visible = Full or Dock == "Left"
+			NewPanel.RowHolder.VerticalScrollBarPosition = Dock == "Right" and Enum.VerticalScrollBarPosition.Right or Enum.VerticalScrollBarPosition.Left
+		end
+
+		local function SetDock(NewDock)
+			if Dock == NewDock then
+				return
+			end
+
+			Dock = NewDock
+			NewPanel.Dock = Dock
+			AnchorX = Dock == "Right" and 1 or 0
+			NewPanel.SlideOffset = GetSlideOffset()
+			NewPanel.Root.AnchorPoint = Vector2.new(AnchorX, 0.5)
+			NewPanel.Root.Position = UDim2.new(AnchorX, 0, 0.5, 0)
+			UpdateHandles()
+		end
+
+		function NewPanel:SetWidth(Width)
+			PanelWidth = math.floor(math.clamp(Width, MinPanelWidth, GetMaxWidth()))
+			NewPanel.SlideOffset = GetSlideOffset()
+			NewPanel.Size = GetRootSize()
+			NewPanel.Root.Size = NewPanel.Size
+			UpdateHandles()
+		end
+
+		local function SaveState()
+			Library.PanelSizes[PanelId] = { Width = PanelWidth, Dock = Dock }
+			if Library.OnPanelSizeChanged then
+				Library:SafeCallback(Library.OnPanelSizeChanged, PanelId, Library.PanelSizes[PanelId])
+			end
+		end
+
+		function NewPanel:SetSize(Value)
+			local Width = typeof(Value) == "UDim2" and Value.X.Offset or typeof(Value) == "Vector2" and Value.X or tonumber(Value)
+			if Width then
+				NewPanel:SetWidth(Width)
+				SaveState()
+			end
+		end
+
+		local function StopResize(Commit)
+			local WasActive = ResizeActive
+			ResizeActive = false
+			LeftGrip.BackgroundTransparency = 0.6
+			RightGrip.BackgroundTransparency = 0.6
+
+			if ResizeMoveConnection then
+				ResizeMoveConnection:Disconnect()
+				ResizeMoveConnection = nil
+			end
+			if ResizeEndConnection then
+				ResizeEndConnection:Disconnect()
+				ResizeEndConnection = nil
+			end
+
+			if Commit and WasActive then
+				SaveState()
+			end
+		end
+
+		local function BeginResize(Input, FromLeft, Grip)
+			if NewPanel.Closing then
+				return
+			end
+			if Input.UserInputType ~= Enum.UserInputType.MouseButton1 and Input.UserInputType ~= Enum.UserInputType.Touch then
+				return
+			end
+
+			StopResize(false)
+			ResizeActive = true
+			Grip.BackgroundTransparency = 0.1
+			SetDock(FromLeft and "Right" or "Left")
+
+			local StartX = Input.Position.X
+			local StartWidth = PanelWidth
+			local Direction = FromLeft and -1 or 1
+
+			ResizeMoveConnection = UserInputService.InputChanged:Connect(function(MoveInput)
+				if MoveInput.UserInputType == Enum.UserInputType.MouseMovement or MoveInput.UserInputType == Enum.UserInputType.Touch then
+					NewPanel:SetWidth(StartWidth + ((MoveInput.Position.X - StartX) / Library.DPIScale) * Direction)
+				end
+			end)
+
+			ResizeEndConnection = UserInputService.InputEnded:Connect(function(EndInput)
+				if EndInput.UserInputType == Enum.UserInputType.MouseButton1 or EndInput.UserInputType == Enum.UserInputType.Touch then
+					StopResize(true)
+				end
+			end)
+		end
+
+		for _, Entry in ipairs({ { NewPanel.ResizeLeft, LeftGrip, true }, { NewPanel.ResizeRight, RightGrip, false } }) do
+			local Handle = Entry[1]
+			local Grip = Entry[2]
+			local FromLeft = Entry[3]
+
+			Creator.AddSignal(Handle.MouseEnter, function()
+				if not ResizeActive then
+					Grip.BackgroundTransparency = 0.3
+				end
+			end)
+
+			Creator.AddSignal(Handle.MouseLeave, function()
+				if not ResizeActive then
+					Grip.BackgroundTransparency = 0.6
+				end
+			end)
+
+			Creator.AddSignal(Handle.InputBegan, function(Input)
+				BeginResize(Input, FromLeft, Grip)
+			end)
+		end
+
+		UpdateHandles()
 
 		SlideMotor:onStep(function(Value)
 			NewPanel.Root.Position = UDim2.new(AnchorX, Value, 0.5, 0)
@@ -3325,8 +5042,8 @@ Components.SidePanel = (function()
 			end
 			NewPanel.Closing = true
 			Library.DialogOpen = false
+			StopResize(false)
 
-			-- stop the open springs so they do not fight the close tween
 			pcall(function()
 				SlideMotor:stop()
 				RootMotor:stop()
@@ -3351,17 +5068,18 @@ Components.SidePanel = (function()
 
 			task.delay(0.34, function()
 				pcall(function()
+					Creator.Release(NewPanel.TintFrame)
 					NewPanel.TintFrame:Destroy()
 				end)
 			end)
 		end
 
-		function NewPanel:Button(Title, Callback)
+		function NewPanel:Button(Title, Callback, Style)
 			NewPanel.Buttons = NewPanel.Buttons + 1
 			Title = Title or "Button"
 			Callback = Callback or function() end
 
-			local Button = Components.Button("", NewPanel.ButtonHolder, true, MenuButtonTags)
+			local Button = Components.Button("", NewPanel.ButtonHolder, true, MenuButtonTags, Style)
 			Button.Title.Text = Title
 			Button.Frame.LayoutOrder = NewPanel.Buttons
 
@@ -3392,10 +5110,13 @@ Components.SidePanel = (function()
 				RowConfig.Title,
 				RowConfig.Description,
 				NewPanel.RowHolder,
-				false,
+				"Hover",
 				NewPanel.Rows,
 				RowConfig.Icon,
-				RowConfig.Marquee ~= false
+				RowConfig.Marquee ~= false,
+				nil,
+				RowConfig.Tooltip,
+				RowConfig.RichText
 			)
 
 			local Textbox = Components.Textbox(Row.Frame, true, MenuInputTags)
@@ -3411,6 +5132,7 @@ Components.SidePanel = (function()
 				Type = "Input",
 				SetTitle = Row.SetTitle,
 				SetDesc = Row.SetDesc,
+				SetRichText = Row.SetRichText,
 			}
 
 			local function Commit()
@@ -3458,7 +5180,10 @@ Components.SidePanel = (function()
 				true,
 				NewPanel.Rows,
 				RowConfig.Icon,
-				RowConfig.Marquee ~= false
+				RowConfig.Marquee ~= false,
+				nil,
+				RowConfig.Tooltip,
+				RowConfig.RichText
 			)
 
 			New("ImageLabel", {
@@ -3482,6 +5207,7 @@ Components.SidePanel = (function()
 				Type = "Button",
 				SetTitle = Row.SetTitle,
 				SetDesc = Row.SetDesc,
+				SetRichText = Row.SetRichText,
 			}
 		end
 
@@ -3536,11 +5262,11 @@ Components.SidePanel = (function()
 
 			ImportDialog:Button("Cancel", function()
 				Library:SafeCallback(ImportConfig.OnCancel)
-			end)
+			end, "Standard")
 
 			ImportDialog:Button("Confirm", function()
 				Library:SafeCallback(ImportConfig.Callback, ImportBox.Input.Text)
-			end)
+			end, "Suggested")
 
 			ImportDialog:Open()
 			return ImportDialog
@@ -3549,11 +5275,16 @@ Components.SidePanel = (function()
 		if Config.Buttons and #Config.Buttons > 0 then
 			for _, BtnCfg in ipairs(Config.Buttons) do
 				NewPanel:Button(BtnCfg.Title or "Button", function()
-					Library:SafeCallback(BtnCfg.Callback)
-					if BtnCfg.CloseOnClick ~= false then
+					local KeepOpen = false
+					Library:SafeCallback(function()
+						if BtnCfg.Callback and BtnCfg.Callback() == false then
+							KeepOpen = true
+						end
+					end)
+					if BtnCfg.CloseOnClick ~= false and not KeepOpen then
 						pcall(function() NewPanel:Close() end)
 					end
-				end)
+				end, BtnCfg.Style)
 			end
 		end
 
@@ -3613,6 +5344,7 @@ Components.Tab = (function()
 				ImageRectOffset = IconRectOffset,
 				ImageRectSize = IconRectSize,
 				Parent = Chip.Frame,
+				SeasonalHat = "Icon",
 				ThemeTag = {
 					ImageColor3 = "Text",
 				},
@@ -3668,6 +5400,9 @@ Components.Tab = (function()
 		end)
 
 		local BackgroundMotor, SetBackgroundTransparency = Creator.SpringMotor(1, Chip.Frame, "BackgroundTransparency")
+		if Library.NewVisual then
+			SetBackgroundTransparency = function() end
+		end
 		local LabelMotor, SetLabelTransparency = Creator.SpringMotor(1, Chip.Label, "TextTransparency")
 
 		local SetInitialTransparency
@@ -3694,7 +5429,7 @@ Components.Tab = (function()
 		Creator.AddSignal(Chip.HitBox.MouseEnter, function()
 			Chip.Hovering = true
 			if not Chip.Selected then
-				SetBackgroundTransparency(0.94)
+				SetBackgroundTransparency(Creator.HoverShift(1, 0.06))
 				SetExpanded(true)
 			end
 		end)
@@ -3708,7 +5443,7 @@ Components.Tab = (function()
 		end)
 
 		Creator.AddSignal(Chip.HitBox.MouseButton1Click, function()
-			TabModule:SelectTab(TabIndex)
+			TabModule:ClickTab(TabIndex)
 		end)
 
 		Creator.AddSignal(Chip.Frame:GetPropertyChangedSignal("AbsoluteSize"), function()
@@ -3763,10 +5498,15 @@ Components.Tab = (function()
 	end
 
 	function TabModule:GetCurrentTabPos()
-		local TabHolderPos = TabModule.Window.TabHolder.AbsolutePosition.Y
-		local TabPos = TabModule.Tabs[TabModule.SelectedTab].Frame.AbsolutePosition.Y
+		local Selected = TabModule.Tabs[TabModule.SelectedTab]
+		if not Selected or not Selected.Frame then
+			return 0
+		end
 
-		return TabPos - TabHolderPos
+		local TabHolderPos = TabModule.Window.TabHolder.AbsolutePosition.Y
+		local TabPos = Selected.Frame.AbsolutePosition.Y
+
+		return (TabPos - TabHolderPos) / Library.DPIScale
 	end
 
 	function TabModule:UpdateNavigatorSelector(UseInstant)
@@ -3780,16 +5520,61 @@ Components.Tab = (function()
 			return
 		end
 
+		local WasVisible = Window.NavigatorSelector.Visible
 		Window.NavigatorSelector.Visible = true
 
 		local ChipFrame = Tab.HeaderChip.Frame
-		local X = ChipFrame.AbsolutePosition.X - Window.NavigatorHolder.AbsolutePosition.X
-		local Width = ChipFrame.AbsoluteSize.X
+		local X = (ChipFrame.AbsolutePosition.X - Window.NavigatorHolder.AbsolutePosition.X) / Library.DPIScale
+		local Width = ChipFrame.AbsoluteSize.X / Library.DPIScale
 
-		local MotorType = UseInstant and Instant or Spring
+		local MotorType = (UseInstant or (Library.NewVisual and not WasVisible)) and Instant or Spring
 		Window.NavigatorSelectorMotor:setGoal({
 			X = MotorType(X, { frequency = 10 }),
 			Width = MotorType(Width, { frequency = 10 }),
+		})
+	end
+
+	function TabModule:UpdateTabHighlight(UseInstant)
+		local Window = TabModule.Window
+		local Highlight = Window.TabHighlight
+		if not Highlight then
+			return
+		end
+
+		local Tab = TabModule.Tabs[TabModule.SelectedTab]
+		local TabFrame = Tab and not Tab.IsHeaderTab and Tab.Frame
+		if not TabFrame or not TabFrame.Parent or not TabFrame.Parent.Visible then
+			Highlight.Visible = false
+			return
+		end
+
+		local WasVisible = Highlight.Visible
+		Highlight.Visible = true
+
+		local Holder = Window.TabHolder
+		local Origin = Holder.AbsolutePosition
+		local DPI = Library.DPIScale
+		local X = (TabFrame.AbsolutePosition.X - Origin.X) / DPI
+		local Y = (TabFrame.AbsolutePosition.Y - Origin.Y) / DPI
+		local Width = TabFrame.AbsoluteSize.X / DPI
+		local Height = TabFrame.AbsoluteSize.Y / DPI
+
+		if Holder.AbsoluteCanvasSize.Y <= Holder.AbsoluteWindowSize.Y + 0.5 then
+			Width = Holder.AbsoluteWindowSize.X / DPI - X
+		end
+
+		local Goal = TabModule.HighlightGoal
+		if WasVisible and Goal and Goal.X == X and Goal.Y == Y and Goal.Width == Width and Goal.Height == Height then
+			return
+		end
+		TabModule.HighlightGoal = { X = X, Y = Y, Width = Width, Height = Height }
+
+		local MotorType = (UseInstant or not WasVisible) and Instant or Spring
+		Window.TabHighlightMotor:setGoal({
+			X = MotorType(X, { frequency = 10 }),
+			Y = MotorType(Y, { frequency = 10 }),
+			Width = MotorType(Width, { frequency = 10 }),
+			Height = MotorType(Height, { frequency = 10 }),
 		})
 	end
 
@@ -3826,7 +5611,7 @@ Components.Tab = (function()
 		end
 	end
 
-	function TabModule:New(Title, Icon, Parent, IsHeaderTab)
+	function TabModule:New(Title, Icon, Parent, IsHeaderTab, AllowNull)
 		local Window = TabModule.Window
 		local Elements = Library.Elements
 
@@ -3838,6 +5623,8 @@ Components.Tab = (function()
 			Name = Title,
 			Type = "Tab",
 			IsHeaderTab = IsHeaderTab or false,
+			AllowNull = AllowNull == true,
+			Index = TabIndex,
 			_layoutOrder = 0,
 		}
 
@@ -3854,6 +5641,10 @@ Components.Tab = (function()
 			IconRectOffset = Icon.ImageRectOffset
 			IconRectSize = Icon.ImageRectSize
 		end
+
+		Tab.IconImage = IconImage
+		Tab.IconRectOffset = IconRectOffset
+		Tab.IconRectSize = IconRectSize
 
 		if Tab.IsHeaderTab then
 			Tab.HeaderChip = CreateHeaderChip(TabModule, TabIndex, Title, IconImage, IconRectOffset, IconRectSize)
@@ -3904,6 +5695,7 @@ Components.Tab = (function()
 					Image = IconImage,
 					ImageRectOffset = IconRectOffset,
 					ImageRectSize = IconRectSize,
+					SeasonalHat = IconImage and "Icon" or nil,
 					ThemeTag = {
 						ImageColor3 = "Text",
 					},
@@ -3919,20 +5711,32 @@ Components.Tab = (function()
 
 			Tab.Motor, Tab.SetTransparency = Creator.SpringMotor(1, Tab.Frame, "BackgroundTransparency")
 
-			Creator.AddSignal(Tab.Frame.MouseEnter, function()
-				Tab.SetTransparency(Tab.Selected and 0.85 or 0.89)
-			end)
-			Creator.AddSignal(Tab.Frame.MouseLeave, function()
-				Tab.SetTransparency(Tab.Selected and 0.89 or 1)
-			end)
-			Creator.AddSignal(Tab.Frame.MouseButton1Down, function()
-				Tab.SetTransparency(0.92)
-			end)
-			Creator.AddSignal(Tab.Frame.MouseButton1Up, function()
-				Tab.SetTransparency(Tab.Selected and 0.85 or 0.89)
-			end)
+			if Library.NewVisual then
+				Tab.SetTransparency = function() end
+
+				local function RefreshHighlight()
+					if Tab.Selected then
+						TabModule:UpdateTabHighlight(true)
+					end
+				end
+				Creator.AddSignal(Tab.Frame:GetPropertyChangedSignal("AbsolutePosition"), RefreshHighlight)
+				Creator.AddSignal(Tab.Frame:GetPropertyChangedSignal("AbsoluteSize"), RefreshHighlight)
+			else
+				Creator.AddSignal(Tab.Frame.MouseEnter, function()
+					Tab.SetTransparency(Tab.Selected and Creator.HoverShift(0.89, 0.04) or Creator.HoverShift(1, 0.11))
+				end)
+				Creator.AddSignal(Tab.Frame.MouseLeave, function()
+					Tab.SetTransparency(Tab.Selected and 0.89 or 1)
+				end)
+				Creator.AddSignal(Tab.Frame.MouseButton1Down, function()
+					Tab.SetTransparency(Creator.HoverShift(1, 0.08))
+				end)
+				Creator.AddSignal(Tab.Frame.MouseButton1Up, function()
+					Tab.SetTransparency(Tab.Selected and Creator.HoverShift(0.89, 0.04) or Creator.HoverShift(1, 0.11))
+				end)
+			end
 			Creator.AddSignal(Tab.Frame.MouseButton1Click, function()
-				TabModule:SelectTab(TabIndex)
+				TabModule:ClickTab(TabIndex)
 			end)
 		end
 
@@ -3949,9 +5753,6 @@ Components.Tab = (function()
 			BottomImage = "rbxassetid://6889812791",
 			MidImage = "rbxassetid://6889812721",
 			TopImage = "rbxassetid://6276641225",
-			ScrollBarImageColor3 = Color3.fromRGB(255, 255, 255),
-			ScrollBarImageTransparency = 0.95,
-			ScrollBarThickness = 3,
 			BorderSizePixel = 0,
 			CanvasSize = UDim2.fromScale(0, 0),
 			ScrollingDirection = Enum.ScrollingDirection.Y,
@@ -3965,8 +5766,10 @@ Components.Tab = (function()
 			}),
 		})
 
+		Creator.AttachScrollBar(Tab.ContainerFrame, { Thickness = 4 })
+
 		Creator.AddSignal(ContainerLayout:GetPropertyChangedSignal("AbsoluteContentSize"), function()
-			Tab.ContainerFrame.CanvasSize = UDim2.new(0, 0, 0, ContainerLayout.AbsoluteContentSize.Y + 2)
+			Tab.ContainerFrame.CanvasSize = UDim2.new(0, 0, 0, ContainerLayout.AbsoluteContentSize.Y / Library.DPIScale + 2)
 		end)
 
 		TabModule.Containers[TabIndex] = Tab.ContainerFrame
@@ -3995,28 +5798,83 @@ Components.Tab = (function()
 		return Tab
 	end
 
+	function TabModule:SetDisplay(Text, Image, RectOffset, RectSize)
+		local Window = TabModule.Window
+		local HasIcon = Image ~= nil and Image ~= ""
+		local Offset = HasIcon and 34 or 0
+
+		Window.TabDisplay.Text = Text or ""
+		Window.TabDisplay.Position = UDim2.fromOffset(Window.TabWidth + 26 + Offset, 56)
+		Window.TabDisplay.Size = UDim2.new(1, -16 - Offset, 0, 28)
+
+		if Window.TabDisplayIcon then
+			Window.TabDisplayIcon.Visible = HasIcon
+			if HasIcon then
+				Window.TabDisplayIcon.Image = Image
+				Window.TabDisplayIcon.ImageRectOffset = RectOffset or Vector2.zero
+				Window.TabDisplayIcon.ImageRectSize = RectSize or Vector2.zero
+			end
+		end
+	end
+
+	function TabModule:ClickTab(TabIndex)
+		local Tab = TabModule.Tabs[TabIndex]
+		if Tab and Tab.AllowNull and Tab.Selected then
+			TabModule:SelectTab(nil)
+		else
+			TabModule:SelectTab(TabIndex)
+		end
+	end
+
 	function TabModule:SelectTab(Tab)
 		local Window = TabModule.Window
 
-		TabModule.SelectedTab = Tab
+		if Tab ~= nil and not TabModule.Tabs[Tab] then
+			Tab = nil
+		end
+
+		local ContainerKey = Tab or 0
+		if not TabModule.Containers[ContainerKey] then
+			return
+		end
+
+		TabModule.SelectedTab = ContainerKey
 
 		for _, TabObject in next, TabModule.Tabs do
 			TabObject.SetTransparency(1)
 			TabObject.Selected = false
 		end
-		TabModule.Tabs[Tab].SetTransparency(0.89)
-		TabModule.Tabs[Tab].Selected = true
 
-		Window.TabDisplay.Text = TabModule.Tabs[Tab].Name
-
-		if TabModule.Tabs[Tab].IsHeaderTab then
+		if Tab == nil then
+			local Null = Window.WelcomePage
 			Window.Selector.Visible = false
-			TabModule:UpdateNavigatorSelector()
-		else
 			Window.NavigatorSelector.Visible = false
-			Window.Selector.Visible = true
-			Window.SelectorPosMotor:setGoal(Spring(TabModule:GetCurrentTabPos(), { frequency = 6 }))
+			TabModule:SetDisplay(
+				Null and Null.DisplayTitle or "Welcome",
+				Null and Null.IconImage,
+				Null and Null.IconRectOffset,
+				Null and Null.IconRectSize
+			)
+		else
+			local Selected = TabModule.Tabs[Tab]
+			Selected.SetTransparency(0.89)
+			Selected.Selected = true
+
+			TabModule:SetDisplay(Selected.Name, Selected.IconImage, Selected.IconRectOffset, Selected.IconRectSize)
+
+			if Selected.IsHeaderTab then
+				Window.Selector.Visible = false
+				TabModule:UpdateNavigatorSelector()
+			else
+				Window.NavigatorSelector.Visible = false
+				if not Library.NewVisual then
+					Window.Selector.Visible = true
+					Window.SelectorPosMotor:setGoal(Spring(TabModule:GetCurrentTabPos(), { frequency = 6 }))
+				end
+			end
 		end
+
+		TabModule:UpdateTabHighlight()
 
 		task.spawn(function()
 			Window.ContainerHolder.Parent = Window.ContainerAnim
@@ -4027,7 +5885,7 @@ Components.Tab = (function()
 			for _, Container in next, TabModule.Containers do
 				Container.Visible = false
 			end
-			TabModule.Containers[Tab].Visible = true
+			TabModule.Containers[ContainerKey].Visible = true
 			TabModule:ApplyFilter(TabModule.SearchQuery)
 			Window.ContainerPosMotor:setGoal(Spring(0, { frequency = 5 }))
 			Window.ContainerBackMotor:setGoal(Spring(0, { frequency = 8 }))
@@ -4037,6 +5895,450 @@ Components.Tab = (function()
 	end
 
 	return TabModule
+end)()
+
+Components.Welcome = (function()
+	local New = Creator.New
+	local MarketplaceService = cloneref(game:GetService("MarketplaceService"))
+	local TeleportService = cloneref(game:GetService("TeleportService"))
+
+	local Welcome = {}
+
+	local function CopyText(Text, Message)
+		if setclipboard then
+			setclipboard(Text)
+			Library:Notify({ Title = "Copied", Content = Message, Duration = 3 })
+		else
+			Library:Notify({ Title = "Copy", Content = "Your executor does not support setclipboard.", Duration = 4 })
+		end
+	end
+
+	function Welcome:Create(Window, TabModule, Config)
+		local Elements = Library.Elements
+
+		local Enabled = Config ~= false
+		if type(Config) ~= "table" then
+			Config = {}
+		end
+
+		local ContainerLayout = New("UIListLayout", {
+			Padding = UDim.new(0, 5),
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		})
+
+		local Container = New("ScrollingFrame", {
+			Name = "WelcomeContainer",
+			Size = UDim2.fromScale(1, 1),
+			BackgroundTransparency = 1,
+			Parent = Window.ContainerHolder,
+			Visible = true,
+			BottomImage = "rbxassetid://6889812791",
+			MidImage = "rbxassetid://6889812721",
+			TopImage = "rbxassetid://6276641225",
+			BorderSizePixel = 0,
+			CanvasSize = UDim2.fromScale(0, 0),
+			ScrollingDirection = Enum.ScrollingDirection.Y,
+		}, {
+			ContainerLayout,
+			New("UIPadding", {
+				PaddingRight = UDim.new(0, 10),
+				PaddingLeft = UDim.new(0, 1),
+				PaddingTop = UDim.new(0, 1),
+				PaddingBottom = UDim.new(0, 1),
+			}),
+		})
+
+		Creator.AttachScrollBar(Container, { Thickness = 4 })
+
+		Creator.AddSignal(ContainerLayout:GetPropertyChangedSignal("AbsoluteContentSize"), function()
+			Container.CanvasSize = UDim2.new(0, 0, 0, ContainerLayout.AbsoluteContentSize.Y / Library.DPIScale + 2)
+		end)
+
+		TabModule.Containers[0] = Container
+		TabModule.SelectedTab = 0
+
+		local Page = {
+			Type = "Tab",
+			Name = "Welcome",
+			IsNull = true,
+			Container = Container,
+			ScrollFrame = Container,
+			DisplayTitle = type(Config.TabTitle) == "string" and Config.TabTitle or "Welcome",
+			_layoutOrder = 10,
+		}
+
+		local IconName = Config.Icon
+		if IconName == nil then
+			IconName = "sparkles"
+		end
+		if type(IconName) == "string" and IconName ~= "" then
+			local Icon = IconName:match("^rbxasset") and IconName or Library:GetIcon(IconName)
+			if type(Icon) == "table" then
+				Page.IconImage = Icon.Image
+				Page.IconRectOffset = Icon.ImageRectOffset
+				Page.IconRectSize = Icon.ImageRectSize
+			elseif type(Icon) == "string" then
+				Page.IconImage = Icon
+			end
+		end
+
+		function Page:AddSection(SectionTitle)
+			local Section = { Type = "Section", _layoutOrder = 0 }
+
+			Page._layoutOrder = Page._layoutOrder + 1
+			local SectionFrame = Components.Section(SectionTitle, Container)
+			SectionFrame.Root.LayoutOrder = Page._layoutOrder
+
+			Section.Container = SectionFrame.Container
+			Section.ScrollFrame = Container
+			Creator.AttachTitleDesc(Section, SectionFrame.TitleLabel, nil)
+
+			setmetatable(Section, Elements)
+			return Section
+		end
+		Page.Section = Page.AddSection
+
+		setmetatable(Page, Elements)
+		Window.WelcomePage = Page
+
+		if Enabled then
+			if Config.Hero ~= false then
+				local ShowAvatar = Config.Avatar ~= false
+				local AvatarWidth = ShowAvatar and 230 or 0
+				local TextInset = AvatarWidth > 0 and (AvatarWidth - 60) or 0
+
+				local Hero = New("Frame", {
+					Name = "WelcomeHero",
+					Size = UDim2.new(1, 0, 0, 160),
+					LayoutOrder = 1,
+					ClipsDescendants = true,
+					Parent = Container,
+					ThemeTag = {
+						BackgroundColor3 = "Element",
+						BackgroundTransparency = "ElementTransparency",
+					},
+				}, {
+					New("UICorner", {
+						CornerRadius = UDim.new(0, 8),
+					}),
+					New("UIStroke", {
+						Transparency = 0.5,
+						ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+						ThemeTag = {
+							Color = "ElementBorder",
+							Transparency = "ElementBorderTransparency",
+						},
+					}),
+				})
+
+				if ShowAvatar then
+					local AvatarImage = type(Config.Avatar) == "string" and Config.Avatar
+						or ("rbxthumb://type=AvatarHeadShot&id=" .. LocalPlayer.UserId .. "&w=420&h=420")
+
+					New("ImageLabel", {
+						Name = "Avatar",
+						AnchorPoint = Vector2.new(1, 0.5),
+						Position = UDim2.fromScale(1, 0.5),
+						Size = UDim2.new(0, AvatarWidth, 1, 0),
+						BackgroundTransparency = 1,
+						Image = AvatarImage,
+						ScaleType = Enum.ScaleType.Crop,
+						Parent = Hero,
+					}, {
+						New("UIGradient", {
+							Rotation = 0,
+							Transparency = NumberSequence.new({
+								NumberSequenceKeypoint.new(0, 1),
+								NumberSequenceKeypoint.new(0.45, 0.55),
+								NumberSequenceKeypoint.new(1, 0),
+							}),
+						}),
+					})
+				end
+
+				New("TextLabel", {
+					Name = "Greeting",
+					Text = (type(Config.Title) == "string" and Config.Title or "Welcome") .. ",",
+					FontFace = Font.new(Library.Font, Enum.FontWeight.Medium, Enum.FontStyle.Normal),
+					TextSize = 14,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					Position = UDim2.fromOffset(20, 34),
+					Size = UDim2.new(1, -(40 + TextInset), 0, 18),
+					BackgroundTransparency = 1,
+					Parent = Hero,
+					ThemeTag = {
+						TextColor3 = "SubText",
+					},
+				})
+
+				New("TextLabel", {
+					Name = "PlayerName",
+					Text = LocalPlayer.DisplayName,
+					FontFace = Font.new(Library.Font, Enum.FontWeight.SemiBold, Enum.FontStyle.Normal),
+					TextSize = 30,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					Position = UDim2.fromOffset(20, 54),
+					Size = UDim2.new(1, -(40 + TextInset), 0, 36),
+					BackgroundTransparency = 1,
+					Parent = Hero,
+					ThemeTag = {
+						TextColor3 = "Text",
+					},
+				})
+
+				New("TextLabel", {
+					Name = "Tagline",
+					Text = type(Config.Subtitle) == "string" and Config.Subtitle or ("@" .. LocalPlayer.Name),
+					FontFace = Font.new(Library.Font, Enum.FontWeight.Regular, Enum.FontStyle.Normal),
+					TextSize = 13,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					Position = UDim2.fromOffset(20, 96),
+					Size = UDim2.new(1, -(40 + TextInset), 0, 16),
+					BackgroundTransparency = 1,
+					Parent = Hero,
+					ThemeTag = {
+						TextColor3 = "SubText",
+					},
+				})
+			end
+
+			if Config.Info ~= false then
+				local Server = Page:AddSection(type(Config.InfoTitle) == "string" and Config.InfoTitle or "Server")
+				local PlaceName = game.Name ~= "" and game.Name or ("Place " .. game.PlaceId)
+
+				Server._layoutOrder = (Server._layoutOrder or 0) + 1
+
+				local GameCard = New("Frame", {
+					Name = "GameCard",
+					Size = UDim2.new(1, 0, 0, 72),
+					LayoutOrder = Server._layoutOrder,
+					ClipsDescendants = true,
+					Parent = Server.Container,
+					ThemeTag = {
+						BackgroundColor3 = "Element",
+						BackgroundTransparency = "ElementTransparency",
+					},
+				}, {
+					New("UICorner", {
+						CornerRadius = UDim.new(0, 8),
+					}),
+					New("UIStroke", {
+						Transparency = 0.5,
+						ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+						ThemeTag = {
+							Color = "ElementBorder",
+							Transparency = "ElementBorderTransparency",
+						},
+					}),
+				})
+
+				New("ImageLabel", {
+					Name = "GameIcon",
+					AnchorPoint = Vector2.new(0, 0.5),
+					Position = UDim2.new(0, 10, 0.5, 0),
+					Size = UDim2.fromOffset(52, 52),
+					BackgroundTransparency = 0.6,
+					Image = "rbxthumb://type=GameIcon&id=" .. game.GameId .. "&w=150&h=150",
+					ScaleType = Enum.ScaleType.Crop,
+					Parent = GameCard,
+					ThemeTag = {
+						BackgroundColor3 = "ElementBorder",
+					},
+				}, {
+					New("UICorner", {
+						CornerRadius = UDim.new(0, 10),
+					}),
+				})
+
+				local GameName = New("TextLabel", {
+					Name = "GameName",
+					Text = PlaceName,
+					FontFace = Font.new(Library.Font, Enum.FontWeight.SemiBold, Enum.FontStyle.Normal),
+					TextSize = 15,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					Position = UDim2.fromOffset(74, 16),
+					Size = UDim2.new(1, -86, 0, 20),
+					BackgroundTransparency = 1,
+					Parent = GameCard,
+					ThemeTag = {
+						TextColor3 = "Text",
+					},
+				})
+
+				New("TextLabel", {
+					Name = "GamePlaceId",
+					Text = "Place ID " .. game.PlaceId,
+					FontFace = Font.new(Library.Font, Enum.FontWeight.Regular, Enum.FontStyle.Normal),
+					TextSize = 12,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					Position = UDim2.fromOffset(74, 38),
+					Size = UDim2.new(1, -86, 0, 16),
+					BackgroundTransparency = 1,
+					Parent = GameCard,
+					ThemeTag = {
+						TextColor3 = "SubText",
+					},
+				})
+
+				local GameHit = New("TextButton", {
+					Name = "GameHit",
+					Text = "",
+					BackgroundTransparency = 1,
+					Size = UDim2.fromScale(1, 1),
+					ZIndex = 2,
+					Parent = GameCard,
+				})
+
+				Creator.AttachCardHover(GameCard, GameHit)
+
+				Creator.AddSignal(GameHit.MouseButton1Click, function()
+					CopyText(tostring(game.PlaceId), "Place ID copied.")
+				end)
+
+				task.spawn(function()
+					local Ok, Info = pcall(function()
+						return MarketplaceService:GetProductInfo(game.PlaceId)
+					end)
+					if Ok and type(Info) == "table" and Info.Name and GameName.Parent then
+						GameName.Text = Info.Name
+					end
+				end)
+
+				local Layout = Server:AddHStack({ Gap = 6 })
+				local PlayersColumn = Layout:AddVStack()
+				local JobColumn = Layout:AddVStack()
+				local RejoinColumn = Layout:AddVStack()
+
+				local function MakeClickable(Paragraph, Callback)
+					local Hit = New("TextButton", {
+						Name = "Hit",
+						Text = "",
+						BackgroundTransparency = 1,
+						Size = UDim2.fromScale(1, 1),
+						ZIndex = 2,
+						Parent = Paragraph.Frame,
+					})
+					Creator.AttachCardHover(Paragraph.Frame, Hit)
+					Creator.AddSignal(Hit.MouseButton1Click, Callback)
+				end
+
+				local function MatchHeights(Paragraphs)
+					local Constraints = {}
+
+					local function Sync()
+						local Tallest = 0
+						for _, Paragraph in ipairs(Paragraphs) do
+							Tallest = math.max(Tallest, Paragraph.Frame.AbsoluteSize.Y / Library.DPIScale)
+						end
+						for _, Constraint in ipairs(Constraints) do
+							Constraint.MinSize = Vector2.new(0, Tallest)
+						end
+					end
+
+					for _, Paragraph in ipairs(Paragraphs) do
+						table.insert(Constraints, New("UISizeConstraint", {
+							Parent = Paragraph.Frame,
+						}))
+						Creator.AddSignal(Paragraph.Frame:GetPropertyChangedSignal("AbsoluteSize"), Sync)
+					end
+
+					task.defer(Sync)
+				end
+
+				local PlayersParagraph = PlayersColumn:AddParagraph({
+					Title = "Players",
+					Content = "",
+					Icon = "users",
+					Tooltip = "Players currently in this server.",
+				})
+
+				local function UpdatePlayers()
+					PlayersParagraph:SetDesc(string.format("%d / %d players", #Players:GetPlayers(), Players.MaxPlayers))
+				end
+				UpdatePlayers()
+				Creator.AddSignal(Players.PlayerAdded, UpdatePlayers)
+				Creator.AddSignal(Players.PlayerRemoving, function()
+					task.defer(UpdatePlayers)
+				end)
+
+				local JobParagraph = JobColumn:AddParagraph({
+					Title = "Job ID",
+					Content = game.JobId ~= "" and game.JobId or "Not available in this environment",
+					Icon = "fingerprint",
+					Tooltip = "Click to copy the Job ID.",
+				})
+
+				MakeClickable(JobParagraph, function()
+					if game.JobId == "" then
+						return
+					end
+					Window:Dialog({
+						Title = "Copy Job ID",
+						Content = "Copy the Job ID of this server to your clipboard?",
+						Buttons = {
+							{
+								Title = "Copy",
+								Callback = function()
+									CopyText(game.JobId, "Job ID copied.")
+								end,
+							},
+							{
+								Title = "Cancel",
+							},
+						},
+					})
+				end)
+
+				local RejoinParagraph = RejoinColumn:AddParagraph({
+					Title = "Rejoin",
+					Content = "Rejoin the current server",
+					Icon = "refresh-cw",
+					Tooltip = "Teleports you back into this server.",
+				})
+
+				MakeClickable(RejoinParagraph, function()
+					Window:Dialog({
+						Title = "Rejoin Server",
+						Content = "Do you want to rejoin the current server?",
+						Buttons = {
+							{
+								Title = "Rejoin",
+								Callback = function()
+									pcall(function()
+										if #Players:GetPlayers() <= 1 then
+											TeleportService:Teleport(game.PlaceId, LocalPlayer)
+										else
+											TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, LocalPlayer)
+										end
+									end)
+								end,
+							},
+							{
+								Title = "Cancel",
+							},
+						},
+					})
+				end)
+
+				MatchHeights({ PlayersParagraph, JobParagraph, RejoinParagraph })
+			end
+
+			if type(Config.Custom) == "function" then
+				Library:SafeCallback(Config.Custom, Page)
+			end
+		end
+
+		TabModule:SetDisplay(Page.DisplayTitle, Page.IconImage, Page.IconRectOffset, Page.IconRectSize)
+
+		return Page
+	end
+
+	return Welcome
 end)()
 
 Components.Window = (function()
@@ -4054,8 +6356,8 @@ Components.Window = (function()
 			CurrentPos = 0,
 			TabWidth = 0,
 			Position = UDim2.fromOffset(
-				Camera.ViewportSize.X / 2 - Config.Size.X.Offset / 2,
-				Camera.ViewportSize.Y / 2 - Config.Size.Y.Offset / 2
+				Camera.ViewportSize.X / Library.DPIScale / 2 - Config.Size.X.Offset / 2,
+				Camera.ViewportSize.Y / Library.DPIScale / 2 - Config.Size.Y.Offset / 2
 			),
 		}
 
@@ -4063,7 +6365,7 @@ Components.Window = (function()
 		local Resizing, ResizePos = false
 		local MinimizeNotif = false
 
-		Window.AcrylicPaint = Acrylic.AcrylicPaint()
+		Window.AcrylicPaint = Acrylic.AcrylicPaint({ Tracked = true })
 		Window.TabWidth = Config.TabWidth
 
 		local UserInfoConfig = Config.UserInfo
@@ -4102,6 +6404,42 @@ Components.Window = (function()
 		})
 		Window.Selector = Selector
 
+		if Library.NewVisual then
+			Selector.Visible = false
+
+			Window.TabHighlightMotor = Flipper.GroupMotor.new({ X = 0, Y = 0, Width = 0, Height = 0 })
+
+			Window.TabHighlight = New("Frame", {
+				Name = "TabHighlight",
+				BackgroundTransparency = 0.89,
+				BorderSizePixel = 0,
+				Visible = false,
+				ZIndex = 0,
+				ThemeTag = {
+					BackgroundColor3 = "TabOverlay",
+				},
+			}, {
+				New("UICorner", {
+					CornerRadius = UDim.new(0, 6),
+				}),
+			})
+
+			Window.TabHighlightClip = New("Frame", {
+				Name = "TabHighlightClip",
+				BackgroundTransparency = 1,
+				ClipsDescendants = true,
+				ZIndex = 0,
+				Size = UDim2.fromScale(1, 1),
+			}, {
+				Window.TabHighlight,
+			})
+
+			Window.TabHighlightMotor:onStep(function(Values)
+				Window.TabHighlight.Position = UDim2.fromOffset(Values.X, Values.Y)
+				Window.TabHighlight.Size = UDim2.fromOffset(Values.Width, Values.Height)
+			end)
+		end
+
 		local ResizeStartFrame = New("Frame", {
 			Size = UDim2.fromOffset(20, 20),
 			BackgroundTransparency = 1,
@@ -4111,10 +6449,6 @@ Components.Window = (function()
 		Window.TabHolder = New("ScrollingFrame", {
 			Size = UDim2.fromScale(1, 1),
 			BackgroundTransparency = 1,
-			BottomImage = "rbxassetid://0",
-			MidImage = "rbxassetid://0",
-			TopImage = "rbxassetid://0",
-			ScrollBarThickness = 0,
 			BorderSizePixel = 0,
 			CanvasSize = UDim2.fromScale(0, 0),
 			ScrollingDirection = Enum.ScrollingDirection.Y,
@@ -4122,6 +6456,9 @@ Components.Window = (function()
 			New("UIListLayout", {
 				Padding = UDim.new(0, 4),
 				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
+			New("UIPadding", {
+				PaddingRight = UDim.new(0, 12),
 			}),
 		})
 
@@ -4171,6 +6508,7 @@ Components.Window = (function()
 					ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
 					ThemeTag = {
 						Color = "InElementBorder",
+						Transparency = "InElementBorderTransparency",
 					},
 				}),
 				TabSearchIcon,
@@ -4179,8 +6517,15 @@ Components.Window = (function()
 
 		end
 
+		Creator.AttachScrollBar(Window.TabHolder, { Thickness = 4 })
+
 		Window.TabHolder.Position = UDim2.fromOffset(0, TabHolderTopOffset)
 		Window.TabHolder.Size = UDim2.new(1, 0, 1, -TabHolderTopOffset - TabHolderBottomOffset)
+
+		if Window.TabHighlightClip then
+			Window.TabHighlightClip.Position = Window.TabHolder.Position
+			Window.TabHighlightClip.Size = Window.TabHolder.Size
+		end
 
 		local UserInfoFrame
 		if UserInfoConfig then
@@ -4188,6 +6533,13 @@ Components.Window = (function()
 				or ("rbxthumb://type=AvatarHeadShot&id=" .. LocalPlayer.UserId .. "&w=420&h=420")
 			local UserInfoTitle = UserInfoConfig.Title or LocalPlayer.DisplayName
 			local UserInfoSubtitle = UserInfoConfig.Subtitle
+			local UserInfoLiveTime = UserInfoSubtitle == nil
+			local UserInfoTimeFormat = UserInfoConfig.TimeFormat or "%H:%M:%S"
+			local UserInfoSubtitleLabel
+
+			if UserInfoLiveTime then
+				UserInfoSubtitle = os.date(UserInfoTimeFormat)
+			end
 
 			local UserInfoIconSize = 38
 			local UserInfoTitleHeight = 18
@@ -4214,6 +6566,7 @@ Components.Window = (function()
 				BackgroundTransparency = 1,
 				Image = UserInfoIcon,
 				ScaleType = Enum.ScaleType.Crop,
+				SeasonalHat = "Avatar",
 			}, {
 				New("UICorner", { CornerRadius = UDim.new(1, 0) }),
 			})
@@ -4237,7 +6590,7 @@ Components.Window = (function()
 			local UserInfoChildren = { UserInfoIconImage, UserInfoTitleLabel }
 
 			if UserInfoSubtitle then
-				table.insert(UserInfoChildren, New("TextLabel", {
+				UserInfoSubtitleLabel = New("TextLabel", {
 					Name = "Subtitle",
 					Text = UserInfoSubtitle,
 					FontFace = Font.new(Library.Font, Enum.FontWeight.Regular, Enum.FontStyle.Normal),
@@ -4251,7 +6604,8 @@ Components.Window = (function()
 					ThemeTag = {
 						TextColor3 = "SubText",
 					},
-				}))
+				})
+				table.insert(UserInfoChildren, UserInfoSubtitleLabel)
 			end
 
 			UserInfoFrame = New("Frame", {
@@ -4263,6 +6617,23 @@ Components.Window = (function()
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 			}, UserInfoChildren)
+
+			if UserInfoLiveTime and UserInfoSubtitleLabel then
+				task.spawn(function()
+					local LastTime = os.time()
+					while UserInfoSubtitleLabel.Parent do
+						local Millis = DateTime.now().UnixTimestampMillis % 1000
+						task.wait((1000 - Millis) / 1000)
+						if UserInfoFrame.Visible and Window.Root and Window.Root.Visible then
+							local Now = os.time()
+							if Now ~= LastTime then
+								LastTime = Now
+								UserInfoSubtitleLabel.Text = os.date(UserInfoTimeFormat, Now)
+							end
+						end
+					end
+				end)
+			end
 		end
 
 		local TabFrameChildren = { Window.TabHolder, Selector }
@@ -4271,6 +6642,9 @@ Components.Window = (function()
 		end
 		if UserInfoFrame then
 			table.insert(TabFrameChildren, UserInfoFrame)
+		end
+		if Window.TabHighlightClip then
+			table.insert(TabFrameChildren, Window.TabHighlightClip)
 		end
 
 		Window.UserInfoFrame = UserInfoFrame
@@ -4282,9 +6656,7 @@ Components.Window = (function()
 			ScaleType = Enum.ScaleType.Crop,
 			ImageTransparency = 0,
 		}, {
-			New("UICorner", {
-				CornerRadius = UDim.new(0, 8),
-			}),
+			Creator.WindowCorner(),
 		})
 
 		local TabFrame = New("Frame", {
@@ -4307,6 +6679,17 @@ Components.Window = (function()
 			BackgroundTransparency = 1,
 			ThemeTag = {
 				TextColor3 = "Text",
+			},
+		})
+
+		Window.TabDisplayIcon = New("ImageLabel", {
+			Name = "TabDisplayIcon",
+			Size = UDim2.fromOffset(24, 24),
+			Position = UDim2.fromOffset(Window.TabWidth + 26, 58),
+			BackgroundTransparency = 1,
+			Visible = false,
+			ThemeTag = {
+				ImageColor3 = "Text",
 			},
 		})
 
@@ -4346,6 +6729,7 @@ Components.Window = (function()
 			Window.BackgroundImage,
 			Window.AcrylicPaint.Frame,
 			Window.TabDisplay,
+			Window.TabDisplayIcon,
 			Window.ContainerCanvas,
 			TabFrame,
 			ResizeStartFrame,
@@ -4354,6 +6738,7 @@ Components.Window = (function()
 		Window.TitleBar = Components.TitleBar({
 			Title = Config.Title,
 			SubTitle = Config.SubTitle,
+			Icon = Config.Icon,
 			Parent = Window.Root,
 			Window = Window,
 		})
@@ -4365,28 +6750,41 @@ Components.Window = (function()
 		function Window:SetSubTitle(Set)
 			Window.TitleBar:SetSubTitle(Set)
 		end
+
+		function Window:SetIcon(Icon)
+			Window.TitleBar:SetIcon(Icon)
+		end
 		Window.SetDesc = Window.SetSubTitle
 
 		Window.NavigatorSelectorMotor = Flipper.GroupMotor.new({ X = 0, Width = 0 })
 
+		local NavigatorHighlight = Library.NewVisual == true
+
 		Window.NavigatorSelector = New("Frame", {
-			Size = UDim2.fromOffset(0, 2),
-			AnchorPoint = Vector2.new(0, 1),
-			Position = UDim2.new(0, 0, 1, 0),
-			BackgroundTransparency = 0,
+			Size = UDim2.fromOffset(0, NavigatorHighlight and 28 or 2),
+			AnchorPoint = Vector2.new(0, NavigatorHighlight and 0.5 or 1),
+			Position = UDim2.new(0, 0, NavigatorHighlight and 0.5 or 1, 0),
+			BackgroundTransparency = NavigatorHighlight and 0.89 or 0,
+			BorderSizePixel = 0,
+			ZIndex = NavigatorHighlight and 0 or 1,
 			Visible = false,
 			ThemeTag = {
-				BackgroundColor3 = "Accent",
+				BackgroundColor3 = NavigatorHighlight and "TabOverlay" or "Accent",
 			},
 		}, {
 			New("UICorner", {
-				CornerRadius = UDim.new(1, 0),
+				CornerRadius = NavigatorHighlight and UDim.new(0, 6) or UDim.new(1, 0),
 			}),
 		})
 
 		Window.NavigatorSelectorMotor:onStep(function(Values)
-			Window.NavigatorSelector.Position = UDim2.new(0, Values.X, 1, 0)
-			Window.NavigatorSelector.Size = UDim2.fromOffset(Values.Width, 2)
+			if NavigatorHighlight then
+				Window.NavigatorSelector.Position = UDim2.new(0, Values.X, 0.5, 0)
+				Window.NavigatorSelector.Size = UDim2.fromOffset(Values.Width, 28)
+			else
+				Window.NavigatorSelector.Position = UDim2.new(0, Values.X, 1, 0)
+				Window.NavigatorSelector.Size = UDim2.fromOffset(Values.Width, 2)
+			end
 		end)
 
 		local NavigatorListLayout = New("UIListLayout", {
@@ -4493,7 +6891,7 @@ Components.Window = (function()
 			local top = (inset.Top or 0) + margin
 			local right = (inset.Right or 0) + margin
 			local bottom = (inset.Bottom or 0) + margin
-			local size = Window.Boundary.AbsoluteSize
+			local size = Window.Boundary.AbsoluteSize / Library.DPIScale
 			local usableX = math.max(0, size.X - left - right)
 			local usableY = math.max(0, size.Y - top - bottom)
 			return left, top, usableX, usableY
@@ -4526,6 +6924,14 @@ Components.Window = (function()
 		Window.RefreshBoundary = function()
 			if Window.Maximized then
 				fitToBoundary(true)
+			end
+		end
+
+		Window.RefreshDPI = function()
+			if Window.Maximized then
+				fitToBoundary(true)
+			else
+				Window:SetSize(Vector2.new(Window.Size.X.Offset, Window.Size.Y.Offset))
 			end
 		end
 
@@ -4565,6 +6971,52 @@ Components.Window = (function()
 			end
 		end
 
+		function Window:SetSize(Value)
+			local Width
+			local Height
+			if typeof(Value) == "UDim2" then
+				Width, Height = Value.X.Offset, Value.Y.Offset
+			elseif typeof(Value) == "Vector2" then
+				Width, Height = Value.X, Value.Y
+			else
+				return
+			end
+
+			local MinSize = Library.MinWindowSize or Vector2.new(470, 380)
+			Width = math.max(Width, MinSize.X)
+			Height = math.max(Height, MinSize.Y)
+
+			if Library.KeepWindowInsideFrame then
+				local _, _, UsableX, UsableY = getBoundaryBounds()
+				if UsableX > 0 then
+					Width = math.min(Width, math.max(MinSize.X, UsableX))
+				end
+				if UsableY > 0 then
+					Height = math.min(Height, math.max(MinSize.Y, UsableY))
+				end
+			end
+
+			Window.Size = UDim2.fromOffset(Width, Height)
+
+			if Window.Maximized then
+				OldSizeX = Width
+				OldSizeY = Height
+				return
+			end
+
+			SizeMotor:setGoal({
+				X = Flipper.Instant.new(Width),
+				Y = Flipper.Instant.new(Height),
+			})
+
+			local Target = clampToBoundary(Vector2.new(Window.Position.X.Offset, Window.Position.Y.Offset), Vector2.new(Width, Height))
+			Window.Position = UDim2.fromOffset(Target.X, Target.Y)
+			PosMotor:setGoal({
+				X = Flipper.Instant.new(Target.X),
+				Y = Flipper.Instant.new(Target.Y),
+			})
+		end
+
 		Creator.AddSignal(Window.Boundary:GetPropertyChangedSignal("AbsoluteSize"), function()
 			Window.RefreshBoundary()
 		end)
@@ -4580,9 +7032,10 @@ Components.Window = (function()
 
 				if Window.Maximized then
 					local _, _, usableX, usableY = getBoundaryBounds()
+					local MouseX, MouseY = Mouse.X / Library.DPIScale, Mouse.Y / Library.DPIScale
 					StartPos = UDim2.fromOffset(
-						Mouse.X - (Mouse.X * ((OldSizeX - 100) / usableX)),
-						Mouse.Y - (Mouse.Y * (OldSizeY / usableY))
+						MouseX - (MouseX * ((OldSizeX - 100) / usableX)),
+						MouseY - (MouseY * (OldSizeY / usableY))
 					)
 				end
 
@@ -4615,9 +7068,9 @@ Components.Window = (function()
 
 		Creator.AddSignal(UserInputService.InputChanged, function(Input)
 			if Input == DragInput and Dragging then
-				local Delta = Input.Position - MousePos
+				local Delta = (Input.Position - MousePos) / Library.DPIScale
 				local targetPosition =
-					clampToBoundary(Vector2.new(StartPos.X.Offset + Delta.X, StartPos.Y.Offset + Delta.Y), Window.Root.AbsoluteSize)
+					clampToBoundary(Vector2.new(StartPos.X.Offset + Delta.X, StartPos.Y.Offset + Delta.Y), Window.Root.AbsoluteSize / Library.DPIScale)
 				Window.Position = UDim2.fromOffset(targetPosition.X, targetPosition.Y)
 				PosMotor:setGoal({
 					X = Instant(Window.Position.X.Offset),
@@ -4633,7 +7086,7 @@ Components.Window = (function()
 				(Input.UserInputType == Enum.UserInputType.MouseMovement or Input.UserInputType == Enum.UserInputType.Touch)
 				and Resizing
 			then
-				local Delta = Input.Position - ResizePos
+				local Delta = (Input.Position - ResizePos) / Library.DPIScale
 				local StartSize = Window.Size
 
 				local TargetSize = Vector3.new(StartSize.X.Offset, StartSize.Y.Offset, 0) + Vector3.new(1, 1, 0) * Delta
@@ -4644,8 +7097,8 @@ Components.Window = (function()
 					local left, top, usableX, usableY = getBoundaryBounds()
 					local windowPosition = Window.Root.AbsolutePosition
 					local boundaryPosition = Window.Boundary.AbsolutePosition
-					local relativeX = (windowPosition.X - boundaryPosition.X) - left
-					local relativeY = (windowPosition.Y - boundaryPosition.Y) - top
+					local relativeX = (windowPosition.X - boundaryPosition.X) / Library.DPIScale - left
+					local relativeY = (windowPosition.Y - boundaryPosition.Y) / Library.DPIScale - top
 					local availableX = math.max(470, usableX - relativeX)
 					local availableY = math.max(380, usableY - relativeY)
 					TargetSizeClamped = Vector2.new(math.min(TargetSizeClamped.X, availableX), math.min(TargetSizeClamped.Y, availableY))
@@ -4662,12 +7115,21 @@ Components.Window = (function()
 			if Resizing then
 				Resizing = false
 				Window.Size = UDim2.fromOffset(SizeMotor:getValue().X, SizeMotor:getValue().Y)
+				if not Window.Maximized and Library.OnWindowSizeChanged then
+					Library:SafeCallback(Library.OnWindowSizeChanged, Window.Size)
+				end
 			end
 		end)
 
 		Creator.AddSignal(Window.TabHolder.UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"), function()
-			Window.TabHolder.CanvasSize = UDim2.new(0, 0, 0, Window.TabHolder.UIListLayout.AbsoluteContentSize.Y)
+			Window.TabHolder.CanvasSize = UDim2.new(0, 0, 0, Window.TabHolder.UIListLayout.AbsoluteContentSize.Y / Library.DPIScale)
 		end)
+
+		for _, Property in ipairs({ "AbsoluteCanvasSize", "AbsoluteWindowSize" }) do
+			Creator.AddSignal(Window.TabHolder:GetPropertyChangedSignal(Property), function()
+				Components.Tab:UpdateTabHighlight()
+			end)
+		end
 
 		Creator.AddSignal(UserInputService.InputBegan, function(Input)
 			if
@@ -4740,7 +7202,7 @@ Components.Window = (function()
 			end
 
 			for _, Button in next, Config.Buttons do
-				Dialog:Button(Button.Title, Button.Callback)
+				Dialog:Button(Button.Title, Button.Callback, Button.Style)
 			end
 
 			Dialog:Open()
@@ -4758,9 +7220,18 @@ Components.Window = (function()
 		local TabModule = Components.Tab:Init(Window)
 		local TabHolderOrder = 0
 
+		Components.Welcome:Create(Window, TabModule, Config.Welcome)
+
+		local function ResolveAllowNull(TabConfig)
+			if TabConfig.AllowNull ~= nil then
+				return TabConfig.AllowNull == true
+			end
+			return Config.AllowNull == true
+		end
+
 		function Window:AddTab(TabConfig)
 			TabHolderOrder = TabHolderOrder + 1
-			local Tab = TabModule:New(TabConfig.Title, TabConfig.Icon, Window.TabHolder, false)
+			local Tab = TabModule:New(TabConfig.Title, TabConfig.Icon, Window.TabHolder, false, ResolveAllowNull(TabConfig))
 			Tab.Frame.LayoutOrder = TabHolderOrder
 			return Tab
 		end
@@ -4769,7 +7240,7 @@ Components.Window = (function()
 		Window.AddPage = Window.AddTab
 
 		function Window:AddTabInHeader(TabConfig)
-			return TabModule:New(TabConfig.Title, TabConfig.Icon, Window.NavigatorHolder, true)
+			return TabModule:New(TabConfig.Title, TabConfig.Icon, Window.NavigatorHolder, true, ResolveAllowNull(TabConfig))
 		end
 		Window.TabInHeader = Window.AddTabInHeader
 
@@ -4866,12 +7337,9 @@ Components.Window = (function()
 
 			local Chevron
 			if Section.Collapsible then
-				local ChevronIcon = Library:GetIcon("chevron-down")
 				Chevron = New("ImageLabel", {
 					Name = "SectionChevron",
-					Image = ChevronIcon and ChevronIcon.Image or "",
-					ImageRectOffset = ChevronIcon and ChevronIcon.ImageRectOffset or Vector2.zero,
-					ImageRectSize = ChevronIcon and ChevronIcon.ImageRectSize or Vector2.zero,
+					Image = "rbxassetid://134243273101015",
 					Size = UDim2.fromOffset(14, 14),
 					AnchorPoint = Vector2.new(1, 0.5),
 					Position = UDim2.new(1, -6, 0.5, 0),
@@ -4906,8 +7374,12 @@ Components.Window = (function()
 				):Play()
 
 				if SectionHasSelectedTab() then
-					Window.Selector.Visible = true
-					Window.SelectorPosMotor:setGoal(Instant(TabModule:GetCurrentTabPos()))
+					if Library.NewVisual then
+						TabModule:UpdateTabHighlight(true)
+					else
+						Window.Selector.Visible = true
+						Window.SelectorPosMotor:setGoal(Instant(TabModule:GetCurrentTabPos()))
+					end
 				end
 			end
 
@@ -4923,6 +7395,7 @@ Components.Window = (function()
 
 				if SectionHasSelectedTab() then
 					Window.Selector.Visible = false
+					TabModule:UpdateTabHighlight(true)
 				end
 			end
 
@@ -4942,7 +7415,7 @@ Components.Window = (function()
 
 			function Section:AddTab(TabConfig)
 				Section._tabOrder = Section._tabOrder + 1
-				local Tab = TabModule:New(TabConfig.Title, TabConfig.Icon, Section.Content, false)
+				local Tab = TabModule:New(TabConfig.Title, TabConfig.Icon, Section.Content, false, ResolveAllowNull(TabConfig))
 				Tab.Frame.LayoutOrder = Section._tabOrder
 				table.insert(Section.Tabs, Tab)
 				return Tab
@@ -4953,7 +7426,7 @@ Components.Window = (function()
 
 			function Section:AddTabInHeader(TabConfig)
 				warn("[Fluent Reimagined] TabInHeader cannot be added to a Section, tab moved to header instead.")
-				return TabModule:New(TabConfig.Title, TabConfig.Icon, Window.NavigatorHolder, true)
+				return TabModule:New(TabConfig.Title, TabConfig.Icon, Window.NavigatorHolder, true, ResolveAllowNull(TabConfig))
 			end
 			Section.TabInHeader = Section.AddTabInHeader
 
@@ -4961,9 +7434,24 @@ Components.Window = (function()
 		end
 		Window.Section = Window.AddSection
 
-		function Window:SelectTab(Tab)
-			TabModule:SelectTab(1)
+		function Window:SelectTab(...)
+			local Tab = ...
+			if select("#", ...) == 0 then
+				Tab = 1
+			end
+			if type(Tab) == "table" then
+				Tab = Tab.Index
+			end
+			if Tab == false or Tab == 0 then
+				Tab = nil
+			end
+			TabModule:SelectTab(Tab)
 		end
+
+		function Window:SelectNull()
+			TabModule:SelectTab(nil)
+		end
+		Window.Deselect = Window.SelectNull
 
 		Creator.AddSignal(Window.TabHolder:GetPropertyChangedSignal("CanvasPosition"), function()
 			LastValue = TabModule:GetCurrentTabPos() + 16
@@ -5001,7 +7489,7 @@ ElementsTable.Button = (function()
 
 		local IsGrouped = self.Type == "Group" or self.Type == "HStack" or self.Type == "VStack"
 
-		local ButtonFrame = Components.Element(Config.Title, Config.Description, self.Container, true, Config.LayoutOrder, Config.Icon, Config.Marquee)
+		local ButtonFrame = Components.Element(Config.Title, Config.Description, self.Container, true, Config.LayoutOrder, Config.Icon, Config.Marquee, Config.Locked, Config.Tooltip, Config.RichText)
 
 		ButtonFrame.TitleLabel.Size = UDim2.new(1, -34, 0, 14)
 		ButtonFrame.DescLabel.Size = UDim2.new(1, -34, 0, 14)
@@ -5025,6 +7513,7 @@ ElementsTable.Button = (function()
 		local Button = ButtonFrame
 		Button.SetTitle = ButtonFrame.SetTitle
 		Button.SetDesc = ButtonFrame.SetDesc
+		Button.SetRichText = ButtonFrame.SetRichText
 
 		return Button
 	end
@@ -5067,13 +7556,17 @@ ElementsTable.Colorpicker = (function()
 
 		local IsGrouped = self.Type == "Group" or self.Type == "HStack" or self.Type == "VStack"
 
-		local ColorpickerFrame = Components.Element(Config.Title, Config.Description, self.Container, true, Config.LayoutOrder, Config.Icon, Config.Marquee)
+		local ColorpickerFrame = Components.Element(Config.Title, Config.Description, self.Container, true, Config.LayoutOrder, Config.Icon, Config.Marquee, Config.Locked, Config.Tooltip, Config.RichText)
 
-		ColorpickerFrame.TitleLabel.Size = UDim2.new(1, -44, 0, 14)
-		ColorpickerFrame.DescLabel.Size = UDim2.new(1, -44, 0, 14)
+		local ShowHex = Config.ShowHex ~= false
+		local HexReserve = ShowHex and 72 or 0
+		ColorpickerFrame.TitleLabel.Size = UDim2.new(1, -(44 + HexReserve), 0, 14)
+		ColorpickerFrame.DescLabel.Size = UDim2.new(1, -(44 + HexReserve), 0, 14)
 
 		Colorpicker.SetTitle = ColorpickerFrame.SetTitle
 		Colorpicker.SetDesc = ColorpickerFrame.SetDesc
+		Colorpicker.SetRichText = ColorpickerFrame.SetRichText
+		ColorpickerFrame.LockHandle.Bind(Colorpicker)
 
 		local DisplayFrameColor = New("Frame", {
 			Size = UDim2.fromScale(1, 1),
@@ -5101,6 +7594,25 @@ ElementsTable.Colorpicker = (function()
 			DisplayFrameColor,
 		})
 
+		local HexLabel
+		if ShowHex then
+			HexLabel = New("TextLabel", {
+				Name = "HexLabel",
+				Text = "#" .. Colorpicker.Value:ToHex():upper(),
+				FontFace = Font.new(Library.Font, Enum.FontWeight.Regular, Enum.FontStyle.Normal),
+				TextSize = 12,
+				TextXAlignment = Enum.TextXAlignment.Right,
+				AnchorPoint = Vector2.new(1, 0.5),
+				Position = UDim2.new(1, -44, 0.5, 0),
+				Size = UDim2.fromOffset(HexReserve - 8, 16),
+				BackgroundTransparency = 1,
+				Parent = ColorpickerFrame.Frame,
+				ThemeTag = {
+					TextColor3 = "SubText",
+				},
+			})
+		end
+
 		local ColorpickerTextboxTags = {
 			Input = "ColorpickerInput",
 			InputLine = "ColorpickerInputLine",
@@ -5109,47 +7621,126 @@ ElementsTable.Colorpicker = (function()
 		}
 
 		local function CreateColorDialog()
+			local HasTransparency = Config.Transparency ~= nil and Config.Transparency ~= false
 			local Dialog = Components.Dialog:Create()
 			Dialog.Title.Text = Colorpicker.Title
-			Dialog.Root.Size = UDim2.fromOffset(460, 370)
+			Dialog.Root.Size = UDim2.fromOffset(460, 396)
 
 			Creator.OverrideTag(Dialog.Root, { BackgroundColor3 = "ColorpickerDialog" })
 			Creator.OverrideTag(Dialog.Root.UIStroke, { Color = "ColorpickerDialogBorder" })
-			Creator.OverrideTag(Dialog.ButtonHolderFrame, { BackgroundColor3 = "ColorpickerHolder" })
+			Creator.OverrideTag(Dialog.HolderGradient, { Color = "ColorpickerHolder", Rotation = "ColorpickerHolderRotation", Transparency = "ColorpickerHolderTransparency" })
 			Creator.OverrideTag(Dialog.HolderLine, { BackgroundColor3 = "ColorpickerHolderLine" })
 
 			local Hue, Sat, Vib = Colorpicker.Hue, Colorpicker.Sat, Colorpicker.Vib
 			local Transparency = Colorpicker.Transparency
+			local Display
 
-			local function CreateInput()
+			local RightX = HasTransparency and 255 or 245
+			local RightWidth = 435 - RightX
+			local ChannelWidth = math.floor((RightWidth - 16) / 3)
+
+			local function IsPointerDown(Input)
+				return Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch
+			end
+
+			local function CreateInput(Position, Size)
 				local Box = Components.Textbox(nil, false, ColorpickerTextboxTags)
 				Box.Frame.Parent = Dialog.Root
-				Box.Frame.Size = UDim2.new(0, 90, 0, 32)
-
+				Box.Frame.Size = Size
+				Box.Frame.Position = Position
 				return Box
 			end
 
-			local function CreateInputLabel(Text, Pos)
+			local function CreateCaption(Text, Position)
 				return New("TextLabel", {
 					FontFace = Font.new(Library.Font, Enum.FontWeight.Medium, Enum.FontStyle.Normal),
 					Text = Text,
-					TextColor3 = Color3.fromRGB(240, 240, 240),
-					TextSize = 13,
+					TextSize = 11,
 					TextXAlignment = Enum.TextXAlignment.Left,
-					Size = UDim2.new(1, 0, 0, 32),
-					Position = Pos,
+					Size = UDim2.fromOffset(100, 12),
+					Position = Position,
 					BackgroundTransparency = 1,
 					Parent = Dialog.Root,
 					ThemeTag = {
-						TextColor3 = "Text",
+						TextColor3 = "SubText",
 					},
 				})
 			end
 
-			local function GetRGB()
-				local Value = Color3.fromHSV(Hue, Sat, Vib)
-				return { R = math.floor(Value.r * 255), G = math.floor(Value.g * 255), B = math.floor(Value.b * 255) }
+			local function CreateChecker(Corner)
+				return New("ImageLabel", {
+					Image = "http://www.roblox.com/asset/?id=14204231522",
+					ImageTransparency = 0.45,
+					ScaleType = Enum.ScaleType.Tile,
+					TileSize = UDim2.fromOffset(40, 40),
+					BackgroundTransparency = 1,
+					Size = UDim2.fromScale(1, 1),
+				}, {
+					New("UICorner", {
+						CornerRadius = UDim.new(0, Corner),
+					}),
+				})
 			end
+
+			local function CreateSwatch(Position, Color, SwatchTransparency)
+				local Fill = New("Frame", {
+					Size = UDim2.fromScale(1, 1),
+					BackgroundColor3 = Color,
+					BackgroundTransparency = SwatchTransparency,
+				}, {
+					New("UICorner", {
+						CornerRadius = UDim.new(0, 8),
+					}),
+				})
+
+				New("Frame", {
+					Size = UDim2.fromOffset(200, 40),
+					Position = Position,
+					BackgroundTransparency = 1,
+					Parent = Dialog.Root,
+				}, {
+					CreateChecker(8),
+					Fill,
+					New("UIStroke", {
+						Thickness = 1,
+						Transparency = 0.4,
+						ThemeTag = {
+							Color = "InElementBorder",
+						},
+					}),
+					New("UICorner", {
+						CornerRadius = UDim.new(0, 8),
+					}),
+				})
+
+				return Fill
+			end
+
+			CreateCaption("CURRENT", UDim2.fromOffset(25, 48))
+			CreateSwatch(UDim2.fromOffset(25, 62), Colorpicker.Value, Colorpicker.Transparency)
+			CreateCaption("NEW", UDim2.fromOffset(235, 48))
+			local NewSwatch = CreateSwatch(UDim2.fromOffset(235, 62), Colorpicker.Value, Colorpicker.Transparency)
+
+			New("Frame", {
+				Size = UDim2.fromOffset(430, 192),
+				Position = UDim2.fromOffset(15, 116),
+				BackgroundTransparency = 0.55,
+				Parent = Dialog.Root,
+				ThemeTag = {
+					BackgroundColor3 = "ColorpickerInput",
+				},
+			}, {
+				New("UICorner", {
+					CornerRadius = UDim.new(0, 8),
+				}),
+				New("UIStroke", {
+					Thickness = 1,
+					Transparency = 0.6,
+					ThemeTag = {
+						Color = "ColorpickerInputBorder",
+					},
+				}),
+			})
 
 			local SatCursor = New("ImageLabel", {
 				Size = UDim2.new(0, 18, 0, 18),
@@ -5160,163 +7751,66 @@ ElementsTable.Colorpicker = (function()
 			})
 
 			local SatVibMap = New("ImageLabel", {
-				Size = UDim2.fromOffset(200, 200),
-				Position = UDim2.fromOffset(20, 55),
+				Size = UDim2.fromOffset(176, 176),
+				Position = UDim2.fromOffset(25, 124),
 				Image = "rbxassetid://4155801252",
 				BackgroundColor3 = Colorpicker.Value,
 				BackgroundTransparency = 0,
 				Parent = Dialog.Root,
 			}, {
 				New("UICorner", {
-					CornerRadius = UDim.new(0, 4),
+					CornerRadius = UDim.new(0, 6),
 				}),
 				SatCursor,
 			})
 
-			local OldColorFrame = New("Frame", {
-				BackgroundColor3 = Colorpicker.Value,
-				Size = UDim2.fromScale(1, 1),
-				BackgroundTransparency = Colorpicker.Transparency,
-			}, {
-				New("UICorner", {
-					CornerRadius = UDim.new(0, 4),
-				}),
-			})
-
-			local OldColorFrameChecker = New("ImageLabel", {
-				Image = "http://www.roblox.com/asset/?id=14204231522",
-				ImageTransparency = 0.45,
-				ScaleType = Enum.ScaleType.Tile,
-				TileSize = UDim2.fromOffset(40, 40),
-				BackgroundTransparency = 1,
-				Position = UDim2.fromOffset(124, 260),
-				Size = UDim2.fromOffset(96, 24),
-				Parent = Dialog.Root,
-			}, {
-				New("UICorner", {
-					CornerRadius = UDim.new(0, 4),
-				}),
-				New("UIStroke", {
-					Thickness = 2,
-					Transparency = 0.75,
-				}),
-				OldColorFrame,
-			})
-
-			local DialogDisplayFrame = New("Frame", {
-				BackgroundColor3 = Colorpicker.Value,
-				Size = UDim2.fromScale(1, 1),
-				BackgroundTransparency = 0,
-			}, {
-				New("UICorner", {
-					CornerRadius = UDim.new(0, 4),
-				}),
-			})
-
-			local DialogDisplayFrameChecker = New("ImageLabel", {
-				Image = "http://www.roblox.com/asset/?id=14204231522",
-				ImageTransparency = 0.45,
-				ScaleType = Enum.ScaleType.Tile,
-				TileSize = UDim2.fromOffset(40, 40),
-				BackgroundTransparency = 1,
-				Position = UDim2.fromOffset(20, 260),
-				Size = UDim2.fromOffset(96, 24),
-				Parent = Dialog.Root,
-			}, {
-				New("UICorner", {
-					CornerRadius = UDim.new(0, 4),
-				}),
-				New("UIStroke", {
-					Thickness = 2,
-					Transparency = 0.75,
-				}),
-				DialogDisplayFrame,
-			})
-
-			local SequenceTable = {}
-
-			for Color = 0, 1, 0.1 do
-				table.insert(SequenceTable, ColorSequenceKeypoint.new(Color, Color3.fromHSV(Color, 1, 1)))
+			local HueKeypoints = {}
+			for Step = 0, 1, 0.1 do
+				table.insert(HueKeypoints, ColorSequenceKeypoint.new(Step, Color3.fromHSV(Step, 1, 1)))
 			end
-
-			local HueSliderGradient = New("UIGradient", {
-				Color = ColorSequence.new(SequenceTable),
-				Rotation = 90,
-			})
-
-			local HueDragHolder = New("Frame", {
-				Size = UDim2.new(1, 0, 1, -10),
-				Position = UDim2.fromOffset(0, 5),
-				BackgroundTransparency = 1,
-			})
 
 			local HueDrag = New("ImageLabel", {
 				Size = UDim2.fromOffset(14, 14),
 				Image = "http://www.roblox.com/asset/?id=12266946128",
 				ImageColor3 = Creator.GetKnobColor(),
-				Parent = HueDragHolder,
 			})
 
-			Creator.OnThemeChanged(function()
-				HueDrag.ImageColor3 = Creator.GetKnobColor()
-			end)
-
 			local HueSlider = New("Frame", {
-				Size = UDim2.fromOffset(12, 200),
-				Position = UDim2.fromOffset(230, 55),
+				Size = UDim2.fromOffset(12, 176),
+				Position = UDim2.fromOffset(211, 124),
 				Parent = Dialog.Root,
 			}, {
 				New("UICorner", {
 					CornerRadius = UDim.new(1, 0),
 				}),
-				HueSliderGradient,
-				HueDragHolder,
-			})
-
-			local HexInput = CreateInput()
-			HexInput.Frame.Position = UDim2.fromOffset(Config.Transparency and 280 or 260, 55)
-			CreateInputLabel("Hex", UDim2.fromOffset(Config.Transparency and 380 or 360, 55))
-
-			local RedInput = CreateInput()
-			RedInput.Frame.Position = UDim2.fromOffset(Config.Transparency and 280 or 260, 95)
-			CreateInputLabel("Red", UDim2.fromOffset(Config.Transparency and 380 or 360, 95))
-
-			local GreenInput = CreateInput()
-			GreenInput.Frame.Position = UDim2.fromOffset(Config.Transparency and 280 or 260, 135)
-			CreateInputLabel("Green", UDim2.fromOffset(Config.Transparency and 380 or 360, 135))
-
-			local BlueInput = CreateInput()
-			BlueInput.Frame.Position = UDim2.fromOffset(Config.Transparency and 280 or 260, 175)
-			CreateInputLabel("Blue", UDim2.fromOffset(Config.Transparency and 380 or 360, 175))
-
-			local AlphaInput
-			if Config.Transparency then
-				AlphaInput = CreateInput()
-				AlphaInput.Frame.Position = UDim2.fromOffset(280, 215)
-				CreateInputLabel("Alpha", UDim2.fromOffset(380, 215))
-			end
-
-			local TransparencySlider, TransparencyDrag, TransparencyColor
-			if Config.Transparency then
-				local TransparencyDragHolder = New("Frame", {
+				New("UIGradient", {
+					Color = ColorSequence.new(HueKeypoints),
+					Rotation = 90,
+				}),
+				New("Frame", {
 					Size = UDim2.new(1, 0, 1, -10),
 					Position = UDim2.fromOffset(0, 5),
 					BackgroundTransparency = 1,
-				})
+				}, {
+					HueDrag,
+				}),
+			})
 
+			local TransparencyDrag
+			local TransparencySlider
+			local TransparencyColor
+			local AlphaInput
+
+			if HasTransparency then
 				TransparencyDrag = New("ImageLabel", {
 					Size = UDim2.fromOffset(14, 14),
 					Image = "http://www.roblox.com/asset/?id=12266946128",
 					ImageColor3 = Creator.GetKnobColor(),
-					Parent = TransparencyDragHolder,
 				})
-
-				Creator.OnThemeChanged(function()
-					TransparencyDrag.ImageColor3 = Creator.GetKnobColor()
-				end)
 
 				TransparencyColor = New("Frame", {
 					Size = UDim2.fromScale(1, 1),
+					BackgroundColor3 = Colorpicker.Value,
 				}, {
 					New("UIGradient", {
 						Transparency = NumberSequence.new({
@@ -5331,47 +7825,73 @@ ElementsTable.Colorpicker = (function()
 				})
 
 				TransparencySlider = New("Frame", {
-					Size = UDim2.fromOffset(12, 200),
-					Position = UDim2.fromOffset(250, 55),
-					Parent = Dialog.Root,
+					Size = UDim2.fromOffset(12, 176),
+					Position = UDim2.fromOffset(229, 124),
 					BackgroundTransparency = 1,
+					Parent = Dialog.Root,
 				}, {
 					New("UICorner", {
 						CornerRadius = UDim.new(1, 0),
 					}),
-					New("ImageLabel", {
-						Image = "http://www.roblox.com/asset/?id=14204231522",
-						ImageTransparency = 0.45,
-						ScaleType = Enum.ScaleType.Tile,
-						TileSize = UDim2.fromOffset(40, 40),
-						BackgroundTransparency = 1,
-						Size = UDim2.fromScale(1, 1),
-					}, {
-						New("UICorner", {
-							CornerRadius = UDim.new(1, 0),
-						}),
-					}),
+					CreateChecker(6),
 					TransparencyColor,
-					TransparencyDragHolder,
+					New("Frame", {
+						Size = UDim2.new(1, 0, 1, -10),
+						Position = UDim2.fromOffset(0, 5),
+						BackgroundTransparency = 1,
+					}, {
+						TransparencyDrag,
+					}),
 				})
 			end
 
-			local function Display()
+			Creator.OnThemeChanged(function()
+				HueDrag.ImageColor3 = Creator.GetKnobColor()
+				if TransparencyDrag then
+					TransparencyDrag.ImageColor3 = Creator.GetKnobColor()
+				end
+			end)
+
+			CreateCaption("HEX", UDim2.fromOffset(RightX, 126))
+			local HexInput = CreateInput(UDim2.fromOffset(RightX, 140), UDim2.fromOffset(RightWidth, 28))
+
+			CreateCaption("RED", UDim2.fromOffset(RightX, 176))
+			local RedInput = CreateInput(UDim2.fromOffset(RightX, 190), UDim2.fromOffset(ChannelWidth, 28))
+			CreateCaption("GREEN", UDim2.fromOffset(RightX + ChannelWidth + 8, 176))
+			local GreenInput = CreateInput(UDim2.fromOffset(RightX + ChannelWidth + 8, 190), UDim2.fromOffset(ChannelWidth, 28))
+			CreateCaption("BLUE", UDim2.fromOffset(RightX + (ChannelWidth + 8) * 2, 176))
+			local BlueInput = CreateInput(UDim2.fromOffset(RightX + (ChannelWidth + 8) * 2, 190), UDim2.fromOffset(ChannelWidth, 28))
+
+			if HasTransparency then
+				CreateCaption("OPACITY %", UDim2.fromOffset(RightX, 226))
+				AlphaInput = CreateInput(UDim2.fromOffset(RightX, 240), UDim2.fromOffset(RightWidth, 28))
+			end
+
+			local function GetChannels()
+				local Value = Color3.fromHSV(Hue, Sat, Vib)
+				return { math.round(Value.R * 255), math.round(Value.G * 255), math.round(Value.B * 255) }
+			end
+
+			Display = function()
+				local Color = Color3.fromHSV(Hue, Sat, Vib)
+				local Channels = GetChannels()
+
 				SatVibMap.BackgroundColor3 = Color3.fromHSV(Hue, 1, 1)
 				HueDrag.Position = UDim2.new(0, -1, Hue, -6)
 				SatCursor.Position = UDim2.new(Sat, 0, 1 - Vib, 0)
-				DialogDisplayFrame.BackgroundColor3 = Color3.fromHSV(Hue, Sat, Vib)
 
-				HexInput.Input.Text = "#" .. Color3.fromHSV(Hue, Sat, Vib):ToHex()
-				RedInput.Input.Text = GetRGB()["R"]
-				GreenInput.Input.Text = GetRGB()["G"]
-				BlueInput.Input.Text = GetRGB()["B"]
+				NewSwatch.BackgroundColor3 = Color
+				NewSwatch.BackgroundTransparency = HasTransparency and Transparency or 0
 
-				if Config.Transparency then
-					TransparencyColor.BackgroundColor3 = Color3.fromHSV(Hue, Sat, Vib)
-					DialogDisplayFrame.BackgroundTransparency = Transparency
+				HexInput.Input.Text = "#" .. Color:ToHex()
+				RedInput.Input.Text = tostring(Channels[1])
+				GreenInput.Input.Text = tostring(Channels[2])
+				BlueInput.Input.Text = tostring(Channels[3])
+
+				if HasTransparency then
+					TransparencyColor.BackgroundColor3 = Color
 					TransparencyDrag.Position = UDim2.new(0, -1, 1 - Transparency, -6)
-					AlphaInput.Input.Text = Library:Round((1 - Transparency) * 100, 0) .. "%"
+					AlphaInput.Input.Text = tostring(math.round((1 - Transparency) * 100))
 				end
 			end
 
@@ -5385,77 +7905,38 @@ ElementsTable.Colorpicker = (function()
 				Display()
 			end)
 
-			Creator.AddSignal(RedInput.Input.FocusLost, function(Enter)
-				if Enter then
-					local CurrentColor = GetRGB()
-					local Success, Result = pcall(Color3.fromRGB, RedInput.Input.Text, CurrentColor["G"], CurrentColor["B"])
-					if Success and typeof(Result) == "Color3" then
-						if tonumber(RedInput.Input.Text) <= 255 then
-							Hue, Sat, Vib = Color3.toHSV(Result)
-						end
+			for Channel, Box in ipairs({ RedInput, GreenInput, BlueInput }) do
+				Creator.AddSignal(Box.Input.FocusLost, function(Enter)
+					local Number = Enter and tonumber(Box.Input.Text)
+					if Number then
+						local Channels = GetChannels()
+						Channels[Channel] = math.clamp(math.floor(Number), 0, 255)
+						Hue, Sat, Vib = Color3.toHSV(Color3.fromRGB(Channels[1], Channels[2], Channels[3]))
 					end
-				end
-				Display()
-			end)
+					Display()
+				end)
+			end
 
-			Creator.AddSignal(GreenInput.Input.FocusLost, function(Enter)
-				if Enter then
-					local CurrentColor = GetRGB()
-					local Success, Result =
-						pcall(Color3.fromRGB, CurrentColor["R"], GreenInput.Input.Text, CurrentColor["B"])
-					if Success and typeof(Result) == "Color3" then
-						if tonumber(GreenInput.Input.Text) <= 255 then
-							Hue, Sat, Vib = Color3.toHSV(Result)
-						end
-					end
-				end
-				Display()
-			end)
-
-			Creator.AddSignal(BlueInput.Input.FocusLost, function(Enter)
-				if Enter then
-					local CurrentColor = GetRGB()
-					local Success, Result =
-						pcall(Color3.fromRGB, CurrentColor["R"], CurrentColor["G"], BlueInput.Input.Text)
-					if Success and typeof(Result) == "Color3" then
-						if tonumber(BlueInput.Input.Text) <= 255 then
-							Hue, Sat, Vib = Color3.toHSV(Result)
-						end
-					end
-				end
-				Display()
-			end)
-
-			if Config.Transparency then
+			if HasTransparency then
 				Creator.AddSignal(AlphaInput.Input.FocusLost, function(Enter)
-					if Enter then
-						pcall(function()
-							local Value = tonumber(AlphaInput.Input.Text)
-							if Value >= 0 and Value <= 100 then
-								Transparency = 1 - Value * 0.01
-							end
-						end)
+					local Number = Enter and tonumber(AlphaInput.Input.Text)
+					if Number then
+						Transparency = 1 - math.clamp(Number, 0, 100) * 0.01
 					end
 					Display()
 				end)
 			end
 
 			Creator.AddSignal(SatVibMap.InputBegan, function(Input)
-				if
-					Input.UserInputType == Enum.UserInputType.MouseButton1
-					or Input.UserInputType == Enum.UserInputType.Touch
-				then
+				if IsPointerDown(Input) then
 					while UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
 						local MinX = SatVibMap.AbsolutePosition.X
-						local MaxX = MinX + SatVibMap.AbsoluteSize.X
-						local MouseX = math.clamp(Mouse.X, MinX, MaxX)
-
+						local MouseX = math.clamp(Mouse.X, MinX, MinX + SatVibMap.AbsoluteSize.X)
 						local MinY = SatVibMap.AbsolutePosition.Y
-						local MaxY = MinY + SatVibMap.AbsoluteSize.Y
-						local MouseY = math.clamp(Mouse.Y, MinY, MaxY)
+						local MouseY = math.clamp(Mouse.Y, MinY, MinY + SatVibMap.AbsoluteSize.Y)
 
-						Sat = (MouseX - MinX) / (MaxX - MinX)
-						Vib = 1 - ((MouseY - MinY) / (MaxY - MinY))
+						Sat = (MouseX - MinX) / SatVibMap.AbsoluteSize.X
+						Vib = 1 - ((MouseY - MinY) / SatVibMap.AbsoluteSize.Y)
 						Display()
 
 						RenderStepped:Wait()
@@ -5464,16 +7945,12 @@ ElementsTable.Colorpicker = (function()
 			end)
 
 			Creator.AddSignal(HueSlider.InputBegan, function(Input)
-				if
-					Input.UserInputType == Enum.UserInputType.MouseButton1
-					or Input.UserInputType == Enum.UserInputType.Touch
-				then
+				if IsPointerDown(Input) then
 					while UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
 						local MinY = HueSlider.AbsolutePosition.Y
-						local MaxY = MinY + HueSlider.AbsoluteSize.Y
-						local MouseY = math.clamp(Mouse.Y, MinY, MaxY)
+						local MouseY = math.clamp(Mouse.Y, MinY, MinY + HueSlider.AbsoluteSize.Y)
 
-						Hue = ((MouseY - MinY) / (MaxY - MinY))
+						Hue = (MouseY - MinY) / HueSlider.AbsoluteSize.Y
 						Display()
 
 						RenderStepped:Wait()
@@ -5481,18 +7958,14 @@ ElementsTable.Colorpicker = (function()
 				end
 			end)
 
-			if Config.Transparency then
+			if HasTransparency then
 				Creator.AddSignal(TransparencySlider.InputBegan, function(Input)
-					if
-						Input.UserInputType == Enum.UserInputType.MouseButton1
-						or Input.UserInputType == Enum.UserInputType.Touch
-					then
+					if IsPointerDown(Input) then
 						while UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
 							local MinY = TransparencySlider.AbsolutePosition.Y
-							local MaxY = MinY + TransparencySlider.AbsoluteSize.Y
-							local MouseY = math.clamp(Mouse.Y, MinY, MaxY)
+							local MouseY = math.clamp(Mouse.Y, MinY, MinY + TransparencySlider.AbsoluteSize.Y)
 
-							Transparency = 1 - ((MouseY - MinY) / (MaxY - MinY))
+							Transparency = 1 - ((MouseY - MinY) / TransparencySlider.AbsoluteSize.Y)
 							Display()
 
 							RenderStepped:Wait()
@@ -5505,10 +7978,10 @@ ElementsTable.Colorpicker = (function()
 
 			local DoneButton = Dialog:Button("Done", function()
 				Colorpicker:SetValue({ Hue, Sat, Vib }, Transparency)
-			end)
-			local CancelButton = Dialog:Button("Cancel")
+			end, "Suggested")
+			local CancelButton = Dialog:Button("Cancel", nil, "Standard")
 
-			for _, Btn in next, { DoneButton, CancelButton } do
+			for _, Btn in next, { CancelButton } do
 				Creator.OverrideTag(Btn.Frame, { BackgroundColor3 = "ColorpickerButton" })
 				Creator.OverrideTag(Btn.Frame.UIStroke, { Color = "ColorpickerButtonBorder" })
 			end
@@ -5521,6 +7994,9 @@ ElementsTable.Colorpicker = (function()
 
 			DisplayFrameColor.BackgroundColor3 = Colorpicker.Value
 			DisplayFrameColor.BackgroundTransparency = Colorpicker.Transparency
+			if HexLabel then
+				HexLabel.Text = "#" .. Colorpicker.Value:ToHex():upper()
+			end
 
 			Element.Library:SafeCallback(Colorpicker.Callback, Colorpicker.Value)
 			Element.Library:SafeCallback(Colorpicker.Changed, Colorpicker.Value)
@@ -5573,13 +8049,101 @@ ElementsTable.GradientPicker = (function()
 	Element.__index = Element
 	Element.__type = "GradientPicker"
 
-	local function hsvToColor3(Hsv)
-		return Color3.fromHSV(Hsv.Hue, Hsv.Sat, Hsv.Vib)
+	local MinGap = 0.001
+	local HardMaxStops = 20
+
+	local function HsvToColor3(Stop)
+		return Color3.fromHSV(Stop.Hue, Stop.Sat, Stop.Vib)
 	end
 
-	local function color3ToHsv(Color)
+	local function ColorToStop(Color, Time)
 		local H, S, V = Color3.toHSV(Color)
-		return { Hue = H, Sat = S, Vib = V }
+		return { Time = Time, Hue = H, Sat = S, Vib = V }
+	end
+
+	local function StopsFromSequence(Sequence)
+		local Stops = {}
+		for _, Keypoint in ipairs(Sequence.Keypoints) do
+			table.insert(Stops, ColorToStop(Keypoint.Value, Keypoint.Time))
+		end
+		return Stops
+	end
+
+	local function AlphaStopsFromValue(Value)
+		local Stops = {}
+		if typeof(Value) == "NumberSequence" then
+			for _, Keypoint in ipairs(Value.Keypoints) do
+				table.insert(Stops, { Time = Keypoint.Time, Value = Keypoint.Value })
+			end
+		else
+			local Number = math.clamp(tonumber(Value) or 0, 0, 1)
+			Stops = { { Time = 0, Value = Number }, { Time = 1, Value = Number } }
+		end
+		return Stops
+	end
+
+	local function CopyStops(Stops)
+		local Copy = {}
+		for _, Stop in ipairs(Stops) do
+			local Entry = {}
+			for Key, Value in next, Stop do
+				Entry[Key] = Value
+			end
+			table.insert(Copy, Entry)
+		end
+		return Copy
+	end
+
+	local function NormalizeTimes(Stops)
+		local Count = #Stops
+		Stops[1].Time = 0
+		Stops[Count].Time = 1
+		for Index = 2, Count - 1 do
+			Stops[Index].Time = math.clamp(Stops[Index].Time, Stops[Index - 1].Time + MinGap, 1 - MinGap * (Count - Index))
+		end
+	end
+
+	local function BuildColorSequence(Stops)
+		NormalizeTimes(Stops)
+		local Keypoints = {}
+		for _, Stop in ipairs(Stops) do
+			table.insert(Keypoints, ColorSequenceKeypoint.new(Stop.Time, HsvToColor3(Stop)))
+		end
+		return ColorSequence.new(Keypoints)
+	end
+
+	local function BuildNumberSequence(Stops)
+		NormalizeTimes(Stops)
+		local Keypoints = {}
+		for _, Stop in ipairs(Stops) do
+			table.insert(Keypoints, NumberSequenceKeypoint.new(Stop.Time, math.clamp(Stop.Value, 0, 1)))
+		end
+		return NumberSequence.new(Keypoints)
+	end
+
+	local function InsertIndex(Stops, Time)
+		for Index = 2, #Stops do
+			if Time < Stops[Index].Time then
+				return Index
+			end
+		end
+		return #Stops
+	end
+
+	local function SampleColorStop(Stops, Time)
+		local Index = InsertIndex(Stops, Time)
+		local Before = Stops[Index - 1]
+		local After = Stops[Index]
+		local Fraction = math.clamp((Time - Before.Time) / math.max(After.Time - Before.Time, MinGap), 0, 1)
+		return ColorToStop(HsvToColor3(Before):Lerp(HsvToColor3(After), Fraction), Time), Index
+	end
+
+	local function SampleAlphaStop(Stops, Time)
+		local Index = InsertIndex(Stops, Time)
+		local Before = Stops[Index - 1]
+		local After = Stops[Index]
+		local Fraction = math.clamp((Time - Before.Time) / math.max(After.Time - Before.Time, MinGap), 0, 1)
+		return { Time = Time, Value = Before.Value + (After.Value - Before.Value) * Fraction }, Index
 	end
 
 	function Element:New(Idx, Config)
@@ -5587,30 +8151,32 @@ ElementsTable.GradientPicker = (function()
 		assert(Config.Title, "GradientPicker - Missing Title")
 		assert(Config.Default, "AddGradientPicker: Missing default value.")
 
+		local HasTransparency = Config.Transparency ~= nil
+		local MaxStops = math.clamp(tonumber(Config.MaxKeypoints) or 8, 2, HardMaxStops)
+
 		local GradientPicker = {
 			Value = Config.Default,
 			Rotation = tonumber(Config.Rotation) or 0,
+			Transparency = NumberSequence.new(0),
 			Type = "GradientPicker",
 			Title = type(Config.Title) == "string" and Config.Title or "Gradient Picker",
 			Callback = Config.Callback or function(Sequence) end,
 		}
 
-		local function KeypointsFromSequence(Sequence)
-			local Keypoints = Sequence.Keypoints
-			return color3ToHsv(Keypoints[1].Value), color3ToHsv(Keypoints[#Keypoints].Value)
-		end
-
-		GradientPicker.StartHSV, GradientPicker.EndHSV = KeypointsFromSequence(GradientPicker.Value)
+		GradientPicker.Stops = StopsFromSequence(GradientPicker.Value)
+		GradientPicker.AlphaStops = AlphaStopsFromValue(Config.Transparency)
 
 		local IsGrouped = self.Type == "Group" or self.Type == "HStack" or self.Type == "VStack"
 
-		local GradientPickerFrame = Components.Element(Config.Title, Config.Description, self.Container, true, Config.LayoutOrder, Config.Icon, Config.Marquee)
+		local GradientPickerFrame = Components.Element(Config.Title, Config.Description, self.Container, true, Config.LayoutOrder, Config.Icon, Config.Marquee, Config.Locked, Config.Tooltip, Config.RichText)
 
 		GradientPickerFrame.TitleLabel.Size = UDim2.new(1, -44, 0, 14)
 		GradientPickerFrame.DescLabel.Size = UDim2.new(1, -44, 0, 14)
 
 		GradientPicker.SetTitle = GradientPickerFrame.SetTitle
 		GradientPicker.SetDesc = GradientPickerFrame.SetDesc
+		GradientPicker.SetRichText = GradientPickerFrame.SetRichText
+		GradientPickerFrame.LockHandle.Bind(GradientPicker)
 
 		local DisplayFrameGradient = New("UIGradient", {
 			Color = GradientPicker.Value,
@@ -5631,6 +8197,7 @@ ElementsTable.GradientPicker = (function()
 				Transparency = 0.5,
 				ThemeTag = {
 					Color = "InElementBorder",
+					Transparency = "InElementBorderTransparency",
 				},
 			}),
 			DisplayFrameGradient,
@@ -5646,51 +8213,313 @@ ElementsTable.GradientPicker = (function()
 		local function CreateGradientDialog()
 			local Dialog = Components.Dialog:Create()
 			Dialog.Title.Text = GradientPicker.Title
-			Dialog.Root.Size = UDim2.fromOffset(460, 420)
+			Dialog.Root.Size = UDim2.fromOffset(460, 440)
 
 			Creator.OverrideTag(Dialog.Root, { BackgroundColor3 = "ColorpickerDialog" })
 			Creator.OverrideTag(Dialog.Root.UIStroke, { Color = "ColorpickerDialogBorder" })
-			Creator.OverrideTag(Dialog.ButtonHolderFrame, { BackgroundColor3 = "ColorpickerHolder" })
+			Creator.OverrideTag(Dialog.HolderGradient, { Color = "ColorpickerHolder", Rotation = "ColorpickerHolderRotation", Transparency = "ColorpickerHolderTransparency" })
 			Creator.OverrideTag(Dialog.HolderLine, { BackgroundColor3 = "ColorpickerHolderLine" })
 
-			local Slots = {
-				Start = { Hue = GradientPicker.StartHSV.Hue, Sat = GradientPicker.StartHSV.Sat, Vib = GradientPicker.StartHSV.Vib },
-				["End"] = { Hue = GradientPicker.EndHSV.Hue, Sat = GradientPicker.EndHSV.Sat, Vib = GradientPicker.EndHSV.Vib },
+			local ColorStops = CopyStops(GradientPicker.Stops)
+			local AlphaStops = CopyStops(GradientPicker.AlphaStops)
+			local Rotation = GradientPicker.Rotation
+			local Mode = "Color"
+			local SelectedColor = 1
+			local SelectedAlpha = 1
+			local ColorControls = {}
+			local AlphaControls = {}
+			local Markers = {}
+			local Display
+			local RebuildMarkers
+
+			local FallbackIcons = {
+				plus = "rbxassetid://111774323017047",
+				minus = "rbxassetid://118026365011536",
+				check = "rbxassetid://93898873302694",
 			}
-			local ActiveSlot = "Start"
 
-			local function Active()
-				return Slots[ActiveSlot]
-			end
+			local function CreateIcon(IconName, IconSize, Position, Parent)
+				local Icon = Library:GetIcon(IconName)
+				local Image, RectOffset, RectSize
+				if Icon then
+					Image, RectOffset, RectSize = Icon.Image, Icon.ImageRectOffset, Icon.ImageRectSize
+				elseif FallbackIcons[IconName] then
+					Image = FallbackIcons[IconName]
+				else
+					return nil
+				end
 
-			local function CreateInput()
-				local Box = Components.Textbox(nil, false, GradientPickerTextboxTags)
-				Box.Frame.Parent = Dialog.Root
-				Box.Frame.Size = UDim2.new(0, 90, 0, 32)
-
-				return Box
-			end
-
-			local function CreateInputLabel(Text, Pos)
-				return New("TextLabel", {
-					FontFace = Font.new(Library.Font, Enum.FontWeight.Medium, Enum.FontStyle.Normal),
-					Text = Text,
-					TextColor3 = Color3.fromRGB(240, 240, 240),
-					TextSize = 13,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					Size = UDim2.new(1, 0, 0, 32),
-					Position = Pos,
+				return New("ImageLabel", {
+					Size = UDim2.fromOffset(IconSize, IconSize),
+					Position = Position,
 					BackgroundTransparency = 1,
-					Parent = Dialog.Root,
+					Image = Image,
+					ImageRectOffset = RectOffset or Vector2.zero,
+					ImageRectSize = RectSize or Vector2.zero,
+					Parent = Parent,
 					ThemeTag = {
-						TextColor3 = "Text",
+						ImageColor3 = "Text",
 					},
 				})
 			end
 
-			local function GetRGB()
-				local Value = hsvToColor3(Active())
-				return { R = math.floor(Value.r * 255), G = math.floor(Value.g * 255), B = math.floor(Value.b * 255) }
+			local function SetGroupVisible(Group, Visible)
+				for _, Object in ipairs(Group) do
+					Object.Visible = Visible
+				end
+			end
+
+			local function IsPointerDown(Input)
+				return Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch
+			end
+
+			local function CreateInput(Position, Size, Group)
+				local Box = Components.Textbox(nil, false, GradientPickerTextboxTags)
+				Box.Frame.Parent = Dialog.Root
+				Box.Frame.Size = Size
+				Box.Frame.Position = Position
+				if Group then
+					table.insert(Group, Box.Frame)
+				end
+				return Box
+			end
+
+			local function CreateCaption(Text, Position, Group)
+				local Label = New("TextLabel", {
+					FontFace = Font.new(Library.Font, Enum.FontWeight.Medium, Enum.FontStyle.Normal),
+					Text = Text,
+					TextSize = 11,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					Size = UDim2.fromOffset(100, 12),
+					Position = Position,
+					BackgroundTransparency = 1,
+					Parent = Dialog.Root,
+					ThemeTag = {
+						TextColor3 = "SubText",
+					},
+				})
+				if Group then
+					table.insert(Group, Label)
+				end
+				return Label
+			end
+
+			local function CreateSmallButton(Text, Position, Size, Callback, IconName)
+				local Button = New("TextButton", {
+					Text = Text,
+					FontFace = Font.new(Library.Font, Enum.FontWeight.SemiBold, Enum.FontStyle.Normal),
+					TextSize = 15,
+					Size = Size,
+					Position = Position,
+					Parent = Dialog.Root,
+					ThemeTag = {
+						BackgroundColor3 = "ColorpickerButton",
+						TextColor3 = "Text",
+					},
+				}, {
+					New("UICorner", {
+						CornerRadius = UDim.new(0, 6),
+					}),
+					New("UIStroke", {
+						Thickness = 1,
+						Transparency = 0.5,
+						ThemeTag = {
+							Color = "ColorpickerButtonBorder",
+						},
+					}),
+				})
+
+				Creator.AddSignal(Button.MouseButton1Click, Callback)
+
+				if IconName and CreateIcon(IconName, 14, UDim2.new(0.5, -7, 0.5, -7), Button) then
+					Button.Text = ""
+				end
+
+				return Button
+			end
+
+			local function CreateChecker(Corner)
+				return New("ImageLabel", {
+					Image = "http://www.roblox.com/asset/?id=14204231522",
+					ImageTransparency = 0.45,
+					ScaleType = Enum.ScaleType.Tile,
+					TileSize = UDim2.fromOffset(40, 40),
+					BackgroundTransparency = 1,
+					Size = UDim2.fromScale(1, 1),
+				}, {
+					New("UICorner", {
+						CornerRadius = UDim.new(0, Corner),
+					}),
+				})
+			end
+
+			local function ActiveStops()
+				return Mode == "Color" and ColorStops or AlphaStops
+			end
+
+			local function ActiveIndex()
+				return Mode == "Color" and SelectedColor or SelectedAlpha
+			end
+
+			local function SetMode(NewMode)
+				if Mode == NewMode then
+					return
+				end
+
+				Mode = NewMode
+				SetGroupVisible(ColorControls, NewMode == "Color")
+				SetGroupVisible(AlphaControls, NewMode == "Alpha")
+				RebuildMarkers()
+				Display()
+			end
+
+			local PreviewGradient = New("UIGradient", {})
+
+			local PreviewHolder = New("TextButton", {
+				Text = "",
+				Size = UDim2.fromOffset(410, 40),
+				Position = UDim2.fromOffset(25, 84),
+				BackgroundTransparency = 1,
+				Parent = Dialog.Root,
+			}, {
+				CreateChecker(8),
+				New("Frame", {
+					Size = UDim2.fromScale(1, 1),
+					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+				}, {
+					New("UICorner", {
+						CornerRadius = UDim.new(0, 8),
+					}),
+					PreviewGradient,
+				}),
+				New("UIStroke", {
+					Thickness = 1,
+					Transparency = 0.4,
+					ThemeTag = {
+						Color = "InElementBorder",
+					},
+				}),
+				New("UICorner", {
+					CornerRadius = UDim.new(0, 8),
+				}),
+			})
+
+			local MarkerHolder = New("Frame", {
+				Size = UDim2.fromOffset(410, 24),
+				Position = UDim2.fromOffset(25, 124),
+				BackgroundTransparency = 1,
+				Parent = Dialog.Root,
+			})
+
+			New("Frame", {
+				Size = UDim2.fromOffset(430, 192),
+				Position = UDim2.fromOffset(15, 152),
+				BackgroundTransparency = 0.55,
+				Parent = Dialog.Root,
+				ThemeTag = {
+					BackgroundColor3 = "ColorpickerInput",
+				},
+			}, {
+				New("UICorner", {
+					CornerRadius = UDim.new(0, 8),
+				}),
+				New("UIStroke", {
+					Thickness = 1,
+					Transparency = 0.6,
+					ThemeTag = {
+						Color = "ColorpickerInputBorder",
+					},
+				}),
+			})
+
+			local SegmentHighlight
+			local CounterLabel = New("TextLabel", {
+				FontFace = Font.new(Library.Font, Enum.FontWeight.Medium, Enum.FontStyle.Normal),
+				Text = "",
+				TextSize = 12,
+				TextXAlignment = Enum.TextXAlignment.Right,
+				Size = UDim2.fromOffset(85, 28),
+				Position = UDim2.fromOffset(285, 48),
+				BackgroundTransparency = 1,
+				Parent = Dialog.Root,
+				ThemeTag = {
+					TextColor3 = "SubText",
+				},
+			})
+
+			if HasTransparency then
+				SegmentHighlight = New("Frame", {
+					Size = UDim2.new(0.5, -4, 1, -4),
+					Position = UDim2.fromOffset(2, 2),
+					BackgroundTransparency = 0.78,
+					ThemeTag = {
+						BackgroundColor3 = "Accent",
+					},
+				}, {
+					New("UICorner", {
+						CornerRadius = UDim.new(0, 5),
+					}),
+					New("UIStroke", {
+						Thickness = 1,
+						Transparency = 0.4,
+						ThemeTag = {
+							Color = "Accent",
+						},
+					}),
+				})
+
+				local Segment = New("Frame", {
+					Size = UDim2.fromOffset(250, 28),
+					Position = UDim2.fromOffset(25, 48),
+					BackgroundTransparency = 0.4,
+					Parent = Dialog.Root,
+					ThemeTag = {
+						BackgroundColor3 = "ColorpickerInput",
+					},
+				}, {
+					New("UICorner", {
+						CornerRadius = UDim.new(0, 7),
+					}),
+					New("UIStroke", {
+						Thickness = 1,
+						Transparency = 0.6,
+						ThemeTag = {
+							Color = "ColorpickerInputBorder",
+						},
+					}),
+					SegmentHighlight,
+				})
+
+				for Index, Entry in ipairs({ { "Color", "Color", "palette" }, { "Alpha", "Transparency", "droplet" } }) do
+					local Button = New("TextButton", {
+						Text = Entry[2],
+						FontFace = Font.new(Library.Font, Enum.FontWeight.Medium, Enum.FontStyle.Normal),
+						TextSize = 13,
+						TextXAlignment = Enum.TextXAlignment.Center,
+						BackgroundTransparency = 1,
+						Size = UDim2.fromScale(0.5, 1),
+						Position = UDim2.fromScale((Index - 1) * 0.5, 0),
+						ZIndex = 2,
+						Parent = Segment,
+						ThemeTag = {
+							TextColor3 = "Text",
+						},
+					})
+					local SegmentIcon = CreateIcon(Entry[3], 16, UDim2.fromScale(0.5, 0.5), Button)
+					if SegmentIcon then
+						SegmentIcon.AnchorPoint = Vector2.new(1, 0.5)
+						local function PlaceSegmentIcon()
+							SegmentIcon.Position = UDim2.new(0.5, -math.floor(Button.TextBounds.X / 2) - 8, 0.5, 0)
+						end
+						PlaceSegmentIcon()
+						Creator.AddSignal(Button:GetPropertyChangedSignal("TextBounds"), PlaceSegmentIcon)
+					end
+					Creator.AddSignal(Button.MouseButton1Click, function()
+						SetMode(Entry[1])
+					end)
+				end
+			else
+				CreateCaption("COLOR STOPS", UDim2.fromOffset(25, 56))
 			end
 
 			local SatCursor = New("ImageLabel", {
@@ -5702,265 +8531,412 @@ ElementsTable.GradientPicker = (function()
 			})
 
 			local SatVibMap = New("ImageLabel", {
-				Size = UDim2.fromOffset(200, 200),
-				Position = UDim2.fromOffset(20, 95),
+				Size = UDim2.fromOffset(176, 176),
+				Position = UDim2.fromOffset(25, 160),
 				Image = "rbxassetid://4155801252",
 				BackgroundTransparency = 0,
 				Parent = Dialog.Root,
 			}, {
 				New("UICorner", {
-					CornerRadius = UDim.new(0, 4),
+					CornerRadius = UDim.new(0, 6),
 				}),
 				SatCursor,
 			})
+			table.insert(ColorControls, SatVibMap)
 
-			local SequenceTable = {}
-			for Color = 0, 1, 0.1 do
-				table.insert(SequenceTable, ColorSequenceKeypoint.new(Color, Color3.fromHSV(Color, 1, 1)))
+			local HueKeypoints = {}
+			for Step = 0, 1, 0.1 do
+				table.insert(HueKeypoints, ColorSequenceKeypoint.new(Step, Color3.fromHSV(Step, 1, 1)))
 			end
-
-			local HueSliderGradient = New("UIGradient", {
-				Color = ColorSequence.new(SequenceTable),
-				Rotation = 90,
-			})
-
-			local HueDragHolder = New("Frame", {
-				Size = UDim2.new(1, 0, 1, -10),
-				Position = UDim2.fromOffset(0, 5),
-				BackgroundTransparency = 1,
-			})
 
 			local HueDrag = New("ImageLabel", {
 				Size = UDim2.fromOffset(14, 14),
 				Image = "http://www.roblox.com/asset/?id=12266946128",
 				ImageColor3 = Creator.GetKnobColor(),
-				Parent = HueDragHolder,
 			})
 
-			Creator.OnThemeChanged(function()
-				HueDrag.ImageColor3 = Creator.GetKnobColor()
-			end)
-
 			local HueSlider = New("Frame", {
-				Size = UDim2.fromOffset(12, 200),
-				Position = UDim2.fromOffset(230, 95),
+				Size = UDim2.fromOffset(12, 176),
+				Position = UDim2.fromOffset(211, 160),
 				Parent = Dialog.Root,
 			}, {
 				New("UICorner", {
 					CornerRadius = UDim.new(1, 0),
 				}),
-				HueSliderGradient,
-				HueDragHolder,
-			})
-
-			local HexInput = CreateInput()
-			HexInput.Frame.Position = UDim2.fromOffset(260, 95)
-			CreateInputLabel("Hex", UDim2.fromOffset(360, 95))
-
-			local RedInput = CreateInput()
-			RedInput.Frame.Position = UDim2.fromOffset(260, 135)
-			CreateInputLabel("Red", UDim2.fromOffset(360, 135))
-
-			local GreenInput = CreateInput()
-			GreenInput.Frame.Position = UDim2.fromOffset(260, 175)
-			CreateInputLabel("Green", UDim2.fromOffset(360, 175))
-
-			local BlueInput = CreateInput()
-			BlueInput.Frame.Position = UDim2.fromOffset(260, 215)
-			CreateInputLabel("Blue", UDim2.fromOffset(360, 215))
-
-			local RotationInput = CreateInput()
-			RotationInput.Frame.Position = UDim2.fromOffset(260, 255)
-			CreateInputLabel("Rotation", UDim2.fromOffset(360, 255))
-
-			local function CreateSlotSwatch(Label, X)
-				local SwatchColor = New("Frame", {
-					Size = UDim2.fromScale(1, 1),
-				}, {
-					New("UICorner", {
-						CornerRadius = UDim.new(0, 4),
-					}),
-				})
-
-				local SwatchLabel = New("TextLabel", {
-					FontFace = Font.new(Library.Font, Enum.FontWeight.Medium, Enum.FontStyle.Normal),
-					Text = Label,
-					TextColor3 = Color3.fromRGB(255, 255, 255),
-					TextStrokeColor3 = Color3.fromRGB(0, 0, 0),
-					TextStrokeTransparency = 0,
-					TextSize = 12,
-					TextXAlignment = Enum.TextXAlignment.Center,
-					TextYAlignment = Enum.TextYAlignment.Center,
-					Size = UDim2.fromScale(1, 1),
-					Position = UDim2.fromScale(0, 0),
-					BackgroundTransparency = 1,
-					ZIndex = 2,
-				})
-
-				local Stroke = New("UIStroke", {
-					Thickness = 2,
-					Transparency = 0,
-					ThemeTag = {
-						Color = "Accent",
-					},
-				})
-
-				local Swatch = New("TextButton", {
-					Text = "",
-					Size = UDim2.fromOffset(90, 30),
-					Position = UDim2.fromOffset(X, 305),
-					Parent = Dialog.Root,
+				New("UIGradient", {
+					Color = ColorSequence.new(HueKeypoints),
+					Rotation = 90,
+				}),
+				New("Frame", {
+					Size = UDim2.new(1, 0, 1, -10),
+					Position = UDim2.fromOffset(0, 5),
 					BackgroundTransparency = 1,
 				}, {
-					New("UICorner", {
-						CornerRadius = UDim.new(0, 4),
-					}),
-					Stroke,
-					SwatchColor,
-					SwatchLabel,
-				})
+					HueDrag,
+				}),
+			})
+			table.insert(ColorControls, HueSlider)
 
-				return Swatch, SwatchColor, Stroke
-			end
-
-			local StartSwatch, StartSwatchColor, StartSwatchStroke = CreateSlotSwatch("Start", 20)
-			local EndSwatch, EndSwatchColor, EndSwatchStroke = CreateSlotSwatch("End", 350)
-
-			local GradientPreviewGradient = New("UIGradient", {
-				Rotation = GradientPicker.Rotation,
+			local AlphaDrag = New("ImageLabel", {
+				Size = UDim2.fromOffset(14, 14),
+				Image = "http://www.roblox.com/asset/?id=12266946128",
+				ImageColor3 = Creator.GetKnobColor(),
 			})
 
-			New("Frame", {
-				Size = UDim2.fromOffset(410, 24),
-				Position = UDim2.fromOffset(20, 55),
+			Creator.OnThemeChanged(function()
+				HueDrag.ImageColor3 = Creator.GetKnobColor()
+				AlphaDrag.ImageColor3 = Creator.GetKnobColor()
+			end)
+
+			local AlphaSlider = New("Frame", {
+				Size = UDim2.fromOffset(12, 176),
+				Position = UDim2.fromOffset(25, 160),
+				BackgroundTransparency = 1,
+				Visible = false,
 				Parent = Dialog.Root,
 			}, {
 				New("UICorner", {
-					CornerRadius = UDim.new(0, 4),
+					CornerRadius = UDim.new(1, 0),
 				}),
+				CreateChecker(6),
+				New("Frame", {
+					Size = UDim2.fromScale(1, 1),
+					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+				}, {
+					New("UIGradient", {
+						Transparency = NumberSequence.new({
+							NumberSequenceKeypoint.new(0, 0),
+							NumberSequenceKeypoint.new(1, 1),
+						}),
+						Rotation = 270,
+					}),
+					New("UICorner", {
+						CornerRadius = UDim.new(1, 0),
+					}),
+				}),
+				New("Frame", {
+					Size = UDim2.new(1, 0, 1, -10),
+					Position = UDim2.fromOffset(0, 5),
+					BackgroundTransparency = 1,
+				}, {
+					AlphaDrag,
+				}),
+			})
+			table.insert(AlphaControls, AlphaSlider)
+
+			local AlphaSwatchColor = New("Frame", {
+				Size = UDim2.fromScale(1, 1),
+				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+			}, {
+				New("UICorner", {
+					CornerRadius = UDim.new(0, 6),
+				}),
+			})
+
+			local AlphaSwatch = New("Frame", {
+				Size = UDim2.fromOffset(176, 176),
+				Position = UDim2.fromOffset(51, 160),
+				BackgroundTransparency = 1,
+				Visible = false,
+				Parent = Dialog.Root,
+			}, {
+				CreateChecker(6),
+				AlphaSwatchColor,
 				New("UIStroke", {
 					Thickness = 1,
 					Transparency = 0.5,
 					ThemeTag = {
 						Color = "InElementBorder",
+						Transparency = "InElementBorderTransparency",
 					},
 				}),
-				GradientPreviewGradient,
+				New("UICorner", {
+					CornerRadius = UDim.new(0, 6),
+				}),
 			})
+			table.insert(AlphaControls, AlphaSwatch)
 
-			local function Display()
-				local Hsv = Active()
-				SatVibMap.BackgroundColor3 = Color3.fromHSV(Hsv.Hue, 1, 1)
-				HueDrag.Position = UDim2.new(0, -1, Hsv.Hue, -6)
-				SatCursor.Position = UDim2.new(Hsv.Sat, 0, 1 - Hsv.Vib, 0)
+			CreateCaption("HEX", UDim2.fromOffset(245, 162), ColorControls)
+			local HexInput = CreateInput(UDim2.fromOffset(245, 176), UDim2.fromOffset(190, 28), ColorControls)
 
-				HexInput.Input.Text = "#" .. hsvToColor3(Hsv):ToHex()
-				RedInput.Input.Text = GetRGB()["R"]
-				GreenInput.Input.Text = GetRGB()["G"]
-				BlueInput.Input.Text = GetRGB()["B"]
-				RotationInput.Input.Text = tostring(math.floor(GradientPicker.Rotation))
+			CreateCaption("RED", UDim2.fromOffset(245, 210), ColorControls)
+			local RedInput = CreateInput(UDim2.fromOffset(245, 224), UDim2.fromOffset(58, 28), ColorControls)
+			CreateCaption("GREEN", UDim2.fromOffset(311, 210), ColorControls)
+			local GreenInput = CreateInput(UDim2.fromOffset(311, 224), UDim2.fromOffset(58, 28), ColorControls)
+			CreateCaption("BLUE", UDim2.fromOffset(377, 210), ColorControls)
+			local BlueInput = CreateInput(UDim2.fromOffset(377, 224), UDim2.fromOffset(58, 28), ColorControls)
 
-				local StartColor = hsvToColor3(Slots.Start)
-				local EndColor = hsvToColor3(Slots["End"])
+			CreateCaption("POSITION %", UDim2.fromOffset(245, 260), ColorControls)
+			local ColorPosInput = CreateInput(UDim2.fromOffset(245, 274), UDim2.fromOffset(91, 28), ColorControls)
 
-				StartSwatchColor.BackgroundColor3 = StartColor
-				EndSwatchColor.BackgroundColor3 = EndColor
-				StartSwatchStroke.Transparency = ActiveSlot == "Start" and 0 or 0.85
-				EndSwatchStroke.Transparency = ActiveSlot == "End" and 0 or 0.85
+			CreateCaption("OPACITY %", UDim2.fromOffset(245, 162), AlphaControls)
+			local AlphaInput = CreateInput(UDim2.fromOffset(245, 176), UDim2.fromOffset(190, 28), AlphaControls)
 
-				GradientPreviewGradient.Color = ColorSequence.new(StartColor, EndColor)
-				GradientPreviewGradient.Rotation = GradientPicker.Rotation
+			CreateCaption("POSITION %", UDim2.fromOffset(245, 260), AlphaControls)
+			local AlphaPosInput = CreateInput(UDim2.fromOffset(245, 274), UDim2.fromOffset(91, 28), AlphaControls)
+			SetGroupVisible(AlphaControls, false)
+
+			CreateCaption("ROTATION", UDim2.fromOffset(344, 260))
+			local RotationInput = CreateInput(UDim2.fromOffset(344, 274), UDim2.fromOffset(91, 28))
+
+			local function InsertStopAt(Time)
+				local Stops = ActiveStops()
+				if #Stops >= MaxStops then
+					return
+				end
+
+				Time = math.clamp(Time, MinGap, 1 - MinGap)
+				if Mode == "Color" then
+					local Stop, Index = SampleColorStop(ColorStops, Time)
+					table.insert(ColorStops, Index, Stop)
+					SelectedColor = Index
+				else
+					local Stop, Index = SampleAlphaStop(AlphaStops, Time)
+					table.insert(AlphaStops, Index, Stop)
+					SelectedAlpha = Index
+				end
+
+				RebuildMarkers()
+				Display()
 			end
 
-			Creator.AddSignal(StartSwatch.MouseButton1Click, function()
-				ActiveSlot = "Start"
+			local function RemoveStop()
+				local Stops = ActiveStops()
+				if #Stops <= 2 then
+					return
+				end
+
+				if Mode == "Color" then
+					table.remove(ColorStops, SelectedColor)
+					SelectedColor = math.clamp(SelectedColor, 1, #ColorStops)
+				else
+					table.remove(AlphaStops, SelectedAlpha)
+					SelectedAlpha = math.clamp(SelectedAlpha, 1, #AlphaStops)
+				end
+
+				RebuildMarkers()
 				Display()
+			end
+
+			CreateSmallButton("+", UDim2.fromOffset(377, 48), UDim2.fromOffset(28, 28), function()
+				local Stops = ActiveStops()
+				local Index = ActiveIndex()
+				local Neighbor = Index < #Stops and Stops[Index + 1] or Stops[Index - 1]
+				InsertStopAt((Stops[Index].Time + Neighbor.Time) / 2)
+			end, "plus")
+
+			CreateSmallButton("-", UDim2.fromOffset(407, 48), UDim2.fromOffset(28, 28), RemoveStop, "minus")
+
+			Creator.AddSignal(PreviewHolder.MouseButton1Click, function()
+				local Fraction = (Mouse.X - PreviewHolder.AbsolutePosition.X) / math.max(PreviewHolder.AbsoluteSize.X, 1)
+				InsertStopAt(Fraction)
 			end)
-			Creator.AddSignal(EndSwatch.MouseButton1Click, function()
-				ActiveSlot = "End"
-				Display()
-			end)
+
+			RebuildMarkers = function()
+				for _, Marker in ipairs(Markers) do
+					Marker.Button:Destroy()
+				end
+				table.clear(Markers)
+
+				local Stops = ActiveStops()
+				for Index = 1, #Stops do
+					local Stroke = New("UIStroke", {
+						Thickness = 2,
+						ThemeTag = {
+							Color = "Accent",
+						},
+					})
+
+					local Fill = New("Frame", {
+						Size = UDim2.fromOffset(14, 14),
+						Position = UDim2.new(0.5, -7, 0, 8),
+						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+					}, {
+						New("UICorner", {
+							CornerRadius = UDim.new(1, 0),
+						}),
+						Stroke,
+					})
+
+					local Stem = New("Frame", {
+						Size = UDim2.fromOffset(2, 9),
+						Position = UDim2.new(0.5, -1, 0, 0),
+						BackgroundTransparency = 0.5,
+						ThemeTag = {
+							BackgroundColor3 = "Text",
+						},
+					})
+
+					local Button = New("TextButton", {
+						Text = "",
+						Size = UDim2.fromOffset(18, 24),
+						BackgroundTransparency = 1,
+						Parent = MarkerHolder,
+					}, {
+						Stem,
+						Fill,
+					})
+
+					Creator.AddSignal(Button.InputBegan, function(Input)
+						if not IsPointerDown(Input) then
+							return
+						end
+
+						if Mode == "Color" then
+							SelectedColor = Index
+						else
+							SelectedAlpha = Index
+						end
+						Display()
+
+						if Index == 1 or Index == #Stops then
+							return
+						end
+
+						while UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
+							local Fraction = (Mouse.X - MarkerHolder.AbsolutePosition.X) / math.max(MarkerHolder.AbsoluteSize.X, 1)
+							Stops[Index].Time = math.clamp(Fraction, Stops[Index - 1].Time + MinGap, Stops[Index + 1].Time - MinGap)
+							Display()
+							RenderStepped:Wait()
+						end
+					end)
+
+					table.insert(Markers, { Button = Button, Fill = Fill, Stroke = Stroke, Stem = Stem })
+				end
+			end
+
+			local function UpdateMarkers()
+				local Stops = ActiveStops()
+				local Selected = ActiveIndex()
+				for Index, Marker in ipairs(Markers) do
+					local Stop = Stops[Index]
+					if Stop then
+						local IsSelected = Index == Selected
+						Marker.Button.Position = UDim2.new(Stop.Time, -9, 0, 0)
+						Marker.Button.ZIndex = IsSelected and 3 or 1
+						Marker.Fill.BackgroundColor3 = Mode == "Color" and HsvToColor3(Stop) or Color3.fromHSV(0, 0, 1 - Stop.Value)
+						Marker.Fill.Size = IsSelected and UDim2.fromOffset(16, 16) or UDim2.fromOffset(14, 14)
+						Marker.Fill.Position = IsSelected and UDim2.new(0.5, -8, 0, 7) or UDim2.new(0.5, -7, 0, 8)
+						Marker.Stroke.Transparency = IsSelected and 0 or 0.75
+						Marker.Stem.BackgroundTransparency = IsSelected and 0.1 or 0.6
+					end
+				end
+			end
+
+			Display = function()
+				PreviewGradient.Color = BuildColorSequence(ColorStops)
+				PreviewGradient.Transparency = HasTransparency and BuildNumberSequence(AlphaStops) or NumberSequence.new(0)
+				RotationInput.Input.Text = tostring(math.floor(Rotation))
+
+				if SegmentHighlight then
+					SegmentHighlight.Position = Mode == "Color" and UDim2.fromOffset(2, 2) or UDim2.new(0.5, 2, 0, 2)
+				end
+
+				CounterLabel.Text = string.format("Stop %d of %d", ActiveIndex(), #ActiveStops())
+
+				UpdateMarkers()
+
+				if Mode == "Color" then
+					local Stop = ColorStops[SelectedColor]
+					local Color = HsvToColor3(Stop)
+					SatVibMap.BackgroundColor3 = Color3.fromHSV(Stop.Hue, 1, 1)
+					HueDrag.Position = UDim2.new(0, -1, Stop.Hue, -6)
+					SatCursor.Position = UDim2.new(Stop.Sat, 0, 1 - Stop.Vib, 0)
+					HexInput.Input.Text = "#" .. Color:ToHex()
+					RedInput.Input.Text = tostring(math.round(Color.R * 255))
+					GreenInput.Input.Text = tostring(math.round(Color.G * 255))
+					BlueInput.Input.Text = tostring(math.round(Color.B * 255))
+					ColorPosInput.Input.Text = tostring(math.round(Stop.Time * 100))
+				else
+					local Stop = AlphaStops[SelectedAlpha]
+					local Sampled = SampleColorStop(ColorStops, Stop.Time)
+					AlphaSwatchColor.BackgroundColor3 = HsvToColor3(Sampled)
+					AlphaSwatchColor.BackgroundTransparency = Stop.Value
+					AlphaDrag.Position = UDim2.new(0, -1, 1 - Stop.Value, -6)
+					AlphaInput.Input.Text = tostring(math.round((1 - Stop.Value) * 100))
+					AlphaPosInput.Input.Text = tostring(math.round(Stop.Time * 100))
+				end
+			end
+
+			local function SetStopTime(Stops, Index, Percent)
+				if Index <= 1 or Index >= #Stops then
+					return
+				end
+				Stops[Index].Time = math.clamp(Percent / 100, Stops[Index - 1].Time + MinGap, Stops[Index + 1].Time - MinGap)
+			end
+
+			local function BindChannel(Box, Channel)
+				Creator.AddSignal(Box.Input.FocusLost, function(Enter)
+					local Number = Enter and tonumber(Box.Input.Text)
+					if Number then
+						local Stop = ColorStops[SelectedColor]
+						local Color = HsvToColor3(Stop)
+						local Channels = { Color.R * 255, Color.G * 255, Color.B * 255 }
+						Channels[Channel] = math.clamp(math.floor(Number), 0, 255)
+						Stop.Hue, Stop.Sat, Stop.Vib = Color3.toHSV(Color3.fromRGB(math.round(Channels[1]), math.round(Channels[2]), math.round(Channels[3])))
+					end
+					Display()
+				end)
+			end
+
+			BindChannel(RedInput, 1)
+			BindChannel(GreenInput, 2)
+			BindChannel(BlueInput, 3)
 
 			Creator.AddSignal(HexInput.Input.FocusLost, function(Enter)
 				if Enter then
 					local Success, Result = pcall(Color3.fromHex, HexInput.Input.Text)
 					if Success and typeof(Result) == "Color3" then
-						local Hsv = Active()
-						Hsv.Hue, Hsv.Sat, Hsv.Vib = Color3.toHSV(Result)
+						local Stop = ColorStops[SelectedColor]
+						Stop.Hue, Stop.Sat, Stop.Vib = Color3.toHSV(Result)
 					end
 				end
 				Display()
 			end)
 
-			Creator.AddSignal(RedInput.Input.FocusLost, function(Enter)
-				if Enter then
-					local CurrentColor = GetRGB()
-					local Success, Result = pcall(Color3.fromRGB, RedInput.Input.Text, CurrentColor["G"], CurrentColor["B"])
-					if Success and typeof(Result) == "Color3" then
-						if tonumber(RedInput.Input.Text) <= 255 then
-							local Hsv = Active()
-							Hsv.Hue, Hsv.Sat, Hsv.Vib = Color3.toHSV(Result)
-						end
-					end
+			Creator.AddSignal(ColorPosInput.Input.FocusLost, function(Enter)
+				local Number = Enter and tonumber(ColorPosInput.Input.Text)
+				if Number then
+					SetStopTime(ColorStops, SelectedColor, Number)
 				end
 				Display()
 			end)
 
-			Creator.AddSignal(GreenInput.Input.FocusLost, function(Enter)
-				if Enter then
-					local CurrentColor = GetRGB()
-					local Success, Result = pcall(Color3.fromRGB, CurrentColor["R"], GreenInput.Input.Text, CurrentColor["B"])
-					if Success and typeof(Result) == "Color3" then
-						if tonumber(GreenInput.Input.Text) <= 255 then
-							local Hsv = Active()
-							Hsv.Hue, Hsv.Sat, Hsv.Vib = Color3.toHSV(Result)
-						end
-					end
+			Creator.AddSignal(AlphaPosInput.Input.FocusLost, function(Enter)
+				local Number = Enter and tonumber(AlphaPosInput.Input.Text)
+				if Number then
+					SetStopTime(AlphaStops, SelectedAlpha, Number)
 				end
 				Display()
 			end)
 
-			Creator.AddSignal(BlueInput.Input.FocusLost, function(Enter)
-				if Enter then
-					local CurrentColor = GetRGB()
-					local Success, Result = pcall(Color3.fromRGB, CurrentColor["R"], CurrentColor["G"], BlueInput.Input.Text)
-					if Success and typeof(Result) == "Color3" then
-						if tonumber(BlueInput.Input.Text) <= 255 then
-							local Hsv = Active()
-							Hsv.Hue, Hsv.Sat, Hsv.Vib = Color3.toHSV(Result)
-						end
-					end
+			Creator.AddSignal(AlphaInput.Input.FocusLost, function(Enter)
+				local Number = Enter and tonumber(AlphaInput.Input.Text)
+				if Number then
+					AlphaStops[SelectedAlpha].Value = 1 - math.clamp(Number, 0, 100) * 0.01
 				end
 				Display()
 			end)
 
 			Creator.AddSignal(RotationInput.Input.FocusLost, function(Enter)
-				if Enter then
-					local Value = tonumber(RotationInput.Input.Text)
-					if Value then
-						GradientPicker.Rotation = math.clamp(Value, 0, 360)
-					end
+				local Number = Enter and tonumber(RotationInput.Input.Text)
+				if Number then
+					Rotation = math.clamp(Number, 0, 360)
 				end
 				Display()
 			end)
 
 			Creator.AddSignal(SatVibMap.InputBegan, function(Input)
-				if
-					Input.UserInputType == Enum.UserInputType.MouseButton1
-					or Input.UserInputType == Enum.UserInputType.Touch
-				then
+				if IsPointerDown(Input) then
 					while UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
 						local MinX = SatVibMap.AbsolutePosition.X
-						local MaxX = MinX + SatVibMap.AbsoluteSize.X
-						local MouseX = math.clamp(Mouse.X, MinX, MaxX)
-
+						local MouseX = math.clamp(Mouse.X, MinX, MinX + SatVibMap.AbsoluteSize.X)
 						local MinY = SatVibMap.AbsolutePosition.Y
-						local MaxY = MinY + SatVibMap.AbsoluteSize.Y
-						local MouseY = math.clamp(Mouse.Y, MinY, MaxY)
+						local MouseY = math.clamp(Mouse.Y, MinY, MinY + SatVibMap.AbsoluteSize.Y)
 
-						local Hsv = Active()
-						Hsv.Sat = (MouseX - MinX) / (MaxX - MinX)
-						Hsv.Vib = 1 - ((MouseY - MinY) / (MaxY - MinY))
+						local Stop = ColorStops[SelectedColor]
+						Stop.Sat = (MouseX - MinX) / SatVibMap.AbsoluteSize.X
+						Stop.Vib = 1 - ((MouseY - MinY) / SatVibMap.AbsoluteSize.Y)
 						Display()
 
 						RenderStepped:Wait()
@@ -5969,17 +8945,12 @@ ElementsTable.GradientPicker = (function()
 			end)
 
 			Creator.AddSignal(HueSlider.InputBegan, function(Input)
-				if
-					Input.UserInputType == Enum.UserInputType.MouseButton1
-					or Input.UserInputType == Enum.UserInputType.Touch
-				then
+				if IsPointerDown(Input) then
 					while UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
 						local MinY = HueSlider.AbsolutePosition.Y
-						local MaxY = MinY + HueSlider.AbsoluteSize.Y
-						local MouseY = math.clamp(Mouse.Y, MinY, MaxY)
+						local MouseY = math.clamp(Mouse.Y, MinY, MinY + HueSlider.AbsoluteSize.Y)
 
-						local Hsv = Active()
-						Hsv.Hue = ((MouseY - MinY) / (MaxY - MinY))
+						ColorStops[SelectedColor].Hue = (MouseY - MinY) / HueSlider.AbsoluteSize.Y
 						Display()
 
 						RenderStepped:Wait()
@@ -5987,14 +8958,30 @@ ElementsTable.GradientPicker = (function()
 				end
 			end)
 
+			Creator.AddSignal(AlphaSlider.InputBegan, function(Input)
+				if IsPointerDown(Input) then
+					while UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
+						local MinY = AlphaSlider.AbsolutePosition.Y
+						local MouseY = math.clamp(Mouse.Y, MinY, MinY + AlphaSlider.AbsoluteSize.Y)
+
+						AlphaStops[SelectedAlpha].Value = 1 - ((MouseY - MinY) / AlphaSlider.AbsoluteSize.Y)
+						Display()
+
+						RenderStepped:Wait()
+					end
+				end
+			end)
+
+			RebuildMarkers()
 			Display()
 
 			local DoneButton = Dialog:Button("Done", function()
-				GradientPicker:SetHSV(Slots.Start, Slots["End"])
-			end)
-			local CancelButton = Dialog:Button("Cancel")
+				GradientPicker.Rotation = math.clamp(Rotation, 0, 360)
+				GradientPicker:SetStops(ColorStops, HasTransparency and AlphaStops or nil)
+			end, "Suggested")
+			local CancelButton = Dialog:Button("Cancel", nil, "Standard")
 
-			for _, Btn in next, { DoneButton, CancelButton } do
+			for _, Btn in next, { CancelButton } do
 				Creator.OverrideTag(Btn.Frame, { BackgroundColor3 = "ColorpickerButton" })
 				Creator.OverrideTag(Btn.Frame.UIStroke, { Color = "ColorpickerButtonBorder" })
 			end
@@ -6003,18 +8990,30 @@ ElementsTable.GradientPicker = (function()
 		end
 
 		function GradientPicker:Display()
-			GradientPicker.Value = ColorSequence.new(hsvToColor3(GradientPicker.StartHSV), hsvToColor3(GradientPicker.EndHSV))
+			GradientPicker.Value = BuildColorSequence(GradientPicker.Stops)
+			GradientPicker.Transparency = HasTransparency and BuildNumberSequence(GradientPicker.AlphaStops) or NumberSequence.new(0)
 
 			DisplayFrameGradient.Color = GradientPicker.Value
 			DisplayFrameGradient.Rotation = GradientPicker.Rotation
+			DisplayFrameGradient.Transparency = GradientPicker.Transparency
 
-			Element.Library:SafeCallback(GradientPicker.Callback, GradientPicker.Value, GradientPicker.Rotation)
-			Element.Library:SafeCallback(GradientPicker.Changed, GradientPicker.Value, GradientPicker.Rotation)
+			Element.Library:SafeCallback(GradientPicker.Callback, GradientPicker.Value, GradientPicker.Rotation, GradientPicker.Transparency)
+			Element.Library:SafeCallback(GradientPicker.Changed, GradientPicker.Value, GradientPicker.Rotation, GradientPicker.Transparency)
+		end
+
+		function GradientPicker:SetStops(ColorStops, AlphaStops)
+			GradientPicker.Stops = CopyStops(ColorStops)
+			if AlphaStops then
+				GradientPicker.AlphaStops = CopyStops(AlphaStops)
+			end
+			GradientPicker:Display()
 		end
 
 		function GradientPicker:SetHSV(StartHSV, EndHSV)
-			GradientPicker.StartHSV = { Hue = StartHSV.Hue, Sat = StartHSV.Sat, Vib = StartHSV.Vib }
-			GradientPicker.EndHSV = { Hue = EndHSV.Hue, Sat = EndHSV.Sat, Vib = EndHSV.Vib }
+			GradientPicker.Stops = {
+				{ Time = 0, Hue = StartHSV.Hue, Sat = StartHSV.Sat, Vib = StartHSV.Vib },
+				{ Time = 1, Hue = EndHSV.Hue, Sat = EndHSV.Sat, Vib = EndHSV.Vib },
+			}
 			GradientPicker:Display()
 		end
 
@@ -6024,13 +9023,19 @@ ElementsTable.GradientPicker = (function()
 		end
 
 		function GradientPicker:SetValueSequence(Sequence)
-			GradientPicker.StartHSV, GradientPicker.EndHSV = KeypointsFromSequence(Sequence)
+			GradientPicker.Stops = StopsFromSequence(Sequence)
+			GradientPicker:Display()
+		end
+
+		function GradientPicker:SetTransparency(Value)
+			HasTransparency = true
+			GradientPicker.AlphaStops = AlphaStopsFromValue(Value)
 			GradientPicker:Display()
 		end
 
 		function GradientPicker:OnChanged(Func)
 			GradientPicker.Changed = Func
-			Func(GradientPicker.Value)
+			Func(GradientPicker.Value, GradientPicker.Rotation, GradientPicker.Transparency)
 		end
 
 		function GradientPicker:Destroy()
@@ -6053,6 +9058,30 @@ end)()
 
 ElementsTable.Dropdown = (function()
 	local New = Creator.New
+
+	local SortAliases = {
+		load = "Load",
+		loaded = "Load",
+		order = "Load",
+		default = "Load",
+		none = "Load",
+		alphabet = "Alphabetical",
+		alphabetical = "Alphabetical",
+		alpha = "Alphabetical",
+		unicode = "Alphabetical",
+		az = "Alphabetical",
+		sorted = "Alphabetical",
+		desc = "AlphabeticalDesc",
+		alphabeticaldesc = "AlphabeticalDesc",
+		za = "AlphabeticalDesc",
+	}
+
+	local function ResolveSortMode(Mode)
+		if type(Mode) ~= "string" then
+			return "Alphabetical"
+		end
+		return SortAliases[Mode:lower()] or "Alphabetical"
+	end
 
 	local Element = {}
 	Element.__index = Element
@@ -6077,6 +9106,7 @@ ElementsTable.Dropdown = (function()
 			Values = Config.Values,
 			Value = InitialValue,
 			Multi = Config.Multi,
+			SortMode = ResolveSortMode(Config.SortMode),
 			Buttons = {},
 			Opened = false,
 			Type = "Dropdown",
@@ -6085,7 +9115,7 @@ ElementsTable.Dropdown = (function()
 
 		local IsGrouped = self.Type == "Group" or self.Type == "HStack" or self.Type == "VStack"
 
-		local DropdownFrame = Components.Element(Config.Title, Config.Description, self.Container, false, Config.LayoutOrder, Config.Icon, Config.Marquee)
+		local DropdownFrame = Components.Element(Config.Title, Config.Description, self.Container, "Hover", Config.LayoutOrder, Config.Icon, Config.Marquee, Config.Locked, Config.Tooltip, Config.RichText)
 
 		local DropdownRow = New("Frame", {
 			BackgroundTransparency = 1,
@@ -6097,6 +9127,8 @@ ElementsTable.Dropdown = (function()
 
 		Dropdown.SetTitle = DropdownFrame.SetTitle
 		Dropdown.SetDesc = DropdownFrame.SetDesc
+		Dropdown.SetRichText = DropdownFrame.SetRichText
+		DropdownFrame.LockHandle.Bind(Dropdown)
 
 		local DropdownDisplay = New("TextLabel", {
 			FontFace = Font.new(Library.Font, Enum.FontWeight.Regular, Enum.FontStyle.Normal),
@@ -6146,6 +9178,7 @@ ElementsTable.Dropdown = (function()
 				ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
 				ThemeTag = {
 					Color = "InElementBorder",
+					Transparency = "InElementBorderTransparency",
 				},
 			}),
 			DropdownIco,
@@ -6162,28 +9195,25 @@ ElementsTable.Dropdown = (function()
 
 		local DropdownListLayout = New("UIListLayout", {
 			Padding = UDim.new(0, 3),
+			SortOrder = Enum.SortOrder.LayoutOrder,
 		})
 
-		local DROPDOWN_Z_INDEX = 100000 -- keeps the list above every window layer
+		local DROPDOWN_Z_INDEX = 100000
 
 		local DropdownScrollFrame = New("ScrollingFrame", {
 			Size = UDim2.new(1, -5, 1, -10),
 			Position = UDim2.fromOffset(5, 5),
 			BackgroundTransparency = 1,
-			ScrollBarImageColor3 = Color3.fromRGB(200, 200, 200),
-			ScrollBarImageTransparency = 0.4,
-			ScrollBarThickness = 3,
 			BorderSizePixel = 0,
 			CanvasSize = UDim2.fromScale(0, 0),
 			ScrollingDirection = Enum.ScrollingDirection.Y,
 			ElasticBehavior = Enum.ElasticBehavior.Always,
 			ZIndex = DROPDOWN_Z_INDEX + 2,
-			ThemeTag = {
-				ScrollBarImageColor3 = "SubText",
-			},
 		}, {
 			DropdownListLayout,
 		})
+
+		Creator.AttachScrollBar(DropdownScrollFrame, { Thickness = 6 })
 
 		local DropdownSearchBox, DropdownSearchHolder
 		if Config.Search then
@@ -6250,6 +9280,7 @@ ElementsTable.Dropdown = (function()
 				ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
 				ThemeTag = {
 					Color = "DropdownBorder",
+					Transparency = "DropdownBorderTransparency",
 				},
 			}),
 			New("ImageLabel", {
@@ -6268,19 +9299,25 @@ ElementsTable.Dropdown = (function()
 			table.insert(DropdownHolderChildren, DropdownSearchHolder)
 		end
 
+		table.insert(DropdownHolderChildren, New("UIGradient", {
+			ThemeTag = {
+				Color = "DropdownHolder",
+				Rotation = "DropdownHolderRotation",
+				Transparency = "DropdownHolderTransparency",
+			},
+		}))
+
 		local DropdownHolderFrame = New("Frame", {
 			Size = UDim2.fromScale(1, 1),
+			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 			BackgroundTransparency = 0,
 			ZIndex = DROPDOWN_Z_INDEX + 1,
-			ThemeTag = {
-				BackgroundColor3 = "DropdownHolder",
-			},
 		}, DropdownHolderChildren)
 
 		local DropdownHolderCanvas = New("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.fromOffset(170, 300),
-			Parent = self.Library.GUI,
+			Parent = self.Library.Scaler,
 			Visible = false,
 			ZIndex = DROPDOWN_Z_INDEX,
 		}, {
@@ -6293,14 +9330,15 @@ ElementsTable.Dropdown = (function()
 
 		local function RecalculateListPosition()
 			local Add = 0
-			if Camera.ViewportSize.Y - DropdownInner.AbsolutePosition.Y < DropdownHolderCanvas.AbsoluteSize.Y - 5 then
-				Add = DropdownHolderCanvas.AbsoluteSize.Y
-					- 5
-					- (Camera.ViewportSize.Y - DropdownInner.AbsolutePosition.Y)
-					+ 40
+			local DPI = Library.DPIScale
+			local ViewportY = Camera.ViewportSize.Y / DPI
+			local InnerX = DropdownInner.AbsolutePosition.X / DPI
+			local InnerY = DropdownInner.AbsolutePosition.Y / DPI
+			local CanvasY = DropdownHolderCanvas.AbsoluteSize.Y / DPI
+			if ViewportY - InnerY < CanvasY - 5 then
+				Add = CanvasY - 5 - (ViewportY - InnerY) + 40
 			end
-			DropdownHolderCanvas.Position =
-				UDim2.fromOffset(DropdownInner.AbsolutePosition.X - 1, DropdownInner.AbsolutePosition.Y - 5 - Add)
+			DropdownHolderCanvas.Position = UDim2.fromOffset(InnerX - 1, InnerY - 5 - Add)
 		end
 
 		local ListSizeX = 0
@@ -6319,18 +9357,19 @@ ElementsTable.Dropdown = (function()
 			local SearchHeight = DropdownSearchHolder and 38 or 0
 			local Content = VisibleCount > 0 and (VisibleCount * ItemHeight + (VisibleCount - 1) * ItemPadding) or 0
 			local Height = math.min(Content + InnerMargins + SearchHeight, 392)
-			local Width = math.max(DropdownInner.AbsoluteSize.X, ListSizeX)
+			local Width = math.max(DropdownInner.AbsoluteSize.X / Library.DPIScale, ListSizeX)
 
 			DropdownHolderCanvas.Size = UDim2.fromOffset(Width, Height)
 			RecalculateListPosition()
 		end
 
 		local function RecalculateCanvasSize()
-			DropdownScrollFrame.CanvasSize = UDim2.fromOffset(0, DropdownListLayout.AbsoluteContentSize.Y)
+			DropdownScrollFrame.CanvasSize = UDim2.fromOffset(0, DropdownListLayout.AbsoluteContentSize.Y / Library.DPIScale)
 		end
 
 		RecalculateListPosition()
 		RecalculateListSize()
+		Dropdown.RecalculateListSize = RecalculateListSize
 
 		Creator.AddSignal(DropdownListLayout:GetPropertyChangedSignal("AbsoluteContentSize"), function()
 			RecalculateCanvasSize()
@@ -6399,6 +9438,12 @@ ElementsTable.Dropdown = (function()
 			SetIcoRotation(0)
 		end
 
+		DropdownFrame.LockHandle.OnChanged = function(Value)
+			if Value and Dropdown.Opened then
+				Dropdown:Close()
+			end
+		end
+
 		if DropdownSearchBox then
 			Creator.AddSignal(DropdownSearchBox:GetPropertyChangedSignal("Text"), function()
 				Dropdown:FilterOptions(DropdownSearchBox.Text)
@@ -6447,36 +9492,49 @@ ElementsTable.Dropdown = (function()
 				end
 			end
 
-			local letters, numbers = {}, {}
-			for _, v in ipairs(rawValues) do
-				local first = tostring(v):sub(1, 1)
-				if first:match("%d") then
-					table.insert(numbers, v)
-				else
-					table.insert(letters, v)
-				end
-			end
-			table.sort(letters, function(a, b)
-				return tostring(a):lower() < tostring(b):lower()
-			end)
-			table.sort(numbers, function(a, b)
-				return tonumber(tostring(a):match("^%d+")) < tonumber(tostring(b):match("^%d+"))
-			end)
 			local Values = {}
-			for _, v in ipairs(letters) do table.insert(Values, v) end
-			for _, v in ipairs(numbers) do table.insert(Values, v) end
+			if Dropdown.SortMode == "Load" then
+				for _, v in ipairs(rawValues) do
+					table.insert(Values, v)
+				end
+			else
+				local letters, numbers = {}, {}
+				for _, v in ipairs(rawValues) do
+					local first = tostring(v):sub(1, 1)
+					if first:match("%d") then
+						table.insert(numbers, v)
+					else
+						table.insert(letters, v)
+					end
+				end
+
+				local Descending = Dropdown.SortMode == "AlphabeticalDesc"
+				table.sort(letters, function(a, b)
+					local A, B = tostring(a):lower(), tostring(b):lower()
+					if A == B then
+						A, B = tostring(a), tostring(b)
+					end
+					if Descending then
+						return A > B
+					end
+					return A < B
+				end)
+				table.sort(numbers, function(a, b)
+					local A, B = tonumber(tostring(a):match("^%d+")), tonumber(tostring(b):match("^%d+"))
+					if A == B then
+						A, B = tostring(a), tostring(b)
+					end
+					if Descending then
+						return A > B
+					end
+					return A < B
+				end)
+
+				for _, v in ipairs(letters) do table.insert(Values, v) end
+				for _, v in ipairs(numbers) do table.insert(Values, v) end
+			end
 
 			local Count = 0
-
-			local CheckIconData
-			if Library.NewVisual then
-				local Ok, Icon = pcall(function()
-					return Library:GetIcon("check")
-				end)
-				if Ok and type(Icon) == "table" and Icon.Image then
-					CheckIconData = Icon
-				end
-			end
 
 			for Idx, Value in next, Values do
 				local Table = {}
@@ -6490,41 +9548,20 @@ ElementsTable.Dropdown = (function()
 				local ButtonSelector
 				local SelectorProp
 				if NewVisual then
-					if CheckIconData then
-						ButtonSelector = New("ImageLabel", {
-							Name = "ButtonCheck",
-							Image = CheckIconData.Image,
-							ImageRectOffset = CheckIconData.ImageRectOffset or Vector2.zero,
-							ImageRectSize = CheckIconData.ImageRectSize or Vector2.zero,
-							Size = UDim2.fromOffset(14, 14),
-							Position = UDim2.new(0, 10, 0.5, 0),
-							AnchorPoint = Vector2.new(0, 0.5),
-							BackgroundTransparency = 1,
-							ImageTransparency = 1,
-							ZIndex = DROPDOWN_Z_INDEX + 4,
-							ThemeTag = {
-								ImageColor3 = "Accent",
-							},
-						})
-						SelectorProp = "ImageTransparency"
-					else
-						ButtonSelector = New("TextLabel", {
-							Name = "ButtonCheck",
-							Text = "v",
-							TextSize = 13,
-							FontFace = Font.new(Library.Font, Enum.FontWeight.Bold, Enum.FontStyle.Normal),
-							Size = UDim2.fromOffset(14, 14),
-							Position = UDim2.new(0, 10, 0.5, 0),
-							AnchorPoint = Vector2.new(0, 0.5),
-							BackgroundTransparency = 1,
-							TextTransparency = 1,
-							ZIndex = DROPDOWN_Z_INDEX + 4,
-							ThemeTag = {
-								TextColor3 = "Accent",
-							},
-						})
-						SelectorProp = "TextTransparency"
-					end
+					ButtonSelector = New("ImageLabel", {
+						Name = "ButtonCheck",
+						Image = "rbxassetid://93898873302694",
+						Size = UDim2.fromOffset(14, 14),
+						Position = UDim2.new(0, 10, 0.5, 0),
+						AnchorPoint = Vector2.new(0, 0.5),
+						BackgroundTransparency = 1,
+						ImageTransparency = 1,
+						ZIndex = DROPDOWN_Z_INDEX + 4,
+						ThemeTag = {
+							ImageColor3 = "Accent",
+						},
+					})
+					SelectorProp = "ImageTransparency"
 				else
 					ButtonSelector = New("Frame", {
 						Size = UDim2.fromOffset(4, 6),
@@ -6567,6 +9604,7 @@ ElementsTable.Dropdown = (function()
 					BackgroundTransparency = 1,
 					ZIndex = DROPDOWN_Z_INDEX + 3,
 					Text = "",
+					LayoutOrder = Count,
 					Parent = DropdownScrollFrame,
 					ThemeTag = {
 						BackgroundColor3 = "DropdownOption",
@@ -6604,16 +9642,16 @@ ElementsTable.Dropdown = (function()
 				end)
 
 				Creator.AddSignal(Button.MouseEnter, function()
-					SetBackTransparency(Selected and 0.85 or 0.89)
+					SetBackTransparency(Selected and Creator.HoverShift(0.89, 0.04) or Creator.HoverShift(1, 0.11))
 				end)
 				Creator.AddSignal(Button.MouseLeave, function()
 					SetBackTransparency(Selected and 0.89 or 1)
 				end)
 				Creator.AddSignal(Button.MouseButton1Down, function()
-					SetBackTransparency(0.92)
+					SetBackTransparency(Creator.HoverShift(1, 0.08))
 				end)
 				Creator.AddSignal(Button.MouseButton1Up, function()
-					SetBackTransparency(Selected and 0.85 or 0.89)
+					SetBackTransparency(Selected and Creator.HoverShift(0.89, 0.04) or Creator.HoverShift(1, 0.11))
 				end)
 
 				function Table:UpdateButton()
@@ -6682,6 +9720,11 @@ ElementsTable.Dropdown = (function()
 			if DropdownSearchBox then
 				Dropdown:FilterOptions(DropdownSearchBox.Text)
 			end
+		end
+
+		function Dropdown:SetSortMode(Mode)
+			Dropdown.SortMode = ResolveSortMode(Mode)
+			Dropdown:BuildDropdownList()
 		end
 
 		function Dropdown:SetValues(NewValues)
@@ -6796,7 +9839,7 @@ ElementsTable.Input = (function()
 
 		local IsGrouped = self.Type == "Group" or self.Type == "HStack" or self.Type == "VStack"
 
-		local InputFrame = Components.Element(Config.Title, Config.Description, self.Container, false, Config.LayoutOrder, Config.Icon, Config.Marquee)
+		local InputFrame = Components.Element(Config.Title, Config.Description, self.Container, "Hover", Config.LayoutOrder, Config.Icon, Config.Marquee, Config.Locked, Config.Tooltip, Config.RichText)
 
 		local InputRow = New("Frame", {
 			BackgroundTransparency = 1,
@@ -6808,6 +9851,8 @@ ElementsTable.Input = (function()
 
 		Input.SetTitle = InputFrame.SetTitle
 		Input.SetDesc = InputFrame.SetDesc
+		Input.SetRichText = InputFrame.SetRichText
+		InputFrame.LockHandle.Bind(Input)
 
 		local Textbox = Components.Textbox(IsGrouped and InputRow or InputFrame.Frame, true)
 		Creator.Adaptive(InputFrame, 170, 340, not IsGrouped, function(Inline)
@@ -6895,13 +9940,15 @@ ElementsTable.Keybind = (function()
 
 		local IsGrouped = self.Type == "Group" or self.Type == "HStack" or self.Type == "VStack"
 
-		local KeybindFrame = Components.Element(Config.Title, Config.Description, self.Container, true, Config.LayoutOrder, Config.Icon, Config.Marquee)
+		local KeybindFrame = Components.Element(Config.Title, Config.Description, self.Container, true, Config.LayoutOrder, Config.Icon, Config.Marquee, Config.Locked, Config.Tooltip, Config.RichText)
 
 		KeybindFrame.TitleLabel.Size = UDim2.new(1, -70, 0, 14)
 		KeybindFrame.DescLabel.Size = UDim2.new(1, -70, 0, 14)
 
 		Keybind.SetTitle = KeybindFrame.SetTitle
 		Keybind.SetDesc = KeybindFrame.SetDesc
+		Keybind.SetRichText = KeybindFrame.SetRichText
+		KeybindFrame.LockHandle.Bind(Keybind)
 
 		local KeybindDisplayLabel = New("TextLabel", {
 			FontFace = Font.new(Library.Font, Enum.FontWeight.Regular, Enum.FontStyle.Normal),
@@ -6943,13 +9990,14 @@ ElementsTable.Keybind = (function()
 				ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
 				ThemeTag = {
 					Color = "InElementBorder",
+					Transparency = "InElementBorderTransparency",
 				},
 			}),
 			KeybindDisplayLabel,
 		})
 
 		function Keybind:GetState()
-			if UserInputService:GetFocusedTextBox() and Keybind.Mode ~= "Always" then
+			if (Keybind.Locked or UserInputService:GetFocusedTextBox()) and Keybind.Mode ~= "Always" then
 				return false
 			end
 
@@ -7048,7 +10096,7 @@ ElementsTable.Keybind = (function()
 		end)
 
 		Creator.AddSignal(UserInputService.InputBegan, function(Input)
-			if not Picking and not UserInputService:GetFocusedTextBox() then
+			if not Picking and not Keybind.Locked and not UserInputService:GetFocusedTextBox() then
 				if Keybind.Mode == "Toggle" then
 					local Key = Keybind.Value
 
@@ -7086,14 +10134,16 @@ ElementsTable.Paragraph = (function()
 		assert(Config.Title, "Paragraph - Missing Title")
 		Config.Content = Config.Content or ""
 
-		local ParagraphFrame = Components.Element(Config.Title, Config.Content, Paragraph.Container, false, Config.LayoutOrder, Config.Icon, Config.Marquee == true)
+		local ParagraphFrame = Components.Element(Config.Title, Config.Content, Paragraph.Container, false, Config.LayoutOrder, Config.Icon, Config.Marquee == true, Config.Locked, Config.Tooltip, Config.RichText)
 		ParagraphFrame.Frame.BackgroundTransparency = 0.92
 		ParagraphFrame.Border.Transparency = 0.6
 
 		local Para = ParagraphFrame
 		Para.SetTitle = ParagraphFrame.SetTitle
 		Para.SetDesc = ParagraphFrame.SetDesc
+		Para.SetRichText = ParagraphFrame.SetRichText
 		Para.SetContent = ParagraphFrame.SetDesc
+		ParagraphFrame.LockHandle.Bind(Para)
 
 		return Para
 	end
@@ -7127,13 +10177,13 @@ ElementsTable.Slider = (function()
 
 		local Dragging = false
 		local UseButtons = Config.StepButtons == true
-		local LeftIconName = Config.LeftIcon or (UseButtons and "minus" or nil)
-		local RightIconName = Config.RightIcon or (UseButtons and "plus" or nil)
+		local LeftIconName = Config.LeftIcon or (UseButtons and "rbxassetid://118026365011536" or nil)
+		local RightIconName = Config.RightIcon or (UseButtons and "rbxassetid://111774323017047" or nil)
 		local PadLeft = LeftIconName and 22 or 0
 		local PadRight = RightIconName and 22 or 0
 		local IsGrouped = self.Type == "Group" or self.Type == "HStack" or self.Type == "VStack"
 
-		local SliderFrame = Components.Element(Config.Title, Config.Description, self.Container, false, Config.LayoutOrder, Config.Icon, Config.Marquee)
+		local SliderFrame = Components.Element(Config.Title, Config.Description, self.Container, "Hover", Config.LayoutOrder, Config.Icon, Config.Marquee, Config.Locked, Config.Tooltip, Config.RichText)
 
 		local SliderDot, SliderRail, SliderFill, SliderDisplay, SliderInner, SliderRow, SliderHit, SliderValueTooltip, SliderConstraint, SliderTooltipStroke
 		local ShowTooltip, HideTooltip
@@ -7397,6 +10447,13 @@ ElementsTable.Slider = (function()
 
 		Slider.SetTitle = SliderFrame.SetTitle
 		Slider.SetDesc = SliderFrame.SetDesc
+		Slider.SetRichText = SliderFrame.SetRichText
+		SliderFrame.LockHandle.Bind(Slider)
+		SliderFrame.LockHandle.OnChanged = function(Value)
+			if Value then
+				Dragging = false
+			end
+		end
 
 		local function BeginDrag(Input)
 			if
@@ -7536,11 +10593,11 @@ ElementsTable.Slider = (function()
 				end)
 
 				Creator.AddSignal(Button.MouseEnter, function()
-					Button.ImageColor3 = Creator.GetThemeProperty("Text")
+					Creator.ApplyTag(Button, "ImageColor3", "Text")
 				end)
 
 				Creator.AddSignal(Button.MouseLeave, function()
-					Button.ImageColor3 = Creator.GetThemeProperty("SubText")
+					Creator.ApplyTag(Button, "ImageColor3", "SubText")
 				end)
 			end
 
@@ -7580,12 +10637,14 @@ ElementsTable.Toggle = (function()
 
 		local IsGrouped = self.Type == "Group" or self.Type == "HStack" or self.Type == "VStack"
 
-		local ToggleFrame = Components.Element(Config.Title, Config.Description, self.Container, true, Config.LayoutOrder, Config.Icon, Config.Marquee)
+		local ToggleFrame = Components.Element(Config.Title, Config.Description, self.Container, true, Config.LayoutOrder, Config.Icon, Config.Marquee, Config.Locked, Config.Tooltip, Config.RichText)
 		ToggleFrame.DescLabel.Size = UDim2.new(1, -54, 0, 14)
 		ToggleFrame.TitleLabel.Size = UDim2.new(1, -54, 0, 14)
 
 		Toggle.SetTitle = ToggleFrame.SetTitle
 		Toggle.SetDesc = ToggleFrame.SetDesc
+		Toggle.SetRichText = ToggleFrame.SetRichText
+		ToggleFrame.LockHandle.Bind(Toggle)
 
 		local ToggleCircle = New("ImageLabel", {
 			AnchorPoint = Vector2.new(0, 0.5),
@@ -7747,7 +10806,7 @@ ElementsTable.Image = (function()
 		})
 
 		local function RecalcAspectRatio()
-			local Width = Wrap.AbsoluteSize.X
+			local Width = Wrap.AbsoluteSize.X / Library.DPIScale
 			if Width > 0 and AspectRatio and AspectRatio > 0 then
 				Wrap.Size = UDim2.new(1, OffsetX, 0, math.floor(Width / AspectRatio))
 			end
@@ -7780,6 +10839,8 @@ ElementsTable.Image = (function()
 		task.spawn(ApplyImage, Config.Image or "")
 
 		local Image = { Frame = Wrap, Type = "Image" }
+
+		Creator.AttachLock(Wrap, Config.Locked, { Radius = Radius }).Bind(Image)
 
 		function Image:SetImage(Source)
 			task.spawn(ApplyImage, Source)
@@ -7876,7 +10937,7 @@ ElementsTable.Viewport = (function()
 
 		local function RecalculateAspect()
 			if not AspectRatio or AspectRatio <= 0 then return end
-			local Width = HolderFrame.AbsoluteSize.X
+			local Width = HolderFrame.AbsoluteSize.X / Library.DPIScale
 			if Width > 0 then
 				HolderFrame.Size = UDim2.new(1, OffsetX, 0, math.floor(Width / AspectRatio))
 			end
@@ -8190,6 +11251,8 @@ ElementsTable.Viewport = (function()
 
 		Viewport.Frame = HolderFrame
 
+		Creator.AttachLock(HolderFrame, Config.Locked, { Radius = Radius }).Bind(Viewport)
+
 		if Config.Object then
 			Viewport:SetObject(Config.Object, Config.Clone)
 		end
@@ -8315,6 +11378,8 @@ ElementsTable.Group = (function()
 			Elements = {},
 		}
 
+		Creator.AttachLock(OuterWrap, Config.Locked).Bind(Group)
+
 		function Group:AddElement()
 			local ElementFrame = New("Frame", {
 				Size = UDim2.new(ColumnScale, ColumnOffset, 0, 0),
@@ -8427,6 +11492,8 @@ ElementsTable.HStack = (function()
 			_elementCount = 0,
 		}
 
+		Creator.AttachLock(OuterWrap, Config.Locked).Bind(HStack)
+
 		function HStack:AddVStack(Config2)
 			Config2 = Config2 or {}
 			local ColumnGap = Config2.Gap or Gap
@@ -8500,7 +11567,7 @@ ElementsTable.VStack = (function()
 
 		local Gap = Config.Gap or 6
 
-		local OuterWrap = New("Frame", {
+		local LockHost = New("Frame", {
 			Size = UDim2.new(1, 0, 0, 0),
 			BackgroundTransparency = 1,
 			AutomaticSize = Enum.AutomaticSize.Y,
@@ -8508,6 +11575,15 @@ ElementsTable.VStack = (function()
 			ClipsDescendants = false,
 			LayoutOrder = Config.LayoutOrder or 0,
 			Parent = Parent,
+		})
+
+		local OuterWrap = New("Frame", {
+			Size = UDim2.new(1, 0, 0, 0),
+			BackgroundTransparency = 1,
+			AutomaticSize = Enum.AutomaticSize.Y,
+			BorderSizePixel = 0,
+			ClipsDescendants = false,
+			Parent = LockHost,
 		})
 
 		New("UIListLayout", {
@@ -8574,7 +11650,7 @@ ElementsTable.VStack = (function()
 		})
 
 		local VStack = setmetatable({
-			Frame = OuterWrap,
+			Frame = LockHost,
 			Container = ContentHolder,
 			Type = "VStack",
 			ScrollFrame = self.ScrollFrame,
@@ -8586,7 +11662,676 @@ ElementsTable.VStack = (function()
 
 		Creator.AttachTitleDesc(VStack, TitleLabel, DescLabel)
 
+		Creator.AttachLock(LockHost, Config.Locked).Bind(VStack)
+
 		return VStack
+	end
+
+	return Element
+end)()
+
+ElementsTable.Class = (function()
+	local New = Creator.New
+
+	local Element = {}
+	Element.__index = Element
+	Element.__type = "Class"
+
+	function Element:New(Idx, Config)
+		if type(Idx) == "table" and Config == nil then
+			Config = Idx
+			Idx = nil
+		end
+		Config = Config or {}
+
+		local Parent = self.Container
+		if not Parent then
+			return
+		end
+
+		local Library = self.Library
+		local ScrollFrame = self.ScrollFrame
+
+		local Class = {
+			Type = "Class",
+			Pages = {},
+			Selected = nil,
+			Value = nil,
+			AllowNull = Config.AllowNull == true,
+			_nullChosen = Config.Default == false,
+		}
+
+		local Root = New("Frame", {
+			Name = "ClassRoot",
+			Size = UDim2.new(1, 0, 0, 0),
+			AutomaticSize = Enum.AutomaticSize.Y,
+			BackgroundTransparency = 1,
+			LayoutOrder = Config.LayoutOrder or 0,
+			Parent = Parent,
+		}, {
+			New("UIListLayout", {
+				Padding = UDim.new(0, 6),
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
+		})
+
+		Class.Frame = Root
+		Class.Container = Root
+
+		local StripHolder = New("Frame", {
+			Name = "ClassStripHolder",
+			Size = UDim2.new(1, 0, 0, 36),
+			BackgroundTransparency = 1,
+			ClipsDescendants = true,
+			LayoutOrder = 1,
+			Parent = Root,
+		})
+
+		local Strip = New("ScrollingFrame", {
+			Name = "ClassStrip",
+			Size = UDim2.fromScale(1, 1),
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			ScrollBarThickness = 0,
+			ScrollingDirection = Enum.ScrollingDirection.X,
+			CanvasSize = UDim2.fromScale(0, 0),
+			AutomaticCanvasSize = Enum.AutomaticSize.X,
+			ElasticBehavior = Enum.ElasticBehavior.Never,
+			ClipsDescendants = true,
+			Parent = StripHolder,
+		}, {
+			New("UIListLayout", {
+				FillDirection = Enum.FillDirection.Horizontal,
+				Padding = UDim.new(0, 6),
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+			}),
+			New("UIPadding", {
+				PaddingLeft = UDim.new(0, 2),
+				PaddingRight = UDim.new(0, 2),
+			}),
+		})
+
+		New("Frame", {
+			Name = "ClassLine",
+			Size = UDim2.new(1, 0, 0, 1),
+			BackgroundTransparency = 0.6,
+			LayoutOrder = 2,
+			Parent = Root,
+			ThemeTag = {
+				BackgroundColor3 = "ElementBorder",
+			},
+		})
+
+		local PageHolder = New("Frame", {
+			Name = "ClassPages",
+			Size = UDim2.new(1, 0, 0, 0),
+			AutomaticSize = Enum.AutomaticSize.Y,
+			BackgroundTransparency = 1,
+			LayoutOrder = 3,
+			Parent = Root,
+		})
+
+		local Dragging = false
+		local Moved = false
+		local DragStartX = 0
+		local CanvasStart = 0
+
+		local function MaxCanvas()
+			return math.max(0, Strip.AbsoluteCanvasSize.X - Strip.AbsoluteWindowSize.X)
+		end
+
+		Creator.AddSignal(Strip.InputBegan, function(Input)
+			if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+				Dragging = true
+				Moved = false
+				DragStartX = Input.Position.X
+				CanvasStart = Strip.CanvasPosition.X
+			end
+		end)
+
+		Creator.AddSignal(UserInputService.InputChanged, function(Input)
+			if Dragging and Input.UserInputType == Enum.UserInputType.MouseMovement then
+				local Delta = Input.Position.X - DragStartX
+				if math.abs(Delta) > 4 then
+					Moved = true
+				end
+				if Moved then
+					Strip.CanvasPosition = Vector2.new(math.clamp(CanvasStart - Delta, 0, MaxCanvas()), 0)
+				end
+			end
+		end)
+
+		Creator.AddSignal(UserInputService.InputEnded, function(Input)
+			if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+				Dragging = false
+			end
+		end)
+
+		Creator.AddSignal(Strip.InputChanged, function(Input)
+			if Input.UserInputType == Enum.UserInputType.MouseWheel then
+				Strip.CanvasPosition = Vector2.new(math.clamp(Strip.CanvasPosition.X - Input.Position.Z * 48, 0, MaxCanvas()), 0)
+			end
+		end)
+
+		local function ScrollIntoView(Chip)
+			local WindowWidth = Strip.AbsoluteWindowSize.X
+			local Position = Strip.CanvasPosition.X
+			local Left = Chip.AbsolutePosition.X - Strip.AbsolutePosition.X + Position
+			local Right = Left + Chip.AbsoluteSize.X
+			local Target = Position
+
+			if Left - 8 < Position then
+				Target = Left - 8
+			elseif Right + 8 > Position + WindowWidth then
+				Target = Right + 8 - WindowWidth
+			end
+
+			Target = math.clamp(Target, 0, MaxCanvas())
+			if math.abs(Target - Position) > 1 then
+				TweenService:Create(Strip, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+					CanvasPosition = Vector2.new(Target, 0),
+				}):Play()
+			end
+		end
+
+		local function MakeHint(Side)
+			local IsLeft = Side == "Left"
+			local Hint = {
+				Shown = false,
+			}
+
+			Hint.Root = New("CanvasGroup", {
+				Name = "ClassHint" .. Side,
+				AnchorPoint = Vector2.new(IsLeft and 0 or 1, 0.5),
+				Position = UDim2.new(IsLeft and 0 or 1, IsLeft and 2 or -2, 0.5, 0),
+				Size = UDim2.fromOffset(0, 24),
+				AutomaticSize = Enum.AutomaticSize.X,
+				BackgroundTransparency = 0,
+				GroupTransparency = 1,
+				Visible = false,
+				ZIndex = 6,
+				Parent = StripHolder,
+				ThemeTag = {
+					BackgroundColor3 = "ClassHint",
+				},
+			}, {
+				New("UICorner", {
+					CornerRadius = UDim.new(0, 6),
+				}),
+				New("UIStroke", {
+					ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+					ThemeTag = {
+						Color = "ClassHintBorder",
+						Transparency = "ClassHintBorderTransparency",
+					},
+				}),
+			})
+
+			local Content = New("Frame", {
+				Name = "Content",
+				Size = UDim2.new(0, 0, 1, 0),
+				AutomaticSize = Enum.AutomaticSize.X,
+				BackgroundTransparency = 1,
+				Parent = Hint.Root,
+			}, {
+				New("UIListLayout", {
+					FillDirection = Enum.FillDirection.Horizontal,
+					Padding = UDim.new(0, 3),
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+				}),
+				New("UIPadding", {
+					PaddingLeft = UDim.new(0, 6),
+					PaddingRight = UDim.new(0, 8),
+				}),
+			})
+
+			local ChevronIcon = Library:GetIcon(IsLeft and "chevron-left" or "chevron-right")
+
+			New("ImageLabel", {
+				Name = "Chevron",
+				Size = UDim2.fromOffset(12, 12),
+				BackgroundTransparency = 1,
+				Image = ChevronIcon and ChevronIcon.Image or "rbxassetid://134243273101015",
+				ImageRectOffset = ChevronIcon and ChevronIcon.ImageRectOffset or Vector2.zero,
+				ImageRectSize = ChevronIcon and ChevronIcon.ImageRectSize or Vector2.zero,
+				Rotation = ChevronIcon and 0 or (IsLeft and 90 or -90),
+				LayoutOrder = 1,
+				Parent = Content,
+				ThemeTag = {
+					ImageColor3 = "ClassHintText",
+				},
+			})
+
+			Hint.Count = New("TextLabel", {
+				Name = "Count",
+				Text = "0",
+				FontFace = Font.new(Library.Font, Enum.FontWeight.Medium, Enum.FontStyle.Normal),
+				TextSize = 12,
+				Size = UDim2.new(0, 0, 1, 0),
+				AutomaticSize = Enum.AutomaticSize.X,
+				BackgroundTransparency = 1,
+				LayoutOrder = 2,
+				Parent = Content,
+				ThemeTag = {
+					TextColor3 = "ClassHintText",
+				},
+			})
+
+			Hint.Hit = New("TextButton", {
+				Name = "Hit",
+				Text = "",
+				AutoButtonColor = false,
+				BackgroundTransparency = 1,
+				Size = UDim2.fromScale(1, 1),
+				ZIndex = 8,
+				Parent = Hint.Root,
+			})
+
+			function Hint:Set(Show, Count)
+				Hint.Count.Text = tostring(Count)
+				if Hint.Shown == Show then
+					return
+				end
+				Hint.Shown = Show
+				if Show then
+					Hint.Root.Visible = true
+				end
+				TweenService:Create(Hint.Root, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+					GroupTransparency = Show and 0 or 1,
+				}):Play()
+				if not Show then
+					task.delay(0.17, function()
+						if not Hint.Shown and Hint.Root.Parent then
+							Hint.Root.Visible = false
+						end
+					end)
+				end
+			end
+
+			return Hint
+		end
+
+		local LeftHint = MakeHint("Left")
+		local RightHint = MakeHint("Right")
+		local HintQueued = false
+
+		local function UpdateHints()
+			HintQueued = false
+			if not Strip.Parent then
+				return
+			end
+
+			local Max = MaxCanvas()
+			local Position = Strip.CanvasPosition.X
+			local WindowWidth = Strip.AbsoluteWindowSize.X
+			local LeftCount = 0
+			local RightCount = 0
+
+			if Max > 1 then
+				for _, Page in ipairs(Class.Pages) do
+					local Chip = Page.Chip
+					local Center = Chip.AbsolutePosition.X - Strip.AbsolutePosition.X + Position + Chip.AbsoluteSize.X / 2
+					if Center < Position then
+						LeftCount = LeftCount + 1
+					elseif Center > Position + WindowWidth then
+						RightCount = RightCount + 1
+					end
+				end
+			end
+
+			LeftHint:Set(LeftCount > 0 and Position > 1, LeftCount)
+			RightHint:Set(RightCount > 0 and Position < Max - 1, RightCount)
+		end
+
+		local function QueueHints()
+			if HintQueued then
+				return
+			end
+			HintQueued = true
+			task.defer(UpdateHints)
+		end
+
+		local function ScrollTo(Target)
+			Target = math.clamp(Target, 0, MaxCanvas())
+			TweenService:Create(Strip, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				CanvasPosition = Vector2.new(Target, 0),
+			}):Play()
+		end
+
+		Creator.AddSignal(Strip:GetPropertyChangedSignal("CanvasPosition"), QueueHints)
+		Creator.AddSignal(Strip:GetPropertyChangedSignal("AbsoluteWindowSize"), QueueHints)
+		Creator.AddSignal(Strip:GetPropertyChangedSignal("AbsoluteCanvasSize"), QueueHints)
+
+		Creator.AddSignal(LeftHint.Hit.MouseButton1Click, function()
+			ScrollTo(0)
+		end)
+		Creator.AddSignal(RightHint.Hit.MouseButton1Click, function()
+			ScrollTo(MaxCanvas())
+		end)
+
+		local function RefreshChip(Page, Instant)
+			local Selected = Class.Selected == Page
+			local Info = Instant and TweenInfo.new(0) or TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+			local ToneTag = Selected and "Text" or "SubText"
+
+			TweenService:Create(Page.Chip, Info, {
+				BackgroundTransparency = Selected and 0.89 or 1,
+			}):Play()
+			TweenService:Create(Page.Label, Info, {
+				TextColor3 = Creator.PrepareTween(Page.Label, "TextColor3", ToneTag),
+			}):Play()
+			TweenService:Create(Page.Indicator, Info, {
+				BackgroundTransparency = Selected and 0 or 1,
+			}):Play()
+			if Page.IconLabel then
+				TweenService:Create(Page.IconLabel, Info, {
+					ImageColor3 = Creator.PrepareTween(Page.IconLabel, "ImageColor3", Selected and "Accent" or ToneTag),
+				}):Play()
+			end
+		end
+
+		function Class:Select(Value)
+			local Target
+
+			if type(Value) == "number" then
+				Target = Class.Pages[Value]
+			elseif type(Value) == "string" then
+				for _, Page in ipairs(Class.Pages) do
+					if Page.Name == Value then
+						Target = Page
+						break
+					end
+				end
+			elseif type(Value) == "table" then
+				Target = Value
+			end
+
+			if Value == nil or Value == false then
+				if not Class.AllowNull then
+					return
+				end
+				Target = nil
+				Class._nullChosen = true
+			elseif not Target then
+				return
+			end
+
+			if Class.Selected == Target then
+				return
+			end
+
+			Class.Selected = Target
+			Class.Value = Target and Target.Name or nil
+
+			for _, Page in ipairs(Class.Pages) do
+				Page.Frame.Visible = Page == Target
+				RefreshChip(Page)
+			end
+
+			if Target then
+				task.defer(ScrollIntoView, Target.Chip)
+			end
+
+		end
+
+		Class.SelectClass = Class.Select
+
+		function Class:GetSelected()
+			return Class.Selected, Class.Value
+		end
+
+		function Class:GetPage(Value)
+			if type(Value) == "number" then
+				return Class.Pages[Value]
+			end
+			for _, Page in ipairs(Class.Pages) do
+				if Page.Name == Value then
+					return Page
+				end
+			end
+		end
+
+		function Class:Destroy()
+			Root:Destroy()
+		end
+
+		function Class:AddPage(PageConfig)
+			if type(PageConfig) == "string" then
+				PageConfig = { Title = PageConfig }
+			end
+			PageConfig = PageConfig or {}
+
+			local Order = #Class.Pages + 1
+			local Title = PageConfig.Title or ("Page " .. Order)
+
+			local PageFrame = New("Frame", {
+				Name = "ClassPage",
+				Size = UDim2.new(1, 0, 0, 0),
+				AutomaticSize = Enum.AutomaticSize.Y,
+				BackgroundTransparency = 1,
+				Visible = false,
+				Parent = PageHolder,
+			}, {
+				New("UIListLayout", {
+					Padding = UDim.new(0, 5),
+					SortOrder = Enum.SortOrder.LayoutOrder,
+				}),
+			})
+
+			local Page = {
+				Type = "Page",
+				Name = Title,
+				Frame = PageFrame,
+				Container = PageFrame,
+				ScrollFrame = ScrollFrame,
+				Library = Library,
+				Class = Class,
+				Order = Order,
+				_layoutOrder = 0,
+			}
+
+			local IconData = PageConfig.Icon and Library:GetIcon(PageConfig.Icon)
+
+			local Chip = New("TextButton", {
+				Name = "ClassTab",
+				Text = "",
+				AutoButtonColor = false,
+				Size = UDim2.new(0, 0, 0, 30),
+				AutomaticSize = Enum.AutomaticSize.X,
+				BackgroundTransparency = 1,
+				LayoutOrder = Order,
+				Parent = Strip,
+				ThemeTag = {
+					BackgroundColor3 = "Tab",
+				},
+			}, {
+				New("UICorner", {
+					CornerRadius = UDim.new(0, 6),
+				}),
+			})
+
+			local Content = New("Frame", {
+				Name = "Content",
+				Size = UDim2.new(0, 0, 1, 0),
+				AutomaticSize = Enum.AutomaticSize.X,
+				BackgroundTransparency = 1,
+				Parent = Chip,
+			}, {
+				New("UIListLayout", {
+					FillDirection = Enum.FillDirection.Horizontal,
+					Padding = UDim.new(0, 6),
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+				}),
+				New("UIPadding", {
+					PaddingLeft = UDim.new(0, 10),
+					PaddingRight = UDim.new(0, 12),
+				}),
+			})
+
+			if type(IconData) == "table" then
+				Page.IconLabel = New("ImageLabel", {
+					Name = "Icon",
+					Size = UDim2.fromOffset(15, 15),
+					BackgroundTransparency = 1,
+					Image = IconData.Image,
+					ImageRectOffset = IconData.ImageRectOffset or Vector2.zero,
+					ImageRectSize = IconData.ImageRectSize or Vector2.zero,
+					LayoutOrder = 1,
+					Parent = Content,
+				})
+			end
+
+			Page.Label = New("TextLabel", {
+				Name = "Label",
+				Text = Title,
+				FontFace = Font.new(Library.Font, Enum.FontWeight.Medium, Enum.FontStyle.Normal),
+				TextSize = 13,
+				Size = UDim2.new(0, 0, 1, 0),
+				AutomaticSize = Enum.AutomaticSize.X,
+				BackgroundTransparency = 1,
+				LayoutOrder = 2,
+				Parent = Content,
+			})
+
+			Page.Indicator = New("Frame", {
+				Name = "Indicator",
+				AnchorPoint = Vector2.new(0.5, 1),
+				Position = UDim2.new(0.5, 0, 1, 0),
+				Size = UDim2.new(1, -20, 0, 2),
+				BackgroundTransparency = 1,
+				Parent = Chip,
+				ThemeTag = {
+					BackgroundColor3 = "Accent",
+				},
+			}, {
+				New("UICorner", {
+					CornerRadius = UDim.new(1, 0),
+				}),
+			})
+
+			Page.Chip = Chip
+
+			Creator.AddSignal(Chip.MouseEnter, function()
+				if Class.Selected ~= Page then
+					TweenService:Create(Chip, TweenInfo.new(0.12), {
+						BackgroundTransparency = Creator.HoverShift(1, 0.11),
+					}):Play()
+				end
+			end)
+			Creator.AddSignal(Chip.MouseLeave, function()
+				if Class.Selected ~= Page then
+					TweenService:Create(Chip, TweenInfo.new(0.12), {
+						BackgroundTransparency = 1,
+					}):Play()
+				end
+			end)
+			Creator.AddSignal(Chip.MouseButton1Click, function()
+				if Moved then
+					Moved = false
+					return
+				end
+				if Class.Selected == Page then
+					if Class.AllowNull then
+						Class:Select(nil)
+					end
+				else
+					Class:Select(Page)
+				end
+			end)
+
+			function Page:AddSection(SectionTitle)
+				local Section = { Type = "Section", _layoutOrder = 0 }
+
+				Page._layoutOrder = Page._layoutOrder + 1
+				local SectionFrame = Components.Section(SectionTitle, PageFrame)
+				SectionFrame.Root.LayoutOrder = Page._layoutOrder
+
+				Section.Container = SectionFrame.Container
+				Section.ScrollFrame = ScrollFrame
+				Creator.AttachTitleDesc(Section, SectionFrame.TitleLabel, nil)
+
+				setmetatable(Section, Elements)
+				return Section
+			end
+			Page.Section = Page.AddSection
+
+			function Page:Select()
+				Class:Select(Page)
+			end
+
+			function Page:SetTitle(Text)
+				Page.Name = Text or ""
+				Page.Label.Text = Page.Name
+				if Class.Selected == Page then
+					Class.Value = Page.Name
+				end
+			end
+
+			function Page:Destroy()
+				local Index = table.find(Class.Pages, Page)
+				if Index then
+					table.remove(Class.Pages, Index)
+				end
+				for Position, Other in ipairs(Class.Pages) do
+					Other.Order = Position
+					Other.Chip.LayoutOrder = Position
+				end
+				local Wasselected = Class.Selected == Page
+				Chip:Destroy()
+				PageFrame:Destroy()
+				if Wasselected then
+					Class.Selected = nil
+					Class.Value = nil
+					local Next = Class.Pages[math.min(Index or 1, #Class.Pages)]
+					if Next then
+						Class:Select(Next)
+					end
+				end
+			end
+
+			setmetatable(Page, Elements)
+			table.insert(Class.Pages, Page)
+			RefreshChip(Page, true)
+
+			local Default = Config.Default
+			if Class.Selected == nil and not Class._nullChosen then
+				if Default == nil and Order == 1 then
+					Class:Select(Page)
+				elseif Default == Order or Default == Title then
+					Class:Select(Page)
+				end
+			end
+
+			return Page
+		end
+		Class.AddTab = Class.AddPage
+		Class.Page = Class.AddPage
+
+		if type(Config.Pages) == "table" then
+			for _, PageConfig in ipairs(Config.Pages) do
+				Class:AddPage(PageConfig)
+			end
+		end
+
+		Creator.OnThemeChanged(function()
+			if not Root.Parent then
+				return
+			end
+			for _, Page in ipairs(Class.Pages) do
+				RefreshChip(Page, true)
+			end
+		end)
+
+		if Idx and type(Idx) == "string" then
+			Class.Id = Idx
+		end
+
+		QueueHints()
+
+		return Class
 	end
 
 	return Element
@@ -8683,7 +12428,7 @@ ElementsTable.Divider = (function()
 
 			Label.Visible = true
 			Right.Visible = true
-			local Half = Label.AbsoluteSize.X / 2 + Gap
+			local Half = Label.AbsoluteSize.X / Library.DPIScale / 2 + Gap
 			Left.Size = UDim2.new(0.5, -Half, 0, Thickness)
 			Right.Size = UDim2.new(0.5, -Half, 0, Thickness)
 		end
@@ -8716,58 +12461,105 @@ end)()
 
 local IconCache = {}
 
-local IconURLsFlat = {
-	lucide = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/lucide/dist/Icons.lua",
-	solar = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/solar/dist/Icons.lua",
-	gravity = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/gravity/dist/Icons.lua",
-	hero = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/hero/dist/Icons.lua",
-	feather = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/Feather/dist/Icons.lua",
-	sfsymbols = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/sfsymbols/dist/Icons.lua",
-	geist = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/geist/dist/Icons.lua",
+local IconProviders = {
+	lucide = {
+		Handler = "Asset",
+		Url = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/lucide/dist/Icons.lua",
+	},
+	solar = {
+		Handler = "Asset",
+		Url = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/solar/dist/Icons.lua",
+	},
+	gravity = {
+		Handler = "Asset",
+		Url = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/gravity/dist/Icons.lua",
+	},
+	hero = {
+		Handler = "Asset",
+		Url = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/hero/dist/Icons.lua",
+	},
+	feather = {
+		Handler = "Asset",
+		Url = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/Feather/dist/Icons.lua",
+	},
+	sfsymbols = {
+		Handler = "Asset",
+		Url = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/sfsymbols/dist/Icons.lua",
+	},
+	geist = {
+		Handler = "Asset",
+		Url = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/geist/dist/Icons.lua",
+	},
+	tabler = {
+		Handler = "ImageRect",
+		Url = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/Tabler/dist/Icons.lua",
+	},
+	phosphor = {
+		Handler = "ImageRect",
+		Url = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/Phosphor/dist/Icons.lua",
+	},
+	bootstrap = {
+		Handler = "ImageRect",
+		Url = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/Bootstrap/dist/Icons.lua",
+	},
+	craft = {
+		Handler = "ImageRect",
+		Url = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/craft/dist/Icons.lua",
+	},
+	prime = {
+		Handler = "ImageRect",
+		Url = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/prime/dist/Icons.lua",
+	},
+	pixelart = {
+		Handler = "ImageRect",
+		Url = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/PixelArtsIcons/dist/Icons.lua",
+	},
+	fluent = {
+		Handler = "Variant",
+		Default = "filled",
+		Variants = {
+			filled = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/Fluent/dist/Variant/Filled/Icons.lua",
+			outlined = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/Fluent/dist/Variant/Outlined/Icons.lua",
+		},
+	},
+	mynaui = {
+		Handler = "Variant",
+		Default = "solid",
+		Variants = {
+			solid = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/MynaUi/dist/Variant/Solid/Icons.lua",
+			regular = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/MynaUi/dist/Variant/Regular/Icons.lua",
+		},
+	},
+	majestic = {
+		Handler = "Variant",
+		Default = "line",
+		Variants = {
+			line = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/Majestic/dist/Variant/Line/Icons.lua",
+			solid = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/Majestic/dist/Variant/Solid/Icons.lua",
+		},
+	},
+	weui = {
+		Handler = "Variant",
+		Default = "filled",
+		Variants = {
+			filled = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/WeUi/dist/Variant/Filled/Icons.lua",
+			outlined = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/WeUi/dist/Variant/Outlined/Icons.lua",
+		},
+	},
+	material = {
+		Handler = "Material",
+		Default = "default",
+		Url = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/Material/dist/%s%sPart%d.lua",
+		Sizes = { "18", "24", "36", "48" },
+		Variants = {
+			default = { Style = "Default", Parts = 4 },
+			outlined = { Style = "Outlined", Parts = 2 },
+			round = { Style = "Round", Parts = 2 },
+			sharp = { Style = "Sharp", Parts = 2 },
+			twotone = { Style = "Twotone", Parts = 2 },
+		},
+	},
 }
-
-local IconURLsSprite = {
-	tabler = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/Tabler/dist/Icons.lua",
-	phosphor = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/Phosphor/dist/Icons.lua",
-	bootstrap = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/Bootstrap/dist/Icons.lua",
-	craft = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/craft/dist/Icons.lua",
-	prime = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/prime/dist/Icons.lua",
-	pixelart = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/PixelArtsIcons/dist/Icons.lua",
-}
-
-local MaterialBase = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/Material/dist/"
-
-local function MakeMaterialUrls(style, counts)
-	local urls = {}
-	for _, size in next, { "18", "24", "36", "48" } do
-		urls[size] = {}
-		for i = 1, counts do
-			table.insert(urls[size], MaterialBase .. style .. size .. "Part" .. i .. ".lua")
-		end
-	end
-	return urls
-end
-
-local MaterialVariantUrls = {
-	default  = MakeMaterialUrls("Default",  4),
-	outlined = MakeMaterialUrls("Outlined", 2),
-	round    = MakeMaterialUrls("Round",    2),
-	sharp    = MakeMaterialUrls("Sharp",    2),
-	twotone  = MakeMaterialUrls("Twotone",  2),
-}
-
-local IconVariants = {
-	fluent = { DefaultVariant = "filled",  filled = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/Fluent/dist/Variant/Filled/Icons.lua",  outlined = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/Fluent/dist/Variant/Outlined/Icons.lua" },
-	mynaui = { DefaultVariant = "solid",   solid = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/MynaUi/dist/Variant/Solid/Icons.lua",   regular = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/MynaUi/dist/Variant/Regular/Icons.lua" },
-	weui = { DefaultVariant = "filled",  filled = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/WeUi/dist/Variant/Filled/Icons.lua",    outlined = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/WeUi/dist/Variant/Outlined/Icons.lua" },
-}
-IconVariants.material = setmetatable({ DefaultVariant = "default" }, {
-	__index = function(_, key)
-		local k = key:lower():gsub("[ -]", "")
-		if k == "twotone" or k == "two tone" then k = "twotone" end
-		return MaterialVariantUrls[k]
-	end,
-})
 
 local function LoadOnePart(url)
 	local ok, raw = pcall(game.HttpGet, game, url, true)
@@ -8816,137 +12608,146 @@ local function LoadIconSource(cacheKey, url)
 	return IconCache[cacheKey]
 end
 
-local function ResolveSpritesheetEntry(entry, sprites)
-	local sheetId = sprites[tostring(entry.Image)] or sprites[entry.Image] or tostring(entry.Image or "")
-	local offset = entry.ImageRectOffset or entry.ImageRectPosition or Vector2.new(0, 0)
-	local size = entry.ImageRectSize or Vector2.new(0, 0)
-	return { Image = sheetId, ImageRectOffset = offset, ImageRectSize = size }
-end
+local IconHandlers = {}
 
-local function ToPascalKebab(s)
-	return (s:gsub("(%a)([^%-_]*)", function(first, rest)
-		return first:upper() .. rest
+function IconHandlers.ToPascalKebab(Text)
+	return (Text:gsub("(%a)([^%-_]*)", function(First, Rest)
+		return First:upper() .. Rest
 	end))
 end
 
-local function LookupInSource(src, iconName)
-	if src._icons then
-		local entry = src._icons[iconName]
-		if not entry then return nil end
-		return ResolveSpritesheetEntry(entry, src._sprites)
+function IconHandlers.ResolveAsset(Source, IconName)
+	local Value = Source[IconName]
+	if Value == nil then
+		Value = Source[IconHandlers.ToPascalKebab(IconName)]
 	end
-	local val = src[iconName]
-	if val == nil then val = src[ToPascalKebab(iconName)] end
-	if type(val) == "table" and val.Image then
+	if type(Value) == "table" and Value.Image then
 		return {
-			Image = tostring(val.Image),
-			ImageRectOffset = val.ImageRectOffset or Vector2.new(0, 0),
-			ImageRectSize = val.ImageRectSize or Vector2.new(0, 0),
+			Image = tostring(Value.Image),
+			ImageRectOffset = Value.ImageRectOffset or Vector2.new(0, 0),
+			ImageRectSize = Value.ImageRectSize or Vector2.new(0, 0),
 		}
 	end
-	if type(val) == "string" then
-		return { Image = val, ImageRectOffset = Vector2.new(0, 0), ImageRectSize = Vector2.new(0, 0) }
+	if type(Value) == "string" then
+		return { Image = Value, ImageRectOffset = Vector2.new(0, 0), ImageRectSize = Vector2.new(0, 0) }
 	end
 	return nil
 end
 
+function IconHandlers.ResolveImageRect(Source, IconName)
+	local Entry = Source._icons and Source._icons[IconName]
+	if not Entry then
+		return nil
+	end
+	local Sprites = Source._sprites
+	return {
+		Image = Sprites[tostring(Entry.Image)] or Sprites[Entry.Image] or tostring(Entry.Image or ""),
+		ImageRectOffset = Entry.ImageRectOffset or Entry.ImageRectPosition or Vector2.new(0, 0),
+		ImageRectSize = Entry.ImageRectSize or Vector2.new(0, 0),
+	}
+end
+
+function IconHandlers.Resolve(Source, IconName)
+	if Source._icons then
+		return IconHandlers.ResolveImageRect(Source, IconName)
+	end
+	return IconHandlers.ResolveAsset(Source, IconName)
+end
+
+function IconHandlers.Load(CacheKey, Url, IconName, Resolver)
+	local Source = LoadIconSource(CacheKey, Url)
+	if not Source then
+		return nil
+	end
+	return Resolver(Source, IconName)
+end
+
+function IconHandlers.Asset(Pack, Provider, IconName)
+	return IconHandlers.Load(Pack, Provider.Url, IconName, IconHandlers.ResolveAsset)
+end
+
+function IconHandlers.ImageRect(Pack, Provider, IconName)
+	return IconHandlers.Load(Pack, Provider.Url, IconName, IconHandlers.ResolveImageRect)
+end
+
+function IconHandlers.Variant(Pack, Provider, IconName, Variant)
+	local Url = Provider.Variants[Variant]
+	if not Url then
+		return nil
+	end
+	return IconHandlers.Load(Pack .. ":" .. Variant, Url, IconName, IconHandlers.Resolve)
+end
+
+function IconHandlers.Material(Pack, Provider, IconName, Variant, Size)
+	Variant = (Variant:lower():gsub("[ -]", ""))
+	Size = Size or "18"
+
+	local Info = Provider.Variants[Variant]
+	if not Info or not table.find(Provider.Sizes, Size) then
+		return nil
+	end
+
+	local Urls = {}
+	for Part = 1, Info.Parts do
+		table.insert(Urls, string.format(Provider.Url, Info.Style, Size, Part))
+	end
+
+	return IconHandlers.Load(Pack .. ":" .. Variant .. ":" .. Size, Urls, IconName, IconHandlers.Resolve)
+end
+
+
 local NotificationModule = Components.Notification
 local ToastModule = Components.Toast
-ToastModule:Init(GUI)
-NotificationModule:Init(GUI)
+ToastModule:Init(Scaler)
+NotificationModule:Init(Scaler)
 
 function Library:GetIcon(Name)
-	if Name == nil or Name == "" then return nil end
+	if Name == nil or Name == "" then
+		return nil
+	end
 
 	if type(Name) == "string" and (Name:match("^rbxassetid://") or Name:match("^rbxasset://")) then
 		return { Image = Name, ImageRectOffset = Vector2.zero, ImageRectSize = Vector2.zero }
 	end
 
-	local segments = {}
-	for seg in Name:gmatch("[^/]+") do
-		table.insert(segments, seg)
+	local Segments = {}
+	for Segment in Name:gmatch("[^/]+") do
+		table.insert(Segments, Segment)
 	end
 
-	if #segments == 0 then return nil end
-
-	local pack = segments[1]:lower()
-
-	if #segments >= 3 then
-		local variantInfo = IconVariants[pack]
-		if variantInfo then
-			local rawVariant = segments[2]:lower()
-			local iconName = table.concat(segments, "/", 3)
-			local urlOrTable = variantInfo[rawVariant]
-			if not urlOrTable then return nil end
-			if type(urlOrTable) == "table" and not urlOrTable[1] then
-				local sizeKey = segments[3]:gsub("[^%d]", "")
-				if sizeKey ~= "" and #segments >= 4 then
-					local parts = urlOrTable[sizeKey]
-					if not parts then return nil end
-					local iName = table.concat(segments, "/", 4)
-					local cacheKey = pack .. ":" .. rawVariant .. ":" .. sizeKey
-					local src = LoadIconSource(cacheKey, parts)
-					if not src then return nil end
-					return LookupInSource(src, iName)
-				end
-				local parts = urlOrTable["18"]
-				if not parts then return nil end
-				local cacheKey = pack .. ":" .. rawVariant .. ":18"
-				local src = LoadIconSource(cacheKey, parts)
-				if not src then return nil end
-				return LookupInSource(src, iconName)
-			end
-			local cacheKey = pack .. ":" .. rawVariant
-			local src = LoadIconSource(cacheKey, urlOrTable)
-			if not src then return nil end
-			return LookupInSource(src, iconName)
-		end
-	end
-
-	if #segments >= 2 then
-		local iconName = table.concat(segments, "/", 2)
-		local variantInfo = IconVariants[pack]
-		if variantInfo then
-			local defVariant = variantInfo.DefaultVariant
-			local urlOrTable = variantInfo[defVariant]
-			if type(urlOrTable) == "table" and not urlOrTable[1] then
-				local parts = urlOrTable["18"]
-				if not parts then return nil end
-				local cacheKey = pack .. ":" .. defVariant .. ":18"
-				local src = LoadIconSource(cacheKey, parts)
-				if not src then return nil end
-				return LookupInSource(src, iconName)
-			end
-			local cacheKey = pack .. ":" .. defVariant
-			local src = LoadIconSource(cacheKey, urlOrTable)
-			if not src then return nil end
-			return LookupInSource(src, iconName)
-		end
-
-		local flatUrl = IconURLsFlat[pack]
-		if flatUrl then
-			local src = LoadIconSource(pack, flatUrl)
-			if not src then return nil end
-			return LookupInSource(src, iconName)
-		end
-
-		local spriteUrl = IconURLsSprite[pack]
-		if spriteUrl then
-			local src = LoadIconSource(pack, spriteUrl)
-			if not src then return nil end
-			return LookupInSource(src, iconName)
-		end
-
+	if #Segments == 0 then
 		return nil
 	end
 
-	local src = LoadIconSource("lucide", IconURLsFlat.lucide)
-	if not src then return nil end
-	local val = src[Name] or src["lucide-" .. Name]
-	if type(val) == "string" then
-		return { Image = val, ImageRectOffset = Vector2.new(0, 0), ImageRectSize = Vector2.new(0, 0) }
+	if #Segments == 1 then
+		local Lucide = IconProviders.lucide
+		return IconHandlers.Asset("lucide", Lucide, Name) or IconHandlers.Asset("lucide", Lucide, "lucide-" .. Name)
 	end
-	return nil
+
+	local Pack = Segments[1]:lower()
+	local Provider = IconProviders[Pack]
+	if not Provider then
+		return nil
+	end
+
+	local Variant = Provider.Default
+	local Size
+	local IconName = table.concat(Segments, "/", 2)
+
+	if Provider.Variants and #Segments >= 3 then
+		Variant = Segments[2]:lower()
+		IconName = table.concat(Segments, "/", 3)
+
+		if Provider.Sizes then
+			local SizeKey = Segments[3]:gsub("[^%d]", "")
+			if SizeKey ~= "" and #Segments >= 4 then
+				Size = SizeKey
+				IconName = table.concat(Segments, "/", 4)
+			end
+		end
+	end
+
+	return IconHandlers[Provider.Handler](Pack, Provider, IconName, Variant, Size)
 end
 
 Elements = {}
@@ -8967,7 +12768,6 @@ for _, ElementComponent in pairs(ElementsTable) do
 			resolvedConfig = Idx
 		end
 
-		-- Divider takes no flag, AddDivider() and AddDivider("Text") are also valid
 		if ElementComponent.__type == "Divider" and type(resolvedConfig) ~= "table" then
 			resolvedConfig = { Text = type(Idx) == "string" and Idx or nil }
 			Idx, Config = resolvedConfig, nil
@@ -8991,6 +12791,41 @@ Elements.EmptyFrame = Elements.Space
 Elements.AddEmptyFrame = Elements.AddSpace
 Elements.ViewportFrame = Elements.Viewport
 Elements.AddViewportFrame = Elements.AddViewport
+local AddClassStrip = Elements.AddClass
+
+function Elements:AddClass(Idx, Config)
+	local Settings = Config or Idx
+	if type(Settings) ~= "table" or Settings.Title == nil then
+		return AddClassStrip(self, Idx, Config)
+	end
+
+	local Strip = self.ClassStrip
+	if not Strip then
+		Strip = AddClassStrip(self, { AllowNull = Settings.AllowNull, Default = false })
+		if not Strip then
+			return nil
+		end
+		self.ClassStrip = Strip
+		task.defer(function()
+			if Strip.Selected == nil and Strip.Pages[1] then
+				Strip:Select(1)
+			end
+		end)
+	end
+
+	return Strip:AddPage(Settings)
+end
+
+function Elements:SelectClass(Value)
+	local Strip = self.ClassStrip
+	if Strip then
+		Strip:Select(Value)
+	end
+end
+
+Elements.Class = Elements.AddClass
+Elements.SubTabs = Elements.AddClass
+Elements.AddSubTabs = Elements.AddClass
 
 Library.Elements = Elements
 
@@ -9012,14 +12847,21 @@ function Library:CreateWindow(Config)
 
 	Library.NewVisual = Config.NewVisual == true
 
+	if Config.Corner ~= nil then
+		Library.WindowCorner = math.clamp(math.floor(tonumber(Config.Corner) or 8), 0, 24)
+	end
+
 	local Window = Components.Window({
-		Parent = GUI,
+		Parent = Scaler,
 		Size = Config.Size,
 		Title = Config.Title,
 		SubTitle = Config.SubTitle,
+		Icon = Config.Icon,
 		TabWidth = Config.TabWidth,
 		Search = Config.Search,
 		UserInfo = Config.UserInfo,
+		AllowNull = Config.AllowNull,
+		Welcome = Config.Welcome,
 		NewVisual = Library.NewVisual,
 	})
 
@@ -9038,6 +12880,9 @@ function Library:CreateWindow(Config)
 	end
 	if Config.ShowUserInfo ~= nil then
 		Library:ToggleUserInfo(Config.ShowUserInfo)
+	end
+	if Config.SeasonalHats ~= nil then
+		Library:SetSeasonalHat(Config.SeasonalHats)
 	end
 	if Config.DisableBackground ~= nil then
 		Library.DisableBackground = Config.DisableBackground
@@ -9163,6 +13008,53 @@ function Library:SetFont(fontAsset)
 	Creator.UpdateFont()
 end
 
+Library.AddedFonts = {}
+
+local FontWeightLookup = {
+	thin = "Thin", extralight = "ExtraLight", light = "Light", regular = "Regular", medium = "Medium",
+	semibold = "SemiBold", bold = "Bold", extrabold = "ExtraBold", heavy = "Heavy",
+	[100] = "Thin", [200] = "ExtraLight", [300] = "Light", [400] = "Regular", [500] = "Medium",
+	[600] = "SemiBold", [700] = "Bold", [800] = "ExtraBold", [900] = "Heavy",
+}
+
+function Library:AddFont(Data)
+	assert(type(Data) == "table" and type(Data.Name) == "string" and Data.Name:match("%S"), "AddFont - Missing Name")
+
+	local Source = Data.AssetId or Data.Asset or Data.Source
+	assert(Source ~= nil and tostring(Source):match("%S"), "AddFont - Missing AssetId")
+
+	local WeightKey = Data.Weight
+	if type(WeightKey) == "string" then
+		WeightKey = tonumber(WeightKey) or WeightKey:lower()
+	end
+
+	local Entry = {
+		Name = Data.Name:match("^%s*(.-)%s*$"),
+		Weight = FontWeightLookup[WeightKey] or "Regular",
+		Style = tostring(Data.Style or ""):lower() == "italic" and "Italic" or "Normal",
+		AssetId = tostring(Source),
+		Select = Data.Select == true,
+	}
+
+	local Replaced = false
+	for Index, Existing in ipairs(Library.AddedFonts) do
+		if Existing.Name == Entry.Name then
+			Library.AddedFonts[Index] = Entry
+			Replaced = true
+			break
+		end
+	end
+	if not Replaced then
+		table.insert(Library.AddedFonts, Entry)
+	end
+
+	if Library.OnFontAdded then
+		Library.OnFontAdded(Entry)
+	end
+
+	return Entry
+end
+
 function Library:Destroy()
 	if Library.Window then
 		Library.Unloaded = true
@@ -9178,13 +13070,50 @@ function Library:ToggleAcrylic(Value)
 	if Library.Window then
 		if Library.UseAcrylic then
 			Library.Acrylic = Value
-			Library.Window.AcrylicPaint.Model.Transparency = Value and 0.98 or 1
+			Library.Window.AcrylicPaint.SetVisibility(Value)
 			if Value then
 				Acrylic.Enable()
 			else
 				Acrylic.Disable()
 			end
 		end
+	end
+end
+
+function Library:SetDPIScale(Value)
+	local Percent = math.clamp(tonumber(Value) or 100, 50, 200)
+	local Scale = Percent / 100
+	Library.DPIScale = Scale
+	Library.ScalerScale.Scale = Scale
+	Library.Scaler.Size = UDim2.fromScale(1 / Scale, 1 / Scale)
+
+	if Library.Window then
+		if Library.Window.RefreshDPI then
+			Library.Window.RefreshDPI()
+		end
+		if Library.Window.AcrylicPaint and Library.Window.AcrylicPaint.Refresh then
+			task.defer(Library.Window.AcrylicPaint.Refresh)
+		end
+	end
+
+	for _, Option in next, Library.Options do
+		if Option.Type == "Dropdown" and Option.RecalculateListSize then
+			pcall(Option.RecalculateListSize, Option)
+		end
+	end
+
+	return Percent
+end
+
+function Library:GetDPIScale()
+	return Library.DPIScale * 100
+end
+
+function Library:SetWindowCorner(Value)
+	Library.WindowCorner = math.clamp(math.floor(tonumber(Value) or 8), 0, 24)
+	Creator.ApplyWindowCorner()
+	if Library.Window and Library.Window.AcrylicPaint.Refresh then
+		Library.Window.AcrylicPaint.Refresh()
 	end
 end
 
@@ -9201,6 +13130,16 @@ end
 
 function Library:ToggleTransparency(Value)
 	Library:SetTransparency(Value)
+end
+
+function Library:SetSeasonalHat(Value)
+	Library.SeasonalHats.Enabled = Value == true
+	Creator.RefreshHats()
+end
+
+function Library:SetSeasonalHatEvent(Name)
+	Library.SeasonalHats.Force = Name
+	Creator.RefreshHats()
 end
 
 function Library:ToggleUserInfo(Value)
@@ -9544,9 +13483,7 @@ function Library:UpdateBackground()
 			BackgroundTransparency = 1,
 			Parent = backgroundImage,
 		}, {
-			New("UICorner", {
-				CornerRadius = UDim.new(0, 8),
-			}),
+			Creator.WindowCorner(),
 		})
 
 		backgroundLabels[1] = FrameLabel
@@ -9682,59 +13619,64 @@ local InterfaceManager = {} do
 		ShowUserInfo = true,
 		DisableBackground = false,
 		KeepWindowInsideFrame = true,
+		WindowCorner = 8,
+		DPIScale = 100,
 		ActiveCustomTheme = nil,
+		SidePanels = {},
+		WindowSize = nil,
 	}
 
 	local ThemeManager = {}
 
 	local themePropertyKeys = {
-		"Accent","AcrylicMain","AcrylicBorder","AcrylicGradient","AcrylicGradientRotation","AcrylicNoise",
-		"Background","BackgroundTransparency","TitleBarLine","Tab",
-		"Element","ElementBorder","InElementBorder","ElementTransparency",
+		"Accent","AcrylicMain","AcrylicBorder","AcrylicBorderTransparency","AcrylicGradient","AcrylicGradientRotation","AcrylicGradientTransparency","AcrylicNoise",
+		"Background","BackgroundTransparency","TitleBarLine","TitleBarLineTransparency","Tab","TabOverlay","ScrollBar",
+		"Element","ElementBorder","ElementBorderTransparency","InElementBorder","InElementBorderTransparency","ElementTransparency",
 		"ToggleSlider","ToggleToggled","SliderRail",
-		"DropdownFrame","DropdownHolder","DropdownBorder","DropdownOption",
+		"DropdownFrame","DropdownHolder","DropdownHolderRotation","DropdownHolderTransparency","DropdownBorder","DropdownBorderTransparency","DropdownOption",
 		"Keybind","Input","InputFocused","InputIndicator",
-		"Dialog","DialogHolder","DialogHolderLine","DialogButton","DialogButtonBorder",
-		"DialogBorder","DialogInput","DialogInputLine",
-		"ColorpickerDialog","ColorpickerDialogBorder","ColorpickerHolder","ColorpickerHolderLine",
+		"Dialog","DialogHolder","DialogHolderRotation","DialogHolderTransparency","DialogHolderLine","DialogButton","DialogButtonBorder",
+		"DialogBorder","DialogBorderTransparency","DialogInput","DialogInputLine","DialogInputFocused",
+		"ColorpickerDialog","ColorpickerDialogBorder","ColorpickerHolder","ColorpickerHolderRotation","ColorpickerHolderTransparency","ColorpickerHolderLine",
 		"ColorpickerButton","ColorpickerButtonBorder","ColorpickerInput","ColorpickerInputLine",
 		"ColorpickerInputBorder","ColorpickerInputFocused",
-		"MenuBackground","MenuBackgroundRotation","MenuBorder","MenuHolder","MenuHolderLine",
+		"MenuBackground","MenuBackgroundRotation","MenuBackgroundTransparency","MenuBorder","MenuBorderTransparency","MenuHolder","MenuHolderLine",
 		"MenuButton","MenuButtonBorder","MenuInput","MenuInputLine","MenuInputFocused",
-		"Text","SubText","Hover","HoverChange",
+		"ClassHint","ClassHintBorder","ClassHintBorderTransparency","ClassHintText",
+		"Text","TextRotation","SubText","SubTextRotation","Hover","HoverChange",
 	}
 
 	local colorFieldDefs = {
 		{ key = "Accent", title = "Accent", description = "Primary accent color used across interactive elements." },
 		{ key = "AcrylicMain", title = "Acrylic Main", description = "Base color of the acrylic window background." },
-		{ key = "AcrylicBorder", title = "Acrylic Border", description = "Border color around the acrylic window." },
-		{ key = "TitleBarLine", title = "Title Bar Line", description = "Divider line under the title bar." },
+		{ key = "AcrylicBorder", transparency = "AcrylicBorderTransparency", title = "Acrylic Border", description = "Border color around the acrylic window." },
+		{ key = "TitleBarLine", transparency = "TitleBarLineTransparency", title = "Title Bar Line", description = "Divider line under the title bar." },
 		{ key = "Tab", title = "Tab", description = "Tab background color." },
-		{ key = "Element", title = "Element", description = "Background color of elements." },
-		{ key = "ElementBorder", title = "Element Border", description = "Border color of elements." },
-		{ key = "InElementBorder", title = "Inner Element Border", description = "Border color inside elements." },
+		{ key = "TabOverlay", title = "Tab Overlay", description = "Overlay color behind the selected tab." },
+		{ key = "ScrollBar", title = "Scroll Bar", description = "Scroll bar and scroll bar dot color." },
+		{ key = "Element", transparency = "ElementTransparency", title = "Element", description = "Background color of elements." },
+		{ key = "ElementBorder", transparency = "ElementBorderTransparency", title = "Element Border", description = "Border color of elements." },
+		{ key = "InElementBorder", transparency = "InElementBorderTransparency", title = "Inner Element Border", description = "Border color inside elements." },
 		{ key = "ToggleSlider", title = "Toggle Rail", description = "Toggle rail color when off." },
 		{ key = "ToggleToggled", title = "Toggle Knob", description = "Toggle knob color when on." },
 		{ key = "SliderRail", title = "Slider Rail", description = "Slider rail color." },
 		{ key = "DropdownFrame", title = "Dropdown Frame", description = "Dropdown frame color." },
-		{ key = "DropdownHolder", title = "Dropdown Holder", description = "Dropdown list background color." },
-		{ key = "DropdownBorder", title = "Dropdown Border", description = "Dropdown border color." },
+		{ key = "DropdownBorder", transparency = "DropdownBorderTransparency", title = "Dropdown Border", description = "Dropdown border color." },
 		{ key = "DropdownOption", title = "Dropdown Option", description = "Dropdown option color." },
 		{ key = "Keybind", title = "Keybind", description = "Keybind element color." },
 		{ key = "Input", title = "Input", description = "Input field color." },
 		{ key = "InputFocused", title = "Input Focused", description = "Input field color when focused." },
 		{ key = "InputIndicator", title = "Input Indicator", description = "Input focus indicator color." },
 		{ key = "Dialog", title = "Dialog", description = "Dialog background color." },
-		{ key = "DialogHolder", title = "Dialog Holder", description = "Dialog holder background color." },
 		{ key = "DialogHolderLine", title = "Dialog Holder Line", description = "Dialog holder divider line color." },
 		{ key = "DialogButton", title = "Dialog Button", description = "Dialog button color." },
 		{ key = "DialogButtonBorder", title = "Dialog Button Border", description = "Dialog button border color." },
-		{ key = "DialogBorder", title = "Dialog Border", description = "Dialog border color." },
+		{ key = "DialogBorder", transparency = "DialogBorderTransparency", title = "Dialog Border", description = "Dialog border color." },
 		{ key = "DialogInput", title = "Dialog Input", description = "Dialog input field color." },
 		{ key = "DialogInputLine", title = "Dialog Input Line", description = "Dialog input focus line color." },
+		{ key = "DialogInputFocused", title = "Dialog Input Focused", description = "Dialog input color when focused." },
 		{ key = "ColorpickerDialog", title = "Colorpicker Dialog", description = "Colorpicker dialog background color." },
 		{ key = "ColorpickerDialogBorder", title = "Colorpicker Dialog Border", description = "Colorpicker dialog border color." },
-		{ key = "ColorpickerHolder", title = "Colorpicker Holder", description = "Colorpicker holder background color." },
 		{ key = "ColorpickerHolderLine", title = "Colorpicker Holder Line", description = "Colorpicker holder divider line color." },
 		{ key = "ColorpickerButton", title = "Colorpicker Button", description = "Colorpicker button color." },
 		{ key = "ColorpickerButtonBorder", title = "Colorpicker Button Border", description = "Colorpicker button border color." },
@@ -9742,7 +13684,7 @@ local InterfaceManager = {} do
 		{ key = "ColorpickerInputLine", title = "Colorpicker Input Line", description = "Colorpicker input focus line color." },
 		{ key = "ColorpickerInputBorder", title = "Colorpicker Input Border", description = "Colorpicker input border color." },
 		{ key = "ColorpickerInputFocused", title = "Colorpicker Input Focused", description = "Colorpicker input color when focused." },
-		{ key = "MenuBorder", title = "Menu Border", description = "Border color of the menu." },
+		{ key = "MenuBorder", transparency = "MenuBorderTransparency", title = "Menu Border", description = "Border color of the menu." },
 		{ key = "MenuHolder", title = "Menu Holder", description = "Background color of the menu button area." },
 		{ key = "MenuHolderLine", title = "Menu Holder Line", description = "Divider line above the menu buttons." },
 		{ key = "MenuButton", title = "Menu Button", description = "Menu button color." },
@@ -9750,9 +13692,84 @@ local InterfaceManager = {} do
 		{ key = "MenuInput", title = "Menu Input", description = "Menu input field color." },
 		{ key = "MenuInputLine", title = "Menu Input Line", description = "Menu input focus line color." },
 		{ key = "MenuInputFocused", title = "Menu Input Focused", description = "Menu input color when focused." },
-		{ key = "Text", title = "Text", description = "Primary text color." },
-		{ key = "SubText", title = "SubText", description = "Secondary text color." },
+		{ key = "ClassHint", title = "Class Hint", description = "Background of the chevron badge that shows how many Class tabs are hidden." },
+		{ key = "ClassHintBorder", transparency = "ClassHintBorderTransparency", title = "Class Hint Border", description = "Border of the Class overflow badge." },
+		{ key = "ClassHintText", title = "Class Hint Text", description = "Chevron and counter color of the Class overflow badge." },
 		{ key = "Hover", title = "Hover", description = "Hover highlight color." },
+	}
+
+	local gradientFieldDefs = {
+		{ key = "AcrylicGradient", after = "AcrylicBorder", title = "Acrylic Gradient", description = "Colors of the acrylic background gradient. Rotation controls its direction and Transparency controls how much of the acrylic shows through." },
+		{ key = "DropdownHolder", after = "DropdownFrame", title = "Dropdown Holder", description = "Start and end color of the dropdown list background gradient. Rotation controls its direction." },
+		{ key = "DialogHolder", after = "Dialog", title = "Dialog Holder", description = "Start and end color of the dialog holder background gradient. Rotation controls its direction." },
+		{ key = "ColorpickerHolder", after = "ColorpickerDialogBorder", title = "Colorpicker Holder", description = "Start and end color of the colorpicker holder background gradient. Rotation controls its direction." },
+		{ key = "MenuBackground", after = "MenuBorder", title = "Menu Background", description = "Start and end color of the menu background gradient. Rotation controls its direction." },
+		{ key = "Text", after = "ClassHintText", title = "Text", description = "Colors of the primary text and icons. Rotation controls the direction of the gradient." },
+		{ key = "SubText", after = "Text", title = "SubText", description = "Colors of the secondary text and icons. Rotation controls the direction of the gradient." },
+	}
+
+	local themePanelOrder = {
+		"Name",
+		"Accent",
+		"AcrylicMain",
+		"AcrylicBorder",
+		"AcrylicGradient",
+		"AcrylicNoise",
+		"Background",
+		"BackgroundTransparency",
+		"TitleBarLine",
+		"Tab",
+		"TabOverlay",
+		"ScrollBar",
+		"Element",
+		"ElementBorder",
+		"InElementBorder",
+		"ToggleSlider",
+		"ToggleToggled",
+		"SliderRail",
+		"DropdownFrame",
+		"DropdownHolder",
+		"DropdownBorder",
+		"DropdownOption",
+		"Keybind",
+		"Input",
+		"InputFocused",
+		"InputIndicator",
+		"Dialog",
+		"DialogHolder",
+		"DialogHolderLine",
+		"DialogButton",
+		"DialogButtonBorder",
+		"DialogBorder",
+		"DialogInput",
+		"DialogInputLine",
+		"DialogInputFocused",
+		"ColorpickerDialog",
+		"ColorpickerDialogBorder",
+		"ColorpickerHolder",
+		"ColorpickerHolderLine",
+		"ColorpickerButton",
+		"ColorpickerButtonBorder",
+		"ColorpickerInput",
+		"ColorpickerInputLine",
+		"ColorpickerInputBorder",
+		"ColorpickerInputFocused",
+		"MenuBackground",
+		"MenuBorder",
+		"MenuHolder",
+		"MenuHolderLine",
+		"MenuButton",
+		"MenuButtonBorder",
+		"MenuInput",
+		"MenuInputLine",
+		"MenuInputFocused",
+		"ClassHint",
+		"ClassHintBorder",
+		"ClassHintText",
+		"Text",
+		"SubText",
+		"Hover",
+		"HoverChange",
 	}
 
 	local backgroundTables = {}
@@ -9813,24 +13830,159 @@ local InterfaceManager = {} do
 		return ColorSequence.new(kps)
 	end
 
+	local function numberSeqToArray(ns)
+		local arr = {}
+		for _, kp in ipairs(ns.Keypoints) do
+			table.insert(arr, { t = kp.Time, v = kp.Value })
+		end
+		return arr
+	end
+
+	local function arrayToNumberSeq(arr)
+		local kps = {}
+		for _, entry in ipairs(arr) do
+			table.insert(kps, NumberSequenceKeypoint.new(entry.t, entry.v))
+		end
+		return NumberSequence.new(kps)
+	end
+
+	local function isValidCardGradient(Value)
+		return type(Value) == "table" and typeof(Value[1]) == "Color3" and typeof(Value[2]) == "Color3"
+	end
+
 	local function generateGradientColors(themeData)
-		local candidates = {
-			themeData.Accent,
-			themeData.AcrylicMain,
-			themeData.AcrylicBorder,
-			themeData.Element,
-			themeData.Dialog,
-		}
-		local filtered = {}
-		for _, c in ipairs(candidates) do
-			if typeof(c) == "Color3" then
-				table.insert(filtered, c)
+		local Fallback = { Color3.fromRGB(50, 50, 50), Color3.fromRGB(20, 20, 20) }
+		if type(themeData) ~= "table" then
+			return Fallback
+		end
+
+		local Gradient = themeData.AcrylicGradient
+		local ColorA, ColorB
+
+		if typeof(Gradient) == "ColorSequence" then
+			local Keypoints = Gradient.Keypoints
+			ColorA = Keypoints[1].Value
+			ColorB = Keypoints[#Keypoints].Value
+		elseif typeof(Gradient) == "Color3" then
+			ColorA = Gradient
+			ColorB = Gradient
+		else
+			return Fallback
+		end
+
+		local Difference = math.abs(ColorA.R - ColorB.R) + math.abs(ColorA.G - ColorB.G) + math.abs(ColorA.B - ColorB.B)
+		if Difference < 0.06 then
+			ColorB = ColorA:Lerp(Color3.new(0, 0, 0), 0.5)
+		end
+
+		return { ColorA, ColorB }
+	end
+
+	local function resolveCardGradient(themeData)
+		if type(themeData) == "table" then
+			if isValidCardGradient(themeData.CardGradient) then
+				return { themeData.CardGradient[1], themeData.CardGradient[2] }
+			end
+			if isValidCardGradient(themeData.__cardGradient) then
+				return { themeData.__cardGradient[1], themeData.__cardGradient[2] }
 			end
 		end
-		if #filtered < 2 then
-			return { Color3.fromRGB(50,50,50), Color3.fromRGB(20,20,20) }
+		return generateGradientColors(themeData)
+	end
+
+	local function isSolidSequence(sequence)
+		local first = sequence.Keypoints[1].Value
+		for _, keypoint in ipairs(sequence.Keypoints) do
+			if keypoint.Value ~= first then
+				return false
+			end
 		end
-		return { filtered[1], filtered[#filtered] }
+		return true
+	end
+
+	local function toSequence(value)
+		if typeof(value) == "Color3" then
+			return ColorSequence.new(value)
+		end
+		return value
+	end
+
+	local colorOrSequenceKeys = {
+		Text = true,
+		SubText = true,
+	}
+
+	function ThemeManager.resolveCardStyle(themeData)
+		local style = {
+			Rotation = 135,
+			Text = Color3.fromRGB(255, 255, 255),
+		}
+
+		if type(themeData) ~= "table" then
+			style.Sequence = ColorSequence.new(Color3.fromRGB(50, 50, 50), Color3.fromRGB(20, 20, 20))
+			return style
+		end
+
+		local function read(key)
+			if themeData[key] ~= nil then
+				return themeData[key]
+			end
+			return Themes.Dark[key]
+		end
+
+		local text = read("Text")
+		if typeof(text) == "ColorSequence" then
+			text = text.Keypoints[1].Value
+		end
+		if typeof(text) == "Color3" then
+			style.Text = text
+		end
+
+		if isValidCardGradient(themeData.CardGradient) then
+			style.Sequence = ColorSequence.new(themeData.CardGradient[1], themeData.CardGradient[2])
+			return style
+		end
+
+		local acrylic = read("AcrylicGradient")
+		local keypoints
+		if typeof(acrylic) == "ColorSequence" then
+			keypoints = acrylic.Keypoints
+		elseif typeof(acrylic) == "Color3" then
+			keypoints = { ColorSequenceKeypoint.new(0, acrylic), ColorSequenceKeypoint.new(1, acrylic) }
+		else
+			style.Sequence = ColorSequence.new(Color3.fromRGB(50, 50, 50), Color3.fromRGB(20, 20, 20))
+			return style
+		end
+
+		local function lift(color)
+			local luminance = color.R * 0.299 + color.G * 0.587 + color.B * 0.114
+			return color:Lerp(Color3.new(1, 1, 1), 0.3 * (1 - luminance))
+		end
+
+		local first = keypoints[1].Value
+		local flat = true
+		for _, keypoint in ipairs(keypoints) do
+			local value = keypoint.Value
+			if math.abs(value.R - first.R) + math.abs(value.G - first.G) + math.abs(value.B - first.B) >= 0.06 then
+				flat = false
+				break
+			end
+		end
+
+		if flat then
+			local start = lift(first)
+			style.Sequence = ColorSequence.new(start, start:Lerp(Color3.new(0, 0, 0), 0.3))
+		else
+			local lifted = {}
+			for _, keypoint in ipairs(keypoints) do
+				table.insert(lifted, ColorSequenceKeypoint.new(keypoint.Time, lift(keypoint.Value)))
+			end
+			style.Sequence = ColorSequence.new(lifted)
+		end
+
+		style.Rotation = tonumber(read("AcrylicGradientRotation")) or 135
+
+		return style
 	end
 
 	function ThemeManager.serializeTheme(themeData, format)
@@ -9843,11 +13995,13 @@ local InterfaceManager = {} do
 				raw[key] = { __type = "Color3", value = colorToText(val, format) }
 			elseif typeof(val) == "ColorSequence" then
 				raw[key] = { __type = "ColorSequence", value = colorSeqToArray(val, format) }
+			elseif typeof(val) == "NumberSequence" then
+				raw[key] = { __type = "NumberSequence", value = numberSeqToArray(val) }
 			else
 				raw[key] = val
 			end
 		end
-		local gradColors = generateGradientColors(themeData)
+		local gradColors = resolveCardGradient(themeData)
 		local metaGrad = {}
 		for _, c in ipairs(gradColors) do
 			table.insert(metaGrad, color3ToHex(c))
@@ -9888,6 +14042,12 @@ local InterfaceManager = {} do
 					table.insert(lines, string.format("\t\tColorSequenceKeypoint.new(%s, %s),", tostring(math.floor(kp.Time * 1000 + 0.5) / 1000), colorCode(kp.Value)))
 				end
 				table.insert(lines, "\t}),")
+			elseif typeof(val) == "NumberSequence" then
+				table.insert(lines, string.format("\t%s = NumberSequence.new({", key))
+				for _, kp in ipairs(val.Keypoints) do
+					table.insert(lines, string.format("\t\tNumberSequenceKeypoint.new(%s, %s),", tostring(math.floor(kp.Time * 1000 + 0.5) / 1000), tostring(math.floor(kp.Value * 1000 + 0.5) / 1000)))
+				end
+				table.insert(lines, "\t}),")
 			elseif type(val) == "table" and val.Source then
 				table.insert(lines, string.format("\t%s = { Source = %q },", key, val.Source))
 			elseif type(val) == "string" then
@@ -9895,11 +14055,6 @@ local InterfaceManager = {} do
 			elseif type(val) == "number" then
 				table.insert(lines, string.format("\t%s = %s,", key, tostring(math.floor(val * 1000 + 0.5) / 1000)))
 			end
-		end
-
-		local gradient = generateGradientColors(themeData)
-		if #gradient >= 2 then
-			table.insert(lines, string.format("\tCardGradient = { %s, %s },", colorCode(gradient[1]), colorCode(gradient[2])))
 		end
 
 		table.insert(lines, "})")
@@ -9918,6 +14073,8 @@ local InterfaceManager = {} do
 				themeData[key] = hexToColor3(val.value)
 			elseif type(val) == "table" and val.__type == "ColorSequence" then
 				themeData[key] = arrayToColorSeq(val.value)
+			elseif type(val) == "table" and val.__type == "NumberSequence" then
+				themeData[key] = arrayToNumberSeq(val.value)
 			else
 				themeData[key] = val
 			end
@@ -9928,8 +14085,12 @@ local InterfaceManager = {} do
 			themeData.Id = decoded.__meta.Id
 			themeData.BuiltIn = decoded.__meta.BuiltIn
 			local gradArr = decoded.__meta.CardGradient
-			if gradArr and #gradArr >= 2 then
-				themeData.__cardGradient = { hexToColor3(gradArr[1]), hexToColor3(gradArr[2]) }
+			if type(gradArr) == "table" and type(gradArr[1]) == "string" and type(gradArr[2]) == "string"
+				and gradArr[1]:match("^#?%x%x%x%x%x%x$") and gradArr[2]:match("^#?%x%x%x%x%x%x$") then
+				themeData.__cardGradient = { hexToColor3((gradArr[1]:gsub("^#", ""))), hexToColor3((gradArr[2]:gsub("^#", ""))) }
+			end
+			if not themeData.__cardGradient then
+				themeData.__cardGradient = generateGradientColors(themeData)
 			end
 			if type(decoded.__meta.Author) == "table" then
 				themeData.Author = decoded.__meta.Author
@@ -9947,26 +14108,30 @@ local InterfaceManager = {} do
 			if typeof(value) == "Color3" then
 				themeData[field.key] = value
 			end
+
+			local colorOption = Library.Options["Panel" .. field.key]
+			if field.transparency and colorOption and typeof(colorOption.Transparency) == "number" then
+				themeData[field.transparency] = colorOption.Transparency
+			end
 		end
 
-		local gradientValue = optionValues.PanelAcrylicGradient
-		if typeof(gradientValue) == "ColorSequence" then
-			themeData.AcrylicGradient = gradientValue
-		end
+		for _, field in ipairs(gradientFieldDefs) do
+			local gradientValue = optionValues["Panel" .. field.key]
+			if typeof(gradientValue) == "ColorSequence" then
+				if colorOrSequenceKeys[field.key] and isSolidSequence(gradientValue) then
+					themeData[field.key] = gradientValue.Keypoints[1].Value
+				else
+					themeData[field.key] = gradientValue
+				end
+			end
 
-		local acrylicGradientOption = Library.Options.PanelAcrylicGradient
-		if acrylicGradientOption and typeof(acrylicGradientOption.Rotation) == "number" then
-			themeData.AcrylicGradientRotation = acrylicGradientOption.Rotation
-		end
-
-		local menuGradientValue = optionValues.PanelMenuBackground
-		if typeof(menuGradientValue) == "ColorSequence" then
-			themeData.MenuBackground = menuGradientValue
-		end
-
-		local menuGradientOption = Library.Options.PanelMenuBackground
-		if menuGradientOption and typeof(menuGradientOption.Rotation) == "number" then
-			themeData.MenuBackgroundRotation = menuGradientOption.Rotation
+			local gradientOption = Library.Options["Panel" .. field.key]
+			if gradientOption and typeof(gradientOption.Rotation) == "number" then
+				themeData[field.key .. "Rotation"] = gradientOption.Rotation
+			end
+			if gradientOption and typeof(gradientOption.Transparency) == "NumberSequence" and Creator.GetThemeProperty(field.key .. "Transparency") ~= nil then
+				themeData[field.key .. "Transparency"] = gradientOption.Transparency
+			end
 		end
 
 		if optionValues.PanelBackground ~= nil then
@@ -9977,9 +14142,6 @@ local InterfaceManager = {} do
 		end
 		if optionValues.PanelAcrylicNoise then
 			themeData.AcrylicNoise = optionValues.PanelAcrylicNoise / 100
-		end
-		if optionValues.PanelElementTransparency then
-			themeData.ElementTransparency = optionValues.PanelElementTransparency / 100
 		end
 		if optionValues.PanelHoverChange then
 			themeData.HoverChange = optionValues.PanelHoverChange / 100
@@ -10077,16 +14239,73 @@ local InterfaceManager = {} do
 		return nil
 	end
 
+	local function normalizeNumberSequenceValue(value)
+		if typeof(value) == "NumberSequence" then
+			return value
+		end
+
+		if type(value) == "number" then
+			return NumberSequence.new(math.clamp(value, 0, 1))
+		end
+
+		if type(value) == "table" and value.__type == "NumberSequence" and type(value.value) == "table" then
+			local keypoints = {}
+			for _, entry in ipairs(value.value) do
+				local entryTime = tonumber(entry.t or entry.Time)
+				local entryValue = tonumber(entry.v or entry.Value)
+				if entryTime and entryValue then
+					table.insert(keypoints, { Time = math.clamp(entryTime, 0, 1), Value = math.clamp(entryValue, 0, 1) })
+				end
+			end
+			table.sort(keypoints, function(a, b) return a.Time < b.Time end)
+
+			if #keypoints >= 2 then
+				keypoints[1].Time = 0
+				keypoints[#keypoints].Time = 1
+				local sequenceKeypoints = {}
+				for _, kp in ipairs(keypoints) do
+					table.insert(sequenceKeypoints, NumberSequenceKeypoint.new(kp.Time, kp.Value))
+				end
+				return NumberSequence.new(sequenceKeypoints)
+			elseif #keypoints == 1 then
+				return NumberSequence.new(keypoints[1].Value)
+			end
+		end
+
+		return nil
+	end
+
+	local sequenceThemeKeys = {
+		AcrylicGradientTransparency = true,
+		DropdownHolderTransparency = true,
+		DialogHolderTransparency = true,
+		ColorpickerHolderTransparency = true,
+		MenuBackgroundTransparency = true,
+	}
+
 	local numericThemeKeys = {
 		BackgroundTransparency = true,
 		AcrylicNoise = true,
 		ElementTransparency = true,
+		TitleBarLineTransparency = true,
 		HoverChange = true,
+		ElementBorderTransparency = true,
+		InElementBorderTransparency = true,
+		AcrylicBorderTransparency = true,
+		MenuBorderTransparency = true,
+		DialogBorderTransparency = true,
+		DropdownBorderTransparency = true,
+		ClassHintBorderTransparency = true,
 	}
 
 	local rawNumericThemeKeys = {
 		AcrylicGradientRotation = true,
 		MenuBackgroundRotation = true,
+		DropdownHolderRotation = true,
+		DialogHolderRotation = true,
+		ColorpickerHolderRotation = true,
+		TextRotation = true,
+		SubTextRotation = true,
 	}
 
 	local function finalizeThemeData(extracted)
@@ -10099,6 +14318,22 @@ local InterfaceManager = {} do
 		local gradientThemeKeys = {
 			AcrylicGradient = true,
 			MenuBackground = true,
+			DropdownHolder = true,
+			DialogHolder = true,
+			ColorpickerHolder = true,
+			Text = true,
+			SubText = true,
+		}
+
+		local colorOrGradientKeys = {
+			Text = true,
+			SubText = true,
+		}
+
+		local legacyGradientKeys = {
+			DropdownHolder = true,
+			DialogHolder = true,
+			ColorpickerHolder = true,
 		}
 
 		for _, key in ipairs(themePropertyKeys) do
@@ -10106,8 +14341,25 @@ local InterfaceManager = {} do
 			if value ~= nil then
 				if gradientThemeKeys[key] then
 					local gradient = normalizeGradientValue(value)
+					if not gradient and colorOrGradientKeys[key] then
+						gradient = normalizeColorValue(value)
+					end
+					if not gradient and legacyGradientKeys[key] then
+						local legacyColor = normalizeColorValue(value)
+						if legacyColor then
+							gradient = ColorSequence.new(legacyColor)
+							if key == "DialogHolder" then
+								themeData.DialogInputFocused = legacyColor
+							end
+						end
+					end
 					if gradient then
 						themeData[key] = gradient
+					end
+				elseif sequenceThemeKeys[key] then
+					local sequence = normalizeNumberSequenceValue(value)
+					if sequence then
+						themeData[key] = sequence
 					end
 				elseif key == "Background" then
 					themeData.Background = type(value) == "table" and value or tostring(value)
@@ -10291,9 +14543,6 @@ local InterfaceManager = {} do
 		self.Library = library
 	end
 
-	-- Same as Library:AddTheme but the theme comes from an import format
-	-- Raw can be the text from Copy Theme Data (JSON), a Lua table style text, a line style text or a table with hex strings
-	-- Options can be a string (theme name) or a table: Name, Base, Select
 	function InterfaceManager:ImportTheme(Raw, Options)
 		assert(self.Library, "Must set InterfaceManager.Library")
 		local Lib = self.Library
@@ -10321,7 +14570,6 @@ local InterfaceManager = {} do
 			Parsed.Base = Options.Base
 		end
 
-		Parsed.CardGradient = Parsed.__cardGradient
 		Parsed.__cardGradient = nil
 
 		local Theme = Lib:AddTheme(Parsed)
@@ -10331,6 +14579,41 @@ local InterfaceManager = {} do
 		end
 
 		return Theme
+	end
+
+	function InterfaceManager:ImportFont(Raw, Options)
+		assert(self.Library, "Must set InterfaceManager.Library")
+		local Lib = self.Library
+
+		if type(Options) == "string" then
+			Options = { Name = Options }
+		end
+		Options = Options or {}
+
+		local Parsed
+		if type(Raw) == "table" then
+			local Ok, Encoded = pcall(HttpService.JSONEncode, HttpService, Raw)
+			Parsed = Ok and InterfaceManager.ParseFontImport(Encoded) or nil
+		elseif type(Raw) == "string" then
+			Parsed = InterfaceManager.ParseFontImport(Raw)
+		end
+
+		if not Parsed then
+			return nil, "ImportFont - Invalid font format"
+		end
+
+		if type(Options.Name) == "string" and Options.Name ~= "" then
+			Parsed.Name = Options.Name
+		end
+		if Options.Weight ~= nil then
+			Parsed.Weight = Options.Weight
+		end
+		if Options.Style ~= nil then
+			Parsed.Style = Options.Style
+		end
+		Parsed.Select = Options.Select == true
+
+		return Lib:AddFont(Parsed)
 	end
 
 	function InterfaceManager:BuildFolderTree()
@@ -10617,6 +14900,8 @@ local InterfaceManager = {} do
 		WindowSettings.ShowUserInfo = UserInfoFrame == nil or UserInfoFrame.Visible
 		WindowSettings.DisableBackground = Library.DisableBackground
 		WindowSettings.KeepWindowInsideFrame = Library.KeepWindowInsideFrame
+		WindowSettings.WindowCorner = Library.WindowCorner
+		WindowSettings.DPIScale = math.floor(Library.DPIScale * 100 + 0.5)
 		WindowSettings.ActiveCustomTheme = nil
 
 		local activeCustomName = nil
@@ -10670,6 +14955,37 @@ local InterfaceManager = {} do
 		InterfaceManager.Building = true
 		local loadedCustomThemes = InterfaceManager:LoadSettings()
 
+		if type(settings.SidePanels) ~= "table" then
+			settings.SidePanels = {}
+		end
+		for panelId, panelState in next, Library.PanelSizes do
+			if settings.SidePanels[panelId] == nil then
+				settings.SidePanels[panelId] = panelState
+			end
+		end
+		Library.PanelSizes = settings.SidePanels
+
+		Library.OnPanelSizeChanged = function()
+			pcall(function()
+				InterfaceManager:SaveSettings()
+			end)
+		end
+
+		Library.OnWindowSizeChanged = function(size)
+			settings.WindowSize = { X = size.X.Offset, Y = size.Y.Offset }
+			pcall(function()
+				InterfaceManager:SaveSettings()
+			end)
+		end
+
+		if type(settings.WindowSize) == "table" and Library.Window and Library.Window.SetSize then
+			local savedX = tonumber(settings.WindowSize.X)
+			local savedY = tonumber(settings.WindowSize.Y)
+			if savedX and savedY then
+				Library.Window:SetSize(Vector2.new(savedX, savedY))
+			end
+		end
+
 		if type(settings.Transparency) == "boolean" then
 			settings.Transparency = settings.Transparency and 35 or 0
 		end
@@ -10692,7 +15008,33 @@ local InterfaceManager = {} do
 			end
 		end
 
-		local startFontKey = settings.Font or Library.Font
+		local function resolveAddedFont(entry)
+			local ok, asset = pcall(InterfaceManager.ResolveCustomFont, InterfaceManager, entry)
+			if ok and asset then
+				InterfaceManager.CustomFontAssets[InterfaceManager:FontId(entry.Name)] = asset
+				return asset
+			end
+			warn("[Font] Failed to load added font '" .. tostring(entry.Name) .. "'")
+			return nil
+		end
+
+		local hasSavedFont = false
+		local savedOptionsPath = InterfaceManager.Folder .. "/options.json"
+		if isfile(savedOptionsPath) then
+			local okRead, rawOptions = pcall(readfile, savedOptionsPath)
+			local okDecode, decodedOptions = pcall(HttpService.JSONDecode, HttpService, okRead and rawOptions or "")
+			hasSavedFont = okDecode and type(decodedOptions) == "table" and decodedOptions.Font ~= nil
+		end
+
+		local pendingSelectKey
+		for _, entry in ipairs(Library.AddedFonts) do
+			local asset = resolveAddedFont(entry)
+			if asset and entry.Select and not hasSavedFont then
+				pendingSelectKey = InterfaceManager:FontId(entry.Name)
+			end
+		end
+
+		local startFontKey = pendingSelectKey or settings.Font or Library.Font
 		local startFontAsset = startFontKey
 		if type(startFontKey) == "string" and startFontKey:sub(1, 7) == "custom:" then
 			startFontAsset = InterfaceManager.CustomFontAssets[startFontKey]
@@ -10713,20 +15055,17 @@ local InterfaceManager = {} do
 		end
 		library:ToggleKeepWindowInsideFrame(settings.KeepWindowInsideFrame)
 
+		if settings.WindowCorner == nil then
+			settings.WindowCorner = library.WindowCorner
+		end
+		library:SetWindowCorner(settings.WindowCorner)
+
+		settings.DPIScale = math.clamp(tonumber(settings.DPIScale) or 100, 50, 200)
+		library:SetDPIScale(settings.DPIScale)
+
 		local section = tab:AddSection("Appearance")
 
 		local New = Creator.New
-
-		local themeGradients = {
-			Dark = { Color3.fromRGB(95,  95,  95),  Color3.fromRGB(60,  60,  60)  },
-			Darker = { Color3.fromRGB(30,  30,  30),  Color3.fromRGB(12,  12,  12)  },
-			Light = { Color3.fromRGB(220, 220, 220), Color3.fromRGB(180, 180, 180) },
-			Aqua = { Color3.fromRGB(60,  140, 140), Color3.fromRGB(30,  70,  70)  },
-			Amethyst = { Color3.fromRGB(85,  57,  139), Color3.fromRGB(40,  25,  65)  },
-			Rose = { Color3.fromRGB(190, 60,  135), Color3.fromRGB(150, 45,  65)  },
-			["Crimson Noir"] = { Color3.fromRGB(197, 3, 55), Color3.fromRGB(5, 5, 18)    },
-			Gold = { Color3.fromRGB(255, 198, 41),  Color3.fromRGB(160, 120, 24)  },
-		}
 
 		local pickerWrapper = New("Frame", {
 			Name = "ThemePickerWrapper",
@@ -10745,7 +15084,7 @@ local InterfaceManager = {} do
 			New("UIStroke", {
 				Transparency = 0.5,
 				ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-				ThemeTag = { Color = "ElementBorder" },
+				ThemeTag = { Color = "ElementBorder", Transparency = "ElementBorderTransparency" },
 			}),
 		})
 
@@ -10833,15 +15172,14 @@ local InterfaceManager = {} do
 		end
 
 		local function addCustomThemeCard(themeData, layoutOrder)
-			local gradColors = themeData.__cardGradient or { Color3.fromRGB(50,50,50), Color3.fromRGB(20,20,20) }
-			local colorA, colorB = gradColors[1], gradColors[2]
+			local style = ThemeManager.resolveCardStyle(themeData)
 			local themeName = themeData.Name
 			local themeId = themeData.Id
 
 			local card = New("Frame", {
 				Name = "ThemeCard_Custom_" .. themeId,
 				Size = UDim2.fromOffset(72, 72),
-				BackgroundColor3 = colorA,
+				BackgroundColor3 = style.Sequence.Keypoints[1].Value,
 				BorderSizePixel = 0,
 				LayoutOrder = layoutOrder or 9999,
 				Parent = scrollFrame,
@@ -10849,11 +15187,8 @@ local InterfaceManager = {} do
 			}, {
 				New("UICorner", { CornerRadius = UDim.new(0, 8) }),
 				New("UIGradient", {
-					Color = ColorSequence.new({
-						ColorSequenceKeypoint.new(0, colorA),
-						ColorSequenceKeypoint.new(1, colorB),
-					}),
-					Rotation = 135,
+					Color = style.Sequence,
+					Rotation = style.Rotation,
 				}),
 			})
 
@@ -10861,9 +15196,7 @@ local InterfaceManager = {} do
 				Text = themeName,
 				FontFace = Font.new(Library.Font, Enum.FontWeight.SemiBold, Enum.FontStyle.Normal),
 				TextSize = 9,
-				TextColor3 = Color3.fromRGB(255, 255, 255),
-				TextStrokeTransparency = 0.4,
-				TextStrokeColor3 = Color3.fromRGB(0, 0, 0),
+				TextColor3 = style.Text,
 				TextXAlignment = Enum.TextXAlignment.Center,
 				Size = UDim2.new(1, -4, 0, 14),
 				Position = UDim2.new(0, 2, 1, -16),
@@ -10915,6 +15248,13 @@ local InterfaceManager = {} do
 				Text = "",
 				ZIndex = 6,
 				Parent = card,
+			})
+
+			Creator.AttachCardHover(card, hitBox)
+			Creator.AttachTooltip(hitBox, {
+				Title = themeName,
+				Content = "Custom theme. Click to apply it.",
+				Trigger = { "Hover", "Hold" },
 			})
 
 			Creator.AddSignal(hitBox.MouseEnter, function()
@@ -11137,8 +15477,8 @@ local InterfaceManager = {} do
 			}),
 		})
 
-		local addThemeIcon = Library:GetIcon("plus")
 		local addThemeImage = New("ImageLabel", {
+			Image = "rbxassetid://111774323017047",
 			Size = UDim2.fromOffset(20, 20),
 			Position = UDim2.fromScale(0.5, 0.44),
 			AnchorPoint = Vector2.new(0.5, 0.5),
@@ -11147,14 +15487,6 @@ local InterfaceManager = {} do
 			Parent = addThemeCard,
 			ThemeTag = { ImageColor3 = "SubText" },
 		})
-
-		if type(addThemeIcon) == "table" then
-			addThemeImage.Image = addThemeIcon.Image
-			addThemeImage.ImageRectOffset = addThemeIcon.ImageRectOffset
-			addThemeImage.ImageRectSize = addThemeIcon.ImageRectSize
-		else
-			addThemeImage.Image = addThemeIcon or "rbxassetid://111774323017047"
-		end
 
 		New("TextLabel", {
 			Text = "Custom",
@@ -11175,6 +15507,13 @@ local InterfaceManager = {} do
 			Text = "",
 			ZIndex = 6,
 			Parent = addThemeCard,
+		})
+
+		Creator.AttachCardHover(addThemeCard, addThemeHitBox)
+		Creator.AttachTooltip(addThemeHitBox, {
+			Title = "Custom Theme",
+			Content = "Create a new theme or import one from pasted theme code.",
+			Trigger = { "Hover", "Hold" },
 		})
 
 		Creator.AddSignal(addThemeHitBox.MouseEnter, function()
@@ -11224,22 +15563,23 @@ local InterfaceManager = {} do
 								for _, field in ipairs(colorFieldDefs) do
 									local optionKey = "Panel" .. field.key
 									if parsed[field.key] ~= nil and Library.Options[optionKey] then
-										Library.Options[optionKey]:SetValueRGB(parsed[field.key])
+										Library.Options[optionKey]:SetValueRGB(parsed[field.key], field.transparency and parsed[field.transparency] or nil)
 									end
 								end
 
-								if parsed.AcrylicGradient and Library.Options["PanelAcrylicGradient"] then
-									Library.Options["PanelAcrylicGradient"]:SetValueSequence(parsed.AcrylicGradient)
-								end
-								if parsed.AcrylicGradientRotation and Library.Options["PanelAcrylicGradient"] then
-									Library.Options["PanelAcrylicGradient"]:SetRotation(parsed.AcrylicGradientRotation)
-								end
-
-								if parsed.MenuBackground and Library.Options["PanelMenuBackground"] then
-									Library.Options["PanelMenuBackground"]:SetValueSequence(parsed.MenuBackground)
-								end
-								if parsed.MenuBackgroundRotation and Library.Options["PanelMenuBackground"] then
-									Library.Options["PanelMenuBackground"]:SetRotation(parsed.MenuBackgroundRotation)
+								for _, field in ipairs(gradientFieldDefs) do
+									local gradientOption = Library.Options["Panel" .. field.key]
+									if gradientOption then
+										if parsed[field.key] then
+											gradientOption:SetValueSequence(toSequence(parsed[field.key]))
+										end
+										if parsed[field.key .. "Rotation"] then
+											gradientOption:SetRotation(parsed[field.key .. "Rotation"])
+										end
+										if parsed[field.key .. "Transparency"] then
+											gradientOption:SetTransparency(parsed[field.key .. "Transparency"])
+										end
+									end
 								end
 
 								if parsed.Background ~= nil and Library.Options["PanelBackground"] then
@@ -11250,9 +15590,6 @@ local InterfaceManager = {} do
 								end
 								if parsed.AcrylicNoise and Library.Options["PanelAcrylicNoise"] then
 									Library.Options["PanelAcrylicNoise"]:SetValue(math.floor(parsed.AcrylicNoise * 100))
-								end
-								if parsed.ElementTransparency and Library.Options["PanelElementTransparency"] then
-									Library.Options["PanelElementTransparency"]:SetValue(math.floor(parsed.ElementTransparency * 100))
 								end
 								if parsed.HoverChange and Library.Options["PanelHoverChange"] then
 									Library.Options["PanelHoverChange"]:SetValue(math.floor(parsed.HoverChange * 100))
@@ -11283,94 +15620,137 @@ local InterfaceManager = {} do
 				},
 			})
 
-			Panel:AddInput("PanelThemeName", {
-				Title = "Theme Name",
-				Description = "Name of the custom theme.",
-				Default = suggestedName,
-				Placeholder = suggestedName,
-				Finished = true,
-				Callback = function() end,
-			})
-
+			local colorFieldByKey = {}
 			for _, field in ipairs(colorFieldDefs) do
-				Panel:AddColorpicker("Panel" .. field.key, {
-					Title = field.title,
-					Description = field.description,
-					Default = Creator.GetThemeProperty(field.key),
-					Callback = function() end,
-				})
-				if field.key == "MenuBorder" then
-					Panel:AddGradientPicker("PanelMenuBackground", {
-						Title = "Menu Background",
-						Description = "Start and end color of the menu background gradient. Rotation controls its direction.",
-						Default = Creator.GetThemeProperty("MenuBackground"),
-						Rotation = Creator.GetThemeProperty("MenuBackgroundRotation"),
+				colorFieldByKey[field.key] = field
+			end
+
+			local gradientFieldByKey = {}
+			for _, field in ipairs(gradientFieldDefs) do
+				gradientFieldByKey[field.key] = field
+			end
+
+			local panelBuilders = {
+				Name = function()
+					Panel:AddInput("PanelThemeName", {
+						Title = "Theme Name",
+						Description = "Name of the custom theme.",
+						Tooltip = "Name used to save this custom theme. Saving with an existing name overwrites that theme.",
+						Default = suggestedName,
+						Placeholder = suggestedName,
+						Finished = true,
 						Callback = function() end,
 					})
+				end,
+				AcrylicNoise = function()
+					Panel:AddSlider("PanelAcrylicNoise", {
+						Title = "Acrylic Noise",
+						Description = "Noise intensity of the acrylic background (0-100).",
+						Tooltip = "How much grain the acrylic blur shows. Higher values look rougher.",
+						Min = 0,
+						Max = 100,
+						Default = math.floor((Creator.GetThemeProperty("AcrylicNoise") or 0) * 100),
+						Rounding = 0,
+						Callback = function() end,
+					})
+				end,
+				Background = function()
+					Panel:AddInput("PanelBackground", {
+						Title = "Background",
+						Description = "Background image asset or URL, or a .lua frame file (local path or URL) for an animated background. Leave empty for none.",
+						Tooltip = "Image id, URL or a .lua frame file that plays behind the window. Leave empty for no background.",
+						Placeholder = "rbxassetid://0",
+						Finished = true,
+						Default = backgroundToText(Creator.GetThemeProperty("Background")),
+						Callback = function() end,
+					})
+				end,
+				BackgroundTransparency = function()
+					Panel:AddSlider("PanelBackgroundTransparency", {
+						Title = "Background Transparency",
+						Description = "Transparency of the background (0-100).",
+						Tooltip = "0 shows the background fully and 100 hides it.",
+						Min = 0,
+						Max = 100,
+						Default = math.floor((Creator.GetThemeProperty("BackgroundTransparency") or 0) * 100),
+						Rounding = 0,
+						Callback = function() end,
+					})
+				end,
+				HoverChange = function()
+					Panel:AddSlider("PanelHoverChange", {
+						Title = "Hover Intensity",
+						Description = "Strength of the hover effect (0-100).",
+						Tooltip = "How strong the hover highlight is on elements, tabs and cards.",
+						Min = 0,
+						Max = 100,
+						Default = math.floor((Creator.GetThemeProperty("HoverChange") or 0.07) * 100),
+						Rounding = 0,
+						Callback = function() end,
+					})
+				end,
+			}
+
+			local function buildPanelField(key)
+				local builder = panelBuilders[key]
+				local colorField = colorFieldByKey[key]
+				local gradientField = gradientFieldByKey[key]
+
+				if builder then
+					builder()
+					return true
 				end
-				if field.key == "AcrylicBorder" then
-					Panel:AddGradientPicker("PanelAcrylicGradient", {
-						Title = "Acrylic Gradient",
-						Description = "Start and end color of the acrylic background gradient. Rotation controls its direction.",
-						Default = Creator.GetThemeProperty("AcrylicGradient"),
-						Rotation = Creator.GetThemeProperty("AcrylicGradientRotation"),
+
+				if colorField then
+					Panel:AddColorpicker("Panel" .. colorField.key, {
+						Title = colorField.title,
+						Tooltip = { Title = colorField.title, Content = colorField.description },
+						Description = colorField.description,
+						Default = Creator.GetThemeProperty(colorField.key),
+						Transparency = colorField.transparency and Creator.GetThemeProperty(colorField.transparency) or nil,
 						Callback = function() end,
 					})
+					return true
+				end
+
+				if gradientField then
+					Panel:AddGradientPicker("Panel" .. gradientField.key, {
+						Title = gradientField.title,
+						Tooltip = { Title = gradientField.title, Content = gradientField.description },
+						Description = gradientField.description,
+						Default = toSequence(Creator.GetThemeProperty(gradientField.key)),
+						Rotation = Creator.GetThemeProperty(gradientField.key .. "Rotation"),
+						Transparency = Creator.GetThemeProperty(gradientField.key .. "Transparency"),
+						Callback = function() end,
+					})
+					return true
+				end
+
+				return false
+			end
+
+			local builtFields = {}
+			for _, key in ipairs(themePanelOrder) do
+				if buildPanelField(key) then
+					builtFields[key] = true
 				end
 			end
 
-			Panel:AddInput("PanelBackground", {
-				Title = "Background",
-				Description = "Background image asset or URL, or a .lua frame file (local path or URL) for an animated background. Leave empty for none.",
-				Placeholder = "rbxassetid://0",
-				Finished = true,
-				Default = backgroundToText(Creator.GetThemeProperty("Background")),
-				Callback = function() end,
-			})
-
-			Panel:AddSlider("PanelBackgroundTransparency", {
-				Title = "Background Transparency",
-				Description = "Transparency of the background (0-100).",
-				Min = 0,
-				Max = 100,
-				Default = math.floor((Creator.GetThemeProperty("BackgroundTransparency") or 0) * 100),
-				Rounding = 0,
-				Callback = function() end,
-			})
-
-			Panel:AddSlider("PanelAcrylicNoise", {
-				Title = "Acrylic Noise",
-				Description = "Noise intensity of the acrylic background (0-100).",
-				Min = 0,
-				Max = 100,
-				Default = math.floor((Creator.GetThemeProperty("AcrylicNoise") or 0) * 100),
-				Rounding = 0,
-				Callback = function() end,
-			})
-
-			Panel:AddSlider("PanelElementTransparency", {
-				Title = "Element Transparency",
-				Description = "Transparency of element backgrounds (0-100).",
-				Min = 0,
-				Max = 100,
-				Default = math.floor((Creator.GetThemeProperty("ElementTransparency") or 0.87) * 100),
-				Rounding = 0,
-				Callback = function() end,
-			})
-
-			Panel:AddSlider("PanelHoverChange", {
-				Title = "Hover Intensity",
-				Description = "Strength of the hover effect (0-100).",
-				Min = 0,
-				Max = 100,
-				Default = math.floor((Creator.GetThemeProperty("HoverChange") or 0.07) * 100),
-				Rounding = 0,
-				Callback = function() end,
-			})
+			for _, field in ipairs(colorFieldDefs) do
+				if not builtFields[field.key] then
+					buildPanelField(field.key)
+				end
+			end
+			for _, field in ipairs(gradientFieldDefs) do
+				if not builtFields[field.key] then
+					buildPanelField(field.key)
+				end
+			end
 
 			Panel:AddDropdown("PanelCopyFormat", {
 				Title = "Color Format",
 				Description = "Format of the colors when copying theme data.",
+				Tooltip = "Choose how colors are written when you copy theme data.",
 				Values = { "Hex", "RGB", "HSV" },
 				Default = 1,
 				Multi = false,
@@ -11410,7 +15790,8 @@ local InterfaceManager = {} do
 			Panel:AddButton({
 				Title = "Copy Theme Data",
 				Description = "Copies this theme so it can be pasted into Import, or shared with others.",
-				Icon = "copy",
+				Tooltip = "Copies the theme as text that Import accepts. Share it with others or keep it as a backup.",
+				Icon = "rbxassetid://78979572434545",
 				Callback = function()
 					local shareTheme, format = buildShareTheme()
 					if shareTheme then
@@ -11422,7 +15803,8 @@ local InterfaceManager = {} do
 			Panel:AddButton({
 				Title = "Copy AddTheme Code",
 				Description = "Copies this theme as a Library:AddTheme call that developers can place in a script.",
-				Icon = "code",
+				Tooltip = "Copies the theme as a ready to paste Library:AddTheme call for script developers.",
+				Icon = "rbxassetid://107380207681249",
 				Callback = function()
 					local shareTheme, format = buildShareTheme()
 					if shareTheme then
@@ -11434,6 +15816,7 @@ local InterfaceManager = {} do
 			themeTargetDropdown = Panel:AddDropdown("PanelCustomThemeTarget", {
 				Title = "Custom Theme",
 				Description = "Pick an existing custom theme, or a built-in theme you overwrote, to delete or overwrite.",
+				Tooltip = "Select the theme that Delete and Overwrite will act on.",
 				Values = getCustomThemeNames(),
 				Multi = false,
 				AllowNull = true,
@@ -11443,7 +15826,8 @@ local InterfaceManager = {} do
 			Panel:AddButton({
 				Title = "Delete Custom Theme",
 				Description = "Deletes the custom theme selected in the dropdown above.",
-				Icon = "trash-2",
+				Tooltip = "Permanently removes the selected custom theme. Built-in themes you overwrote return to default.",
+				Icon = "rbxassetid://109843431391323",
 				Callback = function()
 					local targetOpt = Library.Options["PanelCustomThemeTarget"]
 					local targetLabel = targetOpt and targetOpt.Value
@@ -11531,7 +15915,8 @@ local InterfaceManager = {} do
 			Panel:AddButton({
 				Title = "Overwrite Selected Theme",
 				Description = "Replaces the selected custom theme with the values currently set in this panel.",
-				Icon = "save",
+				Tooltip = "Saves the colors in this panel over the selected theme instead of creating a new one.",
+				Icon = "rbxassetid://126116963775616",
 				Callback = function()
 					local targetOpt = Library.Options["PanelCustomThemeTarget"]
 					local targetLabel = targetOpt and targetOpt.Value
@@ -11601,34 +15986,18 @@ local InterfaceManager = {} do
 			})
 		end)
 
-		local function getCardColors(themeName)
-			if library.ThemeOverrides[themeName] then
-				return generateGradientColors(Themes[themeName])
-			end
-			if themeGradients[themeName] then
-				return themeGradients[themeName]
-			end
-			local data = Themes[themeName]
-			if data and data.CardGradient then
-				return data.CardGradient
-			end
-			local accent = data and data.Accent or Color3.fromRGB(50, 50, 50)
-			return { accent, accent:Lerp(Color3.new(0, 0, 0), 0.6) }
-		end
-
 		local function addBuiltInThemeCard(themeName, idx)
 			if themeCards[themeName] then
 				themeCards[themeName].card:Destroy()
 				themeCards[themeName] = nil
 			end
 
-			local colors = getCardColors(themeName)
-			local colorA, colorB = colors[1], colors[2]
+			local style = ThemeManager.resolveCardStyle(Themes[themeName])
 
 			local card = New("Frame", {
 				Name = "ThemeCard_" .. themeName,
 				Size = UDim2.fromOffset(72, 72),
-				BackgroundColor3 = colorA,
+				BackgroundColor3 = style.Sequence.Keypoints[1].Value,
 				BorderSizePixel = 0,
 				LayoutOrder = idx,
 				Parent = scrollFrame,
@@ -11636,11 +16005,8 @@ local InterfaceManager = {} do
 			}, {
 				New("UICorner", { CornerRadius = UDim.new(0, 8) }),
 				New("UIGradient", {
-					Color = ColorSequence.new({
-						ColorSequenceKeypoint.new(0, colorA),
-						ColorSequenceKeypoint.new(1, colorB),
-					}),
-					Rotation = 135,
+					Color = style.Sequence,
+					Rotation = style.Rotation,
 				}),
 			})
 
@@ -11648,9 +16014,7 @@ local InterfaceManager = {} do
 				Text = themeName,
 				FontFace = Font.new(Library.Font, Enum.FontWeight.SemiBold, Enum.FontStyle.Normal),
 				TextSize = 9,
-				TextColor3 = Color3.fromRGB(255, 255, 255),
-				TextStrokeTransparency = 0.4,
-				TextStrokeColor3 = Color3.fromRGB(0, 0, 0),
+				TextColor3 = style.Text,
 				TextXAlignment = Enum.TextXAlignment.Center,
 				Size = UDim2.new(1, -4, 0, 14),
 				Position = UDim2.new(0, 2, 1, -16),
@@ -11701,6 +16065,13 @@ local InterfaceManager = {} do
 				Text = "",
 				ZIndex = 6,
 				Parent = card,
+			})
+
+			Creator.AttachCardHover(card, hitBox)
+			Creator.AttachTooltip(hitBox, {
+				Title = themeName,
+				Content = "Click to apply the " .. themeName .. " theme.",
+				Trigger = { "Hover", "Hold" },
 			})
 
 			Creator.AddSignal(hitBox.MouseEnter, function()
@@ -11758,6 +16129,7 @@ local InterfaceManager = {} do
 		section:AddToggle("KeepWindowInsideFrameToggle", {
 			Title = "Keep Window Inside Frame",
 			Description = "Prevents the window from being dragged or resized outside its parent frame.",
+			Tooltip = "Keeps the window fully on screen while you drag or resize it.",
 			Default = settings.KeepWindowInsideFrame,
 			LayoutOrder = 6,
 			Icon = "rbxassetid://81973586053257",
@@ -11798,7 +16170,7 @@ local InterfaceManager = {} do
 			New("UIStroke", {
 				Transparency = 0.5,
 				ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-				ThemeTag = { Color = "ElementBorder" },
+				ThemeTag = { Color = "ElementBorder", Transparency = "ElementBorderTransparency" },
 			}),
 		})
 
@@ -11978,6 +16350,13 @@ local InterfaceManager = {} do
 				Text = "",
 				ZIndex = 6,
 				Parent = fontCard,
+			})
+
+			Creator.AttachCardHover(fontCard, fontHitBox)
+			Creator.AttachTooltip(fontHitBox, {
+				Title = fontData.name,
+				Content = "Click to use the " .. fontData.name .. " font.",
+				Trigger = { "Hover", "Hold" },
 			})
 
 			Creator.AddSignal(fontHitBox.MouseEnter, function()
@@ -12205,6 +16584,7 @@ local InterfaceManager = {} do
 			Panel:AddInput("FontPanelName", {
 				Title = "Name",
 				Description = "Name shown on the font card.",
+				Tooltip = "Label shown on the font card in the list.",
 				Default = base.Name,
 				Placeholder = base.Name,
 				Marquee = true,
@@ -12214,6 +16594,7 @@ local InterfaceManager = {} do
 			Panel:AddDropdown("FontPanelWeight", {
 				Title = "Weight",
 				Description = "Weight of the font face.",
+				Tooltip = "Thin is the lightest and Heavy is the boldest.",
 				Values = InterfaceManager.FontWeightNames,
 				Default = base.Weight,
 				Multi = false,
@@ -12223,6 +16604,7 @@ local InterfaceManager = {} do
 			Panel:AddDropdown("FontPanelStyle", {
 				Title = "Style",
 				Description = "Style of the font face.",
+				Tooltip = "Normal is upright and Italic is slanted.",
 				Values = InterfaceManager.FontStyleNames,
 				Default = base.Style,
 				Multi = false,
@@ -12232,6 +16614,7 @@ local InterfaceManager = {} do
 			Panel:AddInput("FontPanelAssetId", {
 				Title = "Asset Id",
 				Description = "Asset id, file path or URL.",
+				Tooltip = "Accepts a Roblox font asset id, a local font file path or a direct URL.",
 				Default = base.AssetId,
 				Placeholder = base.AssetId,
 				Marquee = true,
@@ -12241,6 +16624,7 @@ local InterfaceManager = {} do
 			customFontTarget = Panel:AddDropdown("FontPanelCustomTarget", {
 				Title = "Custom Font",
 				Description = "Pick a custom font to delete.",
+				Tooltip = "Select the custom font that Delete will remove.",
 				Values = getCustomFontNames(),
 				Multi = false,
 				AllowNull = true,
@@ -12250,7 +16634,8 @@ local InterfaceManager = {} do
 			Panel:AddButton({
 				Title = "Copy Font Code",
 				Description = "Copies the font in this panel as a code that Import accepts.",
-				Icon = "copy",
+				Tooltip = "Copies the font as text that Import accepts so it can be shared.",
+				Icon = "rbxassetid://78979572434545",
 				Marquee = true,
 				Callback = function()
 					local function value(key)
@@ -12284,7 +16669,8 @@ local InterfaceManager = {} do
 			Panel:AddButton({
 				Title = "Delete Custom Font",
 				Description = "Deletes the custom font selected in the dropdown above.",
-				Icon = "trash-2",
+				Tooltip = "Permanently removes the selected custom font.",
+				Icon = "rbxassetid://109843431391323",
 				Marquee = true,
 				Callback = function()
 					local targetName = customFontTarget and customFontTarget.Value
@@ -12333,8 +16719,8 @@ local InterfaceManager = {} do
 			}),
 		})
 
-		local addFontIcon = Library:GetIcon("plus")
 		local addFontImage = New("ImageLabel", {
+			Image = "rbxassetid://111774323017047",
 			Size = UDim2.fromOffset(20, 20),
 			Position = UDim2.fromScale(0.5, 0.44),
 			AnchorPoint = Vector2.new(0.5, 0.5),
@@ -12343,14 +16729,6 @@ local InterfaceManager = {} do
 			Parent = addFontCardButton,
 			ThemeTag = { ImageColor3 = "SubText" },
 		})
-
-		if type(addFontIcon) == "table" then
-			addFontImage.Image = addFontIcon.Image
-			addFontImage.ImageRectOffset = addFontIcon.ImageRectOffset
-			addFontImage.ImageRectSize = addFontIcon.ImageRectSize
-		else
-			addFontImage.Image = addFontIcon or "rbxassetid://111774323017047"
-		end
 
 		New("TextLabel", {
 			Text = "Custom",
@@ -12373,6 +16751,13 @@ local InterfaceManager = {} do
 			Parent = addFontCardButton,
 		})
 
+		Creator.AttachCardHover(addFontCardButton, addFontHitBox)
+		Creator.AttachTooltip(addFontHitBox, {
+			Title = "Custom Font",
+			Content = "Add a custom font from an asset id, file or URL, or import one from pasted font code.",
+			Trigger = { "Hover", "Hold" },
+		})
+
 		Creator.AddSignal(addFontHitBox.MouseEnter, function()
 			addFontCardButton.UIStroke.Transparency = 0.2
 		end)
@@ -12384,6 +16769,28 @@ local InterfaceManager = {} do
 			local asset = InterfaceManager.CustomFontAssets[InterfaceManager:FontId(entry.Name)]
 			if asset then
 				mountCustomFont(entry, asset)
+			end
+		end
+
+		for _, entry in ipairs(Library.AddedFonts) do
+			local asset = InterfaceManager.CustomFontAssets[InterfaceManager:FontId(entry.Name)]
+			if asset then
+				mountCustomFont(entry, asset)
+			end
+		end
+
+		library.OnFontAdded = function(entry)
+			local asset = resolveAddedFont(entry)
+			if not asset then
+				return
+			end
+			mountCustomFont(entry, asset)
+			if entry.Select then
+				local id = InterfaceManager:FontId(entry.Name)
+				library:SetFont(asset)
+				settings.Font = id
+				InterfaceManager:SaveSettings()
+				setSelectedFont(id)
 			end
 		end
 
@@ -12399,6 +16806,7 @@ local InterfaceManager = {} do
 			section:AddToggle("AcrylicToggle", {
 				Title = "Acrylic",
 				Description = "The blurred background requires graphic quality 8+",
+				Tooltip = "Blurs the scene behind the window. Needs graphics quality 8 or higher.",
 				Default = settings.Acrylic,
 				LayoutOrder = 2,
 				Icon = "rbxassetid://81973586053257",
@@ -12413,6 +16821,7 @@ local InterfaceManager = {} do
 		section:AddSlider("TransparencySlider", {
 			Title = "Transparency",
 			Description = "Adjusts the interface transparency.",
+			Tooltip = "Lower values make the interface more solid and higher values more see through.",
 			Default = settings.Transparency,
 			Min = 0,
 			Max = 100,
@@ -12426,29 +16835,77 @@ local InterfaceManager = {} do
 			end,
 		})
 
-		local menuKeybind = section:AddKeybind("MenuKeybind", { Title = "Minimize Bind", Default = settings.MenuKeybind, LayoutOrder = 4, Icon = "rbxassetid://121474456068237" })
+		section:AddSlider("WindowCornerSlider", {
+			Title = "Window Corner",
+			Description = "Adjusts the roundness of the window corners.",
+			Tooltip = "Changes the corner radius of the window, acrylic included.",
+			Default = settings.WindowCorner,
+			Min = 0,
+			Max = 24,
+			Rounding = 0,
+			LayoutOrder = 9,
+			Icon = "app-window",
+			Callback = function(value)
+				library:SetWindowCorner(value)
+				settings.WindowCorner = value
+				InterfaceManager:SaveSettings()
+			end,
+		})
+
+		section:AddInput("DPIScaleInput", {
+			Title = "DPI Scale",
+			Description = "Scales the whole interface. Type a percentage (50 - 200) and press Enter.",
+			Tooltip = "Resizes every part of the UI: window, dropdowns, tooltips, notifications and toasts. 100 is the default size.",
+			Default = tostring(settings.DPIScale),
+			Placeholder = "100",
+			Numeric = true,
+			Finished = true,
+			LayoutOrder = 10,
+			Icon = "scaling",
+			Callback = function(value)
+				local Number = tonumber(value)
+				if not Number then
+					return
+				end
+				local Clamped = math.clamp(math.floor(Number + 0.5), 50, 200)
+				local Option = library.Options.DPIScaleInput
+				if Option and tostring(Clamped) ~= tostring(value) then
+					Option:SetValue(tostring(Clamped))
+					return
+				end
+				library:SetDPIScale(Clamped)
+				settings.DPIScale = Clamped
+				InterfaceManager:SaveSettings()
+			end,
+		})
+
+		local menuKeybind = section:AddKeybind("MenuKeybind", { Title = "Minimize Bind", Tooltip = "Key that shows or hides the window.", Default = settings.MenuKeybind, LayoutOrder = 4, Icon = "rbxassetid://121474456068237" })
 		menuKeybind:OnChanged(function()
 			settings.MenuKeybind = menuKeybind.Value
 			InterfaceManager:SaveSettings()
 		end)
 		library.MinimizeKeybind = menuKeybind
 
-		section:AddToggle("ShowUserInfoToggle", {
-			Title = "Show User Info",
-			Description = "Toggles the avatar and username block in the sidebar.",
-			Default = settings.ShowUserInfo,
-			LayoutOrder = 5,
-			Icon = "rbxassetid://136220511671311",
-			Callback = function(value)
-				library:ToggleUserInfo(value)
-				settings.ShowUserInfo = value
-				InterfaceManager:SaveSettings()
-			end,
-		})
+		if library.Window and library.Window.UserInfoFrame then
+			section:AddToggle("ShowUserInfoToggle", {
+				Title = "Show User Info",
+				Description = "Toggles the avatar and username block in the sidebar.",
+				Tooltip = "Shows or hides the avatar and name block at the sidebar.",
+				Default = settings.ShowUserInfo,
+				LayoutOrder = 5,
+				Icon = "rbxassetid://136220511671311",
+				Callback = function(value)
+					library:ToggleUserInfo(value)
+					settings.ShowUserInfo = value
+					InterfaceManager:SaveSettings()
+				end,
+			})
+		end
 
 		section:AddToggle("DisableBackgroundToggle", {
 			Title = "Disable Background",
 			Description = "Hides the window background.",
+			Tooltip = "Turns off the background image or animation of the window.",
 			Default = settings.DisableBackground,
 			LayoutOrder = 8,
 			Icon = "rbxassetid://81934811700938",
@@ -12604,6 +17061,8 @@ local SaveManager = {} do
 			"InterfaceTheme",
 			"AcrylicToggle",
 			"TransparencySlider",
+			"WindowCornerSlider",
+			"DPIScaleInput",
 			"MenuKeybind",
 			"ShowUserInfoToggle",
 			"DisableBackgroundToggle",
@@ -12622,6 +17081,9 @@ local SaveManager = {} do
 			"PanelMenuInput",
 			"PanelMenuInputLine",
 			"PanelMenuInputFocused",
+			"PanelClassHint",
+			"PanelClassHintBorder",
+			"PanelClassHintText",
 			"PanelAcrylicNoise",
 			"PanelBackground",
 			"PanelBackgroundTransparency",
@@ -12630,7 +17092,6 @@ local SaveManager = {} do
 			"PanelElement",
 			"PanelElementBorder",
 			"PanelInElementBorder",
-			"PanelElementTransparency",
 			"PanelToggleSlider",
 			"PanelToggleToggled",
 			"PanelSliderRail",
@@ -12650,6 +17111,7 @@ local SaveManager = {} do
 			"PanelDialogBorder",
 			"PanelDialogInput",
 			"PanelDialogInputLine",
+			"PanelDialogInputFocused",
 			"PanelColorpickerDialog",
 			"PanelColorpickerDialogBorder",
 			"PanelColorpickerHolder",
@@ -12740,12 +17202,13 @@ local SaveManager = {} do
 
 		local section = tab:AddSection("Configuration")
 
-		section:AddInput("SaveManager_ConfigName", { Title = "Config name", Icon = "text-cursor-input" })
-		section:AddDropdown("SaveManager_ConfigList", { Title = "Config list", Values = self:RefreshConfigList(), AllowNull = true, Icon = "folder-open" })
+		section:AddInput("SaveManager_ConfigName", { Title = "Config name", Tooltip = "Type the name for a new config, then press Create config.", Icon = "rbxassetid://107551944047171" })
+		section:AddDropdown("SaveManager_ConfigList", { Title = "Config list", Tooltip = "Pick a saved config to load, overwrite, delete or autoload.", Values = self:RefreshConfigList(), AllowNull = true, Icon = "rbxassetid://76018996254888" })
 
 		section:AddButton({
 			Title = "Create config",
-			Icon = "save",
+			Tooltip = "Saves every option as a new config using the name typed above.",
+			Icon = "rbxassetid://126116963775616",
 			Callback = function()
 				local name = SaveManager.Options.SaveManager_ConfigName.Value
 
@@ -12782,7 +17245,8 @@ local SaveManager = {} do
 
 		section:AddButton({
 			Title = "Load config",
-			Icon = "download",
+			Tooltip = "Applies the config selected in the list to all options.",
+			Icon = "rbxassetid://134814648082393",
 			Callback = function()
 				local name = SaveManager.Options.SaveManager_ConfigList.Value
 
@@ -12807,7 +17271,8 @@ local SaveManager = {} do
 
 		section:AddButton({
 			Title = "Overwrite config",
-			Icon = "save-all",
+			Tooltip = "Replaces the selected config with the current option values.",
+			Icon = "rbxassetid://116946975799440",
 			Callback = function()
 				local name = SaveManager.Options.SaveManager_ConfigList.Value
 				if not name then
@@ -12849,7 +17314,8 @@ local SaveManager = {} do
 
 		section:AddButton({
 			Title = "Delete config",
-			Icon = "trash-2",
+			Tooltip = "Permanently deletes the selected config file.",
+			Icon = "rbxassetid://109843431391323",
 			Callback = function()
 				local name = SaveManager.Options.SaveManager_ConfigList.Value
 				if not name then
@@ -12894,7 +17360,8 @@ local SaveManager = {} do
 
 		section:AddButton({
 			Title = "Refresh list",
-			Icon = "refresh-cw",
+			Tooltip = "Rescans the config folder and updates the list.",
+			Icon = "rbxassetid://138133190015277",
 			Callback = function()
 				SaveManager.Options.SaveManager_ConfigList:SetValues(self:RefreshConfigList())
 				SaveManager.Options.SaveManager_ConfigList:SetValue(nil)
@@ -12904,8 +17371,9 @@ local SaveManager = {} do
 		local autoloadButton
 		autoloadButton = section:AddButton({
 			Title = "Set as autoload",
+			Tooltip = "Loads the selected config automatically the next time the script runs.",
 			Description = "Current autoload config: none",
-			Icon = "pin",
+			Icon = "rbxassetid://120978111007514",
 			Callback = function()
 				local name = SaveManager.Options.SaveManager_ConfigList.Value
 				writefile(self.Folder .. "/settings/autoload.txt", name)
@@ -13121,8 +17589,9 @@ function Library:CreateWindow(Config)
 	Extension._WindowHooks = {}
 
 	local OriginalSelectTab = Window.SelectTab
-	function Window:SelectTab(Tab)
-		local Result = OriginalSelectTab(self, Tab)
+	function Window:SelectTab(...)
+		local Tab = ...
+		local Result = OriginalSelectTab(self, ...)
 		for _, Hook in next, Extension._TabHooks do
 			pcall(Hook, Tab, Window)
 		end
