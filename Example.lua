@@ -5,7 +5,7 @@ local Players: Players = cloneref(game:GetService("Players"))
 local RunService: RunService = cloneref(game:GetService("RunService"))
 local UserInputService: UserInputService = cloneref(game:GetService("UserInputService"))
 
-local Library, SaveManager, InterfaceManager, MediaCache = loadstring(game:HttpGet("https://raw.githubusercontent.com/StyearX/Fluent-Reimagined/refs/heads/beta/dist/Main.lua"))()
+local Library, SaveManager, InterfaceManager, MediaCache = loadstring(game:HttpGet("https://raw.githubusercontent.com/StyearX/Fluent-Reimagined/refs/heads/main/dist/Main.lua"))()
 local Options = Library.Options
 
 local LocalPlayer = Players.LocalPlayer
