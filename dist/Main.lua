@@ -785,6 +785,7 @@ local Library = {
 	Font = "rbxasset://fonts/families/GothamSSm.json",
 	DialogOpen = false,
 	WindowCorner = 8,
+	DPIScale = 1,
 	UseAcrylic = false,
 	Acrylic = false,
 	Transparency = 0.35,
@@ -1661,7 +1662,7 @@ function Creator.AttachScrollBar(ScrollFrame, Options)
 		local MaxScroll = CanvasHeight - WindowHeight
 		Scrollable = MaxScroll > 1
 
-		local TrackHeight = math.max(0, ScrollFrame.AbsoluteSize.Y - Cap * 2)
+		local TrackHeight = math.max(0, ScrollFrame.AbsoluteSize.Y / Library.DPIScale - Cap * 2)
 		local Ratio = Scrollable and math.clamp(WindowHeight / CanvasHeight, 0, 1) or 1
 		local ThumbHeight = math.min(TrackHeight, math.max(MinThumb, TrackHeight * Ratio))
 		local Offset = 0
@@ -1746,7 +1747,7 @@ function Creator.AttachScrollBar(ScrollFrame, Options)
 			return
 		end
 		local MaxScroll = ScrollFrame.AbsoluteCanvasSize.Y - ScrollFrame.AbsoluteWindowSize.Y
-		local TrackHeight = math.max(0, ScrollFrame.AbsoluteSize.Y - Cap * 2)
+		local TrackHeight = math.max(0, ScrollFrame.AbsoluteSize.Y - Cap * 2 * Library.DPIScale)
 		local Travel = TrackHeight - Thumb.AbsoluteSize.Y
 		if MaxScroll <= 0 or Travel <= 0 then
 			return
@@ -2134,7 +2135,7 @@ local function UpdateMarquees(Delta)
 		if not Entry.Label.Parent then
 			table.remove(Creator.Marquees, Index)
 		elseif Entry.Label.Visible and Entry.Label.AbsoluteSize.X > 0 then
-			local Overflow = Entry.Child.TextBounds.X - Entry.Label.AbsoluteSize.X
+			local Overflow = Entry.Child.TextBounds.X - Entry.Label.AbsoluteSize.X / Library.DPIScale
 			local Offset = 0
 
 			if Overflow > 1 then
@@ -2220,7 +2221,7 @@ function Creator.Adaptive(ElementFrame, Slot, Threshold, StartInline, Apply)
 	end
 
 	local function Update()
-		local Width = ElementFrame.Frame.AbsoluteSize.X
+		local Width = ElementFrame.Frame.AbsoluteSize.X / Library.DPIScale
 		if Width <= 0 then return end
 		local Want
 		if Inline then
@@ -2320,7 +2321,7 @@ local function EnsureTooltipUI()
 		BackgroundTransparency = 1,
 		Active = false,
 		ZIndex = 200,
-		Parent = Library.GUI,
+		Parent = Library.Scaler or Library.GUI,
 	})
 
 	local TitleRow = Creator.New("Frame", {
@@ -2551,7 +2552,7 @@ local function ShowTooltipUI(Owner, Config, Target)
 
 	X = math.clamp(X, 6, math.max(6, Area.X - Size.X - 6))
 	Y = math.clamp(Y, 6, math.max(6, Area.Y - Size.Y - 6))
-	UI.Root.Position = UDim2.fromOffset(math.floor(X), math.floor(Y))
+	UI.Root.Position = UDim2.fromOffset(math.floor(X / Library.DPIScale), math.floor(Y / Library.DPIScale))
 
 	TweenService:Create(UI.Root, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
 		GroupTransparency = 0,
@@ -2803,6 +2804,18 @@ local GUI = New("ScreenGui", {
 ProtectGui(GUI)
 Library.GUI = GUI
 
+local Scaler = New("Frame", {
+	Name = "DPIScaler",
+	BackgroundTransparency = 1,
+	BorderSizePixel = 0,
+	Size = UDim2.fromScale(1, 1),
+	Parent = GUI,
+}, {
+	New("UIScale", { Scale = 1 }),
+})
+Library.Scaler = Scaler
+Library.ScalerScale = Scaler:FindFirstChildOfClass("UIScale")
+
 function Library:SafeCallback(Function, ...)
 	if not Function then
 		return
@@ -2921,7 +2934,7 @@ local function createAcrylicBlur(distance, getRadius)
 	local function render()
 		local camera = Workspace.CurrentCamera
 		local cframe = camera and camera.CFrame or CFrame.new()
-		local rows = buildRows(size.X, size.Y, getRadius and getRadius() or 0)
+		local rows = buildRows(size.X, size.Y, (getRadius and getRadius() or 0) * Library.DPIScale)
 
 		for index, row in ipairs(rows) do
 			local strip = getStrip(index)
@@ -3415,8 +3428,26 @@ Components.Button = (function()
 
 	local Spring = Flipper.Spring.new
 
-	return function(Theme, Parent, DialogCheck, TagSet)
+	local DestructiveColor = Color3.fromRGB(196, 43, 28)
+	local DestructiveBorder = Color3.fromRGB(232, 99, 84)
+
+	local function NormalizeStyle(Style)
+		if type(Style) ~= "string" then
+			return "Standard"
+		end
+		local Lower = Style:lower()
+		if Lower == "suggested" then
+			return "Suggested"
+		elseif Lower == "destructive" then
+			return "Destructive"
+		end
+		return "Standard"
+	end
+	Creator.NormalizeButtonStyle = NormalizeStyle
+
+	return function(Theme, Parent, DialogCheck, TagSet, Style)
 		DialogCheck = DialogCheck or false
+		Style = NormalizeStyle(Style)
 		TagSet = TagSet or { Background = "DialogButton", Border = "DialogButtonBorder" }
 		local Button = {}
 
@@ -3468,6 +3499,42 @@ Components.Button = (function()
 			Button.HoverFrame,
 			Button.Title,
 		})
+
+		if Style ~= "Standard" then
+			local Stroke = Button.Frame:FindFirstChildOfClass("UIStroke")
+			Creator.OverrideTag(Button.Title, {})
+
+			local function ApplyStyle()
+				if Style == "Suggested" then
+					local Accent = Creator.GetThemeProperty("Accent")
+					local Luminance = 0.299 * Accent.R + 0.587 * Accent.G + 0.114 * Accent.B
+					Button.Title.TextColor3 = Luminance > 0.62 and Color3.fromRGB(20, 20, 20) or Color3.fromRGB(255, 255, 255)
+				else
+					Button.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+				end
+			end
+
+			if Style == "Suggested" then
+				Creator.OverrideTag(Button.Frame, { BackgroundColor3 = "Accent" })
+				if Stroke then
+					Creator.OverrideTag(Stroke, { Color = "Accent" })
+				end
+			else
+				Creator.OverrideTag(Button.Frame, {})
+				Button.Frame.BackgroundColor3 = DestructiveColor
+				if Stroke then
+					Creator.OverrideTag(Stroke, {})
+					Stroke.Color = DestructiveBorder
+				end
+			end
+
+			ApplyStyle()
+			Creator.OnThemeChanged(function()
+				if Button.Title.Parent then
+					ApplyStyle()
+				end
+			end)
+		end
 
 		local Motor, SetTransparency = Creator.SpringMotor(1, Button.HoverFrame, "BackgroundTransparency", DialogCheck)
 		Creator.AddSignal(Button.Frame.MouseEnter, function()
@@ -3560,7 +3627,7 @@ Components.Textbox = (function()
 
 		local function Update()
 			local PADDING = 2
-			local Reveal = Textbox.Container.AbsoluteSize.X
+			local Reveal = Textbox.Container.AbsoluteSize.X / Library.DPIScale
 
 			if not Textbox.Input:IsFocused() or Textbox.Input.TextBounds.X <= Reveal - 2 * PADDING then
 				Textbox.Input.Position = UDim2.new(0, PADDING, 0, 0)
@@ -3660,8 +3727,9 @@ Components.Section = (function()
 		Creator.AttachTitleDesc(Section, Section.TitleLabel, nil)
 
 		Creator.AddSignal(Section.Layout:GetPropertyChangedSignal("AbsoluteContentSize"), function()
-			Section.Container.Size = UDim2.new(1, 0, 0, Section.Layout.AbsoluteContentSize.Y)
-			Section.Root.Size = UDim2.new(1, 0, 0, Section.Layout.AbsoluteContentSize.Y + 25)
+			local ContentY = Section.Layout.AbsoluteContentSize.Y / Library.DPIScale
+			Section.Container.Size = UDim2.new(1, 0, 0, ContentY)
+			Section.Root.Size = UDim2.new(1, 0, 0, ContentY + 25)
 		end)
 		return Section
 	end
@@ -4020,7 +4088,7 @@ Components.Notification = (function()
 			})
 
 			local function UpdateIconPosition()
-				local TextHeight = NewNotification.TextHolder.AbsoluteSize.Y
+				local TextHeight = NewNotification.TextHolder.AbsoluteSize.Y / Library.DPIScale
 				NewNotification.IconLabel.Position = UDim2.fromOffset(14, 17 + (TextHeight / 2) - 10)
 			end
 
@@ -4092,7 +4160,7 @@ Components.Notification = (function()
 		end)
 
 		function NewNotification:Open()
-			local ContentSize = NewNotification.LabelHolder.AbsoluteSize.Y
+			local ContentSize = NewNotification.LabelHolder.AbsoluteSize.Y / Library.DPIScale
 			NewNotification.Holder.Size = UDim2.new(1, 0, 0, 58 + ContentSize)
 
 			RootMotor:setGoal({
@@ -4468,7 +4536,7 @@ Components.Toast = (function()
 				return
 			end
 
-			local Height = Pill.AbsoluteSize.Y
+			local Height = Pill.AbsoluteSize.Y / Library.DPIScale
 			Wrapper.AutomaticSize = Enum.AutomaticSize.None
 			Wrapper.Size = UDim2.new(1, 0, 0, 0)
 			Pill.Position = UDim2.new(0.5, 0, 0, Offset)
@@ -4636,12 +4704,12 @@ Components.Dialog = (function()
 			NewDialog.TintFrame:Destroy()
 		end
 
-		function NewDialog:Button(Title, Callback)
+		function NewDialog:Button(Title, Callback, Style)
 			NewDialog.Buttons = NewDialog.Buttons + 1
 			Title = Title or "Button"
 			Callback = Callback or function() end
 
-			local Button = Components.Button("", NewDialog.ButtonHolder, true)
+			local Button = Components.Button("", NewDialog.ButtonHolder, true, nil, Style)
 			Button.Title.Text = Title
 
 			for _, Btn in next, NewDialog.ButtonHolder:GetChildren() do
@@ -4652,7 +4720,15 @@ Components.Dialog = (function()
 			end
 
 			Creator.AddSignal(Button.Frame.MouseButton1Click, function()
-				Library:SafeCallback(Callback)
+				local KeepOpen = false
+				Library:SafeCallback(function()
+					if Callback() == false then
+						KeepOpen = true
+					end
+				end)
+				if KeepOpen then
+					return
+				end
 				pcall(function()
 					NewDialog:Close()
 				end)
@@ -4812,7 +4888,7 @@ Components.SidePanel = (function()
 		local MinPanelWidth = Config.MinWidth or 240
 
 		local function GetMaxWidth()
-			local WindowWidth = SidePanel.Window.Root.AbsoluteSize.X
+			local WindowWidth = SidePanel.Window.Root.AbsoluteSize.X / Library.DPIScale
 			local Limit = WindowWidth > 0 and WindowWidth or math.huge
 			if Config.MaxWidth then
 				Limit = math.min(Limit, Config.MaxWidth)
@@ -5003,7 +5079,7 @@ Components.SidePanel = (function()
 
 			ResizeMoveConnection = UserInputService.InputChanged:Connect(function(MoveInput)
 				if MoveInput.UserInputType == Enum.UserInputType.MouseMovement or MoveInput.UserInputType == Enum.UserInputType.Touch then
-					NewPanel:SetWidth(StartWidth + (MoveInput.Position.X - StartX) * Direction)
+					NewPanel:SetWidth(StartWidth + ((MoveInput.Position.X - StartX) / Library.DPIScale) * Direction)
 				end
 			end)
 
@@ -5095,12 +5171,12 @@ Components.SidePanel = (function()
 			end)
 		end
 
-		function NewPanel:Button(Title, Callback)
+		function NewPanel:Button(Title, Callback, Style)
 			NewPanel.Buttons = NewPanel.Buttons + 1
 			Title = Title or "Button"
 			Callback = Callback or function() end
 
-			local Button = Components.Button("", NewPanel.ButtonHolder, true, MenuButtonTags)
+			local Button = Components.Button("", NewPanel.ButtonHolder, true, MenuButtonTags, Style)
 			Button.Title.Text = Title
 			Button.Frame.LayoutOrder = NewPanel.Buttons
 
@@ -5283,11 +5359,11 @@ Components.SidePanel = (function()
 
 			ImportDialog:Button("Cancel", function()
 				Library:SafeCallback(ImportConfig.OnCancel)
-			end)
+			end, "Standard")
 
 			ImportDialog:Button("Confirm", function()
 				Library:SafeCallback(ImportConfig.Callback, ImportBox.Input.Text)
-			end)
+			end, "Suggested")
 
 			ImportDialog:Open()
 			return ImportDialog
@@ -5296,11 +5372,16 @@ Components.SidePanel = (function()
 		if Config.Buttons and #Config.Buttons > 0 then
 			for _, BtnCfg in ipairs(Config.Buttons) do
 				NewPanel:Button(BtnCfg.Title or "Button", function()
-					Library:SafeCallback(BtnCfg.Callback)
-					if BtnCfg.CloseOnClick ~= false then
+					local KeepOpen = false
+					Library:SafeCallback(function()
+						if BtnCfg.Callback and BtnCfg.Callback() == false then
+							KeepOpen = true
+						end
+					end)
+					if BtnCfg.CloseOnClick ~= false and not KeepOpen then
 						pcall(function() NewPanel:Close() end)
 					end
-				end)
+				end, BtnCfg.Style)
 			end
 		end
 
@@ -5522,7 +5603,7 @@ Components.Tab = (function()
 		local TabHolderPos = TabModule.Window.TabHolder.AbsolutePosition.Y
 		local TabPos = Selected.Frame.AbsolutePosition.Y
 
-		return TabPos - TabHolderPos
+		return (TabPos - TabHolderPos) / Library.DPIScale
 	end
 
 	function TabModule:UpdateNavigatorSelector(UseInstant)
@@ -5540,8 +5621,8 @@ Components.Tab = (function()
 		Window.NavigatorSelector.Visible = true
 
 		local ChipFrame = Tab.HeaderChip.Frame
-		local X = ChipFrame.AbsolutePosition.X - Window.NavigatorHolder.AbsolutePosition.X
-		local Width = ChipFrame.AbsoluteSize.X
+		local X = (ChipFrame.AbsolutePosition.X - Window.NavigatorHolder.AbsolutePosition.X) / Library.DPIScale
+		local Width = ChipFrame.AbsoluteSize.X / Library.DPIScale
 
 		local MotorType = (UseInstant or (Library.NewVisual and not WasVisible)) and Instant or Spring
 		Window.NavigatorSelectorMotor:setGoal({
@@ -5569,13 +5650,14 @@ Components.Tab = (function()
 
 		local Holder = Window.TabHolder
 		local Origin = Holder.AbsolutePosition
-		local X = TabFrame.AbsolutePosition.X - Origin.X
-		local Y = TabFrame.AbsolutePosition.Y - Origin.Y
-		local Width = TabFrame.AbsoluteSize.X
-		local Height = TabFrame.AbsoluteSize.Y
+		local DPI = Library.DPIScale
+		local X = (TabFrame.AbsolutePosition.X - Origin.X) / DPI
+		local Y = (TabFrame.AbsolutePosition.Y - Origin.Y) / DPI
+		local Width = TabFrame.AbsoluteSize.X / DPI
+		local Height = TabFrame.AbsoluteSize.Y / DPI
 
 		if Holder.AbsoluteCanvasSize.Y <= Holder.AbsoluteWindowSize.Y + 0.5 then
-			Width = Holder.AbsoluteWindowSize.X - X
+			Width = Holder.AbsoluteWindowSize.X / DPI - X
 		end
 
 		local Goal = TabModule.HighlightGoal
@@ -5784,7 +5866,7 @@ Components.Tab = (function()
 		Creator.AttachScrollBar(Tab.ContainerFrame, { Thickness = 4 })
 
 		Creator.AddSignal(ContainerLayout:GetPropertyChangedSignal("AbsoluteContentSize"), function()
-			Tab.ContainerFrame.CanvasSize = UDim2.new(0, 0, 0, ContainerLayout.AbsoluteContentSize.Y + 2)
+			Tab.ContainerFrame.CanvasSize = UDim2.new(0, 0, 0, ContainerLayout.AbsoluteContentSize.Y / Library.DPIScale + 2)
 		end)
 
 		TabModule.Containers[TabIndex] = Tab.ContainerFrame
@@ -5966,7 +6048,7 @@ Components.Welcome = (function()
 		Creator.AttachScrollBar(Container, { Thickness = 4 })
 
 		Creator.AddSignal(ContainerLayout:GetPropertyChangedSignal("AbsoluteContentSize"), function()
-			Container.CanvasSize = UDim2.new(0, 0, 0, ContainerLayout.AbsoluteContentSize.Y + 2)
+			Container.CanvasSize = UDim2.new(0, 0, 0, ContainerLayout.AbsoluteContentSize.Y / Library.DPIScale + 2)
 		end)
 
 		TabModule.Containers[0] = Container
@@ -6371,8 +6453,8 @@ Components.Window = (function()
 			CurrentPos = 0,
 			TabWidth = 0,
 			Position = UDim2.fromOffset(
-				Camera.ViewportSize.X / 2 - Config.Size.X.Offset / 2,
-				Camera.ViewportSize.Y / 2 - Config.Size.Y.Offset / 2
+				Camera.ViewportSize.X / Library.DPIScale / 2 - Config.Size.X.Offset / 2,
+				Camera.ViewportSize.Y / Library.DPIScale / 2 - Config.Size.Y.Offset / 2
 			),
 		}
 
@@ -6906,7 +6988,7 @@ Components.Window = (function()
 			local top = (inset.Top or 0) + margin
 			local right = (inset.Right or 0) + margin
 			local bottom = (inset.Bottom or 0) + margin
-			local size = Window.Boundary.AbsoluteSize
+			local size = Window.Boundary.AbsoluteSize / Library.DPIScale
 			local usableX = math.max(0, size.X - left - right)
 			local usableY = math.max(0, size.Y - top - bottom)
 			return left, top, usableX, usableY
@@ -6939,6 +7021,14 @@ Components.Window = (function()
 		Window.RefreshBoundary = function()
 			if Window.Maximized then
 				fitToBoundary(true)
+			end
+		end
+
+		Window.RefreshDPI = function()
+			if Window.Maximized then
+				fitToBoundary(true)
+			else
+				Window:SetSize(Vector2.new(Window.Size.X.Offset, Window.Size.Y.Offset))
 			end
 		end
 
@@ -7039,9 +7129,10 @@ Components.Window = (function()
 
 				if Window.Maximized then
 					local _, _, usableX, usableY = getBoundaryBounds()
+					local MouseX, MouseY = Mouse.X / Library.DPIScale, Mouse.Y / Library.DPIScale
 					StartPos = UDim2.fromOffset(
-						Mouse.X - (Mouse.X * ((OldSizeX - 100) / usableX)),
-						Mouse.Y - (Mouse.Y * (OldSizeY / usableY))
+						MouseX - (MouseX * ((OldSizeX - 100) / usableX)),
+						MouseY - (MouseY * (OldSizeY / usableY))
 					)
 				end
 
@@ -7074,9 +7165,9 @@ Components.Window = (function()
 
 		Creator.AddSignal(UserInputService.InputChanged, function(Input)
 			if Input == DragInput and Dragging then
-				local Delta = Input.Position - MousePos
+				local Delta = (Input.Position - MousePos) / Library.DPIScale
 				local targetPosition =
-					clampToBoundary(Vector2.new(StartPos.X.Offset + Delta.X, StartPos.Y.Offset + Delta.Y), Window.Root.AbsoluteSize)
+					clampToBoundary(Vector2.new(StartPos.X.Offset + Delta.X, StartPos.Y.Offset + Delta.Y), Window.Root.AbsoluteSize / Library.DPIScale)
 				Window.Position = UDim2.fromOffset(targetPosition.X, targetPosition.Y)
 				PosMotor:setGoal({
 					X = Instant(Window.Position.X.Offset),
@@ -7092,7 +7183,7 @@ Components.Window = (function()
 				(Input.UserInputType == Enum.UserInputType.MouseMovement or Input.UserInputType == Enum.UserInputType.Touch)
 				and Resizing
 			then
-				local Delta = Input.Position - ResizePos
+				local Delta = (Input.Position - ResizePos) / Library.DPIScale
 				local StartSize = Window.Size
 
 				local TargetSize = Vector3.new(StartSize.X.Offset, StartSize.Y.Offset, 0) + Vector3.new(1, 1, 0) * Delta
@@ -7103,8 +7194,8 @@ Components.Window = (function()
 					local left, top, usableX, usableY = getBoundaryBounds()
 					local windowPosition = Window.Root.AbsolutePosition
 					local boundaryPosition = Window.Boundary.AbsolutePosition
-					local relativeX = (windowPosition.X - boundaryPosition.X) - left
-					local relativeY = (windowPosition.Y - boundaryPosition.Y) - top
+					local relativeX = (windowPosition.X - boundaryPosition.X) / Library.DPIScale - left
+					local relativeY = (windowPosition.Y - boundaryPosition.Y) / Library.DPIScale - top
 					local availableX = math.max(470, usableX - relativeX)
 					local availableY = math.max(380, usableY - relativeY)
 					TargetSizeClamped = Vector2.new(math.min(TargetSizeClamped.X, availableX), math.min(TargetSizeClamped.Y, availableY))
@@ -7128,7 +7219,7 @@ Components.Window = (function()
 		end)
 
 		Creator.AddSignal(Window.TabHolder.UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"), function()
-			Window.TabHolder.CanvasSize = UDim2.new(0, 0, 0, Window.TabHolder.UIListLayout.AbsoluteContentSize.Y)
+			Window.TabHolder.CanvasSize = UDim2.new(0, 0, 0, Window.TabHolder.UIListLayout.AbsoluteContentSize.Y / Library.DPIScale)
 		end)
 
 		for _, Property in ipairs({ "AbsoluteCanvasSize", "AbsoluteWindowSize" }) do
@@ -7208,7 +7299,7 @@ Components.Window = (function()
 			end
 
 			for _, Button in next, Config.Buttons do
-				Dialog:Button(Button.Title, Button.Callback)
+				Dialog:Button(Button.Title, Button.Callback, Button.Style)
 			end
 
 			Dialog:Open()
@@ -7564,8 +7655,10 @@ ElementsTable.Colorpicker = (function()
 
 		local ColorpickerFrame = Components.Element(Config.Title, Config.Description, self.Container, true, Config.LayoutOrder, Config.Icon, Config.Marquee, Config.Locked, Config.Tooltip, Config.RichText)
 
-		ColorpickerFrame.TitleLabel.Size = UDim2.new(1, -44, 0, 14)
-		ColorpickerFrame.DescLabel.Size = UDim2.new(1, -44, 0, 14)
+		local ShowHex = Config.ShowHex ~= false
+		local HexReserve = ShowHex and 72 or 0
+		ColorpickerFrame.TitleLabel.Size = UDim2.new(1, -(44 + HexReserve), 0, 14)
+		ColorpickerFrame.DescLabel.Size = UDim2.new(1, -(44 + HexReserve), 0, 14)
 
 		Colorpicker.SetTitle = ColorpickerFrame.SetTitle
 		Colorpicker.SetDesc = ColorpickerFrame.SetDesc
@@ -7597,6 +7690,25 @@ ElementsTable.Colorpicker = (function()
 			}),
 			DisplayFrameColor,
 		})
+
+		local HexLabel
+		if ShowHex then
+			HexLabel = New("TextLabel", {
+				Name = "HexLabel",
+				Text = "#" .. Colorpicker.Value:ToHex():upper(),
+				FontFace = Font.new(Library.Font, Enum.FontWeight.Regular, Enum.FontStyle.Normal),
+				TextSize = 12,
+				TextXAlignment = Enum.TextXAlignment.Right,
+				AnchorPoint = Vector2.new(1, 0.5),
+				Position = UDim2.new(1, -44, 0.5, 0),
+				Size = UDim2.fromOffset(HexReserve - 8, 16),
+				BackgroundTransparency = 1,
+				Parent = ColorpickerFrame.Frame,
+				ThemeTag = {
+					TextColor3 = "SubText",
+				},
+			})
+		end
 
 		local ColorpickerTextboxTags = {
 			Input = "ColorpickerInput",
@@ -7963,10 +8075,10 @@ ElementsTable.Colorpicker = (function()
 
 			local DoneButton = Dialog:Button("Done", function()
 				Colorpicker:SetValue({ Hue, Sat, Vib }, Transparency)
-			end, "check")
-			local CancelButton = Dialog:Button("Cancel", nil, "x")
+			end, "Suggested")
+			local CancelButton = Dialog:Button("Cancel", nil, "Standard")
 
-			for _, Btn in next, { DoneButton, CancelButton } do
+			for _, Btn in next, { CancelButton } do
 				Creator.OverrideTag(Btn.Frame, { BackgroundColor3 = "ColorpickerButton" })
 				Creator.OverrideTag(Btn.Frame.UIStroke, { Color = "ColorpickerButtonBorder" })
 			end
@@ -7979,6 +8091,9 @@ ElementsTable.Colorpicker = (function()
 
 			DisplayFrameColor.BackgroundColor3 = Colorpicker.Value
 			DisplayFrameColor.BackgroundTransparency = Colorpicker.Transparency
+			if HexLabel then
+				HexLabel.Text = "#" .. Colorpicker.Value:ToHex():upper()
+			end
 
 			Element.Library:SafeCallback(Colorpicker.Callback, Colorpicker.Value)
 			Element.Library:SafeCallback(Colorpicker.Changed, Colorpicker.Value)
@@ -8960,10 +9075,10 @@ ElementsTable.GradientPicker = (function()
 			local DoneButton = Dialog:Button("Done", function()
 				GradientPicker.Rotation = math.clamp(Rotation, 0, 360)
 				GradientPicker:SetStops(ColorStops, HasTransparency and AlphaStops or nil)
-			end, "check")
-			local CancelButton = Dialog:Button("Cancel", nil, "x")
+			end, "Suggested")
+			local CancelButton = Dialog:Button("Cancel", nil, "Standard")
 
-			for _, Btn in next, { DoneButton, CancelButton } do
+			for _, Btn in next, { CancelButton } do
 				Creator.OverrideTag(Btn.Frame, { BackgroundColor3 = "ColorpickerButton" })
 				Creator.OverrideTag(Btn.Frame.UIStroke, { Color = "ColorpickerButtonBorder" })
 			end
@@ -9299,7 +9414,7 @@ ElementsTable.Dropdown = (function()
 		local DropdownHolderCanvas = New("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.fromOffset(170, 300),
-			Parent = self.Library.GUI,
+			Parent = self.Library.Scaler,
 			Visible = false,
 			ZIndex = DROPDOWN_Z_INDEX,
 		}, {
@@ -9312,14 +9427,15 @@ ElementsTable.Dropdown = (function()
 
 		local function RecalculateListPosition()
 			local Add = 0
-			if Camera.ViewportSize.Y - DropdownInner.AbsolutePosition.Y < DropdownHolderCanvas.AbsoluteSize.Y - 5 then
-				Add = DropdownHolderCanvas.AbsoluteSize.Y
-					- 5
-					- (Camera.ViewportSize.Y - DropdownInner.AbsolutePosition.Y)
-					+ 40
+			local DPI = Library.DPIScale
+			local ViewportY = Camera.ViewportSize.Y / DPI
+			local InnerX = DropdownInner.AbsolutePosition.X / DPI
+			local InnerY = DropdownInner.AbsolutePosition.Y / DPI
+			local CanvasY = DropdownHolderCanvas.AbsoluteSize.Y / DPI
+			if ViewportY - InnerY < CanvasY - 5 then
+				Add = CanvasY - 5 - (ViewportY - InnerY) + 40
 			end
-			DropdownHolderCanvas.Position =
-				UDim2.fromOffset(DropdownInner.AbsolutePosition.X - 1, DropdownInner.AbsolutePosition.Y - 5 - Add)
+			DropdownHolderCanvas.Position = UDim2.fromOffset(InnerX - 1, InnerY - 5 - Add)
 		end
 
 		local ListSizeX = 0
@@ -9338,18 +9454,19 @@ ElementsTable.Dropdown = (function()
 			local SearchHeight = DropdownSearchHolder and 38 or 0
 			local Content = VisibleCount > 0 and (VisibleCount * ItemHeight + (VisibleCount - 1) * ItemPadding) or 0
 			local Height = math.min(Content + InnerMargins + SearchHeight, 392)
-			local Width = math.max(DropdownInner.AbsoluteSize.X, ListSizeX)
+			local Width = math.max(DropdownInner.AbsoluteSize.X / Library.DPIScale, ListSizeX)
 
 			DropdownHolderCanvas.Size = UDim2.fromOffset(Width, Height)
 			RecalculateListPosition()
 		end
 
 		local function RecalculateCanvasSize()
-			DropdownScrollFrame.CanvasSize = UDim2.fromOffset(0, DropdownListLayout.AbsoluteContentSize.Y)
+			DropdownScrollFrame.CanvasSize = UDim2.fromOffset(0, DropdownListLayout.AbsoluteContentSize.Y / Library.DPIScale)
 		end
 
 		RecalculateListPosition()
 		RecalculateListSize()
+		Dropdown.RecalculateListSize = RecalculateListSize
 
 		Creator.AddSignal(DropdownListLayout:GetPropertyChangedSignal("AbsoluteContentSize"), function()
 			RecalculateCanvasSize()
@@ -10786,7 +10903,7 @@ ElementsTable.Image = (function()
 		})
 
 		local function RecalcAspectRatio()
-			local Width = Wrap.AbsoluteSize.X
+			local Width = Wrap.AbsoluteSize.X / Library.DPIScale
 			if Width > 0 and AspectRatio and AspectRatio > 0 then
 				Wrap.Size = UDim2.new(1, OffsetX, 0, math.floor(Width / AspectRatio))
 			end
@@ -10917,7 +11034,7 @@ ElementsTable.Viewport = (function()
 
 		local function RecalculateAspect()
 			if not AspectRatio or AspectRatio <= 0 then return end
-			local Width = HolderFrame.AbsoluteSize.X
+			local Width = HolderFrame.AbsoluteSize.X / Library.DPIScale
 			if Width > 0 then
 				HolderFrame.Size = UDim2.new(1, OffsetX, 0, math.floor(Width / AspectRatio))
 			end
@@ -12408,7 +12525,7 @@ ElementsTable.Divider = (function()
 
 			Label.Visible = true
 			Right.Visible = true
-			local Half = Label.AbsoluteSize.X / 2 + Gap
+			local Half = Label.AbsoluteSize.X / Library.DPIScale / 2 + Gap
 			Left.Size = UDim2.new(0.5, -Half, 0, Thickness)
 			Right.Size = UDim2.new(0.5, -Half, 0, Thickness)
 		end
@@ -12508,6 +12625,14 @@ local IconProviders = {
 		Variants = {
 			solid = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/MynaUi/dist/Variant/Solid/Icons.lua",
 			regular = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/MynaUi/dist/Variant/Regular/Icons.lua",
+		},
+	},
+	majestic = {
+		Handler = "Variant",
+		Default = "line",
+		Variants = {
+			line = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/Majestic/dist/Variant/Line/Icons.lua",
+			solid = "https://raw.githubusercontent.com/StyearX/Icons/refs/heads/main/Majestic/dist/Variant/Solid/Icons.lua",
 		},
 	},
 	weui = {
@@ -12670,8 +12795,8 @@ end
 
 local NotificationModule = Components.Notification
 local ToastModule = Components.Toast
-ToastModule:Init(GUI)
-NotificationModule:Init(GUI)
+ToastModule:Init(Scaler)
+NotificationModule:Init(Scaler)
 
 function Library:GetIcon(Name)
 	if Name == nil or Name == "" then
@@ -12824,7 +12949,7 @@ function Library:CreateWindow(Config)
 	end
 
 	local Window = Components.Window({
-		Parent = GUI,
+		Parent = Scaler,
 		Size = Config.Size,
 		Title = Config.Title,
 		SubTitle = Config.SubTitle,
@@ -13050,6 +13175,35 @@ function Library:ToggleAcrylic(Value)
 			end
 		end
 	end
+end
+
+function Library:SetDPIScale(Value)
+	local Percent = math.clamp(tonumber(Value) or 100, 50, 200)
+	local Scale = Percent / 100
+	Library.DPIScale = Scale
+	Library.ScalerScale.Scale = Scale
+	Library.Scaler.Size = UDim2.fromScale(1 / Scale, 1 / Scale)
+
+	if Library.Window then
+		if Library.Window.RefreshDPI then
+			Library.Window.RefreshDPI()
+		end
+		if Library.Window.AcrylicPaint and Library.Window.AcrylicPaint.Refresh then
+			task.defer(Library.Window.AcrylicPaint.Refresh)
+		end
+	end
+
+	for _, Option in next, Library.Options do
+		if Option.Type == "Dropdown" and Option.RecalculateListSize then
+			pcall(Option.RecalculateListSize, Option)
+		end
+	end
+
+	return Percent
+end
+
+function Library:GetDPIScale()
+	return Library.DPIScale * 100
 end
 
 function Library:SetWindowCorner(Value)
@@ -13563,6 +13717,7 @@ local InterfaceManager = {} do
 		DisableBackground = false,
 		KeepWindowInsideFrame = true,
 		WindowCorner = 8,
+		DPIScale = 100,
 		ActiveCustomTheme = nil,
 		SidePanels = {},
 		WindowSize = nil,
@@ -14843,6 +14998,7 @@ local InterfaceManager = {} do
 		WindowSettings.DisableBackground = Library.DisableBackground
 		WindowSettings.KeepWindowInsideFrame = Library.KeepWindowInsideFrame
 		WindowSettings.WindowCorner = Library.WindowCorner
+		WindowSettings.DPIScale = math.floor(Library.DPIScale * 100 + 0.5)
 		WindowSettings.ActiveCustomTheme = nil
 
 		local activeCustomName = nil
@@ -15000,6 +15156,9 @@ local InterfaceManager = {} do
 			settings.WindowCorner = library.WindowCorner
 		end
 		library:SetWindowCorner(settings.WindowCorner)
+
+		settings.DPIScale = math.clamp(tonumber(settings.DPIScale) or 100, 50, 200)
+		library:SetDPIScale(settings.DPIScale)
 
 		local section = tab:AddSection("Appearance")
 
@@ -16790,6 +16949,33 @@ local InterfaceManager = {} do
 			end,
 		})
 
+		section:AddInput("DPIScaleInput", {
+			Title = "DPI Scale",
+			Description = "Scales the whole interface. Type a percentage (50 - 200) and press Enter.",
+			Tooltip = "Resizes every part of the UI: window, dropdowns, tooltips, notifications and toasts. 100 is the default size.",
+			Default = tostring(settings.DPIScale),
+			Placeholder = "100",
+			Numeric = true,
+			Finished = true,
+			LayoutOrder = 10,
+			Icon = "rbxassetid://100033680381365",
+			Callback = function(value)
+				local Number = tonumber(value)
+				if not Number then
+					return
+				end
+				local Clamped = math.clamp(math.floor(Number + 0.5), 50, 200)
+				local Option = library.Options.DPIScaleInput
+				if Option and tostring(Clamped) ~= tostring(value) then
+					Option:SetValue(tostring(Clamped))
+					return
+				end
+				library:SetDPIScale(Clamped)
+				settings.DPIScale = Clamped
+				InterfaceManager:SaveSettings()
+			end,
+		})
+
 		local menuKeybind = section:AddKeybind("MenuKeybind", { Title = "Minimize Bind", Tooltip = "Key that shows or hides the window.", Default = settings.MenuKeybind, LayoutOrder = 4, Icon = "rbxassetid://121474456068237" })
 		menuKeybind:OnChanged(function()
 			settings.MenuKeybind = menuKeybind.Value
@@ -16973,6 +17159,7 @@ local SaveManager = {} do
 			"AcrylicToggle",
 			"TransparencySlider",
 			"WindowCornerSlider",
+			"DPIScaleInput",
 			"MenuKeybind",
 			"ShowUserInfoToggle",
 			"DisableBackgroundToggle",
