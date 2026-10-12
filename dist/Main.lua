@@ -1256,6 +1256,7 @@ local Creator = {
 			BackgroundColor3 = Color3.new(1, 1, 1),
 			BorderColor3 = Color3.new(0, 0, 0),
 			ScrollBarImageColor3 = Color3.new(0, 0, 0),
+			ScrollBarImageTransparency = 1,
 		},
 		TextLabel = {
 			BackgroundColor3 = Color3.new(1, 1, 1),
@@ -1524,6 +1525,10 @@ function Creator.AttachScrollBar(ScrollFrame, Options)
 	local FadeOutTime = 0.35
 
 	ScrollFrame.ScrollBarThickness = 0
+	ScrollFrame.ScrollBarImageTransparency = 1
+	ScrollFrame.TopImage = ""
+	ScrollFrame.MidImage = ""
+	ScrollFrame.BottomImage = ""
 
 	local Scrollable = false
 	local Dragging = false
@@ -6330,7 +6335,7 @@ Components.Welcome = (function()
 					local function Sync()
 						local Tallest = 0
 						for _, Paragraph in ipairs(Paragraphs) do
-							Tallest = math.max(Tallest, Paragraph.Frame.AbsoluteSize.Y)
+							Tallest = math.max(Tallest, Paragraph.Frame.AbsoluteSize.Y / Library.DPIScale)
 						end
 						for _, Constraint in ipairs(Constraints) do
 							Constraint.MinSize = Vector2.new(0, Tallest)
@@ -16941,7 +16946,7 @@ local InterfaceManager = {} do
 			Max = 24,
 			Rounding = 0,
 			LayoutOrder = 9,
-			Icon = "rbxassetid://100033680381365",
+			Icon = "app-window",
 			Callback = function(value)
 				library:SetWindowCorner(value)
 				settings.WindowCorner = value
@@ -16958,7 +16963,7 @@ local InterfaceManager = {} do
 			Numeric = true,
 			Finished = true,
 			LayoutOrder = 10,
-			Icon = "rbxassetid://100033680381365",
+			Icon = "scaling",
 			Callback = function(value)
 				local Number = tonumber(value)
 				if not Number then
