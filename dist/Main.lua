@@ -33,7 +33,6 @@ local Themes = {
 	Dark = {
 	Name = "Dark",
 	Accent = Color3.fromRGB(96, 205, 255),
-
 	AcrylicMain = Color3.fromRGB(60, 60, 60),
 	AcrylicBorder = Color3.fromRGB(90, 90, 90),
 	AcrylicBorderTransparency = 0.5,
@@ -43,25 +42,20 @@ local Themes = {
 	AcrylicNoise = 0.9,
 	Background = "",
 	BackgroundTransparency = 0,
-
 	TitleBarLine = Color3.fromRGB(75, 75, 75),
 	TitleBarLineTransparency = 0.5,
 	Tab = Color3.fromRGB(120, 120, 120),
 	TabOverlay = Color3.fromRGB(120, 120, 120),
 	ScrollBar = Color3.fromRGB(170, 170, 170),
-
 	Element = Color3.fromRGB(120, 120, 120),
 	ElementBorder = Color3.fromRGB(35, 35, 35),
 	InElementBorder = Color3.fromRGB(90, 90, 90),
 	ElementTransparency = 0.87,
 	ElementBorderTransparency = 0.5,
 	InElementBorderTransparency = 0.5,
-
 	ToggleSlider = Color3.fromRGB(120, 120, 120),
 	ToggleToggled = Color3.fromRGB(0, 0, 0),
-
 	SliderRail = Color3.fromRGB(120, 120, 120),
-
 	DropdownFrame = Color3.fromRGB(160, 160, 160),
 	DropdownHolder = ColorSequence.new(Color3.fromRGB(56, 56, 56), Color3.fromRGB(36, 36, 36)),
 	DropdownHolderRotation = 90,
@@ -69,13 +63,10 @@ local Themes = {
 	DropdownBorder = Color3.fromRGB(35, 35, 35),
 	DropdownBorderTransparency = 0,
 	DropdownOption = Color3.fromRGB(120, 120, 120),
-
 	Keybind = Color3.fromRGB(120, 120, 120),
-
 	Input = Color3.fromRGB(160, 160, 160),
 	InputFocused = Color3.fromRGB(10, 10, 10),
 	InputIndicator = Color3.fromRGB(150, 150, 150),
-
 	Dialog = Color3.fromRGB(45, 45, 45),
 	DialogHolder = ColorSequence.new(Color3.fromRGB(45, 45, 45), Color3.fromRGB(27, 27, 27)),
 	DialogHolderRotation = 90,
@@ -88,7 +79,6 @@ local Themes = {
 	DialogInput = Color3.fromRGB(55, 55, 55),
 	DialogInputLine = Color3.fromRGB(160, 160, 160),
 	DialogInputFocused = Color3.fromRGB(35, 35, 35),
-
 	ColorpickerDialog = Color3.fromRGB(45, 45, 45),
 	ColorpickerDialogBorder = Color3.fromRGB(70, 70, 70),
 	ColorpickerHolder = ColorSequence.new(Color3.fromRGB(45, 45, 45), Color3.fromRGB(27, 27, 27)),
@@ -101,7 +91,6 @@ local Themes = {
 	ColorpickerInputLine = Color3.fromRGB(160, 160, 160),
 	ColorpickerInputBorder = Color3.fromRGB(80, 80, 80),
 	ColorpickerInputFocused = Color3.fromRGB(35, 35, 35),
-
 	MenuBackground = ColorSequence.new(Color3.fromRGB(38, 38, 38), Color3.fromRGB(12, 12, 12)),
 	MenuBackgroundRotation = 90,
 	MenuBackgroundTransparency = NumberSequence.new(0),
@@ -114,12 +103,10 @@ local Themes = {
 	MenuInput = Color3.fromRGB(24, 24, 24),
 	MenuInputLine = Color3.fromRGB(160, 160, 160),
 	MenuInputFocused = Color3.fromRGB(14, 14, 14),
-
 	ClassHint = Color3.fromRGB(45, 45, 45),
 	ClassHintBorder = Color3.fromRGB(70, 70, 70),
 	ClassHintBorderTransparency = 0.3,
 	ClassHintText = Color3.fromRGB(240, 240, 240),
-
 	Text = Color3.fromRGB(240, 240, 240),
 	TextRotation = 0,
 	SubText = Color3.fromRGB(170, 170, 170),
@@ -131,7 +118,6 @@ local Themes = {
 	Darker = {
 	Name = "Darker",
 	Accent = Color3.fromRGB(72, 138, 182),
-
 	AcrylicMain = Color3.fromRGB(30, 30, 30),
 	AcrylicBorder = Color3.fromRGB(60, 60, 60),
 	AcrylicGradient = ColorSequence.new(Color3.fromRGB(25, 25, 25), Color3.fromRGB(15, 15, 15)),
@@ -140,24 +126,20 @@ local Themes = {
 	AcrylicNoise = 0.94,
 	Background = "",
 	BackgroundTransparency = 0,
-
 	TitleBarLine = Color3.fromRGB(65, 65, 65),
 	TitleBarLineTransparency = 0.5,
 	Tab = Color3.fromRGB(100, 100, 100),
 	TabOverlay = Color3.fromRGB(100, 100, 100),
 	ScrollBar = Color3.fromRGB(170, 170, 170),
-
 	Element = Color3.fromRGB(70, 70, 70),
 	ElementBorder = Color3.fromRGB(25, 25, 25),
 	InElementBorder = Color3.fromRGB(55, 55, 55),
 	ElementTransparency = 0.82,
-
 	DropdownFrame = Color3.fromRGB(120, 120, 120),
 	DropdownHolder = ColorSequence.new(Color3.fromRGB(44, 44, 44), Color3.fromRGB(24, 24, 24)),
 	DropdownHolderRotation = 90,
 	DropdownHolderTransparency = NumberSequence.new(0),
 	DropdownBorder = Color3.fromRGB(25, 25, 25),
-
 	Dialog = Color3.fromRGB(35, 35, 35),
 	DialogHolder = ColorSequence.new(Color3.fromRGB(32, 32, 32), Color3.fromRGB(20, 20, 20)),
 	DialogHolderRotation = 90,
@@ -169,7 +151,6 @@ local Themes = {
 	DialogInput = Color3.fromRGB(45, 45, 45),
 	DialogInputLine = Color3.fromRGB(120, 120, 120),
 	DialogInputFocused = Color3.fromRGB(25, 25, 25),
-
 	ColorpickerDialog = Color3.fromRGB(35, 35, 35),
 	ColorpickerDialogBorder = Color3.fromRGB(50, 50, 50),
 	ColorpickerHolder = ColorSequence.new(Color3.fromRGB(32, 32, 32), Color3.fromRGB(20, 20, 20)),
@@ -182,7 +163,6 @@ local Themes = {
 	ColorpickerInputLine = Color3.fromRGB(120, 120, 120),
 	ColorpickerInputBorder = Color3.fromRGB(55, 55, 55),
 	ColorpickerInputFocused = Color3.fromRGB(25, 25, 25),
-
 	MenuBackground = ColorSequence.new(Color3.fromRGB(26, 26, 26), Color3.fromRGB(7, 7, 7)),
 	MenuBackgroundRotation = 90,
 	MenuBackgroundTransparency = NumberSequence.new(0),
@@ -194,7 +174,6 @@ local Themes = {
 	MenuInput = Color3.fromRGB(17, 17, 17),
 	MenuInputLine = Color3.fromRGB(130, 130, 130),
 	MenuInputFocused = Color3.fromRGB(9, 9, 9),
-
 	ClassHint = Color3.fromRGB(35, 35, 35),
 	ClassHintBorder = Color3.fromRGB(50, 50, 50),
 	ClassHintBorderTransparency = 0.3,
@@ -204,7 +183,6 @@ local Themes = {
 	Light = {
 	Name = "Light",
 	Accent = Color3.fromRGB(90, 90, 95),
-
 	AcrylicMain = Color3.fromRGB(255, 253, 255),
 	AcrylicBorder = Color3.fromRGB(208, 207, 211),
 	AcrylicGradient = ColorSequence.new(Color3.fromRGB(255, 255, 255), Color3.fromRGB(238, 237, 238)),
@@ -213,36 +191,28 @@ local Themes = {
 	AcrylicNoise = 0.93,
 	Background = "",
 	BackgroundTransparency = 0,
-
 	TitleBarLine = Color3.fromRGB(225, 223, 225),
 	TitleBarLineTransparency = 0.5,
 	Tab = Color3.fromRGB(225, 223, 225),
 	TabOverlay = Color3.fromRGB(90, 90, 90),
 	ScrollBar = Color3.fromRGB(110, 110, 110),
-
 	Element = Color3.fromRGB(225, 223, 225),
 	ElementBorder = Color3.fromRGB(225, 223, 225),
 	InElementBorder = Color3.fromRGB(208, 207, 211),
 	ElementTransparency = 0.87,
-
 	ToggleSlider = Color3.fromRGB(181, 181, 183),
 	ToggleToggled = Color3.fromRGB(255, 255, 255),
-
 	SliderRail = Color3.fromRGB(208, 207, 211),
-
 	DropdownFrame = Color3.fromRGB(238, 237, 238),
 	DropdownHolder = ColorSequence.new(Color3.fromRGB(255, 253, 255), Color3.fromRGB(244, 243, 245)),
 	DropdownHolderRotation = 90,
 	DropdownHolderTransparency = NumberSequence.new(0),
 	DropdownBorder = Color3.fromRGB(208, 207, 211),
 	DropdownOption = Color3.fromRGB(225, 223, 225),
-
 	Keybind = Color3.fromRGB(225, 223, 225),
-
 	Input = Color3.fromRGB(238, 237, 238),
 	InputFocused = Color3.fromRGB(255, 255, 255),
 	InputIndicator = Color3.fromRGB(90, 90, 95),
-
 	Dialog = Color3.fromRGB(249, 248, 250),
 	DialogHolder = ColorSequence.new(Color3.fromRGB(254, 253, 255), Color3.fromRGB(229, 228, 230)),
 	DialogHolderRotation = 90,
@@ -254,7 +224,6 @@ local Themes = {
 	DialogInput = Color3.fromRGB(244, 243, 245),
 	DialogInputLine = Color3.fromRGB(90, 90, 95),
 	DialogInputFocused = Color3.fromRGB(244, 243, 245),
-
 	ColorpickerDialog = Color3.fromRGB(249, 248, 250),
 	ColorpickerDialogBorder = Color3.fromRGB(208, 207, 211),
 	ColorpickerHolder = ColorSequence.new(Color3.fromRGB(255, 255, 255), Color3.fromRGB(234, 233, 235)),
@@ -267,7 +236,6 @@ local Themes = {
 	ColorpickerInputLine = Color3.fromRGB(90, 90, 95),
 	ColorpickerInputBorder = Color3.fromRGB(181, 181, 183),
 	ColorpickerInputFocused = Color3.fromRGB(255, 255, 255),
-
 	MenuBackground = ColorSequence.new(Color3.fromRGB(242, 242, 242), Color3.fromRGB(242, 242, 242)),
 	MenuBackgroundRotation = 90,
 	MenuBackgroundTransparency = NumberSequence.new(0),
@@ -279,12 +247,10 @@ local Themes = {
 	MenuInput = Color3.fromRGB(238, 237, 238),
 	MenuInputLine = Color3.fromRGB(181, 181, 183),
 	MenuInputFocused = Color3.fromRGB(255, 255, 255),
-
 	ClassHint = Color3.fromRGB(249, 248, 250),
 	ClassHintBorder = Color3.fromRGB(208, 207, 211),
 	ClassHintBorderTransparency = 0.3,
 	ClassHintText = Color3.fromRGB(28, 28, 30),
-
 	Text = Color3.fromRGB(28, 28, 30),
 	TextRotation = 0,
 	SubText = Color3.fromRGB(110, 109, 115),
@@ -296,7 +262,6 @@ local Themes = {
 	Aqua = {
 	Name = "Aqua",
 	Accent = Color3.fromRGB(60, 165, 165),
-
 	AcrylicMain = Color3.fromRGB(20, 20, 20),
 	AcrylicBorder = Color3.fromRGB(50, 100, 100),
 	AcrylicGradient = ColorSequence.new(Color3.fromRGB(60, 140, 140), Color3.fromRGB(40, 80, 80)),
@@ -305,36 +270,28 @@ local Themes = {
 	AcrylicNoise = 0.92,
 	Background = "",
 	BackgroundTransparency = 0,
-
 	TitleBarLine = Color3.fromRGB(60, 120, 120),
 	TitleBarLineTransparency = 0.5,
 	Tab = Color3.fromRGB(140, 180, 180),
 	TabOverlay = Color3.fromRGB(140, 180, 180),
 	ScrollBar = Color3.fromRGB(170, 170, 170),
-
 	Element = Color3.fromRGB(110, 160, 160),
 	ElementBorder = Color3.fromRGB(40, 70, 70),
 	InElementBorder = Color3.fromRGB(80, 110, 110),
 	ElementTransparency = 0.84,
-
 	ToggleSlider = Color3.fromRGB(110, 160, 160),
 	ToggleToggled = Color3.fromRGB(0, 0, 0),
-
 	SliderRail = Color3.fromRGB(110, 160, 160),
-
 	DropdownFrame = Color3.fromRGB(160, 200, 200),
 	DropdownHolder = ColorSequence.new(Color3.fromRGB(54, 108, 108), Color3.fromRGB(28, 58, 58)),
 	DropdownHolderRotation = 90,
 	DropdownHolderTransparency = NumberSequence.new(0),
 	DropdownBorder = Color3.fromRGB(40, 65, 65),
 	DropdownOption = Color3.fromRGB(110, 160, 160),
-
 	Keybind = Color3.fromRGB(110, 160, 160),
-
 	Input = Color3.fromRGB(110, 160, 160),
 	InputFocused = Color3.fromRGB(20, 10, 30),
 	InputIndicator = Color3.fromRGB(130, 170, 170),
-
 	Dialog = Color3.fromRGB(40, 80, 80),
 	DialogHolder = ColorSequence.new(Color3.fromRGB(38, 77, 77), Color3.fromRGB(23, 47, 47)),
 	DialogHolderRotation = 90,
@@ -346,7 +303,6 @@ local Themes = {
 	DialogInput = Color3.fromRGB(45, 90, 90),
 	DialogInputLine = Color3.fromRGB(130, 170, 170),
 	DialogInputFocused = Color3.fromRGB(30, 60, 60),
-
 	ColorpickerDialog = Color3.fromRGB(40, 80, 80),
 	ColorpickerDialogBorder = Color3.fromRGB(50, 100, 100),
 	ColorpickerHolder = ColorSequence.new(Color3.fromRGB(38, 77, 77), Color3.fromRGB(23, 47, 47)),
@@ -359,7 +315,6 @@ local Themes = {
 	ColorpickerInputLine = Color3.fromRGB(130, 170, 170),
 	ColorpickerInputBorder = Color3.fromRGB(80, 110, 110),
 	ColorpickerInputFocused = Color3.fromRGB(30, 60, 60),
-
 	MenuBackground = ColorSequence.new(Color3.fromRGB(42, 98, 98), Color3.fromRGB(8, 16, 16)),
 	MenuBackgroundRotation = 90,
 	MenuBackgroundTransparency = NumberSequence.new(0),
@@ -371,12 +326,10 @@ local Themes = {
 	MenuInput = Color3.fromRGB(16, 28, 28),
 	MenuInputLine = Color3.fromRGB(148, 206, 206),
 	MenuInputFocused = Color3.fromRGB(8, 15, 15),
-
 	ClassHint = Color3.fromRGB(40, 80, 80),
 	ClassHintBorder = Color3.fromRGB(50, 100, 100),
 	ClassHintBorderTransparency = 0.3,
 	ClassHintText = Color3.fromRGB(240, 240, 240),
-
 	Text = Color3.fromRGB(240, 240, 240),
 	TextRotation = 0,
 	SubText = Color3.fromRGB(170, 170, 170),
@@ -388,7 +341,6 @@ local Themes = {
 	Amethyst = {
 	Name = "Amethyst",
 	Accent = Color3.fromRGB(97, 62, 167),
-
 	AcrylicMain = Color3.fromRGB(20, 20, 20),
 	AcrylicBorder = Color3.fromRGB(110, 90, 130),
 	AcrylicGradient = ColorSequence.new(Color3.fromRGB(85, 57, 139), Color3.fromRGB(40, 25, 65)),
@@ -397,36 +349,28 @@ local Themes = {
 	AcrylicNoise = 0.92,
 	Background = "",
 	BackgroundTransparency = 0,
-
 	TitleBarLine = Color3.fromRGB(95, 75, 110),
 	TitleBarLineTransparency = 0.5,
 	Tab = Color3.fromRGB(160, 140, 180),
 	TabOverlay = Color3.fromRGB(160, 140, 180),
 	ScrollBar = Color3.fromRGB(170, 170, 170),
-
 	Element = Color3.fromRGB(140, 120, 160),
 	ElementBorder = Color3.fromRGB(60, 50, 70),
 	InElementBorder = Color3.fromRGB(100, 90, 110),
 	ElementTransparency = 0.87,
-
 	ToggleSlider = Color3.fromRGB(140, 120, 160),
 	ToggleToggled = Color3.fromRGB(0, 0, 0),
-
 	SliderRail = Color3.fromRGB(140, 120, 160),
-
 	DropdownFrame = Color3.fromRGB(170, 160, 200),
 	DropdownHolder = ColorSequence.new(Color3.fromRGB(78, 58, 106), Color3.fromRGB(42, 30, 60)),
 	DropdownHolderRotation = 90,
 	DropdownHolderTransparency = NumberSequence.new(0),
 	DropdownBorder = Color3.fromRGB(50, 40, 65),
 	DropdownOption = Color3.fromRGB(140, 120, 160),
-
 	Keybind = Color3.fromRGB(140, 120, 160),
-
 	Input = Color3.fromRGB(140, 120, 160),
 	InputFocused = Color3.fromRGB(20, 10, 30),
 	InputIndicator = Color3.fromRGB(170, 150, 190),
-
 	Dialog = Color3.fromRGB(60, 45, 80),
 	DialogHolder = ColorSequence.new(Color3.fromRGB(58, 38, 83), Color3.fromRGB(35, 23, 51)),
 	DialogHolderRotation = 90,
@@ -438,7 +382,6 @@ local Themes = {
 	DialogInput = Color3.fromRGB(70, 55, 85),
 	DialogInputLine = Color3.fromRGB(175, 160, 190),
 	DialogInputFocused = Color3.fromRGB(45, 30, 65),
-
 	ColorpickerDialog = Color3.fromRGB(60, 45, 80),
 	ColorpickerDialogBorder = Color3.fromRGB(85, 70, 100),
 	ColorpickerHolder = ColorSequence.new(Color3.fromRGB(58, 38, 83), Color3.fromRGB(35, 23, 51)),
@@ -451,7 +394,6 @@ local Themes = {
 	ColorpickerInputLine = Color3.fromRGB(175, 160, 190),
 	ColorpickerInputBorder = Color3.fromRGB(95, 80, 110),
 	ColorpickerInputFocused = Color3.fromRGB(45, 30, 65),
-
 	MenuBackground = ColorSequence.new(Color3.fromRGB(59, 40, 97), Color3.fromRGB(8, 5, 13)),
 	MenuBackgroundRotation = 90,
 	MenuBackgroundTransparency = NumberSequence.new(0),
@@ -463,12 +405,10 @@ local Themes = {
 	MenuInput = Color3.fromRGB(20, 15, 28),
 	MenuInputLine = Color3.fromRGB(168, 149, 207),
 	MenuInputFocused = Color3.fromRGB(8, 6, 12),
-
 	ClassHint = Color3.fromRGB(60, 45, 80),
 	ClassHintBorder = Color3.fromRGB(85, 70, 100),
 	ClassHintBorderTransparency = 0.3,
 	ClassHintText = Color3.fromRGB(240, 240, 240),
-
 	Text = ColorSequence.new(Color3.fromRGB(245, 238, 255), Color3.fromRGB(196, 170, 255)),
 	TextRotation = 0,
 	SubText = ColorSequence.new(Color3.fromRGB(176, 160, 205), Color3.fromRGB(140, 115, 190)),
@@ -480,7 +420,6 @@ local Themes = {
 	Rose = {
 	Name = "Rose",
 	Accent = Color3.fromRGB(180, 55, 90),
-
 	AcrylicMain = Color3.fromRGB(40, 40, 40),
 	AcrylicBorder = Color3.fromRGB(130, 90, 110),
 	AcrylicGradient = ColorSequence.new(Color3.fromRGB(190, 60, 135), Color3.fromRGB(165, 50, 70)),
@@ -489,36 +428,28 @@ local Themes = {
 	AcrylicNoise = 0.92,
 	Background = "",
 	BackgroundTransparency = 0,
-
 	TitleBarLine = Color3.fromRGB(140, 85, 105),
 	TitleBarLineTransparency = 0.5,
 	Tab = Color3.fromRGB(180, 140, 160),
 	TabOverlay = Color3.fromRGB(180, 140, 160),
 	ScrollBar = Color3.fromRGB(170, 170, 170),
-
 	Element = Color3.fromRGB(200, 120, 170),
 	ElementBorder = Color3.fromRGB(110, 70, 85),
 	InElementBorder = Color3.fromRGB(120, 90, 90),
 	ElementTransparency = 0.86,
-
 	ToggleSlider = Color3.fromRGB(200, 120, 170),
 	ToggleToggled = Color3.fromRGB(0, 0, 0),
-
 	SliderRail = Color3.fromRGB(200, 120, 170),
-
 	DropdownFrame = Color3.fromRGB(200, 160, 180),
 	DropdownHolder = ColorSequence.new(Color3.fromRGB(150, 64, 95), Color3.fromRGB(92, 38, 58)),
 	DropdownHolderRotation = 90,
 	DropdownHolderTransparency = NumberSequence.new(0),
 	DropdownBorder = Color3.fromRGB(90, 40, 55),
 	DropdownOption = Color3.fromRGB(200, 120, 170),
-
 	Keybind = Color3.fromRGB(200, 120, 170),
-
 	Input = Color3.fromRGB(200, 120, 170),
 	InputFocused = Color3.fromRGB(20, 10, 30),
 	InputIndicator = Color3.fromRGB(170, 150, 190),
-
 	Dialog = Color3.fromRGB(120, 50, 75),
 	DialogHolder = ColorSequence.new(Color3.fromRGB(122, 51, 77), Color3.fromRGB(74, 31, 47)),
 	DialogHolderRotation = 90,
@@ -530,7 +461,6 @@ local Themes = {
 	DialogInput = Color3.fromRGB(135, 55, 80),
 	DialogInputLine = Color3.fromRGB(190, 160, 180),
 	DialogInputFocused = Color3.fromRGB(95, 40, 60),
-
 	ColorpickerDialog = Color3.fromRGB(120, 50, 75),
 	ColorpickerDialogBorder = Color3.fromRGB(100, 70, 90),
 	ColorpickerHolder = ColorSequence.new(Color3.fromRGB(122, 51, 77), Color3.fromRGB(74, 31, 47)),
@@ -543,7 +473,6 @@ local Themes = {
 	ColorpickerInputLine = Color3.fromRGB(190, 160, 180),
 	ColorpickerInputBorder = Color3.fromRGB(155, 90, 115),
 	ColorpickerInputFocused = Color3.fromRGB(95, 40, 60),
-
 	MenuBackground = ColorSequence.new(Color3.fromRGB(133, 42, 94), Color3.fromRGB(18, 6, 9)),
 	MenuBackgroundRotation = 90,
 	MenuBackgroundTransparency = NumberSequence.new(0),
@@ -555,12 +484,10 @@ local Themes = {
 	MenuInput = Color3.fromRGB(36, 16, 28),
 	MenuInputLine = Color3.fromRGB(214, 145, 164),
 	MenuInputFocused = Color3.fromRGB(16, 6, 9),
-
 	ClassHint = Color3.fromRGB(120, 50, 75),
 	ClassHintBorder = Color3.fromRGB(100, 70, 90),
 	ClassHintBorderTransparency = 0.3,
 	ClassHintText = Color3.fromRGB(240, 240, 240),
-
 	Text = ColorSequence.new(Color3.fromRGB(255, 240, 246), Color3.fromRGB(255, 176, 208)),
 	TextRotation = 0,
 	SubText = ColorSequence.new(Color3.fromRGB(205, 160, 178), Color3.fromRGB(215, 120, 160)),
@@ -572,7 +499,6 @@ local Themes = {
 	["Crimson Noir"] = {
 	Name = "Crimson Noir",
 	Accent = Color3.fromRGB(197, 3, 55),
-
 	AcrylicMain = Color3.fromRGB(10, 6, 10),
 	AcrylicBorder = Color3.fromRGB(90, 12, 35),
 	AcrylicGradient = ColorSequence.new(Color3.fromRGB(197, 3, 55), Color3.fromRGB(2, 6, 14)),
@@ -581,36 +507,28 @@ local Themes = {
 	AcrylicNoise = 0.93,
 	Background = "",
 	BackgroundTransparency = 0,
-
 	TitleBarLine = Color3.fromRGB(80, 12, 35),
 	TitleBarLineTransparency = 0.5,
 	Tab = Color3.fromRGB(110, 18, 45),
 	TabOverlay = Color3.fromRGB(110, 18, 45),
 	ScrollBar = Color3.fromRGB(170, 170, 170),
-
 	Element = Color3.fromRGB(130, 12, 40),
 	ElementBorder = Color3.fromRGB(35, 6, 15),
 	InElementBorder = Color3.fromRGB(90, 15, 32),
 	ElementTransparency = 0.87,
-
 	ToggleSlider = Color3.fromRGB(130, 12, 40),
 	ToggleToggled = Color3.fromRGB(2, 6, 14),
-
 	SliderRail = Color3.fromRGB(130, 12, 40),
-
 	DropdownFrame = Color3.fromRGB(150, 18, 48),
 	DropdownHolder = ColorSequence.new(Color3.fromRGB(38, 10, 18), Color3.fromRGB(8, 4, 8)),
 	DropdownHolderRotation = 90,
 	DropdownHolderTransparency = NumberSequence.new(0),
 	DropdownBorder = Color3.fromRGB(6, 4, 8),
 	DropdownOption = Color3.fromRGB(130, 12, 40),
-
 	Keybind = Color3.fromRGB(130, 12, 40),
-
 	Input = Color3.fromRGB(150, 18, 48),
 	InputFocused = Color3.fromRGB(6, 4, 9),
 	InputIndicator = Color3.fromRGB(190, 25, 60),
-
 	Dialog = Color3.fromRGB(40, 5, 14),
 	DialogHolder = ColorSequence.new(Color3.fromRGB(36, 5, 13), Color3.fromRGB(22, 3, 8)),
 	DialogHolderRotation = 90,
@@ -622,7 +540,6 @@ local Themes = {
 	DialogInput = Color3.fromRGB(20, 8, 13),
 	DialogInputLine = Color3.fromRGB(230, 30, 70),
 	DialogInputFocused = Color3.fromRGB(28, 4, 10),
-
 	ColorpickerDialog = Color3.fromRGB(40, 5, 14),
 	ColorpickerDialogBorder = Color3.fromRGB(110, 3, 35),
 	ColorpickerHolder = ColorSequence.new(Color3.fromRGB(36, 5, 13), Color3.fromRGB(22, 3, 8)),
@@ -635,7 +552,6 @@ local Themes = {
 	ColorpickerInputLine = Color3.fromRGB(230, 30, 70),
 	ColorpickerInputBorder = Color3.fromRGB(110, 3, 35),
 	ColorpickerInputFocused = Color3.fromRGB(20, 8, 13),
-
 	MenuBackground = ColorSequence.new(Color3.fromRGB(138, 14, 44), Color3.fromRGB(5, 3, 5)),
 	MenuBackgroundRotation = 90,
 	MenuBackgroundTransparency = NumberSequence.new(0),
@@ -647,12 +563,10 @@ local Themes = {
 	MenuInput = Color3.fromRGB(30, 18, 22),
 	MenuInputLine = Color3.fromRGB(255, 60, 100),
 	MenuInputFocused = Color3.fromRGB(8, 6, 8),
-
 	ClassHint = Color3.fromRGB(40, 5, 14),
 	ClassHintBorder = Color3.fromRGB(110, 3, 35),
 	ClassHintBorderTransparency = 0.3,
 	ClassHintText = Color3.fromRGB(245, 235, 237),
-
 	Text = ColorSequence.new(Color3.fromRGB(245, 240, 242), Color3.fromRGB(255, 120, 140)),
 	TextRotation = 0,
 	SubText = ColorSequence.new(Color3.fromRGB(190, 130, 145), Color3.fromRGB(150, 80, 100)),
@@ -664,7 +578,6 @@ local Themes = {
 	Gold = {
 	Name = "Gold",
 	Accent = Color3.fromRGB(255, 198, 41),
-
 	AcrylicMain = Color3.fromRGB(150, 112, 30),
 	AcrylicBorder = Color3.fromRGB(200, 156, 52),
 	AcrylicGradient = ColorSequence.new({
@@ -678,36 +591,28 @@ local Themes = {
 	AcrylicNoise = 0.93,
 	Background = "",
 	BackgroundTransparency = 0,
-
 	TitleBarLine = Color3.fromRGB(125, 94, 20),
 	TitleBarLineTransparency = 0.5,
 	Tab = Color3.fromRGB(205, 160, 60),
 	TabOverlay = Color3.fromRGB(205, 160, 60),
 	ScrollBar = Color3.fromRGB(170, 170, 170),
-
 	Element = Color3.fromRGB(190, 146, 48),
 	ElementBorder = Color3.fromRGB(130, 98, 22),
 	InElementBorder = Color3.fromRGB(165, 125, 34),
 	ElementTransparency = 0.87,
-
 	ToggleSlider = Color3.fromRGB(190, 146, 48),
 	ToggleToggled = Color3.fromRGB(255, 255, 255),
-
 	SliderRail = Color3.fromRGB(190, 146, 48),
-
 	DropdownFrame = Color3.fromRGB(225, 178, 70),
 	DropdownHolder = ColorSequence.new(Color3.fromRGB(130, 98, 24), Color3.fromRGB(78, 58, 14)),
 	DropdownHolderRotation = 90,
 	DropdownHolderTransparency = NumberSequence.new(0),
 	DropdownBorder = Color3.fromRGB(52, 39, 8),
 	DropdownOption = Color3.fromRGB(190, 146, 48),
-
 	Keybind = Color3.fromRGB(190, 146, 48),
-
 	Input = Color3.fromRGB(225, 178, 70),
 	InputFocused = Color3.fromRGB(48, 35, 8),
 	InputIndicator = Color3.fromRGB(215, 172, 55),
-
 	Dialog = Color3.fromRGB(68, 51, 13),
 	DialogHolder = ColorSequence.new(Color3.fromRGB(110, 83, 20), Color3.fromRGB(66, 49, 12)),
 	DialogHolderRotation = 90,
@@ -719,7 +624,6 @@ local Themes = {
 	DialogInput = Color3.fromRGB(78, 58, 15),
 	DialogInputLine = Color3.fromRGB(230, 188, 62),
 	DialogInputFocused = Color3.fromRGB(52, 39, 9),
-
 	ColorpickerDialog = Color3.fromRGB(68, 51, 13),
 	ColorpickerDialogBorder = Color3.fromRGB(125, 94, 20),
 	ColorpickerHolder = ColorSequence.new(Color3.fromRGB(110, 83, 20), Color3.fromRGB(66, 49, 12)),
@@ -732,7 +636,6 @@ local Themes = {
 	ColorpickerInputLine = Color3.fromRGB(230, 188, 62),
 	ColorpickerInputBorder = Color3.fromRGB(105, 79, 19),
 	ColorpickerInputFocused = Color3.fromRGB(52, 39, 9),
-
 	MenuBackground = ColorSequence.new({
 		ColorSequenceKeypoint.new(0, Color3.fromRGB(40, 30, 10)),
 		ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 210, 120)),
@@ -753,12 +656,10 @@ local Themes = {
 	MenuInput = Color3.fromRGB(25, 20, 9),
 	MenuInputLine = Color3.fromRGB(255, 224, 137),
 	MenuInputFocused = Color3.fromRGB(11, 8, 3),
-
 	ClassHint = Color3.fromRGB(68, 51, 13),
 	ClassHintBorder = Color3.fromRGB(125, 94, 20),
 	ClassHintBorderTransparency = 0.3,
 	ClassHintText = Color3.fromRGB(255, 248, 225),
-
 	Text = ColorSequence.new(Color3.fromRGB(255, 248, 225), Color3.fromRGB(255, 214, 102)),
 	TextRotation = 0,
 	SubText = ColorSequence.new(Color3.fromRGB(240, 212, 150), Color3.fromRGB(205, 165, 78)),
@@ -771,16 +672,13 @@ local Themes = {
 local Elements
 
 local Library = {
-	Version = "1.0.2",
-
+	Version = "1.0.3",
 	OpenFrames = {},
 	Options = {},
 	Themes = Themes.Names,
-
 	Window = nil,
 	WindowFrame = nil,
 	Unloaded = false,
-
 	Theme = "Dark",
 	Font = "rbxasset://fonts/families/GothamSSm.json",
 	DialogOpen = false,
